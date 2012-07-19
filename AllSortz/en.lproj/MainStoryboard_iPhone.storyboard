@@ -20,6 +20,8 @@
                     <connections>
                         <segue destination="rcy-Q3-2Kk" kind="relationship" relationship="viewControllers" id="rMk-bN-NyH"/>
                         <segue destination="Kk7-tR-ofS" kind="relationship" relationship="viewControllers" id="vGs-cZ-GmR"/>
+                        <segue destination="pTR-B8-CFb" kind="relationship" relationship="viewControllers" id="UEH-xm-kiV"/>
+                        <segue destination="B3y-jJ-sif" kind="relationship" relationship="viewControllers" id="O1t-Ut-96I"/>
                     </connections>
                 </tabBarController>
             </objects>
@@ -49,7 +51,7 @@
                     <navigationItem key="navigationItem" title="Root View Controller" id="Mu2-9c-Ebf"/>
                 </tableViewController>
             </objects>
-            <point key="canvasLocation" x="1352" y="-852"/>
+            <point key="canvasLocation" x="1316" y="-774"/>
         </scene>
         <!--Navigation Controller - Map-->
         <scene sceneID="UiN-gE-IGL">
@@ -65,7 +67,37 @@
                     </connections>
                 </navigationController>
             </objects>
-            <point key="canvasLocation" x="818" y="-202"/>
+            <point key="canvasLocation" x="821" y="-124"/>
+        </scene>
+        <!--View Controller - Earn-->
+        <scene sceneID="7pr-wc-NO3">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6uO-j2-tx0" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController id="pTR-B8-CFb" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="BzF-NG-iQ8">
+                        <rect key="frame" x="0.0" y="20" width="320" height="411"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Earn" id="WgS-Yo-3GE"/>
+                </viewController>
+            </objects>
+            <point key="canvasLocation" x="818" y="528"/>
+        </scene>
+        <!--View Controller - Account-->
+        <scene sceneID="wBF-fO-oE0">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="seg-n9-E66" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController id="B3y-jJ-sif" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="1gW-zJ-OLH">
+                        <rect key="frame" x="0.0" y="20" width="320" height="411"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Account" id="0Ji-et-geZ"/>
+                </viewController>
+            </objects>
+            <point key="canvasLocation" x="818" y="1139"/>
         </scene>
         <!--Map View Controller-->
         <scene sceneID="2ZB-qc-zaX">
@@ -79,7 +111,7 @@
                     <navigationItem key="navigationItem" id="sq9-Ug-LDz"/>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="1352" y="-202"/>
+            <point key="canvasLocation" x="1316" y="-124"/>
         </scene>
         <!--Navigation Controller - Listings-->
         <scene sceneID="Cty-yM-9Zj">
@@ -95,7 +127,7 @@
                     </connections>
                 </navigationController>
             </objects>
-            <point key="canvasLocation" x="813" y="-852"/>
+            <point key="canvasLocation" x="816" y="-774"/>
         </scene>
     </scenes>
     <classes>
