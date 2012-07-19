@@ -24,6 +24,7 @@
 		6C0CC26415B7B1FC00F2F7B6 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C0CC23715B7B1FC00F2F7B6 /* Foundation.framework */; };
 		6C0CC26C15B7B1FC00F2F7B6 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6C0CC26A15B7B1FC00F2F7B6 /* InfoPlist.strings */; };
 		6C0CC26F15B7B1FC00F2F7B6 /* AllSortzTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C0CC26E15B7B1FC00F2F7B6 /* AllSortzTests.m */; };
+		6C0CC27915B7B9BE00F2F7B6 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C0CC27815B7B9BE00F2F7B6 /* MapKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +60,7 @@
 		6C0CC26B15B7B1FC00F2F7B6 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		6C0CC26D15B7B1FC00F2F7B6 /* AllSortzTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AllSortzTests.h; sourceTree = "<group>"; };
 		6C0CC26E15B7B1FC00F2F7B6 /* AllSortzTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AllSortzTests.m; sourceTree = "<group>"; };
+		6C0CC27815B7B9BE00F2F7B6 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +68,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6C0CC27915B7B9BE00F2F7B6 /* MapKit.framework in Frameworks */,
 				6C0CC23615B7B1FC00F2F7B6 /* UIKit.framework in Frameworks */,
 				6C0CC23815B7B1FC00F2F7B6 /* Foundation.framework in Frameworks */,
 				6C0CC23A15B7B1FC00F2F7B6 /* CoreGraphics.framework in Frameworks */,
@@ -107,6 +110,7 @@
 		6C0CC23415B7B1FC00F2F7B6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6C0CC27815B7B9BE00F2F7B6 /* MapKit.framework */,
 				6C0CC23515B7B1FC00F2F7B6 /* UIKit.framework */,
 				6C0CC23715B7B1FC00F2F7B6 /* Foundation.framework */,
 				6C0CC23915B7B1FC00F2F7B6 /* CoreGraphics.framework */,
