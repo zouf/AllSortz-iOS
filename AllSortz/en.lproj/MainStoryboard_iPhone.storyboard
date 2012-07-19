@@ -27,7 +27,7 @@
             </objects>
             <point key="canvasLocation" x="132" y="180"/>
         </scene>
-        <!--Listings View Controller - Root View Controller-->
+        <!--Listings View Controller - Listings-->
         <scene sceneID="cdN-Tq-zgp">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RSV-m6-oSH" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -48,7 +48,7 @@
                             </tableViewCell>
                         </prototypes>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Root View Controller" id="Mu2-9c-Ebf"/>
+                    <navigationItem key="navigationItem" title="Listings" id="Mu2-9c-Ebf"/>
                 </tableViewController>
             </objects>
             <point key="canvasLocation" x="1316" y="-774"/>
@@ -99,7 +99,7 @@
             </objects>
             <point key="canvasLocation" x="818" y="1139"/>
         </scene>
-        <!--Map View Controller-->
+        <!--Map View Controller - Map-->
         <scene sceneID="2ZB-qc-zaX">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mNg-nF-bhn" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -108,7 +108,7 @@
                         <rect key="frame" x="0.0" y="64" width="320" height="367"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     </mapView>
-                    <navigationItem key="navigationItem" id="sq9-Ug-LDz"/>
+                    <navigationItem key="navigationItem" title="Map" id="sq9-Ug-LDz"/>
                 </viewController>
             </objects>
             <point key="canvasLocation" x="1316" y="-124"/>
