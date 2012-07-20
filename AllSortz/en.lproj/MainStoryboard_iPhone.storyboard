@@ -18,10 +18,10 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
                     <connections>
+                        <segue destination="rcy-Q3-2Kk" kind="relationship" relationship="viewControllers" id="rMk-bN-NyH"/>
                         <segue destination="Kk7-tR-ofS" kind="relationship" relationship="viewControllers" id="vGs-cZ-GmR"/>
                         <segue destination="pTR-B8-CFb" kind="relationship" relationship="viewControllers" id="UEH-xm-kiV"/>
                         <segue destination="B3y-jJ-sif" kind="relationship" relationship="viewControllers" id="O1t-Ut-96I"/>
-                        <segue destination="rcy-Q3-2Kk" kind="relationship" relationship="viewControllers" id="rMk-bN-NyH"/>
                     </connections>
                 </tabBarController>
             </objects>
@@ -111,6 +111,28 @@
                     <view key="view" contentMode="scaleToFill" id="AGg-cA-VW8">
                         <rect key="frame" x="0.0" y="64" width="320" height="367"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="DF6-is-IYj">
+                                <rect key="frame" x="5" y="0.0" width="315" height="367"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" reuseIdentifier="ListingCell" id="RUp-TF-JEs">
+                                        <rect key="frame" x="0.0" y="22" width="315" height="44"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="315" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="192-Rb-sf1" id="Xlx-KN-9Ki"/>
+                                    <outlet property="delegate" destination="192-Rb-sf1" id="YFa-Nw-8WK"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="Listings" id="tuE-Pe-O8R"/>
