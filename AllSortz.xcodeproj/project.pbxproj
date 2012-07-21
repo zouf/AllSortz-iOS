@@ -26,6 +26,7 @@
 		6C0CC26F15B7B1FC00F2F7B6 /* AllSortzTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C0CC26E15B7B1FC00F2F7B6 /* AllSortzTests.m */; };
 		6C0CC27915B7B9BE00F2F7B6 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C0CC27815B7B9BE00F2F7B6 /* MapKit.framework */; };
 		6CBBAA2F15B8AF350073970B /* ASListingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CBBAA2E15B8AF350073970B /* ASListingsViewController.m */; };
+		6CCEBDC115BA4D7200F20A32 /* ASQueryController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CCEBDC015BA4D7200F20A32 /* ASQueryController.m */; };
 		6CD1384B15B8370D0032A4F1 /* ASMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CD1384A15B8370D0032A4F1 /* ASMapViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -65,6 +66,8 @@
 		6C0CC27815B7B9BE00F2F7B6 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		6CBBAA2D15B8AF350073970B /* ASListingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASListingsViewController.h; sourceTree = "<group>"; };
 		6CBBAA2E15B8AF350073970B /* ASListingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASListingsViewController.m; sourceTree = "<group>"; };
+		6CCEBDBF15BA4D7200F20A32 /* ASQueryController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASQueryController.h; sourceTree = "<group>"; };
+		6CCEBDC015BA4D7200F20A32 /* ASQueryController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASQueryController.m; sourceTree = "<group>"; };
 		6CD1384915B8370D0032A4F1 /* ASMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASMapViewController.h; sourceTree = "<group>"; };
 		6CD1384A15B8370D0032A4F1 /* ASMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASMapViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -134,6 +137,8 @@
 				6CBBAA2E15B8AF350073970B /* ASListingsViewController.m */,
 				6CD1384915B8370D0032A4F1 /* ASMapViewController.h */,
 				6CD1384A15B8370D0032A4F1 /* ASMapViewController.m */,
+				6CCEBDBF15BA4D7200F20A32 /* ASQueryController.h */,
+				6CCEBDC015BA4D7200F20A32 /* ASQueryController.m */,
 				6C0CC24715B7B1FC00F2F7B6 /* MainStoryboard_iPhone.storyboard */,
 				6C0CC24A15B7B1FC00F2F7B6 /* MainStoryboard_iPad.storyboard */,
 				6C0CC25015B7B1FC00F2F7B6 /* first.png */,
@@ -292,6 +297,7 @@
 				6C0CC24615B7B1FC00F2F7B6 /* ASAppDelegate.m in Sources */,
 				6CD1384B15B8370D0032A4F1 /* ASMapViewController.m in Sources */,
 				6CBBAA2F15B8AF350073970B /* ASListingsViewController.m in Sources */,
+				6CCEBDC115BA4D7200F20A32 /* ASQueryController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

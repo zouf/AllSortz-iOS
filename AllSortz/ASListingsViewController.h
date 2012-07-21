@@ -8,6 +8,5 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ASListingsViewController : UIViewController
-
+@interface ASListingsViewController : UIViewController <UITableViewDelegate>
 @end
