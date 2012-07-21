@@ -3,7 +3,7 @@
 //  AllSortz
 //
 //  Created by Lawrence Velázquez on 7/18/12.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//  Copyright (c) 2012 AllSortz, Inc. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
