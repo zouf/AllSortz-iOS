@@ -222,6 +222,7 @@
 			attributes = {
 				CLASSPREFIX = AS;
 				LastUpgradeCheck = 0430;
+				ORGANIZATIONNAME = "AllSortz, Inc.";
 			};
 			buildConfigurationList = 6C0CC22B15B7B1FC00F2F7B6 /* Build configuration list for PBXProject "AllSortz" */;
 			compatibilityVersion = "Xcode 3.2";
