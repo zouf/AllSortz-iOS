@@ -32,7 +32,7 @@
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0z3-dP-v1U" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController definesPresentationContext="YES" id="Kk7-tR-ofS" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Map" id="WZQ-y8-bLG"/>
+                    <tabBarItem key="tabBarItem" title="Map" image="tab_map.png" id="WZQ-y8-bLG"/>
                     <navigationBar key="navigationBar" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="yWS-aY-rMC">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -53,7 +53,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Earn" id="WgS-Yo-3GE"/>
+                    <tabBarItem key="tabBarItem" title="Earn" image="tab_scan.png" id="WgS-Yo-3GE"/>
                 </viewController>
             </objects>
             <point key="canvasLocation" x="794" y="476"/>
@@ -68,7 +68,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Account" id="0Ji-et-geZ"/>
+                    <tabBarItem key="tabBarItem" title="Account" image="tab_account.png" id="0Ji-et-geZ"/>
                 </viewController>
             </objects>
             <point key="canvasLocation" x="794" y="1116"/>
@@ -92,7 +92,7 @@
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gEV-qw-gYs" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController definesPresentationContext="YES" id="rcy-Q3-2Kk" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Listings" id="hVb-Ko-iU7"/>
+                    <tabBarItem key="tabBarItem" title="Listings" image="tab_listings.png" id="hVb-Ko-iU7"/>
                     <navigationBar key="navigationBar" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="feG-CZ-qzv">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -162,6 +162,12 @@
             <point key="canvasLocation" x="1273" y="-803"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="tab_account.png" width="16" height="16"/>
+        <image name="tab_listings.png" width="16" height="16"/>
+        <image name="tab_map.png" width="16" height="16"/>
+        <image name="tab_scan.png" width="16" height="16"/>
+    </resources>
     <classes>
         <class className="ASListingsViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/ASListingsViewController.h"/>
