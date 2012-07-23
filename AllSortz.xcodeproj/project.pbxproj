@@ -15,10 +15,6 @@
 		6C0CC24615B7B1FC00F2F7B6 /* ASAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C0CC24515B7B1FC00F2F7B6 /* ASAppDelegate.m */; };
 		6C0CC24915B7B1FC00F2F7B6 /* MainStoryboard_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6C0CC24715B7B1FC00F2F7B6 /* MainStoryboard_iPhone.storyboard */; };
 		6C0CC24C15B7B1FC00F2F7B6 /* MainStoryboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6C0CC24A15B7B1FC00F2F7B6 /* MainStoryboard_iPad.storyboard */; };
-		6C0CC25115B7B1FC00F2F7B6 /* first.png in Resources */ = {isa = PBXBuildFile; fileRef = 6C0CC25015B7B1FC00F2F7B6 /* first.png */; };
-		6C0CC25315B7B1FC00F2F7B6 /* first@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6C0CC25215B7B1FC00F2F7B6 /* first@2x.png */; };
-		6C0CC25815B7B1FC00F2F7B6 /* second.png in Resources */ = {isa = PBXBuildFile; fileRef = 6C0CC25715B7B1FC00F2F7B6 /* second.png */; };
-		6C0CC25A15B7B1FC00F2F7B6 /* second@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6C0CC25915B7B1FC00F2F7B6 /* second@2x.png */; };
 		6C0CC26215B7B1FC00F2F7B6 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C0CC26115B7B1FC00F2F7B6 /* SenTestingKit.framework */; };
 		6C0CC26315B7B1FC00F2F7B6 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C0CC23515B7B1FC00F2F7B6 /* UIKit.framework */; };
 		6C0CC26415B7B1FC00F2F7B6 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C0CC23715B7B1FC00F2F7B6 /* Foundation.framework */; };
@@ -53,10 +49,6 @@
 		6C0CC24515B7B1FC00F2F7B6 /* ASAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ASAppDelegate.m; sourceTree = "<group>"; };
 		6C0CC24815B7B1FC00F2F7B6 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPhone.storyboard; sourceTree = "<group>"; };
 		6C0CC24B15B7B1FC00F2F7B6 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPad.storyboard; sourceTree = "<group>"; };
-		6C0CC25015B7B1FC00F2F7B6 /* first.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = first.png; sourceTree = "<group>"; };
-		6C0CC25215B7B1FC00F2F7B6 /* first@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "first@2x.png"; sourceTree = "<group>"; };
-		6C0CC25715B7B1FC00F2F7B6 /* second.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = second.png; sourceTree = "<group>"; };
-		6C0CC25915B7B1FC00F2F7B6 /* second@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "second@2x.png"; sourceTree = "<group>"; };
 		6C0CC26015B7B1FC00F2F7B6 /* AllSortzTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AllSortzTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6C0CC26115B7B1FC00F2F7B6 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		6C0CC26915B7B1FC00F2F7B6 /* AllSortzTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "AllSortzTests-Info.plist"; sourceTree = "<group>"; };
@@ -141,10 +133,6 @@
 				6CCEBDC015BA4D7200F20A32 /* ASQueryController.m */,
 				6C0CC24715B7B1FC00F2F7B6 /* MainStoryboard_iPhone.storyboard */,
 				6C0CC24A15B7B1FC00F2F7B6 /* MainStoryboard_iPad.storyboard */,
-				6C0CC25015B7B1FC00F2F7B6 /* first.png */,
-				6C0CC25215B7B1FC00F2F7B6 /* first@2x.png */,
-				6C0CC25715B7B1FC00F2F7B6 /* second.png */,
-				6C0CC25915B7B1FC00F2F7B6 /* second@2x.png */,
 				6C0CC23C15B7B1FC00F2F7B6 /* Supporting Files */,
 			);
 			path = AllSortz;
@@ -255,10 +243,6 @@
 				6C0CC24015B7B1FC00F2F7B6 /* InfoPlist.strings in Resources */,
 				6C0CC24915B7B1FC00F2F7B6 /* MainStoryboard_iPhone.storyboard in Resources */,
 				6C0CC24C15B7B1FC00F2F7B6 /* MainStoryboard_iPad.storyboard in Resources */,
-				6C0CC25115B7B1FC00F2F7B6 /* first.png in Resources */,
-				6C0CC25315B7B1FC00F2F7B6 /* first@2x.png in Resources */,
-				6C0CC25815B7B1FC00F2F7B6 /* second.png in Resources */,
-				6C0CC25A15B7B1FC00F2F7B6 /* second@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
