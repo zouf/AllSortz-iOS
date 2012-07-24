@@ -18,8 +18,8 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
                     <connections>
-                        <segue destination="rcy-Q3-2Kk" kind="relationship" relationship="viewControllers" id="rMk-bN-NyH"/>
                         <segue destination="Kk7-tR-ofS" kind="relationship" relationship="viewControllers" id="vGs-cZ-GmR"/>
+                        <segue destination="rcy-Q3-2Kk" kind="relationship" relationship="viewControllers" id="rMk-bN-NyH"/>
                         <segue destination="pTR-B8-CFb" kind="relationship" relationship="viewControllers" id="UEH-xm-kiV"/>
                         <segue destination="B3y-jJ-sif" kind="relationship" relationship="viewControllers" id="O1t-Ut-96I"/>
                     </connections>
@@ -163,10 +163,10 @@
         </scene>
     </scenes>
     <resources>
-        <image name="tab_account.png" width="16" height="16"/>
-        <image name="tab_listings.png" width="16" height="16"/>
-        <image name="tab_map.png" width="16" height="16"/>
-        <image name="tab_scan.png" width="16" height="16"/>
+        <image name="tab_account.png" width="30" height="30"/>
+        <image name="tab_listings.png" width="30" height="30"/>
+        <image name="tab_map.png" width="30" height="30"/>
+        <image name="tab_scan.png" width="30" height="30"/>
     </resources>
     <classes>
         <class className="ASListingsViewController" superclassName="UIViewController">
