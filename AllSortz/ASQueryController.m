@@ -8,11 +8,31 @@
 
 #import "ASQueryController.h"
 
+@interface ASQueryController () {
+    NSArray *results;
+}
+@end
+
 @implementation ASQueryController
+
+// ========== UITableViewDataSource ==========
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 5;
+    NSURL *url = [NSURL URLWithString:@"http://allsortz.com/ios/get_businesses/?uname=zouf"];
+
+    // ==========
+    // Not sure how to handle UI for asynchronous loading, so will do it
+    // synchronously for now. In the main run loop, no less.
+    //
+    // REPLACE THIS ASAP, FFFFFFFUUUUUUUUUUU
+
+    NSData *jsonData = [NSData dataWithContentsOfURL:url];
+    NSDictionary *listings = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:NULL];
+    results = [listings objectForKey:@"result"];
+    return [results count];
+
+    // ==========
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
