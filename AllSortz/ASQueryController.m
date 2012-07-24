@@ -37,11 +37,16 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell;
-    if (!(cell = [tableView dequeueReusableCellWithIdentifier:@"ListingCell"])) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"ListingCell"];
+    static NSString *identifier = @"ListingCell";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+    if (!cell) {
+        // Create table cell if there isn't one to reuse
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:identifier];
         cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
     }
+    NSDictionary *result = [results objectAtIndex:indexPath.row];
+    cell.textLabel.text = [result objectForKey:@"name"];
+    cell.detailTextLabel.text = [result objectForKey:@"city"];
     return cell;
 }
 
