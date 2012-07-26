@@ -22,9 +22,6 @@
 
 @implementation ASListingsViewController
 
-@synthesize listingsTable = _listingsTable;
-@synthesize queryController = _queryController;
-
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     if (!(self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]))
