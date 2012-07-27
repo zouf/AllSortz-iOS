@@ -19,7 +19,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    NSURL *url = [NSURL URLWithString:@"http://allsortz.com/ios/get_businesses/?uname=zouf"];
+    NSURL *url = [NSURL URLWithString:@"http://allsortz.com/ios/businesses/?uname=zouf"];
 
     // ==========
     // Not sure how to handle UI for asynchronous loading, so will do it
