@@ -17,6 +17,7 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
                     <connections>
+                        <segue destination="Nap-c3-57x" kind="relationship" relationship="viewControllers" id="fD4-DF-YXb"/>
                         <segue destination="Kk7-tR-ofS" kind="relationship" relationship="viewControllers" id="vGs-cZ-GmR"/>
                         <segue destination="rcy-Q3-2Kk" kind="relationship" relationship="viewControllers" id="rMk-bN-NyH"/>
                         <segue destination="pTR-B8-CFb" kind="relationship" relationship="viewControllers" id="UEH-xm-kiV"/>
@@ -56,6 +57,52 @@
                 </viewController>
             </objects>
             <point key="canvasLocation" x="794" y="476"/>
+        </scene>
+        <!--Navigation Controller - Photos-->
+        <scene sceneID="Uk2-KA-N4H">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="WBg-R2-JJg" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <navigationController definesPresentationContext="YES" id="Nap-c3-57x" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Photos" id="0Qz-7E-fcC"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="s1Z-3W-DFL">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="FI6-lw-30X" kind="relationship" relationship="rootViewController" id="NSJ-GN-hqY"/>
+                    </connections>
+                </navigationController>
+            </objects>
+            <point key="canvasLocation" x="-241" y="914"/>
+        </scene>
+        <!--Photo Grid Controller View Controller-->
+        <scene sceneID="Ego-uM-gwG">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bx8-Ku-WnM" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tableViewController id="FI6-lw-30X" customClass="ASPhotoGridControllerViewController" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="75x-wa-tP3">
+                        <rect key="frame" x="0.0" y="64" width="320" height="367"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="PhotoRowCell" id="cqx-nV-5ce">
+                                <rect key="frame" x="0.0" y="22" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="FI6-lw-30X" id="JeE-f3-aaw"/>
+                            <outlet property="delegate" destination="FI6-lw-30X" id="ybx-GX-neL"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="Aj1-mg-tmX"/>
+                </tableViewController>
+            </objects>
+            <point key="canvasLocation" x="200" y="914"/>
         </scene>
         <!--View Controller - Account-->
         <scene sceneID="wBF-fO-oE0">

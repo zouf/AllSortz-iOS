@@ -33,6 +33,7 @@
 		6CBBAA2F15B8AF350073970B /* ASListingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CBBAA2E15B8AF350073970B /* ASListingsViewController.m */; };
 		6CC57A2815C4EE3E00F76A13 /* ASBusinessList.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CC57A2715C4EE3E00F76A13 /* ASBusinessList.m */; };
 		6CD1384B15B8370D0032A4F1 /* ASMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CD1384A15B8370D0032A4F1 /* ASMapViewController.m */; };
+		F966E7E915C2ED3F004E4F03 /* ASPhotoGridControllerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F966E7E815C2ED3F004E4F03 /* ASPhotoGridControllerViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -81,6 +82,8 @@
 		6CC57A2715C4EE3E00F76A13 /* ASBusinessList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASBusinessList.m; sourceTree = "<group>"; };
 		6CD1384915B8370D0032A4F1 /* ASMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASMapViewController.h; sourceTree = "<group>"; };
 		6CD1384A15B8370D0032A4F1 /* ASMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASMapViewController.m; sourceTree = "<group>"; };
+		F966E7E715C2ED3F004E4F03 /* ASPhotoGridControllerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASPhotoGridControllerViewController.h; sourceTree = "<group>"; };
+		F966E7E815C2ED3F004E4F03 /* ASPhotoGridControllerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASPhotoGridControllerViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -171,6 +174,8 @@
 				6C0CC24A15B7B1FC00F2F7B6 /* MainStoryboard_iPad.storyboard */,
 				6C096F7E15BD93BE0082ECDB /* Images */,
 				6C0CC23C15B7B1FC00F2F7B6 /* Supporting Files */,
+				F966E7E715C2ED3F004E4F03 /* ASPhotoGridControllerViewController.h */,
+				F966E7E815C2ED3F004E4F03 /* ASPhotoGridControllerViewController.m */,
 			);
 			path = AllSortz;
 			sourceTree = "<group>";
@@ -328,6 +333,7 @@
 				6CBBAA2F15B8AF350073970B /* ASListingsViewController.m in Sources */,
 				6C92CDBC15C49A1400B6FF9B /* ASBusinessListDataController.m in Sources */,
 				6CC57A2815C4EE3E00F76A13 /* ASBusinessList.m in Sources */,
+				F966E7E915C2ED3F004E4F03 /* ASPhotoGridControllerViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
