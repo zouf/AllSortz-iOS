@@ -6,7 +6,5 @@
 //  Copyright (c) 2012 AllSortz, Inc. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-
 @interface ASListingsViewController : UIViewController <UITableViewDelegate>
 @end
