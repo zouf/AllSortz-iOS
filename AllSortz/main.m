@@ -6,8 +6,6 @@
 //  Copyright (c) 2012 AllSortz, Inc. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-
 #import "ASAppDelegate.h"
 
 int main(int argc, char *argv[])

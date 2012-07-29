@@ -6,9 +6,6 @@
 //  Copyright (c) 2012 AllSortz, Inc. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import <UIKit/UITableView.h>
-
 @interface ASQueryController : NSObject <UITableViewDataSource>
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section;
