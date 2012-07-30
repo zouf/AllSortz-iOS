@@ -152,8 +152,10 @@
                     <navigationItem key="navigationItem" title="Listings" id="tuE-Pe-O8R"/>
                     <connections>
                         <outlet property="listingsTable" destination="DF6-is-IYj" id="IgG-AC-Lef"/>
+                        <outlet property="listingsTableDataController" destination="4En-EA-rzd" id="vmt-a9-8Ic"/>
                     </connections>
                 </viewController>
+                <customObject id="4En-EA-rzd" customClass="ASBusinessListDataController"/>
             </objects>
             <point key="canvasLocation" x="1273" y="-803"/>
         </scene>

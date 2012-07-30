@@ -7,11 +7,13 @@
 //
 
 #import "ASListingsViewController.h"
+#import "ASBusinessListDataController.h"
 
 
 @interface ASListingsViewController ()
 
 @property (weak, nonatomic) IBOutlet UITableView *listingsTable;
+@property (strong, nonatomic) IBOutlet ASBusinessListDataController *listingsTableDataController;
 
 @end
 
@@ -28,14 +30,17 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
+    [self.listingsTableDataController addObserver:self
+                                       forKeyPath:@"businessList"
+                                          options:NSKeyValueObservingOptionNew
+                                          context:NULL];
 }
 
 - (void)viewDidUnload
 {
-    [self setListingsTable:nil];
     [super viewDidUnload];
-    // Release any retained subviews of the main view.
+    [self.listingsTableDataController removeObserver:self forKeyPath:@"businessList"];
+    self.listingsTable = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -56,6 +61,22 @@
     [super viewDidAppear:animated];
     // Imitate default behavior of UITableViewController
     [self.listingsTable flashScrollIndicators];
+}
+
+/*
+    ========== Key-value observing ==========
+*/
+
+- (void)observeValueForKeyPath:(NSString *)keyPath
+                      ofObject:(id)object
+                        change:(NSDictionary *)change
+                       context:(void *)context
+{
+    // If the business list changes, reassign
+    if ([keyPath isEqualToString:@"businessList"]) {
+        self.listingsTable.dataSource = [change objectForKey:NSKeyValueChangeNewKey];
+        [self.listingsTable reloadData];
+    }
 }
 
 @end
