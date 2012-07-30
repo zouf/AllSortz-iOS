@@ -51,9 +51,14 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+
     // Imitate default behavior of UITableViewController
     // deselectRowAtIndexPath:animated: should be fine taking a possible nil
     [self.listingsTable deselectRowAtIndexPath:[self.listingsTable indexPathForSelectedRow] animated:NO];
+
+    // Download data automatically if there's no data source
+    if (!self.listingsTableDataController.businessList)
+        [self.listingsTableDataController updateData];
 }
 
 - (void)viewDidAppear:(BOOL)animated
