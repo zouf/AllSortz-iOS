@@ -9,13 +9,9 @@
 #import "ASListingsViewController.h"
 
 
-@class ASQueryController;
-
-
 @interface ASListingsViewController ()
 
 @property (weak, nonatomic) IBOutlet UITableView *listingsTable;
-@property (strong, nonatomic) IBOutlet ASQueryController *queryController;
 
 @end
 

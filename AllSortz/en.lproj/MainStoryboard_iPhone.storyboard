@@ -143,7 +143,6 @@
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
-                                    <outlet property="dataSource" destination="rQ3-XJ-Q73" id="UU2-3e-BY9"/>
                                     <outlet property="delegate" destination="192-Rb-sf1" id="YFa-Nw-8WK"/>
                                 </connections>
                             </tableView>
@@ -153,10 +152,8 @@
                     <navigationItem key="navigationItem" title="Listings" id="tuE-Pe-O8R"/>
                     <connections>
                         <outlet property="listingsTable" destination="DF6-is-IYj" id="IgG-AC-Lef"/>
-                        <outlet property="queryController" destination="rQ3-XJ-Q73" id="0Yx-lo-a2o"/>
                     </connections>
                 </viewController>
-                <customObject id="rQ3-XJ-Q73" customClass="ASQueryController"/>
             </objects>
             <point key="canvasLocation" x="1273" y="-803"/>
         </scene>
@@ -167,21 +164,6 @@
         <image name="tab_map.png" width="30" height="30"/>
         <image name="tab_scan.png" width="30" height="30"/>
     </resources>
-    <classes>
-        <class className="ASListingsViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ASListingsViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="listingsTable" candidateClass="UITableView"/>
-                <relationship kind="outlet" name="queryController" candidateClass="ASQueryController"/>
-            </relationships>
-        </class>
-        <class className="ASMapViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ASMapViewController.h"/>
-        </class>
-        <class className="ASQueryController" superclassName="NSObject">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ASQueryController.h"/>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
