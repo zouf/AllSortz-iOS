@@ -29,6 +29,7 @@
 		6C0CC26C15B7B1FC00F2F7B6 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6C0CC26A15B7B1FC00F2F7B6 /* InfoPlist.strings */; };
 		6C0CC26F15B7B1FC00F2F7B6 /* AllSortzTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C0CC26E15B7B1FC00F2F7B6 /* AllSortzTests.m */; };
 		6C0CC27915B7B9BE00F2F7B6 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C0CC27815B7B9BE00F2F7B6 /* MapKit.framework */; };
+		6C92CDBC15C49A1400B6FF9B /* ASBusinessListDataController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C92CDBB15C49A1400B6FF9B /* ASBusinessListDataController.m */; };
 		6CBBAA2F15B8AF350073970B /* ASListingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CBBAA2E15B8AF350073970B /* ASListingsViewController.m */; };
 		6CC57A2815C4EE3E00F76A13 /* ASBusinessList.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CC57A2715C4EE3E00F76A13 /* ASBusinessList.m */; };
 		6CD1384B15B8370D0032A4F1 /* ASMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CD1384A15B8370D0032A4F1 /* ASMapViewController.m */; };
@@ -72,6 +73,8 @@
 		6C0CC26D15B7B1FC00F2F7B6 /* AllSortzTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AllSortzTests.h; sourceTree = "<group>"; };
 		6C0CC26E15B7B1FC00F2F7B6 /* AllSortzTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AllSortzTests.m; sourceTree = "<group>"; };
 		6C0CC27815B7B9BE00F2F7B6 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		6C92CDBA15C49A1400B6FF9B /* ASBusinessListDataController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASBusinessListDataController.h; sourceTree = "<group>"; };
+		6C92CDBB15C49A1400B6FF9B /* ASBusinessListDataController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASBusinessListDataController.m; sourceTree = "<group>"; };
 		6CBBAA2D15B8AF350073970B /* ASListingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASListingsViewController.h; sourceTree = "<group>"; };
 		6CBBAA2E15B8AF350073970B /* ASListingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASListingsViewController.m; sourceTree = "<group>"; };
 		6CC57A2615C4EE3E00F76A13 /* ASBusinessList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASBusinessList.h; sourceTree = "<group>"; };
@@ -158,6 +161,8 @@
 				6C0CC24515B7B1FC00F2F7B6 /* ASAppDelegate.m */,
 				6CC57A2615C4EE3E00F76A13 /* ASBusinessList.h */,
 				6CC57A2715C4EE3E00F76A13 /* ASBusinessList.m */,
+				6C92CDBA15C49A1400B6FF9B /* ASBusinessListDataController.h */,
+				6C92CDBB15C49A1400B6FF9B /* ASBusinessListDataController.m */,
 				6CBBAA2D15B8AF350073970B /* ASListingsViewController.h */,
 				6CBBAA2E15B8AF350073970B /* ASListingsViewController.m */,
 				6CD1384915B8370D0032A4F1 /* ASMapViewController.h */,
@@ -321,6 +326,7 @@
 				6C0CC24615B7B1FC00F2F7B6 /* ASAppDelegate.m in Sources */,
 				6CD1384B15B8370D0032A4F1 /* ASMapViewController.m in Sources */,
 				6CBBAA2F15B8AF350073970B /* ASListingsViewController.m in Sources */,
+				6C92CDBC15C49A1400B6FF9B /* ASBusinessListDataController.m in Sources */,
 				6CC57A2815C4EE3E00F76A13 /* ASBusinessList.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
