@@ -27,6 +27,8 @@
     return self;
 }
 
+#pragma mark - View controller
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -68,9 +70,7 @@
     [self.listingsTable flashScrollIndicators];
 }
 
-/*
-    ========== Key-value observing ==========
-*/
+#pragma mark - Key-value observing
 
 - (void)observeValueForKeyPath:(NSString *)keyPath
                       ofObject:(id)object

@@ -35,9 +35,7 @@
     return YES;
 }
 
-/*
-    NSURLConnectionDataDelegate methods
-*/
+#pragma mark - Connection data delegate
 
 // TODO: Handle server problems and non-200 responses
 

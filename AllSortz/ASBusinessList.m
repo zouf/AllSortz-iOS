@@ -26,9 +26,7 @@
     return self;
 }
 
-/*
-    ========== Key-value coding methods ==========
-*/
+#pragma mark - Key-value coding
 
 - (NSUInteger)countOfBusinesses
 {
@@ -50,10 +48,7 @@
     [self.businesses getObjects:buffer range:inRange];
 }
 
-
-/*
-    ========== UITableViewDataSource methods ==========
-*/
+#pragma mark - Table data source
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {

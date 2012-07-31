@@ -8,6 +8,7 @@
 
 @interface ASListingsViewController : UIViewController <UITableViewDelegate>
 
+// Key-value observing
 - (void)observeValueForKeyPath:(NSString *)keyPath
                       ofObject:(id)object
                         change:(NSDictionary *)change
