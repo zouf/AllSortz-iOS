@@ -79,7 +79,8 @@
 {
     // If the business list changes, reassign
     if ([keyPath isEqualToString:@"businessList"]) {
-        self.listingsTable.dataSource = [change objectForKey:NSKeyValueChangeNewKey];
+        id newDataSource = [change objectForKey:NSKeyValueChangeNewKey];
+        self.listingsTable.dataSource = (newDataSource == [NSNull null] ? nil : newDataSource);
         [self.listingsTable reloadData];
     }
 }

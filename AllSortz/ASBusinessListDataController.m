@@ -21,7 +21,7 @@
 
 - (BOOL)updateData
 {
-    static NSString *address = @"http://allsortz.com/ios/businesses/?uname=zouf";
+    static NSString *address = @"http://allsortz.com/api/businesses/";
     NSURL *url = [NSURL URLWithString:address];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
 

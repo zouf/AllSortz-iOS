@@ -66,8 +66,8 @@
         cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
     }
     id business = [self objectInBusinessesAtIndex:indexPath.row];
-    cell.textLabel.text = [business valueForKey:@"name"];
-    cell.detailTextLabel.text = [business valueForKey:@"city"];
+    cell.textLabel.text = [business valueForKey:@"businessName"];
+    cell.detailTextLabel.text = [business valueForKey:@"businessCity"];
     return cell;
 }
 
