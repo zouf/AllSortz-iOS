@@ -68,6 +68,7 @@
 		D2AAC07E0554694100DB518D /* libAQGridView.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libAQGridView.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA6243C312102682007EC097 /* NSIndexSet+AQIndexesOutsideSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSIndexSet+AQIndexesOutsideSet.h"; sourceTree = "<group>"; };
 		DA6243C412102682007EC097 /* NSIndexSet+AQIndexesOutsideSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSIndexSet+AQIndexesOutsideSet.m"; sourceTree = "<group>"; };
+		F966E82E15C9C03C004E4F03 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +95,7 @@
 		0867D691FE84028FC02AAC07 /* AQGridView */ = {
 			isa = PBXGroup;
 			children = (
+				F966E82E15C9C03C004E4F03 /* QuartzCore.framework */,
 				389782A6117A311B00D5CC8F /* Classes */,
 				32C88DFF0371C24200C91783 /* Other Sources */,
 				389782CB117A314A00D5CC8F /* Resources */,
@@ -296,6 +298,7 @@
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INSTALL_PATH = /usr/local/lib;
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = AQGridView;
 				SKIP_INSTALL = YES;
 			};
@@ -315,6 +318,7 @@
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INSTALL_PATH = /usr/local/lib;
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = AQGridView;
 				SKIP_INSTALL = YES;
 			};

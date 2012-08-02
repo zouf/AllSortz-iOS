@@ -33,7 +33,28 @@
 		6CBBAA2F15B8AF350073970B /* ASListingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CBBAA2E15B8AF350073970B /* ASListingsViewController.m */; };
 		6CC57A2815C4EE3E00F76A13 /* ASBusinessList.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CC57A2715C4EE3E00F76A13 /* ASBusinessList.m */; };
 		6CD1384B15B8370D0032A4F1 /* ASMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CD1384A15B8370D0032A4F1 /* ASMapViewController.m */; };
-		F966E7E915C2ED3F004E4F03 /* ASPhotoGridControllerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F966E7E815C2ED3F004E4F03 /* ASPhotoGridControllerViewController.m */; };
+		F966E80215C99354004E4F03 /* ASPhotoGalleryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F966E80115C99354004E4F03 /* ASPhotoGalleryViewController.m */; };
+		F966E81615C9B7CE004E4F03 /* libAQGridView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F966E7FA15C991FF004E4F03 /* libAQGridView.a */; };
+		F966E85B15C9CBA5004E4F03 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F966E83015C9C081004E4F03 /* QuartzCore.framework */; };
+		F966E85F15C9CE24004E4F03 /* ASPhotoGalleryGridViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F966E85E15C9CE24004E4F03 /* ASPhotoGalleryGridViewCell.m */; };
+		F96E37F715CB229100C89015 /* photo1.png in Resources */ = {isa = PBXBuildFile; fileRef = F96E37E515CB229100C89015 /* photo1.png */; };
+		F96E37F815CB229100C89015 /* photo2.png in Resources */ = {isa = PBXBuildFile; fileRef = F96E37E615CB229100C89015 /* photo2.png */; };
+		F96E37F915CB229100C89015 /* photo3.png in Resources */ = {isa = PBXBuildFile; fileRef = F96E37E715CB229100C89015 /* photo3.png */; };
+		F96E37FA15CB229100C89015 /* photo4.png in Resources */ = {isa = PBXBuildFile; fileRef = F96E37E815CB229100C89015 /* photo4.png */; };
+		F96E37FB15CB229100C89015 /* photo5.png in Resources */ = {isa = PBXBuildFile; fileRef = F96E37E915CB229100C89015 /* photo5.png */; };
+		F96E37FC15CB229100C89015 /* photo6.png in Resources */ = {isa = PBXBuildFile; fileRef = F96E37EA15CB229100C89015 /* photo6.png */; };
+		F96E37FD15CB229100C89015 /* photo7.png in Resources */ = {isa = PBXBuildFile; fileRef = F96E37EB15CB229100C89015 /* photo7.png */; };
+		F96E37FE15CB229100C89015 /* photo8.png in Resources */ = {isa = PBXBuildFile; fileRef = F96E37EC15CB229100C89015 /* photo8.png */; };
+		F96E37FF15CB229100C89015 /* photo9.png in Resources */ = {isa = PBXBuildFile; fileRef = F96E37ED15CB229100C89015 /* photo9.png */; };
+		F96E380015CB229100C89015 /* photo10.png in Resources */ = {isa = PBXBuildFile; fileRef = F96E37EE15CB229100C89015 /* photo10.png */; };
+		F96E380115CB229100C89015 /* photo11.png in Resources */ = {isa = PBXBuildFile; fileRef = F96E37EF15CB229100C89015 /* photo11.png */; };
+		F96E380215CB229100C89015 /* photo12.png in Resources */ = {isa = PBXBuildFile; fileRef = F96E37F015CB229100C89015 /* photo12.png */; };
+		F96E380315CB229100C89015 /* photo13.png in Resources */ = {isa = PBXBuildFile; fileRef = F96E37F115CB229100C89015 /* photo13.png */; };
+		F96E380415CB229100C89015 /* photo14.png in Resources */ = {isa = PBXBuildFile; fileRef = F96E37F215CB229100C89015 /* photo14.png */; };
+		F96E380515CB229100C89015 /* photo15.png in Resources */ = {isa = PBXBuildFile; fileRef = F96E37F315CB229100C89015 /* photo15.png */; };
+		F96E380615CB229100C89015 /* photo16.png in Resources */ = {isa = PBXBuildFile; fileRef = F96E37F415CB229100C89015 /* photo16.png */; };
+		F96E380715CB229100C89015 /* photo17.png in Resources */ = {isa = PBXBuildFile; fileRef = F96E37F515CB229100C89015 /* photo17.png */; };
+		F96E380815CB229100C89015 /* photo18.png in Resources */ = {isa = PBXBuildFile; fileRef = F96E37F615CB229100C89015 /* photo18.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -43,6 +64,20 @@
 			proxyType = 1;
 			remoteGlobalIDString = 6C0CC23015B7B1FC00F2F7B6;
 			remoteInfo = AllSortz;
+		};
+		F966E7F915C991FF004E4F03 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F966E7F215C991FE004E4F03 /* AQGridView.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D2AAC07E0554694100DB518D;
+			remoteInfo = AQGridView;
+		};
+		F966E7FC15C99232004E4F03 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F966E7F215C991FE004E4F03 /* AQGridView.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = D2AAC07D0554694100DB518D;
+			remoteInfo = AQGridView;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -82,8 +117,30 @@
 		6CC57A2715C4EE3E00F76A13 /* ASBusinessList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASBusinessList.m; sourceTree = "<group>"; };
 		6CD1384915B8370D0032A4F1 /* ASMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASMapViewController.h; sourceTree = "<group>"; };
 		6CD1384A15B8370D0032A4F1 /* ASMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASMapViewController.m; sourceTree = "<group>"; };
-		F966E7E715C2ED3F004E4F03 /* ASPhotoGridControllerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASPhotoGridControllerViewController.h; sourceTree = "<group>"; };
-		F966E7E815C2ED3F004E4F03 /* ASPhotoGridControllerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASPhotoGridControllerViewController.m; sourceTree = "<group>"; };
+		F966E7F215C991FE004E4F03 /* AQGridView.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AQGridView.xcodeproj; path = AQGridView/AQGridView.xcodeproj; sourceTree = SOURCE_ROOT; };
+		F966E80015C99354004E4F03 /* ASPhotoGalleryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASPhotoGalleryViewController.h; sourceTree = "<group>"; };
+		F966E80115C99354004E4F03 /* ASPhotoGalleryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASPhotoGalleryViewController.m; sourceTree = "<group>"; };
+		F966E83015C9C081004E4F03 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		F966E85D15C9CE24004E4F03 /* ASPhotoGalleryGridViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASPhotoGalleryGridViewCell.h; sourceTree = "<group>"; };
+		F966E85E15C9CE24004E4F03 /* ASPhotoGalleryGridViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASPhotoGalleryGridViewCell.m; sourceTree = "<group>"; };
+		F96E37E515CB229100C89015 /* photo1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = photo1.png; sourceTree = "<group>"; };
+		F96E37E615CB229100C89015 /* photo2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = photo2.png; sourceTree = "<group>"; };
+		F96E37E715CB229100C89015 /* photo3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = photo3.png; sourceTree = "<group>"; };
+		F96E37E815CB229100C89015 /* photo4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = photo4.png; sourceTree = "<group>"; };
+		F96E37E915CB229100C89015 /* photo5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = photo5.png; sourceTree = "<group>"; };
+		F96E37EA15CB229100C89015 /* photo6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = photo6.png; sourceTree = "<group>"; };
+		F96E37EB15CB229100C89015 /* photo7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = photo7.png; sourceTree = "<group>"; };
+		F96E37EC15CB229100C89015 /* photo8.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = photo8.png; sourceTree = "<group>"; };
+		F96E37ED15CB229100C89015 /* photo9.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = photo9.png; sourceTree = "<group>"; };
+		F96E37EE15CB229100C89015 /* photo10.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = photo10.png; sourceTree = "<group>"; };
+		F96E37EF15CB229100C89015 /* photo11.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = photo11.png; sourceTree = "<group>"; };
+		F96E37F015CB229100C89015 /* photo12.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = photo12.png; sourceTree = "<group>"; };
+		F96E37F115CB229100C89015 /* photo13.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = photo13.png; sourceTree = "<group>"; };
+		F96E37F215CB229100C89015 /* photo14.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = photo14.png; sourceTree = "<group>"; };
+		F96E37F315CB229100C89015 /* photo15.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = photo15.png; sourceTree = "<group>"; };
+		F96E37F415CB229100C89015 /* photo16.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = photo16.png; sourceTree = "<group>"; };
+		F96E37F515CB229100C89015 /* photo17.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = photo17.png; sourceTree = "<group>"; };
+		F96E37F615CB229100C89015 /* photo18.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = photo18.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,6 +148,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F966E85B15C9CBA5004E4F03 /* QuartzCore.framework in Frameworks */,
+				F966E81615C9B7CE004E4F03 /* libAQGridView.a in Frameworks */,
 				6C0CC27915B7B9BE00F2F7B6 /* MapKit.framework in Frameworks */,
 				6C0CC23615B7B1FC00F2F7B6 /* UIKit.framework in Frameworks */,
 				6C0CC23815B7B1FC00F2F7B6 /* Foundation.framework in Frameworks */,
@@ -130,6 +189,7 @@
 			isa = PBXGroup;
 			children = (
 				6C0CC23B15B7B1FC00F2F7B6 /* AllSortz */,
+				F966E7F215C991FE004E4F03 /* AQGridView.xcodeproj */,
 				6C0CC26715B7B1FC00F2F7B6 /* AllSortzTests */,
 				6C0CC23415B7B1FC00F2F7B6 /* Frameworks */,
 				6C0CC23215B7B1FC00F2F7B6 /* Products */,
@@ -152,6 +212,7 @@
 				6C0CC23515B7B1FC00F2F7B6 /* UIKit.framework */,
 				6C0CC23715B7B1FC00F2F7B6 /* Foundation.framework */,
 				6C0CC23915B7B1FC00F2F7B6 /* CoreGraphics.framework */,
+				F966E83015C9C081004E4F03 /* QuartzCore.framework */,
 				6C0CC26115B7B1FC00F2F7B6 /* SenTestingKit.framework */,
 			);
 			name = Frameworks;
@@ -170,12 +231,15 @@
 				6CBBAA2E15B8AF350073970B /* ASListingsViewController.m */,
 				6CD1384915B8370D0032A4F1 /* ASMapViewController.h */,
 				6CD1384A15B8370D0032A4F1 /* ASMapViewController.m */,
+				F966E80015C99354004E4F03 /* ASPhotoGalleryViewController.h */,
+				F966E80115C99354004E4F03 /* ASPhotoGalleryViewController.m */,
+				F966E85D15C9CE24004E4F03 /* ASPhotoGalleryGridViewCell.h */,
+				F966E85E15C9CE24004E4F03 /* ASPhotoGalleryGridViewCell.m */,
 				6C0CC24715B7B1FC00F2F7B6 /* MainStoryboard_iPhone.storyboard */,
 				6C0CC24A15B7B1FC00F2F7B6 /* MainStoryboard_iPad.storyboard */,
 				6C096F7E15BD93BE0082ECDB /* Images */,
+				F966E85C15C9CBB1004E4F03 /* Photo Gallery Images */,
 				6C0CC23C15B7B1FC00F2F7B6 /* Supporting Files */,
-				F966E7E715C2ED3F004E4F03 /* ASPhotoGridControllerViewController.h */,
-				F966E7E815C2ED3F004E4F03 /* ASPhotoGridControllerViewController.m */,
 			);
 			path = AllSortz;
 			sourceTree = "<group>";
@@ -210,6 +274,39 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		F966E7F315C991FE004E4F03 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F966E7FA15C991FF004E4F03 /* libAQGridView.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F966E85C15C9CBB1004E4F03 /* Photo Gallery Images */ = {
+			isa = PBXGroup;
+			children = (
+				F96E37E515CB229100C89015 /* photo1.png */,
+				F96E37E615CB229100C89015 /* photo2.png */,
+				F96E37E715CB229100C89015 /* photo3.png */,
+				F96E37E815CB229100C89015 /* photo4.png */,
+				F96E37E915CB229100C89015 /* photo5.png */,
+				F96E37EA15CB229100C89015 /* photo6.png */,
+				F96E37EB15CB229100C89015 /* photo7.png */,
+				F96E37EC15CB229100C89015 /* photo8.png */,
+				F96E37ED15CB229100C89015 /* photo9.png */,
+				F96E37EE15CB229100C89015 /* photo10.png */,
+				F96E37EF15CB229100C89015 /* photo11.png */,
+				F96E37F015CB229100C89015 /* photo12.png */,
+				F96E37F115CB229100C89015 /* photo13.png */,
+				F96E37F215CB229100C89015 /* photo14.png */,
+				F96E37F315CB229100C89015 /* photo15.png */,
+				F96E37F415CB229100C89015 /* photo16.png */,
+				F96E37F515CB229100C89015 /* photo17.png */,
+				F96E37F615CB229100C89015 /* photo18.png */,
+			);
+			name = "Photo Gallery Images";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -224,6 +321,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				F966E7FD15C99232004E4F03 /* PBXTargetDependency */,
 			);
 			name = AllSortz;
 			productName = AllSortz;
@@ -269,6 +367,12 @@
 			mainGroup = 6C0CC22615B7B1FC00F2F7B6;
 			productRefGroup = 6C0CC23215B7B1FC00F2F7B6 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = F966E7F315C991FE004E4F03 /* Products */;
+					ProjectRef = F966E7F215C991FE004E4F03 /* AQGridView.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				6C0CC23015B7B1FC00F2F7B6 /* AllSortz */,
@@ -276,6 +380,16 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		F966E7FA15C991FF004E4F03 /* libAQGridView.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libAQGridView.a;
+			remoteRef = F966E7F915C991FF004E4F03 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		6C0CC22F15B7B1FC00F2F7B6 /* Resources */ = {
@@ -293,6 +407,24 @@
 				6C096F8C15BD93F10082ECDB /* tab_account.png in Resources */,
 				6C096F8D15BD93F10082ECDB /* tab_scan.png in Resources */,
 				6C096F8E15BD93F10082ECDB /* tab_listings.png in Resources */,
+				F96E37F715CB229100C89015 /* photo1.png in Resources */,
+				F96E37F815CB229100C89015 /* photo2.png in Resources */,
+				F96E37F915CB229100C89015 /* photo3.png in Resources */,
+				F96E37FA15CB229100C89015 /* photo4.png in Resources */,
+				F96E37FB15CB229100C89015 /* photo5.png in Resources */,
+				F96E37FC15CB229100C89015 /* photo6.png in Resources */,
+				F96E37FD15CB229100C89015 /* photo7.png in Resources */,
+				F96E37FE15CB229100C89015 /* photo8.png in Resources */,
+				F96E37FF15CB229100C89015 /* photo9.png in Resources */,
+				F96E380015CB229100C89015 /* photo10.png in Resources */,
+				F96E380115CB229100C89015 /* photo11.png in Resources */,
+				F96E380215CB229100C89015 /* photo12.png in Resources */,
+				F96E380315CB229100C89015 /* photo13.png in Resources */,
+				F96E380415CB229100C89015 /* photo14.png in Resources */,
+				F96E380515CB229100C89015 /* photo15.png in Resources */,
+				F96E380615CB229100C89015 /* photo16.png in Resources */,
+				F96E380715CB229100C89015 /* photo17.png in Resources */,
+				F96E380815CB229100C89015 /* photo18.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -333,7 +465,8 @@
 				6CBBAA2F15B8AF350073970B /* ASListingsViewController.m in Sources */,
 				6C92CDBC15C49A1400B6FF9B /* ASBusinessListDataController.m in Sources */,
 				6CC57A2815C4EE3E00F76A13 /* ASBusinessList.m in Sources */,
-				F966E7E915C2ED3F004E4F03 /* ASPhotoGridControllerViewController.m in Sources */,
+				F966E80215C99354004E4F03 /* ASPhotoGalleryViewController.m in Sources */,
+				F966E85F15C9CE24004E4F03 /* ASPhotoGalleryGridViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -352,6 +485,11 @@
 			isa = PBXTargetDependency;
 			target = 6C0CC23015B7B1FC00F2F7B6 /* AllSortz */;
 			targetProxy = 6C0CC26515B7B1FC00F2F7B6 /* PBXContainerItemProxy */;
+		};
+		F966E7FD15C99232004E4F03 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = AQGridView;
+			targetProxy = F966E7FC15C99232004E4F03 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -441,10 +579,13 @@
 		6C0CC27315B7B1FC00F2F7B6 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "AllSortz/AllSortz-Prefix.pch";
 				INFOPLIST_FILE = "AllSortz/AllSortz-Info.plist";
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = "AQGridView/**";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -452,10 +593,13 @@
 		6C0CC27415B7B1FC00F2F7B6 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "AllSortz/AllSortz-Prefix.pch";
 				INFOPLIST_FILE = "AllSortz/AllSortz-Info.plist";
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = "AQGridView/**";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
