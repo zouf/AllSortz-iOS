@@ -48,8 +48,7 @@
     CGRect frame = self.imageView.frame;
     CGRect bounds = self.contentView.bounds;
 
-    if ((imageSize.width <= bounds.size.width) &&
-        (imageSize.height <= bounds.size.height))
+    if ((imageSize.width <= bounds.size.width) && (imageSize.height <= bounds.size.height))
     {
         return;
     }
@@ -57,7 +56,7 @@
     // scale it down to fit
     CGFloat hRatio = bounds.size.width / imageSize.width;
     CGFloat vRatio = bounds.size.height / imageSize.height;
-    CGFloat ratio = MAX(hRatio, vRatio);
+    CGFloat ratio = MIN(hRatio, vRatio);
 
     frame.size.width = floorf(imageSize.width * ratio);
     frame.size.height = floorf(imageSize.height * ratio);

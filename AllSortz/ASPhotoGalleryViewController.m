@@ -53,7 +53,7 @@
     ASPhotoGalleryGridViewCell *cell = (ASPhotoGalleryGridViewCell *)[gridView dequeueReusableCellWithIdentifier:@"reuseIdentifier"];
     if (cell == nil)
     {
-        cell = [[ASPhotoGalleryGridViewCell alloc] initWithFrame: CGRectMake(0.0, 0.0, 200.0, 150.0) reuseIdentifier:@"reuseIdentifier"];
+        cell = [[ASPhotoGalleryGridViewCell alloc] initWithFrame: CGRectMake(0.0, 0.0, 98.0, 98.0) reuseIdentifier:@"reuseIdentifier"];
     }
 
 //    cell.image = [UIImage imageNamed: [self.imageNames objectAtIndex: index]];
@@ -64,7 +64,7 @@
 
 - (CGSize)portraitGridCellSizeForGridView:(AQGridView *)gridView
 {
-    return CGSizeMake(128.0, 128.0);
+    return CGSizeMake(106.0, 106.0);
 }
 
 @end
