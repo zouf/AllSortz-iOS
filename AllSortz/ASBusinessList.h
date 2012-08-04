@@ -16,8 +16,4 @@
 - (NSArray *)businessesAtIndexes:(NSIndexSet *)indexes;
 - (void)getBusinesses:(id __unsafe_unretained *)buffer range:(NSRange)inRange;
 
-// UITableViewDataSource
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section;
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath;
-
 @end
