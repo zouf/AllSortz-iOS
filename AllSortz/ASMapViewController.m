@@ -8,9 +8,6 @@
 
 #import "ASMapViewController.h"
 
-@interface ASMapViewController ()
-
-@end
 
 @implementation ASMapViewController
 
@@ -19,23 +16,6 @@
     if (!(self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]))
         return nil;
     return self;
-}
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-	// Do any additional setup after loading the view.
-}
-
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
 @end
