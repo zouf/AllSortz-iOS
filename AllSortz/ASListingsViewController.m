@@ -12,7 +12,7 @@
 
 @interface ASListingsViewController ()
 
-@property (weak, nonatomic) IBOutlet UITableView *listingsTable;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) IBOutlet ASBusinessListDataController *listingsTableDataController;
 
 @end
@@ -35,7 +35,7 @@
 {
     [super viewDidUnload];
     [self.listingsTableDataController removeObserver:self forKeyPath:@"businessList"];
-    self.listingsTable = nil;
+    self.tableView = nil;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -44,7 +44,7 @@
 
     // Imitate default behavior of UITableViewController
     // deselectRowAtIndexPath:animated: should be fine taking a possible nil
-    [self.listingsTable deselectRowAtIndexPath:[self.listingsTable indexPathForSelectedRow] animated:NO];
+    [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:NO];
 
     // Download data automatically if there's no data source
     if (!self.listingsTableDataController.businessList)
@@ -55,7 +55,7 @@
 {
     [super viewDidAppear:animated];
     // Imitate default behavior of UITableViewController
-    [self.listingsTable flashScrollIndicators];
+    [self.tableView flashScrollIndicators];
 }
 
 #pragma mark - Key-value observing
@@ -68,8 +68,8 @@
     // If the business list changes, reassign
     if ([keyPath isEqualToString:@"businessList"]) {
         id newDataSource = [change objectForKey:NSKeyValueChangeNewKey];
-        self.listingsTable.dataSource = (newDataSource == [NSNull null] ? nil : newDataSource);
-        [self.listingsTable reloadData];
+        self.tableView.dataSource = (newDataSource == [NSNull null] ? nil : newDataSource);
+        [self.tableView reloadData];
     }
 }
 

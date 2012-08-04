@@ -152,8 +152,8 @@
                     </view>
                     <navigationItem key="navigationItem" title="Listings" id="tuE-Pe-O8R"/>
                     <connections>
-                        <outlet property="listingsTable" destination="DF6-is-IYj" id="IgG-AC-Lef"/>
                         <outlet property="listingsTableDataController" destination="4En-EA-rzd" id="vmt-a9-8Ic"/>
+                        <outlet property="tableView" destination="DF6-is-IYj" id="vRG-l2-Wzv"/>
                     </connections>
                 </viewController>
                 <customObject id="4En-EA-rzd" customClass="ASBusinessListDataController"/>
@@ -174,8 +174,8 @@
         <class className="ASListingsViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/ASListingsViewController.h"/>
             <relationships>
-                <relationship kind="outlet" name="listingsTable" candidateClass="UITableView"/>
                 <relationship kind="outlet" name="listingsTableDataController" candidateClass="ASBusinessListDataController"/>
+                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
             </relationships>
         </class>
         <class className="ASMapViewController" superclassName="UIViewController">
