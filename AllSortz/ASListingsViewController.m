@@ -20,13 +20,6 @@
 
 @implementation ASListingsViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    if (!(self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]))
-        return nil;
-    return self;
-}
-
 #pragma mark - View controller
 
 - (void)viewDidLoad
