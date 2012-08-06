@@ -35,7 +35,6 @@
 {
     [super viewDidUnload];
     [self.listingsTableDataController removeObserver:self forKeyPath:@"businessList"];
-    self.tableView = nil;
 }
 
 - (void)viewWillAppear:(BOOL)animated
