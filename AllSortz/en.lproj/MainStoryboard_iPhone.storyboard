@@ -78,10 +78,17 @@
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mNg-nF-bhn" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="vkh-pH-Hmp" customClass="ASMapViewController" sceneMemberID="viewController">
-                    <mapView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" id="VcH-ey-7gY">
+                    <view key="view" contentMode="scaleToFill" id="4OO-fx-Kkl">
                         <rect key="frame" x="0.0" y="64" width="320" height="367"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                    </mapView>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" id="rPd-NM-SvH">
+                                <rect key="frame" x="3" y="0.0" width="317" height="367"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            </mapView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
                     <navigationItem key="navigationItem" title="Map" id="sq9-Ug-LDz"/>
                 </viewController>
             </objects>
