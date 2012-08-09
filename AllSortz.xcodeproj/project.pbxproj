@@ -103,6 +103,7 @@
 		6C61B73A15E580140041276B /* ASDefault@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = 6C61B73415E580140041276B /* ASDefault@2x~iphone.png */; };
 		6C61B73B15E580140041276B /* ASDefault~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = 6C61B73515E580140041276B /* ASDefault~iphone.png */; };
 		6C2121F315D44708004ACD4C /* ASBusinessDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C2121F215D44708004ACD4C /* ASBusinessDetailsViewController.m */; };
+		6C21220115D45B08004ACD4C /* ASBusiness.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C21220015D45B08004ACD4C /* ASBusiness.m */; };
 		6C92CDBC15C49A1400B6FF9B /* ASBusinessListDataController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C92CDBB15C49A1400B6FF9B /* ASBusinessListDataController.m */; };
 		6C9DE8DF15E6ACA10050BF14 /* beer.png in Resources */ = {isa = PBXBuildFile; fileRef = 6C9DE8DB15E6ACA10050BF14 /* beer.png */; };
 		6C9DE8E015E6ACA10050BF14 /* dining.png in Resources */ = {isa = PBXBuildFile; fileRef = 6C9DE8DC15E6ACA10050BF14 /* dining.png */; };
@@ -277,6 +278,8 @@
 		6C61B73515E580140041276B /* ASDefault~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ASDefault~iphone.png"; sourceTree = "<group>"; };
 		6C2121F115D44708004ACD4C /* ASBusinessDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASBusinessDetailsViewController.h; sourceTree = "<group>"; };
 		6C2121F215D44708004ACD4C /* ASBusinessDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASBusinessDetailsViewController.m; sourceTree = "<group>"; };
+		6C2121FF15D45B08004ACD4C /* ASBusiness.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASBusiness.h; sourceTree = "<group>"; };
+		6C21220015D45B08004ACD4C /* ASBusiness.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASBusiness.m; sourceTree = "<group>"; };
 		6C92CDBA15C49A1400B6FF9B /* ASBusinessListDataController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASBusinessListDataController.h; sourceTree = "<group>"; };
 		6C92CDBB15C49A1400B6FF9B /* ASBusinessListDataController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASBusinessListDataController.m; sourceTree = "<group>"; };
 		6C9DE8DB15E6ACA10050BF14 /* beer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = beer.png; sourceTree = "<group>"; };
@@ -657,6 +660,8 @@
 		6C2121F915D450FF004ACD4C /* Business Details */ = {
 			isa = PBXGroup;
 			children = (
+				6C2121FF15D45B08004ACD4C /* ASBusiness.h */,
+				6C21220015D45B08004ACD4C /* ASBusiness.m */,
 				6C2121F115D44708004ACD4C /* ASBusinessDetailsViewController.h */,
 				6C2121F215D44708004ACD4C /* ASBusinessDetailsViewController.m */,
 			);
@@ -893,6 +898,7 @@
 				0AAB66C515EFA4E800F22011 /* ASSocialDataController.m in Sources */,
 				0AAB66C915EFE50300F22011 /* ASProfilePictureViewController.m in Sources */,
 				6C2121F315D44708004ACD4C /* ASBusinessDetailsViewController.m in Sources */,
+				6C21220115D45B08004ACD4C /* ASBusiness.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
