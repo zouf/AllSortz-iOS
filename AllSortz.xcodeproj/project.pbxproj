@@ -102,6 +102,7 @@
 		6C61B73915E580140041276B /* ASDefault-Portrait~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 6C61B73315E580140041276B /* ASDefault-Portrait~ipad.png */; };
 		6C61B73A15E580140041276B /* ASDefault@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = 6C61B73415E580140041276B /* ASDefault@2x~iphone.png */; };
 		6C61B73B15E580140041276B /* ASDefault~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = 6C61B73515E580140041276B /* ASDefault~iphone.png */; };
+		6C2121F315D44708004ACD4C /* ASBusinessDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C2121F215D44708004ACD4C /* ASBusinessDetailsViewController.m */; };
 		6C92CDBC15C49A1400B6FF9B /* ASBusinessListDataController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C92CDBB15C49A1400B6FF9B /* ASBusinessListDataController.m */; };
 		6C9DE8DF15E6ACA10050BF14 /* beer.png in Resources */ = {isa = PBXBuildFile; fileRef = 6C9DE8DB15E6ACA10050BF14 /* beer.png */; };
 		6C9DE8E015E6ACA10050BF14 /* dining.png in Resources */ = {isa = PBXBuildFile; fileRef = 6C9DE8DC15E6ACA10050BF14 /* dining.png */; };
@@ -274,6 +275,8 @@
 		6C61B73315E580140041276B /* ASDefault-Portrait~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ASDefault-Portrait~ipad.png"; sourceTree = "<group>"; };
 		6C61B73415E580140041276B /* ASDefault@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ASDefault@2x~iphone.png"; sourceTree = "<group>"; };
 		6C61B73515E580140041276B /* ASDefault~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ASDefault~iphone.png"; sourceTree = "<group>"; };
+		6C2121F115D44708004ACD4C /* ASBusinessDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASBusinessDetailsViewController.h; sourceTree = "<group>"; };
+		6C2121F215D44708004ACD4C /* ASBusinessDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASBusinessDetailsViewController.m; sourceTree = "<group>"; };
 		6C92CDBA15C49A1400B6FF9B /* ASBusinessListDataController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASBusinessListDataController.h; sourceTree = "<group>"; };
 		6C92CDBB15C49A1400B6FF9B /* ASBusinessListDataController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASBusinessListDataController.m; sourceTree = "<group>"; };
 		6C9DE8DB15E6ACA10050BF14 /* beer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = beer.png; sourceTree = "<group>"; };
@@ -565,6 +568,7 @@
 				0AFE1B7115E6995C00636B4D /* User Profile */,
 				6C0CC24A15B7B1FC00F2F7B6 /* MainStoryboard_iPad.storyboard */,
 				0A04240815DA8DA3008143F0 /* Add Business */,
+				6C2121F915D450FF004ACD4C /* Business Details */,
 				6C096F7E15BD93BE0082ECDB /* Images */,
 				0A0423FF15D9AD80008143F0 /* Listings View */,
 				0A04240015D9AD99008143F0 /* Map View */,
@@ -648,6 +652,15 @@
 				6C61B73215E580140041276B /* ASDefault-Portrait@2x~ipad.png */,
 			);
 			name = "Launch Images";
+			sourceTree = "<group>";
+		};
+		6C2121F915D450FF004ACD4C /* Business Details */ = {
+			isa = PBXGroup;
+			children = (
+				6C2121F115D44708004ACD4C /* ASBusinessDetailsViewController.h */,
+				6C2121F215D44708004ACD4C /* ASBusinessDetailsViewController.m */,
+			);
+			name = "Business Details";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -879,6 +892,7 @@
 				0AAB66C415EFA4E800F22011 /* ASUser.m in Sources */,
 				0AAB66C515EFA4E800F22011 /* ASSocialDataController.m in Sources */,
 				0AAB66C915EFE50300F22011 /* ASProfilePictureViewController.m in Sources */,
+				6C2121F315D44708004ACD4C /* ASBusinessDetailsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
