@@ -1,37 +1,40 @@
 //
-//  ASBusinessDataController.m
+//  ASQueryDataController.m
 //  AllSortz
 //
-//  Created by Lawrence Velázquez on 7/28/12.
+//  Created by Matthew Zoufaly on 8/13/12.
 //  Copyright (c) 2012 AllSortz, Inc. All rights reserved.
 //
 
-#import "ASBusinessListDataController.h"
+#import "ASQueryDataController.h"
 
 
-@interface ASBusinessListDataController ()
 
-@property (strong, readwrite) ASBusinessList *businessList;
+@interface ASQueryDataController ()
+
+@property (strong, readwrite) ASQuery *query;
 @property (strong) NSMutableData *receivedData;
 
 @end
 
 
-@implementation ASBusinessListDataController
 
+@implementation ASQueryDataController
 - (BOOL)updateData
 {
-    static NSString *address = @"http://allsortz.com/api/businesses/";
+    static NSString *address = @"http://allsortz.com/api/query/base/";
     NSURL *url = [NSURL URLWithString:address];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
-
+    
     NSURLConnection *connection = [NSURLConnection connectionWithRequest:request delegate:self];
     if (!connection) {
         // TODO: Some proper failure handling maybe
+        NSLog(@"Error in API!\n");
         return NO;
     }
+    NSLog(@"Running update data\n");
     self.receivedData = [NSMutableData data];
-
+    
     return YES;
 }
 
@@ -61,10 +64,7 @@
     NSMutableDictionary *JSONresponse = [NSJSONSerialization JSONObjectWithData:self.receivedData
                                                                         options:0
                                                                           error:NULL];
-    
-    self.businessList = [[ASBusinessList alloc] initWithJSONObject:JSONresponse];
-        
-    
+    self.query = [[ASQuery alloc] initWithJSONObject:JSONresponse];
     self.receivedData = nil;
 }
 

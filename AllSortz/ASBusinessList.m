@@ -7,10 +7,14 @@
 //
 
 #import "ASBusinessList.h"
+#import "ASRateView.h"
+
 
 
 @interface ASBusinessList ()
 
+
+- (void)startIconDownload:(ASListing *)listing forIndexPath:(NSIndexPath *)indexPath;
 @property (strong) NSArray *businesses;
 
 @end
@@ -23,6 +27,23 @@
     if (!(self = [super init]) || ![[aJSONObject objectForKey:@"success"] boolValue])
         return nil;
     _businesses = [aJSONObject objectForKey:@"result"];
+    self.entries = [[NSMutableArray alloc]init];
+    
+    for(NSDictionary * dict in self.businesses)
+    {
+        //NSString *businessName = [dict objectForKey:@"businesName"];
+        ASListing *listing = [[ASListing alloc]init];
+        listing.businessName = [dict valueForKey:@"businessName"];
+        listing.imageURLString = [dict valueForKey:@"photoURL"];
+        listing.businessTypes = [dict valueForKey:@"types"];
+        listing.businessDistance = [dict valueForKey:@"distanceFromCurrentUser"];
+        listing.recommendation = [[dict valueForKey:@"ratingRecommendation"] floatValue];
+        listing.userRating = [[dict valueForKey:@"ratingForCurrentUser"] floatValue];
+
+
+        [self.entries addObject:listing];
+    }
+    
     return self;
 }
 
@@ -48,27 +69,15 @@
     [self.businesses getObjects:buffer range:inRange];
 }
 
+
 #pragma mark - Table data source
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [[self valueForKeyPath:@"businesses.@count"] integerValue];
+    return [self.entries count];
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    static NSString *identifier = @"ListingCell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
-    if (!cell) {
-        // Create table cell if there isn't one to reuse
-        // TODO: Change cell style when we implement our custom style
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:identifier];
-        cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
-    }
-    id business = [self objectInBusinessesAtIndex:indexPath.row];
-    cell.textLabel.text = [business valueForKey:@"businessName"];
-    cell.detailTextLabel.text = [business valueForKey:@"businessCity"];
-    return cell;
-}
+
+
 
 @end
