@@ -8,8 +8,9 @@
 
 #import "ASIconDownloader.h"
 #import "ASSortViewController.h"
+#import "ASAddBusinessViewController.h"
 
-@interface ASListingsViewController : UIViewController <UITableViewDelegate, UIScrollViewDelegate, UISearchBarDelegate, ASIconDownloaderDelegate, ASRateViewDelegate, NewSortDelegate>
+@interface ASListingsViewController : UIViewController <UITableViewDelegate, UIScrollViewDelegate, UISearchBarDelegate, ASIconDownloaderDelegate, ASRateViewDelegate, NewSortDelegate, NewBusinessDelegate>
 {
     NSMutableDictionary *imageDownloadsInProgress;  // the set of IconDownloader objects for each app    
 }

@@ -9,6 +9,7 @@
 #import "ASBusinessList.h"
 #import "ASRateView.h"
 
+#define NUM_STATIC_CELLS 1
 
 
 @interface ASBusinessList ()
@@ -74,7 +75,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [self.entries count];
+    return [self.entries count] + NUM_STATIC_CELLS;
 }
 
 

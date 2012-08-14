@@ -10,7 +10,7 @@
 
 #import "ASBusinessList.h"
 
-#define kAppIconHeight 48
+#define kAppIconHeight 72
 
 
 @implementation ASIconDownloader
@@ -71,16 +71,18 @@
     // Set appIcon and clear temporary data/image
     UIImage *image = [[UIImage alloc] initWithData:self.activeDownload];
     
-    if (image.size.width != kAppIconHeight && image.size.height != kAppIconHeight)
+  /*  if (image.size.width != kAppIconHeight && image.size.height != kAppIconHeight)
     {
         CGSize itemSize = CGSizeMake(kAppIconHeight, kAppIconHeight);
         UIGraphicsBeginImageContext(itemSize);
+        
         CGRect imageRect = CGRectMake(0.0, 0.0, itemSize.width, itemSize.height);
         [image drawInRect:imageRect];
+        
         self.listing.businessPhoto = UIGraphicsGetImageFromCurrentImageContext();
         UIGraphicsEndImageContext();
     }
-    else
+    else*/
     {
         self.listing.businessPhoto= image;
     }

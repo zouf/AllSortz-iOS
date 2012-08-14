@@ -12,6 +12,7 @@
 #import "ASIconDownloader.h"
 #import "ASListing.h"
 #import "ASQuery.h"
+#import "ASAddBusinessViewController.h"
 
 @interface ASListingsViewController ()
 
@@ -81,6 +82,21 @@
 	static NSString *CellIdentifier = @"ListingCell";
     static NSString *PlaceholderCellIdentifier = @"PlaceholderCell";
     
+    //Add business cell
+    if (indexPath.row >= [self.listingsTableDataController.businessList.entries count])
+    {
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AddBusinessCell"];
+        if ( cell == nil)
+        {
+#warning handle this?
+            NSLog(@"Error case!\n");
+            return nil;
+            
+        }
+        return cell;
+    }
+    
+    
     // add a placeholder cell while waiting on table data
     int nodeCount = [self.listingsTableDataController.businessList.entries  count];
 	
@@ -114,7 +130,7 @@
         busName.text = listing.businessName;
         
         UILabel *distanceLabel = (UILabel *)[cell viewWithTag:DISTANCE_VIEW];
-        distanceLabel.text = listing.businessDistance;
+        distanceLabel.text = [listing.businessDistance  stringByAppendingString:@"mi."];
         
         UILabel *typeLabel = (UILabel *)[cell viewWithTag:TYPE_LABEL];
         NSMutableString * allTypes = [NSMutableString string];
@@ -159,6 +175,7 @@
         else
         {
             //NSLog(@"Assigning %@!\n",cell);
+            imageView.contentMode = UIViewContentModeScaleAspectFill;
             imageView.image = listing.businessPhoto;
         }
         
@@ -199,6 +216,9 @@
         NSArray *visiblePaths = [self.tableView indexPathsForVisibleRows];
         for (NSIndexPath *indexPath in visiblePaths)
         {
+            //exclude last row
+            if (indexPath.row >= [self.listingsTableDataController.businessList.entries count])
+                continue;
             ASListing *listing = [self.listingsTableDataController.businessList.entries objectAtIndex:indexPath.row];
             
             if (!listing.businessPhoto) // avoid the app icon download if the app already has an icon
@@ -278,11 +298,34 @@
     [self.navigationController dismissModalViewControllerAnimated:YES];
 }
 
+#pragma mark - #pragma mark - Create New Sort
+
+-(void) newASAddBusinessViewController:(ASAddBusinessViewController *)abvc didCreateNewBusiness:(ASAddBusiness *)business
+{
+
+    [self.listingsTableDataController updateData];
+    [self.navigationController dismissModalViewControllerAnimated:YES];
+    
+}
+
+-(void)cancelASAddBusinessViewController:(ASAddBusinessViewController *)abvc{
+    [self.navigationController dismissModalViewControllerAnimated:YES];
+}
+
+#pragma mark - Segue STuff
+
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    
     if([segue.identifier isEqualToString:@"NewSort"]){
         UINavigationController *nv = (UINavigationController *)[segue destinationViewController];
         ASSortViewController *nsvc = (ASSortViewController *)nv.topViewController;
         nsvc.delegate = self;
+    }
+    else if([segue.identifier isEqualToString:@"AddBusiness"]){
+        NSLog(@"%@\n",@"Whatup");
+        UINavigationController *nv = (UINavigationController *)[segue destinationViewController];
+        ASAddBusinessViewController *abvc = (ASAddBusinessViewController *)nv.topViewController;
+        abvc.delegate = self;
     }
 }
 
