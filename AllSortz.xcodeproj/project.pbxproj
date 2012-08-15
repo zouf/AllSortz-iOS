@@ -104,6 +104,7 @@
 		6C61B73B15E580140041276B /* ASDefault~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = 6C61B73515E580140041276B /* ASDefault~iphone.png */; };
 		6C2121F315D44708004ACD4C /* ASBusinessDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C2121F215D44708004ACD4C /* ASBusinessDetailsViewController.m */; };
 		6C21220115D45B08004ACD4C /* ASBusiness.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C21220015D45B08004ACD4C /* ASBusiness.m */; };
+		6C21220A15D86F27004ACD4C /* ASException.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C21220915D86F27004ACD4C /* ASException.m */; };
 		6C92CDBC15C49A1400B6FF9B /* ASBusinessListDataController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C92CDBB15C49A1400B6FF9B /* ASBusinessListDataController.m */; };
 		6C9DE8DF15E6ACA10050BF14 /* beer.png in Resources */ = {isa = PBXBuildFile; fileRef = 6C9DE8DB15E6ACA10050BF14 /* beer.png */; };
 		6C9DE8E015E6ACA10050BF14 /* dining.png in Resources */ = {isa = PBXBuildFile; fileRef = 6C9DE8DC15E6ACA10050BF14 /* dining.png */; };
@@ -280,6 +281,8 @@
 		6C2121F215D44708004ACD4C /* ASBusinessDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASBusinessDetailsViewController.m; sourceTree = "<group>"; };
 		6C2121FF15D45B08004ACD4C /* ASBusiness.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASBusiness.h; sourceTree = "<group>"; };
 		6C21220015D45B08004ACD4C /* ASBusiness.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASBusiness.m; sourceTree = "<group>"; };
+		6C21220715D86DAE004ACD4C /* ASException.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ASException.h; sourceTree = "<group>"; };
+		6C21220915D86F27004ACD4C /* ASException.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASException.m; sourceTree = "<group>"; };
 		6C92CDBA15C49A1400B6FF9B /* ASBusinessListDataController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASBusinessListDataController.h; sourceTree = "<group>"; };
 		6C92CDBB15C49A1400B6FF9B /* ASBusinessListDataController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASBusinessListDataController.m; sourceTree = "<group>"; };
 		6C9DE8DB15E6ACA10050BF14 /* beer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = beer.png; sourceTree = "<group>"; };
@@ -564,6 +567,8 @@
 				0AAB66BC15EFA4DD00F22011 /* Social */,
 				6C0CC24415B7B1FC00F2F7B6 /* ASAppDelegate.h */,
 				6C0CC24515B7B1FC00F2F7B6 /* ASAppDelegate.m */,
+				6C21220715D86DAE004ACD4C /* ASException.h */,
+				6C21220915D86F27004ACD4C /* ASException.m */,
 				6C2516A615E145DC00475CB2 /* ASSubscripting.h */,
 				0AFF55A015E53B1A002E5085 /* ASURLEncoding.h */,
 				0AFF55A115E53B1A002E5085 /* ASURLEncoding.m */,
@@ -899,6 +904,7 @@
 				0AAB66C915EFE50300F22011 /* ASProfilePictureViewController.m in Sources */,
 				6C2121F315D44708004ACD4C /* ASBusinessDetailsViewController.m in Sources */,
 				6C21220115D45B08004ACD4C /* ASBusiness.m in Sources */,
+				6C21220A15D86F27004ACD4C /* ASException.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
