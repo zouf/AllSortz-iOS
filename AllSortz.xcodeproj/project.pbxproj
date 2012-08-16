@@ -10,6 +10,15 @@
 		0A0423FA15D97113008143F0 /* ASSortViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A0423F915D97113008143F0 /* ASSortViewController.m */; };
 		0A0423FD15D98896008143F0 /* ASQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A0423FC15D98896008143F0 /* ASQuery.m */; };
 		0A04240315D9ADD5008143F0 /* ASQueryDataController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A04240215D9ADD5008143F0 /* ASQueryDataController.m */; };
+		0A04240515DA8250008143F0 /* checkwriting.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 0A04240415DA824F008143F0 /* checkwriting.pdf */; };
+		0A04240715DA8258008143F0 /* ColorIcon_16_2.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A04240615DA8258008143F0 /* ColorIcon_16_2.png */; };
+		0A04240B15DA8DD6008143F0 /* ASAddBusinessViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A04240A15DA8DD6008143F0 /* ASAddBusinessViewController.m */; };
+		0A04240E15DA8E03008143F0 /* ASAddBusinessDataController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A04240D15DA8E03008143F0 /* ASAddBusinessDataController.m */; };
+		0A04241115DA8E0E008143F0 /* ASAddBusiness.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A04241015DA8E0D008143F0 /* ASAddBusiness.m */; };
+		0A04241515DAD10A008143F0 /* MediumIcon1.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A04241215DAD109008143F0 /* MediumIcon1.png */; };
+		0A04241615DAD10A008143F0 /* MediumIcon2.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A04241315DAD109008143F0 /* MediumIcon2.png */; };
+		0A04241715DAD10A008143F0 /* MediumIcon3.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A04241415DAD109008143F0 /* MediumIcon3.png */; };
+		0A0ED5EB15DB07BD008F548A /* 67_Princeton_NJ.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A0ED5EA15DB07BD008F548A /* 67_Princeton_NJ.png */; };
 		0A3DB65D15D46F3F0069637D /* kermit_empty.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A3DB65A15D46F3F0069637D /* kermit_empty.png */; };
 		0A3DB65E15D46F3F0069637D /* kermit_full.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A3DB65B15D46F3F0069637D /* kermit_full.png */; };
 		0A3DB65F15D46F3F0069637D /* kermit_half.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A3DB65C15D46F3F0069637D /* kermit_half.png */; };
@@ -60,6 +69,18 @@
 		0A0423FC15D98896008143F0 /* ASQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASQuery.m; sourceTree = "<group>"; };
 		0A04240115D9ADD5008143F0 /* ASQueryDataController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASQueryDataController.h; sourceTree = "<group>"; };
 		0A04240215D9ADD5008143F0 /* ASQueryDataController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASQueryDataController.m; sourceTree = "<group>"; };
+		0A04240415DA824F008143F0 /* checkwriting.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = checkwriting.pdf; path = ../../Desktop/checkwriting.pdf; sourceTree = "<group>"; };
+		0A04240615DA8258008143F0 /* ColorIcon_16_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ColorIcon_16_2.png; path = ../../Desktop/ColorIcon_16_2.png; sourceTree = "<group>"; };
+		0A04240915DA8DD6008143F0 /* ASAddBusinessViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASAddBusinessViewController.h; sourceTree = "<group>"; };
+		0A04240A15DA8DD6008143F0 /* ASAddBusinessViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASAddBusinessViewController.m; sourceTree = "<group>"; };
+		0A04240C15DA8E03008143F0 /* ASAddBusinessDataController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASAddBusinessDataController.h; sourceTree = "<group>"; };
+		0A04240D15DA8E03008143F0 /* ASAddBusinessDataController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASAddBusinessDataController.m; sourceTree = "<group>"; };
+		0A04240F15DA8E0D008143F0 /* ASAddBusiness.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASAddBusiness.h; sourceTree = "<group>"; };
+		0A04241015DA8E0D008143F0 /* ASAddBusiness.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASAddBusiness.m; sourceTree = "<group>"; };
+		0A04241215DAD109008143F0 /* MediumIcon1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = MediumIcon1.png; path = ../../Desktop/MediumIcon1.png; sourceTree = "<group>"; };
+		0A04241315DAD109008143F0 /* MediumIcon2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = MediumIcon2.png; path = ../../Desktop/MediumIcon2.png; sourceTree = "<group>"; };
+		0A04241415DAD109008143F0 /* MediumIcon3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = MediumIcon3.png; path = ../../Desktop/MediumIcon3.png; sourceTree = "<group>"; };
+		0A0ED5EA15DB07BD008F548A /* 67_Princeton_NJ.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = 67_Princeton_NJ.png; path = ../../../Downloads/67_Princeton_NJ.png; sourceTree = "<group>"; };
 		0A3DB65A15D46F3F0069637D /* kermit_empty.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = kermit_empty.png; sourceTree = "<group>"; };
 		0A3DB65B15D46F3F0069637D /* kermit_full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = kermit_full.png; sourceTree = "<group>"; };
 		0A3DB65C15D46F3F0069637D /* kermit_half.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = kermit_half.png; sourceTree = "<group>"; };
@@ -168,9 +189,23 @@
 			name = "Map View";
 			sourceTree = "<group>";
 		};
+		0A04240815DA8DA3008143F0 /* Add Business */ = {
+			isa = PBXGroup;
+			children = (
+				0A04240915DA8DD6008143F0 /* ASAddBusinessViewController.h */,
+				0A04240A15DA8DD6008143F0 /* ASAddBusinessViewController.m */,
+				0A04240C15DA8E03008143F0 /* ASAddBusinessDataController.h */,
+				0A04240D15DA8E03008143F0 /* ASAddBusinessDataController.m */,
+				0A04240F15DA8E0D008143F0 /* ASAddBusiness.h */,
+				0A04241015DA8E0D008143F0 /* ASAddBusiness.m */,
+			);
+			name = "Add Business";
+			sourceTree = "<group>";
+		};
 		0A3DB65915D46F3F0069637D /* kermitStars */ = {
 			isa = PBXGroup;
 			children = (
+				0A0ED5EA15DB07BD008F548A /* 67_Princeton_NJ.png */,
 				0A3DB65A15D46F3F0069637D /* kermit_empty.png */,
 				0A3DB65B15D46F3F0069637D /* kermit_full.png */,
 				0A3DB65C15D46F3F0069637D /* kermit_half.png */,
@@ -227,14 +262,20 @@
 		6C0CC23B15B7B1FC00F2F7B6 /* AllSortz */ = {
 			isa = PBXGroup;
 			children = (
+				0A04241215DAD109008143F0 /* MediumIcon1.png */,
+				0A04241315DAD109008143F0 /* MediumIcon2.png */,
+				0A04241415DAD109008143F0 /* MediumIcon3.png */,
+				0A04240815DA8DA3008143F0 /* Add Business */,
+				0A04240615DA8258008143F0 /* ColorIcon_16_2.png */,
+				0A04240415DA824F008143F0 /* checkwriting.pdf */,
 				0A0423FF15D9AD80008143F0 /* Listings View */,
 				0A0423FE15D9AD5D008143F0 /* Query Panel */,
 				0A3DB65915D46F3F0069637D /* kermitStars */,
 				6C0CC24415B7B1FC00F2F7B6 /* ASAppDelegate.h */,
 				6C0CC24515B7B1FC00F2F7B6 /* ASAppDelegate.m */,
 				0A04240015D9AD99008143F0 /* Map View */,
-				6C0CC24715B7B1FC00F2F7B6 /* MainStoryboard_iPhone.storyboard */,
 				6C0CC24A15B7B1FC00F2F7B6 /* MainStoryboard_iPad.storyboard */,
+				6C0CC24715B7B1FC00F2F7B6 /* MainStoryboard_iPhone.storyboard */,
 				6C096F7E15BD93BE0082ECDB /* Images */,
 				6C0CC23C15B7B1FC00F2F7B6 /* Supporting Files */,
 			);
@@ -357,6 +398,11 @@
 				0A3DB65D15D46F3F0069637D /* kermit_empty.png in Resources */,
 				0A3DB65E15D46F3F0069637D /* kermit_full.png in Resources */,
 				0A3DB65F15D46F3F0069637D /* kermit_half.png in Resources */,
+				0A04240515DA8250008143F0 /* checkwriting.pdf in Resources */,
+				0A04240715DA8258008143F0 /* ColorIcon_16_2.png in Resources */,
+				0A04241515DAD10A008143F0 /* MediumIcon1.png in Resources */,
+				0A04241615DAD10A008143F0 /* MediumIcon2.png in Resources */,
+				0A04241715DAD10A008143F0 /* MediumIcon3.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -365,6 +411,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6C0CC26C15B7B1FC00F2F7B6 /* InfoPlist.strings in Resources */,
+				0A0ED5EB15DB07BD008F548A /* 67_Princeton_NJ.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -402,6 +449,9 @@
 				0A0423FA15D97113008143F0 /* ASSortViewController.m in Sources */,
 				0A0423FD15D98896008143F0 /* ASQuery.m in Sources */,
 				0A04240315D9ADD5008143F0 /* ASQueryDataController.m in Sources */,
+				0A04240B15DA8DD6008143F0 /* ASAddBusinessViewController.m in Sources */,
+				0A04240E15DA8E03008143F0 /* ASAddBusinessDataController.m in Sources */,
+				0A04241115DA8E0E008143F0 /* ASAddBusiness.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

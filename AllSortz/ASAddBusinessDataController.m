@@ -8,6 +8,9 @@
 
 #import "ASAddBusinessDataController.h"
 
+static NSString * const BOUNDARY = @"0xKhTmLbOuNdArY";
+static NSString * const FORM_FLE_INPUT = @"uploaded";
+
 @interface ASAddBusinessDataController()
 
     @property (strong, readwrite) ASAddBusiness *business;
@@ -28,7 +31,6 @@
     NSURLConnection *connection = [NSURLConnection connectionWithRequest:request delegate:self];
     if (!connection) {
         // TODO: Some proper failure handling maybe
-        NSLog(@"Error in API!\n");
         return NO;
     }
     NSLog(@"Running update data\n");
@@ -37,19 +39,37 @@
     return YES;
 }
 
+- (NSURLRequest *)postRequestWithAddress: (NSString *)address        // IN
+                                data: (NSData *)data      // IN
+{
+    NSURL *url = [NSURL URLWithString:address];
+    NSMutableURLRequest *urlRequest =
+        [NSMutableURLRequest requestWithURL:url];
+    NSString *postLength = [NSString stringWithFormat:@"%d", [data length]];
+    [urlRequest setURL:[NSURL URLWithString:address]];
+    [urlRequest setHTTPMethod:@"POST"];
+    [urlRequest setValue:postLength forHTTPHeaderField:@"Content-Length"];
+    [urlRequest setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
+    [urlRequest setHTTPBody:data];
+    	
+    return urlRequest;
+}
+
+
 - (BOOL)uploadData
 {
-    static NSString *address = @"http://allsortz.com/api/types/";
-    NSURL *url = [NSURL URLWithString:address];
-    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    static NSString *address = @"http://allsortz.com/api/business/add/";
+    NSError* writeError = nil;
+    NSString *str = [[self.business serializeToDictionary] urlEncodedString];
+    NSData* data = [str dataUsingEncoding:NSUTF8StringEncoding];
+    NSURLRequest *request = [self postRequestWithAddress:address data:data];
+
     
-    
-   // NSURLConnection *connection = [NSURLConnection connectionWithRequest:request delegate:self];
-   // if (!connection) {
+    NSURLConnection *connection = [NSURLConnection connectionWithRequest:request delegate:self];
+    if (!connection) {
         // TODO: Some proper failure handling maybe
-        //NSLog(@"Error in API!\n");
-        //return NO;
-    //}
+        return NO;
+    }
     NSLog(@"Running upload data\n");
     self.receivedData = [NSMutableData data];
     
@@ -81,9 +101,25 @@
 {
     NSMutableDictionary *JSONresponse = [NSJSONSerialization JSONObjectWithData:self.receivedData
                                                                         options:0
+    
                                                                           error:NULL];
-    self.business = [[ASAddBusiness alloc] initWithJSONObject:JSONresponse];
-    self.receivedData = nil;
+    NSString *success = [JSONresponse valueForKey:@"success"];
+
+    if (success == @"false")
+    {
+        NSString *msg = [JSONresponse valueForKey:@"data"];
+        return;
+    }
+    NSString *requestType = [JSONresponse valueForKey:@"requestType"];
+    if ([requestType isEqualToString:@"type"])
+    {
+        self.business = [[ASAddBusiness alloc] initWithJSONObject:JSONresponse];
+        self.receivedData = nil;
+    }
+    else //add a business
+    {
+        return;
+    }
 }
 
 @end

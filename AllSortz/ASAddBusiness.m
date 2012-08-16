@@ -8,6 +8,34 @@
 
 #import "ASAddBusiness.h"
 
+// file "NSDictionary+UrlEncoding.m"
+
+
+// helper function: get the string form of any object
+static NSString *toString(id object) {
+    return [NSString stringWithFormat: @"%@", object];
+}
+
+// helper function: get the url encoded string form of any object
+static NSString *urlEncode(id object) {
+    NSString *string = toString(object);
+    return [string stringByAddingPercentEscapesUsingEncoding: NSUTF8StringEncoding];
+}
+
+@implementation NSDictionary (UrlEncoding)
+
+-(NSString*) urlEncodedString {
+    NSMutableArray *parts = [NSMutableArray array];
+    for (id key in self) {
+        id value = [self objectForKey: key];
+        NSString *part = [NSString stringWithFormat: @"%@=%@", urlEncode(key), urlEncode(value)];
+        [parts addObject: part];
+    }
+    return [parts componentsJoinedByString: @"&"];
+}
+
+@end
+
 @implementation ASAddBusiness
 
 
@@ -16,7 +44,6 @@
     if (!(self = [super init]) || ![[aJSONObject objectForKey:@"success"] boolValue])
         return nil;
     self.types = [[NSMutableArray alloc]init];
-    //NSLog(@"%@\n",self.sorts);
     NSDictionary * results = [aJSONObject objectForKey:@"result"];
     
     NSMutableArray *lTypes = [[NSMutableArray alloc] init];
@@ -28,9 +55,20 @@
         
     }
     self.types = lTypes;
-    NSLog(@"%@\n", self.types);
     
     return self;
+}
+#warning - figure out a way to do this serialization better
+- (NSDictionary *) serializeToDictionary
+{
+    NSDictionary * dict= [NSDictionary dictionaryWithObjectsAndKeys:
+                          self.businessName, @"businessName",
+                          self.businessPhone ,@"businessPhone",
+                            self.businessAddress ,@"businessAddress",
+                            self.businessURL ,@"businessURL",
+                            self.businessCity, @"businessCity",
+                            self.businessState ,@"businessState",nil];
+    return dict;
 }
 
 #pragma mark - Table view data source

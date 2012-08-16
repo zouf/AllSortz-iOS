@@ -8,6 +8,12 @@
 
 #import <Foundation/Foundation.h>
 
+@interface NSDictionary (UrlEncoding)
+
+-(NSString*) urlEncodedString;
+
+@end
+
 @interface ASAddBusiness : NSObject
 {
     NSString *businessName;
@@ -23,6 +29,7 @@
 
 }
 
+
 @property(nonatomic, retain) NSString *businessName;
 @property(nonatomic, retain) NSString *businessAddress;
 @property(nonatomic, retain) NSString *businessCity;
@@ -34,7 +41,7 @@
 @property(nonatomic, retain) NSArray *types;
 
 - (id)initWithJSONObject:(NSDictionary *)aJSONObject;
-
+- (NSDictionary *)serializeToDictionary;
 
 
 

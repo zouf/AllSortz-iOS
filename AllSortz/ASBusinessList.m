@@ -35,12 +35,12 @@
         //NSString *businessName = [dict objectForKey:@"businesName"];
         ASListing *listing = [[ASListing alloc]init];
         listing.businessName = [dict valueForKey:@"businessName"];
-        listing.imageURLString = [dict valueForKey:@"photoURL"];
+        listing.imageURLString = [dict valueForKey:@"photoURL"];       
         listing.businessTypes = [dict valueForKey:@"types"];
         listing.businessDistance = [dict valueForKey:@"distanceFromCurrentUser"];
         listing.recommendation = [[dict valueForKey:@"ratingRecommendation"] floatValue];
         listing.userRating = [[dict valueForKey:@"ratingForCurrentUser"] floatValue];
-
+        
 
         [self.entries addObject:listing];
     }

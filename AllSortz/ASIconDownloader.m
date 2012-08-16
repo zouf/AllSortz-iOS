@@ -34,6 +34,9 @@
 {
     self.activeDownload = [NSMutableData data];
     // alloc+init and start an NSURLConnection; release on completion/failure
+    
+    
+    
     NSURLConnection *conn = [[NSURLConnection alloc] initWithRequest:
                              [NSURLRequest requestWithURL:
                               [NSURL URLWithString:listing.imageURLString]] delegate:self];

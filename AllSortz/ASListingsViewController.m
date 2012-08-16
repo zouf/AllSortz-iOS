@@ -73,6 +73,13 @@
 
 
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+    if (indexPath.row<[self.listingsTableDataController.businessList.entries count])
+        return 72;
+    return 59;
+}
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -170,12 +177,12 @@
                 [self startIconDownload:listing forIndexPath:indexPath];
             }
             // if a download is deferred or in progress, return a placeholder image
-            imageView.image = [UIImage imageNamed:@"Placeholder.png"];
+            imageView.image = [UIImage imageNamed:@"MediumIcon2.png"];
         }
         else
         {
             //NSLog(@"Assigning %@!\n",cell);
-            imageView.contentMode = UIViewContentModeScaleAspectFill;
+            imageView.contentMode = UIViewContentModeScaleToFill;
             imageView.image = listing.businessPhoto;
         }
         
