@@ -99,14 +99,32 @@
     return nil;
 }
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+-(CGFloat)tableView:(UITableView*)tableView heightForHeaderInSection:(NSInteger)section
 {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
+    return 30;
 }
-*/
+
+-(UIView*)tableView:(UITableView*)tableView viewForHeaderInSection:(NSInteger)section
+{
+    UILabel *label = [[UILabel alloc]init];
+    
+	NSString *sectionHeader = nil;
+	
+	if(section == 0) {
+		sectionHeader = @"Business Info";
+	}
+	if(section == 1) {
+		sectionHeader = @"Business Type";
+	}
+    label.text = sectionHeader;
+    label.font = [UIFont boldSystemFontOfSize:16.0];
+    label.textAlignment=UITextAlignmentCenter;
+
+    [label setBackgroundColor:[UIColor clearColor]];
+    return label;
+}
+
+
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -115,25 +133,24 @@
         return 200;
     return 45;
 }
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
+
 
 #pragma mark - Table view delegate
+/* DOESNT WORK
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
+	
+	NSString *sectionHeader = nil;
+    return @"BLARG!\n";
+	
+	if(section == 0) {
+		sectionHeader = @"Business Info";
+	}
+	if(section == 1) {
+		sectionHeader = @"Business Type";
+	}
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-
-
-    // TODO figure out how to unselect!!!
-        // check if selected or unselected.
-}
-
+	return sectionHeader;
+}*/
 
 #pragma mark - Key value observing
 - (void)observeValueForKeyPath:(NSString *)keyPath
