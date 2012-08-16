@@ -335,7 +335,7 @@
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </label>
-                                                <imageView userInteractionEnabled="NO" tag="102" contentMode="scaleToFill" image="67_Princeton_NJ.png" id="Hsp-yo-p5M">
+                                                <imageView userInteractionEnabled="NO" tag="102" contentMode="scaleToFill" image="Placeholder.png" id="Hsp-yo-p5M">
                                                     <rect key="frame" x="2" y="2" width="68" height="68"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
@@ -357,35 +357,35 @@
                                                     <rect key="frame" x="87" y="31" width="129" height="9"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </progressView>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="TabIcon_60_12.png" id="2q1-dr-qtN">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="Placeholder.png" id="2q1-dr-qtN">
                                                     <rect key="frame" x="79" y="44" width="25" height="25"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                 </imageView>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="TabIcon_30_1.png" id="rp7-QV-hCJ">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="Placeholder.png" id="rp7-QV-hCJ">
                                                     <rect key="frame" x="105" y="44" width="25" height="25"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                 </imageView>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="TabIcon_30_1.png" id="GDv-ig-H2r">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="Placeholder.png" id="GDv-ig-H2r">
                                                     <rect key="frame" x="131" y="44" width="25" height="25"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                 </imageView>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="TabIcon_30_1.png" id="aGI-Wq-eyD">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="Placeholder.png" id="aGI-Wq-eyD">
                                                     <rect key="frame" x="157" y="44" width="25" height="25"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                 </imageView>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="TabIcon_30_1.png" id="jyv-Lg-lmP">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="Placeholder.png" id="jyv-Lg-lmP">
                                                     <rect key="frame" x="183" y="44" width="25" height="25"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                 </imageView>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="TabIcon_30_1.png" id="gBC-AJ-Pmw">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="Placeholder.png" id="gBC-AJ-Pmw">
                                                     <rect key="frame" x="209" y="44" width="25" height="25"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                 </imageView>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -519,14 +519,54 @@
         </scene>
     </scenes>
     <resources>
-        <image name="67_Princeton_NJ.png" width="225" height="168"/>
-        <image name="TabIcon_30_1.png" width="16" height="16"/>
-        <image name="TabIcon_60_12.png" width="16" height="16"/>
+        <image name="Placeholder.png" width="360" height="360"/>
         <image name="tab_account.png" width="30" height="30"/>
         <image name="tab_listings.png" width="30" height="30"/>
         <image name="tab_map.png" width="30" height="30"/>
         <image name="tab_scan.png" width="30" height="30"/>
     </resources>
+    <classes>
+        <class className="ASAddBusinessDataController" superclassName="NSObject">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ASAddBusinessDataController.h"/>
+        </class>
+        <class className="ASAddBusinessViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ASAddBusinessViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="add:"/>
+                <relationship kind="action" name="cancel:"/>
+                <relationship kind="outlet" name="addBusinessDataController" candidateClass="ASAddBusinessDataController"/>
+                <relationship kind="outlet" name="businessNameField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
+            </relationships>
+        </class>
+        <class className="ASBusinessListDataController" superclassName="NSObject">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ASBusinessListDataController.h"/>
+        </class>
+        <class className="ASListingsViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ASListingsViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="listingsTableDataController" candidateClass="ASBusinessListDataController"/>
+                <relationship kind="outlet" name="searchBar" candidateClass="UISearchBar"/>
+                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
+            </relationships>
+        </class>
+        <class className="ASMapViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ASMapViewController.h"/>
+        </class>
+        <class className="ASQueryDataController" superclassName="NSObject">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ASQueryDataController.h"/>
+        </class>
+        <class className="ASSortViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ASSortViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="cancelTapped:"/>
+                <relationship kind="action" name="doneTapped:"/>
+                <relationship kind="outlet" name="queryDataController" candidateClass="ASQueryDataController"/>
+                <relationship kind="outlet" name="sortNameField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
+            </relationships>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

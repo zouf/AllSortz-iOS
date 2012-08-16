@@ -13,10 +13,6 @@
 		0A04240B15DA8DD6008143F0 /* ASAddBusinessViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A04240A15DA8DD6008143F0 /* ASAddBusinessViewController.m */; };
 		0A04240E15DA8E03008143F0 /* ASAddBusinessDataController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A04240D15DA8E03008143F0 /* ASAddBusinessDataController.m */; };
 		0A04241115DA8E0E008143F0 /* ASAddBusiness.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A04241015DA8E0D008143F0 /* ASAddBusiness.m */; };
-		0A0ED5EB15DB07BD008F548A /* 67_Princeton_NJ.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A0ED5EA15DB07BD008F548A /* 67_Princeton_NJ.png */; };
-		0A3DB65D15D46F3F0069637D /* kermit_empty.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A3DB65A15D46F3F0069637D /* kermit_empty.png */; };
-		0A3DB65E15D46F3F0069637D /* kermit_full.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A3DB65B15D46F3F0069637D /* kermit_full.png */; };
-		0A3DB65F15D46F3F0069637D /* kermit_half.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A3DB65C15D46F3F0069637D /* kermit_half.png */; };
 		0A3DB66615D5AF970069637D /* ASIconDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A3DB66515D5AF970069637D /* ASIconDownloader.m */; };
 		0A3DB67515D5B8FC0069637D /* ASListing.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A3DB67415D5B8FC0069637D /* ASListing.m */; };
 		0A7BAAC715DD483F00605B7D /* Placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A7BAAC615DD483F00605B7D /* Placeholder.png */; };
@@ -71,10 +67,6 @@
 		0A04240D15DA8E03008143F0 /* ASAddBusinessDataController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASAddBusinessDataController.m; sourceTree = "<group>"; };
 		0A04240F15DA8E0D008143F0 /* ASAddBusiness.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASAddBusiness.h; sourceTree = "<group>"; };
 		0A04241015DA8E0D008143F0 /* ASAddBusiness.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASAddBusiness.m; sourceTree = "<group>"; };
-		0A0ED5EA15DB07BD008F548A /* 67_Princeton_NJ.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = 67_Princeton_NJ.png; path = ../../../Downloads/67_Princeton_NJ.png; sourceTree = "<group>"; };
-		0A3DB65A15D46F3F0069637D /* kermit_empty.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = kermit_empty.png; sourceTree = "<group>"; };
-		0A3DB65B15D46F3F0069637D /* kermit_full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = kermit_full.png; sourceTree = "<group>"; };
-		0A3DB65C15D46F3F0069637D /* kermit_half.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = kermit_half.png; sourceTree = "<group>"; };
 		0A3DB66415D5AF970069637D /* ASIconDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIconDownloader.h; sourceTree = "<group>"; };
 		0A3DB66515D5AF970069637D /* ASIconDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIconDownloader.m; sourceTree = "<group>"; };
 		0A3DB67315D5B8FC0069637D /* ASListing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASListing.h; sourceTree = "<group>"; };
@@ -194,17 +186,6 @@
 			name = "Add Business";
 			sourceTree = "<group>";
 		};
-		0A3DB65915D46F3F0069637D /* kermitStars */ = {
-			isa = PBXGroup;
-			children = (
-				0A0ED5EA15DB07BD008F548A /* 67_Princeton_NJ.png */,
-				0A3DB65A15D46F3F0069637D /* kermit_empty.png */,
-				0A3DB65B15D46F3F0069637D /* kermit_full.png */,
-				0A3DB65C15D46F3F0069637D /* kermit_half.png */,
-			);
-			path = kermitStars;
-			sourceTree = "<group>";
-		};
 		6C096F7E15BD93BE0082ECDB /* Images */ = {
 			isa = PBXGroup;
 			children = (
@@ -258,7 +239,6 @@
 				0A04240815DA8DA3008143F0 /* Add Business */,
 				0A0423FF15D9AD80008143F0 /* Listings View */,
 				0A0423FE15D9AD5D008143F0 /* Query Panel */,
-				0A3DB65915D46F3F0069637D /* kermitStars */,
 				6C0CC24415B7B1FC00F2F7B6 /* ASAppDelegate.h */,
 				6C0CC24515B7B1FC00F2F7B6 /* ASAppDelegate.m */,
 				0A04240015D9AD99008143F0 /* Map View */,
@@ -383,9 +363,6 @@
 				6C096F8C15BD93F10082ECDB /* tab_account.png in Resources */,
 				6C096F8D15BD93F10082ECDB /* tab_scan.png in Resources */,
 				6C096F8E15BD93F10082ECDB /* tab_listings.png in Resources */,
-				0A3DB65D15D46F3F0069637D /* kermit_empty.png in Resources */,
-				0A3DB65E15D46F3F0069637D /* kermit_full.png in Resources */,
-				0A3DB65F15D46F3F0069637D /* kermit_half.png in Resources */,
 				0A7BAAC715DD483F00605B7D /* Placeholder.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -395,7 +372,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				6C0CC26C15B7B1FC00F2F7B6 /* InfoPlist.strings in Resources */,
-				0A0ED5EB15DB07BD008F548A /* 67_Princeton_NJ.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
