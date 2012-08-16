@@ -8,7 +8,8 @@
 
 #import "ASAddBusinessViewController.h"
 #import "ASAddBusinessDataController.h"
-
+#define IMAGE_VIEW 600
+#define LABEL_VIEW 601
 @interface ASAddBusinessViewController ()
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) IBOutlet ASAddBusinessDataController *addBusinessDataController;
@@ -91,7 +92,12 @@
     {
         NSString *CellIdentifier = @"TypeCell";
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-        cell.textLabel.text = [[self.addBusinessDataController.business.allTypes objectAtIndex:indexPath.row] objectForKey:@"typeName"];
+        UILabel *label =(UILabel *)[cell viewWithTag:LABEL_VIEW];
+        label.text = [[self.addBusinessDataController.business.allTypes objectAtIndex:indexPath.row] objectForKey:@"typeName"];
+        
+        UIImageView *imageView =(UIImageView*)[cell viewWithTag:IMAGE_VIEW];
+        imageView.image = [UIImage imageNamed: [[self.addBusinessDataController.business.allTypes objectAtIndex:indexPath.row] objectForKey:@"typeIcon"]];
+        imageView.backgroundColor = [UIColor lightGrayColor];
         return cell;
     }
     // Configure the cell...

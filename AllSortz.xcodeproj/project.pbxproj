@@ -46,6 +46,8 @@
 		0A0ECAD815DD76E8007FD661 /* sushi.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A0ECAB715DD76E8007FD661 /* sushi.png */; };
 		0A0ECAD915DD76E8007FD661 /* wifi.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A0ECAB815DD76E8007FD661 /* wifi.png */; };
 		0A0ECADA15DD76E8007FD661 /* wine.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A0ECAB915DD76E8007FD661 /* wine.png */; };
+		0A0ECADD15DD82AF007FD661 /* default.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A0ECADC15DD82AF007FD661 /* default.png */; };
+		0A0ECADF15DD82BF007FD661 /* latenight.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A0ECADE15DD82BF007FD661 /* latenight.png */; };
 		0A3DB66615D5AF970069637D /* ASIconDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A3DB66515D5AF970069637D /* ASIconDownloader.m */; };
 		0A3DB67515D5B8FC0069637D /* ASListing.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A3DB67415D5B8FC0069637D /* ASListing.m */; };
 		0A7BAAC715DD483F00605B7D /* Placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A7BAAC615DD483F00605B7D /* Placeholder.png */; };
@@ -133,6 +135,8 @@
 		0A0ECAB715DD76E8007FD661 /* sushi.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sushi.png; sourceTree = "<group>"; };
 		0A0ECAB815DD76E8007FD661 /* wifi.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wifi.png; sourceTree = "<group>"; };
 		0A0ECAB915DD76E8007FD661 /* wine.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wine.png; sourceTree = "<group>"; };
+		0A0ECADC15DD82AF007FD661 /* default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = default.png; sourceTree = "<group>"; };
+		0A0ECADE15DD82BF007FD661 /* latenight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = latenight.png; sourceTree = "<group>"; };
 		0A3DB66415D5AF970069637D /* ASIconDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIconDownloader.h; sourceTree = "<group>"; };
 		0A3DB66515D5AF970069637D /* ASIconDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIconDownloader.m; sourceTree = "<group>"; };
 		0A3DB67315D5B8FC0069637D /* ASListing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASListing.h; sourceTree = "<group>"; };
@@ -255,6 +259,8 @@
 		0A0ECA9815DD76E8007FD661 /* type_icons */ = {
 			isa = PBXGroup;
 			children = (
+				0A0ECADE15DD82BF007FD661 /* latenight.png */,
+				0A0ECADC15DD82AF007FD661 /* default.png */,
 				0A0ECA9915DD76E8007FD661 /* accessible.png */,
 				0A0ECA9A15DD76E8007FD661 /* account.png */,
 				0A0ECA9B15DD76E8007FD661 /* allsortz.png */,
@@ -504,6 +510,8 @@
 				0A0ECAD815DD76E8007FD661 /* sushi.png in Resources */,
 				0A0ECAD915DD76E8007FD661 /* wifi.png in Resources */,
 				0A0ECADA15DD76E8007FD661 /* wine.png in Resources */,
+				0A0ECADD15DD82AF007FD661 /* default.png in Resources */,
+				0A0ECADF15DD82BF007FD661 /* latenight.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
