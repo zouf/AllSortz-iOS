@@ -43,7 +43,7 @@ static NSString *urlEncode(id object) {
 {
     if (!(self = [super init]) || ![[aJSONObject objectForKey:@"success"] boolValue])
         return nil;
-    self.types = [[NSMutableArray alloc]init];
+    self.allTypes = [[NSMutableArray alloc]init];
     NSDictionary * results = [aJSONObject objectForKey:@"result"];
     
     NSMutableArray *lTypes = [[NSMutableArray alloc] init];
@@ -51,23 +51,36 @@ static NSString *urlEncode(id object) {
     for (NSDictionary * dict in results)
     {
         NSString *name = [dict objectForKey:@"typeName"];
-        [lTypes addObject:name];
+        NSInteger typeid = (NSInteger)[dict objectForKey:@"typeID"];
+        NSString *iconName = [dict objectForKey:@"typeIcon"];
+
+        NSDictionary * typeEntry= [NSDictionary dictionaryWithObjectsAndKeys:
+                                  name, @"typeName",
+                                  typeid ,@"typeID",
+                                  iconName ,@"typeIcon",nil];
+        [lTypes addObject:typeEntry];
         
     }
-    self.types = lTypes;
+    self.allTypes = lTypes;
     
     return self;
 }
 #warning - figure out a way to do this serialization better
 - (NSDictionary *) serializeToDictionary
 {
+    NSError * error;
+    NSData *jsonData =  [NSJSONSerialization dataWithJSONObject:self.selectedTypes options:NSJSONWritingPrettyPrinted error:&error];
+    NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    
     NSDictionary * dict= [NSDictionary dictionaryWithObjectsAndKeys:
                           self.businessName, @"businessName",
                           self.businessPhone ,@"businessPhone",
                             self.businessAddress ,@"businessAddress",
                             self.businessURL ,@"businessURL",
                             self.businessCity, @"businessCity",
+                         jsonString, @"selectedTypes",
                             self.businessState ,@"businessState",nil];
+    
     return dict;
 }
 
@@ -89,7 +102,7 @@ static NSString *urlEncode(id object) {
     }
     if (section == 1)
     {
-        return [self.types count];
+        return [self.allTypes count];
         // select types...
     }
     

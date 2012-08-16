@@ -23,9 +23,10 @@
 
     NSString *businessPhone;
     NSString *businessURL;
+    NSArray *selectedTypes;
 
 
-    NSArray *types;
+    NSArray *allTypes;
 
 }
 
@@ -38,7 +39,8 @@
 @property(nonatomic, retain) NSString *businessPhone;
 @property(nonatomic, retain) NSString *businessURL;
 
-@property(nonatomic, retain) NSArray *types;
+@property(nonatomic, retain) NSArray *selectedTypes;
+@property(nonatomic, retain) NSArray *allTypes;
 
 - (id)initWithJSONObject:(NSDictionary *)aJSONObject;
 - (NSDictionary *)serializeToDictionary;

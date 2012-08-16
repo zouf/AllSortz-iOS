@@ -91,7 +91,7 @@
     {
         NSString *CellIdentifier = @"TypeCell";
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-        cell.textLabel.text = [self.addBusinessDataController.business.types objectAtIndex:indexPath.row];
+        cell.textLabel.text = [[self.addBusinessDataController.business.allTypes objectAtIndex:indexPath.row] objectForKey:@"typeName"];
         return cell;
     }
     // Configure the cell...
@@ -129,11 +129,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
 
-    UITableViewCell * cell = [tableView cellForRowAtIndexPath:indexPath];
-    if ([cell isSelected])
-    {
-        NSLog(@"%@ is selected\n", [self.addBusinessDataController.business.types objectAtIndex:indexPath.row]);
-    }
+
     // TODO figure out how to unselect!!!
         // check if selected or unselected.
 }
@@ -156,7 +152,21 @@
 
 
 - (IBAction)add:(id)sender {
+    
+    NSMutableArray *lTypes =[[NSMutableArray alloc]init];
+    for (NSInteger i = 0; i < [self.tableView numberOfRowsInSection:1]; ++i)
+    {
+        UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:1]];
+        if ([cell isSelected])
+        {
+            NSDictionary *typeEntry =  [self.addBusinessDataController.business.allTypes objectAtIndex:i];
+            [lTypes addObject:[typeEntry objectForKey:@"typeName" ]];
+
+        }
+    }
+    
     ASAddBusiness *business = self.addBusinessDataController.business;
+
     UITextField *nameField = (UITextField*)[self.tableView viewWithTag:BUSINESS_NAME];
     UITextField *streetField = (UITextField*)[self.tableView viewWithTag:BUSINESS_STREET];
     UITextField *cityField = (UITextField*)[self.tableView viewWithTag:BUSINESS_CITY];
@@ -171,7 +181,9 @@
     business.businessURL = urlField.text;
     business.businessPhone = phoneField.text;
     business.businessState = stateField.text;
-    NSLog(@"ADD HIT!\n");
+    business.selectedTypes = lTypes;
+    
+    
     [self.addBusinessDataController uploadData];
     
     [self.delegate newASAddBusinessViewController:self didCreateNewBusiness:self.addBusinessDataController.business];

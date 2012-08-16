@@ -177,7 +177,7 @@
                 [self startIconDownload:listing forIndexPath:indexPath];
             }
             // if a download is deferred or in progress, return a placeholder image
-            imageView.image = [UIImage imageNamed:@"MediumIcon2.png"];
+            imageView.image = [UIImage imageNamed:@"Placeholder.png"];
         }
         else
         {
