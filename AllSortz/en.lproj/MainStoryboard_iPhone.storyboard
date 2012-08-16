@@ -56,7 +56,7 @@
                     <tabBarItem key="tabBarItem" title="Earn" image="tab_scan.png" id="WgS-Yo-3GE"/>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="-122" y="502"/>
+            <point key="canvasLocation" x="-211" y="411"/>
         </scene>
         <!--View Controller - Account-->
         <scene sceneID="wBF-fO-oE0">
@@ -71,7 +71,7 @@
                     <tabBarItem key="tabBarItem" title="Account" image="tab_account.png" id="0Ji-et-geZ"/>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="-204" y="1050"/>
+            <point key="canvasLocation" x="-211" y="1040"/>
         </scene>
         <!--Map View Controller - Map-->
         <scene sceneID="2ZB-qc-zaX">
@@ -216,7 +216,7 @@
                     </connections>
                 </tableViewController>
             </objects>
-            <point key="canvasLocation" x="1211" y="-1464"/>
+            <point key="canvasLocation" x="1275" y="-1457"/>
         </scene>
         <!--Sort View Controller - Query Control-->
         <scene sceneID="lCV-Ad-FsG">
@@ -297,7 +297,7 @@
                 </tableViewController>
                 <customObject id="hWd-jz-ajJ" customClass="ASQueryDataController"/>
             </objects>
-            <point key="canvasLocation" x="1225" y="-841"/>
+            <point key="canvasLocation" x="1275" y="-847"/>
         </scene>
         <!--Listings View Controller - Listings-->
         <scene sceneID="vyn-c9-9Uv">
@@ -329,7 +329,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="101" contentMode="left" text="Business Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="GvO-Qd-4LP">
-                                                    <rect key="frame" x="87" y="4" width="150" height="21"/>
+                                                    <rect key="frame" x="79" y="4" width="158" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -354,35 +354,35 @@
                                                     <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </label>
                                                 <progressView opaque="NO" tag="106" contentMode="scaleToFill" progress="0.5" id="RYy-9r-QvR">
-                                                    <rect key="frame" x="87" y="31" width="129" height="9"/>
+                                                    <rect key="frame" x="78" y="31" width="138" height="9"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </progressView>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="Placeholder.png" id="2q1-dr-qtN">
+                                                <imageView hidden="YES" userInteractionEnabled="NO" tag="600" contentMode="scaleToFill" image="pie.png" id="2q1-dr-qtN">
                                                     <rect key="frame" x="79" y="44" width="25" height="25"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                 </imageView>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="Placeholder.png" id="rp7-QV-hCJ">
+                                                <imageView hidden="YES" userInteractionEnabled="NO" tag="601" contentMode="scaleToFill" image="Placeholder.png" id="rp7-QV-hCJ">
                                                     <rect key="frame" x="105" y="44" width="25" height="25"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                 </imageView>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="Placeholder.png" id="GDv-ig-H2r">
+                                                <imageView hidden="YES" userInteractionEnabled="NO" tag="602" contentMode="scaleToFill" image="Placeholder.png" id="GDv-ig-H2r">
                                                     <rect key="frame" x="131" y="44" width="25" height="25"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                 </imageView>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="Placeholder.png" id="aGI-Wq-eyD">
+                                                <imageView hidden="YES" userInteractionEnabled="NO" tag="603" contentMode="scaleToFill" image="Placeholder.png" id="aGI-Wq-eyD">
                                                     <rect key="frame" x="157" y="44" width="25" height="25"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                 </imageView>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="Placeholder.png" id="jyv-Lg-lmP">
+                                                <imageView hidden="YES" userInteractionEnabled="NO" tag="604" contentMode="scaleToFill" image="Placeholder.png" id="jyv-Lg-lmP">
                                                     <rect key="frame" x="183" y="44" width="25" height="25"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                 </imageView>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="Placeholder.png" id="gBC-AJ-Pmw">
+                                                <imageView hidden="YES" userInteractionEnabled="NO" tag="605" contentMode="scaleToFill" image="Placeholder.png" id="gBC-AJ-Pmw">
                                                     <rect key="frame" x="209" y="44" width="25" height="25"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -459,7 +459,7 @@
                     </connections>
                 </navigationController>
             </objects>
-            <point key="canvasLocation" x="778" y="-833"/>
+            <point key="canvasLocation" x="810" y="-847"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="zHp-Na-QmV">
@@ -477,11 +477,12 @@
                     </connections>
                 </navigationController>
             </objects>
-            <point key="canvasLocation" x="769" y="-1472"/>
+            <point key="canvasLocation" x="810" y="-1457"/>
         </scene>
     </scenes>
     <resources>
         <image name="Placeholder.png" width="360" height="360"/>
+        <image name="pie.png" width="60" height="60"/>
         <image name="tab_account.png" width="30" height="30"/>
         <image name="tab_listings.png" width="30" height="30"/>
         <image name="tab_map.png" width="30" height="30"/>

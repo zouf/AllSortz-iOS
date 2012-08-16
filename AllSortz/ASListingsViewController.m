@@ -138,17 +138,24 @@
         
         UILabel *distanceLabel = (UILabel *)[cell viewWithTag:DISTANCE_VIEW];
         distanceLabel.text = [listing.businessDistance  stringByAppendingString:@"mi."];
-        
-        UILabel *typeLabel = (UILabel *)[cell viewWithTag:TYPE_LABEL];
-        NSMutableString * allTypes = [NSMutableString string];
+
+        int i = 0;
+        NSLog(@"LISTING TYPES %@\n",listing.businessTypes);
         for (NSMutableDictionary * t in listing.businessTypes)
         {
-            NSString * tname = [[t valueForKey:@"type"] valueForKey:@"typeName"];
-            [allTypes appendString:tname];
-            [allTypes appendString:@" "];
+            // first six types
+            if (i >= 6)
+                break;
+            
+            NSInteger imageID = TYPE_ICON_IMAGE_BASE + i;
 
+            UIImageView *typeIcon = (UIImageView *)[cell viewWithTag:imageID];
+            NSString * tIcon = [[t valueForKey:@"type"] valueForKey:@"typeIcon"];
+            
+            typeIcon.image = [UIImage imageNamed:tIcon];
+            typeIcon.hidden = NO;
+            i++;            
         }
-        typeLabel.text = allTypes;
         
         
         /*ASRateView *rateView = (ASRateView *)[cell viewWithTag:RATING_VIEW];

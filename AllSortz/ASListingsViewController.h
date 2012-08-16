@@ -10,6 +10,9 @@
 #import "ASSortViewController.h"
 #import "ASAddBusinessViewController.h"
 
+#define NUM_TYPE_ICONS 6
+#define TYPE_ICON_IMAGE_BASE 600
+
 @interface ASListingsViewController : UIViewController <UITableViewDelegate, UIScrollViewDelegate, UISearchBarDelegate, ASIconDownloaderDelegate, ASRateViewDelegate, NewSortDelegate, NewBusinessDelegate>
 {
     NSMutableDictionary *imageDownloadsInProgress;  // the set of IconDownloader objects for each app    
