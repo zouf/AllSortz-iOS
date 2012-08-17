@@ -301,10 +301,11 @@
 
 #pragma mark - Create New Sort
 
--(void)newASSortViewController:(ASSortViewController *)nsvc didCreateNewSort:(ASQuery *)query{
+-(void)newASSortViewController:(ASSortViewController *)nsvc didCreateNewSort:(ASBusinessList *)newList{
     // Update the data based on the new query
     //[self.listingsTableDataController.businessList.entries removeAllObjects];
-    [self.listingsTableDataController updateData];
+    
+    [self.listingsTableDataController updateDataWithNewList:newList];
     [self.navigationController dismissModalViewControllerAnimated:YES];
 }
 

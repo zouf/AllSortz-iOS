@@ -14,29 +14,10 @@
 {
     if (!(self = [super init]) || ![[aJSONObject objectForKey:@"success"] boolValue])
         return nil;
-    self.sorts = [[NSMutableArray alloc]init];
     //NSLog(@"%@\n",self.sorts);
     NSDictionary * results = [aJSONObject objectForKey:@"result"];
-    
-    NSMutableArray *lSorts = [[NSMutableArray alloc] init];
-    for (NSDictionary * dict in [results objectForKey:@"tags"])
-    {
-        NSString *name = [dict objectForKey:@"tagName"];
-        [lSorts addObject:name];
-    }
-    NSMutableArray *lTypes = [[NSMutableArray alloc] init];
-
-    for (NSDictionary * dict in [results objectForKey:@"types"])
-    {
-        NSString *name = [dict objectForKey:@"typeName"];
-        [lTypes addObject:name];
-
-    }
-    self.sorts = lSorts;
-    self.types = lTypes;
-    NSLog(@"%@\n", self.types);
-    NSLog(@"%@\n", self.sorts);
-
+    self.allSorts = [results objectForKey:@"tags"];
+    self.allTypes = [results objectForKey:@"types"];
     return self;
 }
 
@@ -49,6 +30,8 @@
     return 3;
 }
 
+
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
 #warning Incomplete method implementation.
@@ -56,19 +39,39 @@
     NSLog(@"NUmber of rows!\n");
     if (section == 0)
     {
-        return 0;
+        return 1;
     }
     else if (section == 1)
     {
-        NSLog(@"Returning %d\n",[self.sorts count]);
-        return [self.types count];
+        int ct = [self.allTypes count];
+        return ct;
     }
     else
     {
-        return [self.sorts count];
+        int ct = [self.allSorts count];
+        return ct;
         
     }
     return 0;
+}
+
+- (NSDictionary *) serializeToDictionary
+{
+    NSError * error;
+    NSData *typeData =  [NSJSONSerialization dataWithJSONObject:self.selectedTypes options:NSJSONWritingPrettyPrinted error:&error];
+    NSString *typeString = [[NSString alloc] initWithData:typeData encoding:NSUTF8StringEncoding];
+    
+    NSData *sortData =  [NSJSONSerialization dataWithJSONObject:self.selectedSorts options:NSJSONWritingPrettyPrinted error:&error];
+    NSString *sortString = [[NSString alloc] initWithData:sortData encoding:NSUTF8StringEncoding];
+    
+    NSDictionary * dict= [NSDictionary dictionaryWithObjectsAndKeys:
+                         // self.distance, @"dw",
+                          typeString, @"selectedTypes",
+                          sortString, @"selectedSorts",
+                          self.searchText ,@"searchText",
+                          self.searchLocation ,@"location",nil];
+    
+    return dict;
 }
 
 @end

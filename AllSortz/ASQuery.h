@@ -8,28 +8,42 @@
 
 #import <Foundation/Foundation.h>
 
+
 @interface ASQuery : NSObject
 {
     NSString *searchText;
-    NSArray *categories;
-    NSArray *sorts;
-    float distance;
-    float value;
-    float price;
-    float score;
+    NSString *searchLocation;
+
+    NSArray *allTypes;
+    NSArray *allSorts;
+ /*   NSNumber *distance;
+    NSNumber *value;
+    NSNumber *price;
+    NSNumber *score;
+    */
+    NSArray *selectedTypes;
+    NSArray *selectedSorts;
 }
 
+
 @property(nonatomic, retain) NSString *searchText;
-@property(nonatomic, retain) NSArray *types;
-@property(nonatomic, retain) NSArray *sorts;
-@property(assign) float distance;
-@property(assign) float value;
-@property(assign) float price;
-@property(assign) float score;
+@property(nonatomic, retain) NSString *searchLocation;
+
+@property(nonatomic, retain) NSArray *allTypes;
+@property(nonatomic, retain) NSArray *allSorts;
+@property(nonatomic, retain) NSArray *selectedTypes;
+@property(nonatomic, retain) NSArray *selectedSorts;
+/*@property(nonatomic,retain) NSNumber * distance;
+@property(nonatomic,retain) NSNumber * value;
+
+@property(nonatomic,retain) NSNumber * price;
+
+@property(nonatomic,retain) NSNumber * score;*/
+
 
 
 - (id)initWithJSONObject:(NSDictionary *)aJSONObject;
-
+- (NSDictionary *)serializeToDictionary;
 
 
 

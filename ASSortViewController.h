@@ -7,11 +7,20 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ASBusinessList.h"
 
+#define ICON_IMAGE_VIEW 600
+#define LABEL_VIEW 601
+#define SEARCH_TEXT_VIEW 700
+#define DISTANCE_PROXIMITY_VIEW 701
+#define LOCATION_TEXT_VIEW 703
+
+#define TYPES_SECTION 1
+#define SORTS_SECTION 2
 
 @protocol NewSortDelegate;
 
-@interface ASSortViewController : UITableViewController
+@interface ASSortViewController : UITableViewController 
 {
     id<NewSortDelegate>delegate;
     UITextField *sortNameField;
@@ -34,7 +43,7 @@
 
 @protocol NewSortDelegate <NSObject>
 
--(void)newASSortViewController:(ASSortViewController *)nsvc didCreateNewSort:(NSString *)url;
+-(void)newASSortViewController:(ASSortViewController *)nsvc didCreateNewSort:(ASBusinessList *)url;
 -(void)cancelNewASSortViewController:(ASSortViewController *)nsvc;
 
 @end

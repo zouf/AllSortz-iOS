@@ -11,13 +11,12 @@
 
 @interface ASSortViewController ()
 
-@property (strong, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) IBOutlet ASQueryDataController *queryDataController;
+@property (strong, nonatomic) IBOutlet UITableView *tableView;
 
 @end
 
 @implementation ASSortViewController
-@synthesize tableView;
 @synthesize queryDataController;
 
 - (id)initWithStyle:(UITableViewStyle)style
@@ -52,7 +51,6 @@
 - (void)viewDidUnload
 {
     [self setQueryDataController:nil];
-    [self setTableView:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -72,6 +70,7 @@
 }
 
 
+
 #pragma mark - Update
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -88,70 +87,67 @@
     NSInteger section =[indexPath section];
     if (section == 0)  // sliders and search bar
     {
-        static NSString *CellID = @"SliderCell";
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellID];
+        NSString *CellIdentifier = @"SliderCell";
+        UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    
         return cell;
     }
-    else if (section == 1)
+    else if (section == TYPES_SECTION)
     {
-        static NSString *CellID = @"TypeCell";
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellID];
-        cell.textLabel.text = [self.queryDataController.query.types objectAtIndex:[indexPath row]];
-        return cell;
+        NSString *CellIdentifier = @"TypeCell";
+        UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        UILabel *label =(UILabel *)[cell viewWithTag:LABEL_VIEW];
+        label.text = [[self.queryDataController.query.allTypes objectAtIndex:indexPath.row] objectForKey:@"typeName"];
         
+        UIImageView *imageView =(UIImageView*)[cell viewWithTag:ICON_IMAGE_VIEW];
+        imageView.image = [UIImage imageNamed: [[self.queryDataController.query.allTypes objectAtIndex:indexPath.row] objectForKey:@"typeIcon"]];
+        imageView.backgroundColor = [UIColor lightGrayColor];
+        return cell;        
     }
-    else
+    else if (section == SORTS_SECTION)
     {
-        static NSString *CellID = @"SortCell";
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellID];
-        cell.textLabel.text = [self.queryDataController.query.sorts objectAtIndex:[indexPath row]];
+        static NSString *CellIdentifier = @"SortCell";
+        UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        UILabel *label =(UILabel *)[cell viewWithTag:LABEL_VIEW];
+        label.text = [[self.queryDataController.query.allSorts objectAtIndex:indexPath.row] objectForKey:@"tagName"];
+        
+        UIImageView *imageView =(UIImageView*)[cell viewWithTag:ICON_IMAGE_VIEW];
+        imageView.image = [UIImage imageNamed: [[self.queryDataController.query.allSorts objectAtIndex:indexPath.row] objectForKey:@"tagIcon"]];
+        imageView.backgroundColor = [UIColor lightGrayColor];
         return cell;
     }
-    //NSString *contentForThisRow = [sectionContents objectAtIndex:[indexPath row]];
-    
-    // Configure the cell...
-    
     return nil;
 }
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+-(CGFloat)tableView:(UITableView*)tableView heightForHeaderInSection:(NSInteger)section
 {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
+    return 30;
 }
-*/
 
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+-(UIView*)tableView:(UITableView*)tableView viewForHeaderInSection:(NSInteger)section
 {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }   
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
+    UILabel *label = [[UILabel alloc]init];
+    
+	NSString *sectionHeader = nil;
+	
+	if(section == 0) {
+        return nil;
+	}
+	if(section == 1) {
+		sectionHeader = @"Business Types";
+	}
+    else if(section == 2) {
+		sectionHeader = @"Sort Discussionss";
+	}
+    label.text = sectionHeader;
+    label.font = [UIFont boldSystemFontOfSize:16.0];
+    label.textAlignment=UITextAlignmentCenter;
+    
+    [label setBackgroundColor:[UIColor clearColor]];
+    return label;
 }
-*/
 
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
 
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
 #pragma mark - Key value observing
 - (void)observeValueForKeyPath:(NSString *)keyPath
                       ofObject:(id)object
@@ -170,27 +166,55 @@
 
 #pragma mark - Table view delegate
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     */
+    
+    if ([indexPath section ]== 0)
+        return 150;
+    return 45;
 }
-#pragma mark - Actions
 
 #pragma mark - Actions
 -(IBAction)cancelTapped:(id)sender{ 
-    NSLog(@"Send a cancel command\n");
     [self.delegate cancelNewASSortViewController:self];
 }
 
 -(IBAction)doneTapped:(id)sender{
-    NSLog(@"Send a done command\n");
+    
+    NSMutableArray *lTypes =[[NSMutableArray alloc]init];
+    NSMutableArray *lSorts =[[NSMutableArray alloc]init];
 
-    [self.delegate newASSortViewController:self didCreateNewSort:self.queryDataController.query];
+    for (NSInteger i = 0; i < [self.tableView numberOfRowsInSection:TYPES_SECTION]; ++i)
+    {
+        UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:1]];
+        if ([cell isSelected])
+        {
+            NSDictionary *typeEntry =  [self.queryDataController.query.allTypes objectAtIndex:i];
+            [lTypes addObject:[typeEntry objectForKey:@"typeID" ]];
+            
+        }
+    }
+    for (NSInteger i = 0; i < [self.tableView numberOfRowsInSection:SORTS_SECTION]; ++i)
+    {
+        UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:1]];
+        if ([cell isSelected])
+        {
+            NSDictionary *typeEntry =  [self.queryDataController.query.allTypes objectAtIndex:i];
+            [lSorts addObject:[typeEntry objectForKey:@"tagID"]];
+            
+        }
+    }
+    
+    UITextField *searchText = (UITextField*)[self.tableView viewWithTag:SEARCH_TEXT_VIEW];
+    UISlider *distanceProx = (UISlider*)[self.tableView viewWithTag:DISTANCE_PROXIMITY_VIEW];;
+    self.queryDataController.query.selectedTypes = lTypes;
+    self.queryDataController.query.selectedSorts = lSorts;
+
+    
+    
+    [self.queryDataController uploadData];
+
+    
+    [self.delegate newASSortViewController:self didCreateNewSort:self.queryDataController.businessList];
 }
 @end

@@ -8,17 +8,24 @@
 
 #import <Foundation/Foundation.h>
 #import "ASQuery.h"
+#import "ASBusinessList.h"
+
 
 @interface ASQueryDataController : NSObject  <NSURLConnectionDataDelegate>
 
 @property (strong, readonly) ASQuery *query;
+@property (strong, readonly) ASBusinessList *businessList;
 
 - (BOOL)updateData;
+- (BOOL)uploadData;
+
 
 // NSURLConnectionDataDelegate
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response;
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data;
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error;
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection;
+- (NSURLRequest *)postRequestWithAddress:(NSString *)address data: (NSData *)data;      // IN
+
 
 @end

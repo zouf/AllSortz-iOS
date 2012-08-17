@@ -14,6 +14,8 @@
 @property (strong, readonly) ASBusinessList *businessList;
 
 - (BOOL)updateData;
+- (BOOL)updateDataWithNewList:(ASBusinessList*)newList;
+
 
 // NSURLConnectionDataDelegate
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response;

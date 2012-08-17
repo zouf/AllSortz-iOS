@@ -35,6 +35,13 @@
     return YES;
 }
 
+- (BOOL)updateDataWithNewList:(ASBusinessList*)newList
+{
+    self.businessList = newList;
+    self.receivedData = nil;
+    return YES;
+}
+
 #pragma mark - Connection data delegate
 
 // TODO: Handle server problems and non-200 responses
