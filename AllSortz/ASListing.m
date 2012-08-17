@@ -8,18 +8,7 @@
 
 #import "ASListing.h"
 
+
 @implementation ASListing
-
-
-@synthesize businessName;
-@synthesize businessDistance;
-@synthesize businessPhoto;
-@synthesize businessTypes;
-@synthesize imageURLString;
-@synthesize recommendation;
-@synthesize userRating;
-
-
-
 
 @end
