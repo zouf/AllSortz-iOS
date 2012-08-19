@@ -27,17 +27,11 @@
 @implementation ASListingsViewController
 
 #pragma mark - View controller
-@synthesize imageDownloadsInProgress;
-
-
-@synthesize searchBar = _searchBar;
-//@synthesize activityWaiting = _activityWaiting;
-
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    imageDownloadsInProgress = [NSMutableDictionary dictionary];
+    self.imageDownloadsInProgress = [NSMutableDictionary dictionary];
     [self.listingsTableDataController addObserver:self
                                        forKeyPath:@"businessList"
                                           options:NSKeyValueObservingOptionNew

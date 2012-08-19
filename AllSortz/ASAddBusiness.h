@@ -7,22 +7,6 @@
 //
 
 @interface ASAddBusiness : NSObject
-{
-    NSString *businessName;
-    NSString *businessAddress;
-    NSString *businessCity;
-    NSString *businessState;
-
-    NSString *businessPhone;
-    NSString *businessURL;
-    NSString *businessPhotoURL;
-    NSArray *selectedTypes;
-
-
-    NSArray *allTypes;
-
-}
-
 
 @property(nonatomic, retain) NSString *businessName;
 @property(nonatomic, retain) NSString *businessAddress;

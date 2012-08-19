@@ -17,7 +17,6 @@
 @end
 
 @implementation ASSortViewController
-@synthesize queryDataController;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {

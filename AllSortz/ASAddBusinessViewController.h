@@ -23,10 +23,6 @@
 
 
 @interface ASAddBusinessViewController : UITableViewController
-{
-    id<NewBusinessDelegate>delegate;
-    UITextField *businessNameField;
-}
 
 @property(strong,nonatomic)id<NewBusinessDelegate>delegate;
 @property(strong,nonatomic)IBOutlet UITextField *businessNameField;

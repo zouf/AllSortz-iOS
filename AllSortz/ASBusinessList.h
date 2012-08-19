@@ -18,7 +18,6 @@
 @interface ASBusinessList : NSObject <UITableViewDataSource>
 {
     NSMutableDictionary *imageDownloadsInProgress;  // the set of IconDownloader objects for each app
-    NSArray *entries;   // the main data model for our UITableView
 }
 
 - (id)initWithJSONObject:(NSDictionary *)aJSONObject;
@@ -29,6 +28,7 @@
 - (NSArray *)businessesAtIndexes:(NSIndexSet *)indexes;
 - (void)getBusinesses:(id __unsafe_unretained *)buffer range:(NSRange)inRange;
 
+// the main data model for our UITableView
 @property (nonatomic, retain) NSMutableArray *entries;
 
 

@@ -14,14 +14,6 @@
 @protocol ASIconDownloaderDelegate;
 
 @interface ASIconDownloader : NSObject
-{
-    ASListing *listing;
-    NSIndexPath *indexPathInTableView;
-    id <ASIconDownloaderDelegate> delegate;
-    
-    NSMutableData *activeDownload;
-    NSURLConnection *imageConnection;
-}
 
 @property (nonatomic, retain) ASListing *listing;
 @property (nonatomic, retain) NSIndexPath *indexPathInTableView;

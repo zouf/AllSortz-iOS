@@ -7,21 +7,6 @@
 //
 
 @interface ASQuery : NSObject
-{
-    NSString *searchText;
-    NSString *searchLocation;
-
-    NSArray *allTypes;
-    NSArray *allSorts;
- /*   NSNumber *distance;
-    NSNumber *value;
-    NSNumber *price;
-    NSNumber *score;
-    */
-    NSArray *selectedTypes;
-    NSArray *selectedSorts;
-}
-
 
 @property(nonatomic, retain) NSString *searchText;
 @property(nonatomic, retain) NSString *searchLocation;

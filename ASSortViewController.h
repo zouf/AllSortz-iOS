@@ -21,10 +21,6 @@
 @protocol NewSortDelegate;
 
 @interface ASSortViewController : UITableViewController 
-{
-    id<NewSortDelegate>delegate;
-    UITextField *sortNameField;
-}
 
 @property(strong,nonatomic)id<NewSortDelegate>delegate;
 @property(strong,nonatomic)IBOutlet UITextField *sortNameField;

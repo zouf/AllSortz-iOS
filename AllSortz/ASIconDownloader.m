@@ -15,18 +15,12 @@
 
 @implementation ASIconDownloader
 
-@synthesize listing;
-@synthesize indexPathInTableView;
-@synthesize delegate;
-@synthesize activeDownload;
-@synthesize imageConnection;
-
 #pragma mark
 
 - (void)dealloc
 {
 
-    [imageConnection cancel];
+    [_imageConnection cancel];
 
 }
 
@@ -39,7 +33,7 @@
     
     NSURLConnection *conn = [[NSURLConnection alloc] initWithRequest:
                              [NSURLRequest requestWithURL:
-                              [NSURL URLWithString:listing.imageURLString]] delegate:self];
+                              [NSURL URLWithString:self.listing.imageURLString]] delegate:self];
     self.imageConnection = conn;
 
 }
@@ -96,7 +90,7 @@
     self.imageConnection = nil;
     
     // call our delegate and tell it that our icon is ready for display
-    [delegate imageDidLoad:self.indexPathInTableView];
+    [self.delegate imageDidLoad:self.indexPathInTableView];
 }
 
 @end

@@ -16,9 +16,6 @@
 #define TYPE_ICON_IMAGE_BASE 600
 
 @interface ASListingsViewController : UIViewController <UITableViewDelegate, UITabBarControllerDelegate, UIScrollViewDelegate, UISearchBarDelegate, ASIconDownloaderDelegate, NewSortDelegate, NewBusinessDelegate>
-{
-    NSMutableDictionary *imageDownloadsInProgress;  // the set of IconDownloader objects for each app    
-}
 
 // Key-value observing
 - (void)observeValueForKeyPath:(NSString *)keyPath
@@ -26,6 +23,7 @@
                         change:(NSDictionary *)change
                        context:(void *)context;
 
+// the set of IconDownloader objects for each app
 @property (nonatomic, retain) NSMutableDictionary *imageDownloadsInProgress;
 
 @end

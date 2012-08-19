@@ -17,7 +17,6 @@
 @end
 
 @implementation ASAddBusinessViewController
-@synthesize addBusinessDataController;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
