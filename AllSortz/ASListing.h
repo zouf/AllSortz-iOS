@@ -6,29 +6,17 @@
 //  Copyright (c) 2012 AllSortz, Inc. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
 #import "ASRateView.h"
 
+
 @interface ASListing : NSObject
-{
-    NSString *businessName;
-    UIImage *businessPhoto;
-    NSArray *businessTypes;
-    NSString *businessDistance;
-    NSString *imageURLString;
-    float recommendation;
-    float userRating;
 
-}
-
-@property (nonatomic, retain) NSString *businessName;
-@property (nonatomic, retain) UIImage *businessPhoto;
-@property (nonatomic, retain) NSArray *businessTypes;
-@property (nonatomic, retain) NSString *imageURLString;
-
-@property (nonatomic, retain) NSString *businessDistance;
-@property (assign, nonatomic) float recommendation;
-@property (assign, nonatomic) float userRating;
-
+@property (nonatomic) NSString *businessDistance;
+@property (nonatomic) NSString *businessName;
+@property (nonatomic) UIImage *businessPhoto;
+@property (nonatomic) NSArray *businessTypes;
+@property (nonatomic) NSString *imageURLString;
+@property (nonatomic) float recommendation;
+@property (nonatomic) float userRating;
 
 @end
