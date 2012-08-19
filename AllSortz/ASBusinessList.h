@@ -9,7 +9,6 @@
 #import "ASIconDownloader.h"
 
 #define IMAGE_VIEW 102
-#define BUSINESS_NAME 101
 #define RATING_VIEW 100
 #define DISTANCE_VIEW 105
 #define TYPE_LABEL 104
