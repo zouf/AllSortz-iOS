@@ -6,7 +6,6 @@
 //  Copyright (c) 2012 AllSortz, Inc. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
 #import "ASAddBusiness.h"
 
 #define BUSINESS_NAME 200

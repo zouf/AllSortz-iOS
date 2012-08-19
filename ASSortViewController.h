@@ -6,7 +6,6 @@
 //  Copyright (c) 2012 AllSortz, Inc. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
 #import "ASBusinessList.h"
 #import "ASQuery.h"
 

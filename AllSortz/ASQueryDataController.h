@@ -6,7 +6,6 @@
 //  Copyright (c) 2012 AllSortz, Inc. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
 #import "ASQuery.h"
 #import "ASBusinessList.h"
 
