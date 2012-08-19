@@ -42,9 +42,9 @@
 
 - (void)viewDidUnload
 {
-    [self setSearchBar:nil];
-   // [self setActivityWaiting:nil];
     [super viewDidUnload];
+    self.searchBar = nil;
+    // self.activityWaiting = nil;
     [self.listingsTableDataController removeObserver:self forKeyPath:@"businessList"];
 }
 
@@ -344,12 +344,12 @@
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     
     if([segue.identifier isEqualToString:@"NewSort"]){
-        UINavigationController *nv = (UINavigationController *)[segue destinationViewController];
+        UINavigationController *nv = (UINavigationController *)segue.destinationViewController;
         ASSortViewController *nsvc = (ASSortViewController *)nv.topViewController;
         nsvc.delegate = self;
     }
     else if([segue.identifier isEqualToString:@"AddBusiness"]){
-        UINavigationController *nv = (UINavigationController *)[segue destinationViewController];
+        UINavigationController *nv = (UINavigationController *)segue.destinationViewController;
         ASAddBusinessViewController *abvc = (ASAddBusinessViewController *)nv.topViewController;
         abvc.delegate = self;
     }

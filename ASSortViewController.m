@@ -47,8 +47,8 @@
 
 - (void)viewDidUnload
 {
-    [self setQueryDataController:nil];
     [super viewDidUnload];
+    self.queryDataController = nil;
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
 }

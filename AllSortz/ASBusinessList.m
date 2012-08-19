@@ -28,9 +28,9 @@
     if (!(self = [super init]) || ![[aJSONObject objectForKey:@"success"] boolValue])
         return nil;
     _businesses = [aJSONObject objectForKey:@"result"];
-    self.entries = [[NSMutableArray alloc]init];
+    _entries = [[NSMutableArray alloc]init];
     
-    for(NSDictionary * dict in self.businesses)
+    for(NSDictionary * dict in _businesses)
     {
         //NSString *businessName = [dict objectForKey:@"businesName"];
         ASListing *listing = [[ASListing alloc]init];
@@ -43,7 +43,7 @@
         listing.recommendation = [[dict valueForKey:@"ratingRecommendation"] floatValue];
         listing.userRating = [[dict valueForKey:@"ratingForCurrentUser"] floatValue];
 
-        [self.entries addObject:listing];
+        [_entries addObject:listing];
     }
     
     return self;

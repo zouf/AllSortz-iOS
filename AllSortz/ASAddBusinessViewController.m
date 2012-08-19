@@ -47,9 +47,9 @@
 
 - (void)viewDidUnload
 {
-    [self setAddBusinessDataController:nil];
-
     [super viewDidUnload];
+    self.addBusinessDataController = nil;
+
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
 }
@@ -125,7 +125,7 @@
     label.font = [UIFont boldSystemFontOfSize:16.0];
     label.textAlignment=UITextAlignmentCenter;
 
-    [label setBackgroundColor:[UIColor clearColor]];
+    label.backgroundColor = [UIColor clearColor];
     return label;
 }
 
