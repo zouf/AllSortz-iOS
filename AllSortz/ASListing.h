@@ -15,9 +15,12 @@
 @property (nonatomic) NSString *businessName;
 @property (nonatomic) UIImage *businessPhoto;
 @property (nonatomic) NSArray *businessTypes;
+@property (readonly) NSUInteger ID;
 @property (nonatomic) NSString *imageURLString;
 @property (nonatomic) float recommendation;
 @property (nonatomic) float userRating;
 @property (nonatomic) NSString * averagePrice;
+
+- (id)initWithID:(NSUInteger)anID;
 
 @end

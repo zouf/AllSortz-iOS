@@ -33,8 +33,9 @@
     for(NSDictionary * dict in _businesses)
     {
         //NSString *businessName = [dict objectForKey:@"businesName"];
-        ASListing *listing = [[ASListing alloc]init];
-    
+        NSUInteger listingID = [[dict valueForKey:@"businessID"] unsignedIntegerValue];
+        ASListing *listing = [[ASListing alloc] initWithID:listingID];
+
         listing.businessName = [dict valueForKey:@"businessName"];
         listing.averagePrice = [dict valueForKey:@"averagePrice"];
         listing.imageURLString = [dict valueForKey:@"photoURL"];

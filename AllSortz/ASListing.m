@@ -11,4 +11,18 @@
 
 @implementation ASListing
 
+- (id)initWithID:(NSUInteger)anID
+{
+    if (!(self = [super init]))
+        return nil;
+    _ID = anID;
+    return self;
+}
+
+- (id)init
+{
+    // Must initialize with an ID
+    return nil;
+}
+
 @end
