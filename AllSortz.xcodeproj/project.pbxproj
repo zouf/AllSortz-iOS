@@ -384,18 +384,18 @@
 		6C0CC23B15B7B1FC00F2F7B6 /* AllSortz */ = {
 			isa = PBXGroup;
 			children = (
-				0AFF55A015E53B1A002E5085 /* ASURLEncoding.h */,
-				0AFF55A115E53B1A002E5085 /* ASURLEncoding.m */,
-				0A04240815DA8DA3008143F0 /* Add Business */,
-				0A0423FF15D9AD80008143F0 /* Listings View */,
-				0A0423FE15D9AD5D008143F0 /* Query Panel */,
 				6C0CC24415B7B1FC00F2F7B6 /* ASAppDelegate.h */,
 				6C0CC24515B7B1FC00F2F7B6 /* ASAppDelegate.m */,
 				6C2516A615E145DC00475CB2 /* ASSubscripting.h */,
-				0A04240015D9AD99008143F0 /* Map View */,
+				0AFF55A015E53B1A002E5085 /* ASURLEncoding.h */,
+				0AFF55A115E53B1A002E5085 /* ASURLEncoding.m */,
 				6C0CC24715B7B1FC00F2F7B6 /* MainStoryboard_iPhone.storyboard */,
 				6C0CC24A15B7B1FC00F2F7B6 /* MainStoryboard_iPad.storyboard */,
+				0A04240815DA8DA3008143F0 /* Add Business */,
 				6C096F7E15BD93BE0082ECDB /* Images */,
+				0A0423FF15D9AD80008143F0 /* Listings View */,
+				0A04240015D9AD99008143F0 /* Map View */,
+				0A0423FE15D9AD5D008143F0 /* Query Panel */,
 				6C0CC23C15B7B1FC00F2F7B6 /* Supporting Files */,
 			);
 			path = AllSortz;
