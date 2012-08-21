@@ -13,6 +13,9 @@
 // TODO: Use more structured repr for location, hours, and phone
 
 @property (nonatomic) NSString *address;
+@property (nonatomic) NSString *city;
+@property (nonatomic) NSString *state;
+
 @property (nonatomic) NSArray *hours;
 @property (nonatomic) NSString *name;
 @property (nonatomic) NSString *phone;

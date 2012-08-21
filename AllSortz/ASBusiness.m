@@ -52,6 +52,8 @@
 #pragma mark - Custom setters
 
 SIMPLE_SETTER(address, Address, NSString *)
+SIMPLE_SETTER(city, City, NSString *)
+SIMPLE_SETTER(state, State, NSString *)
 
 SIMPLE_SETTER(hours, Hours, NSArray *)
 SIMPLE_SETTER(name, Name, NSString *)
