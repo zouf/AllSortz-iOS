@@ -13,6 +13,7 @@
 #import "ASListing.h"
 #import "ASQuery.h"
 #import "ASAddBusinessViewController.h"
+#import "ASBusinessDetailsViewController.h"
 
 @interface ASListingsViewController ()
 
@@ -353,19 +354,30 @@
     [self.navigationController dismissModalViewControllerAnimated:YES];
 }
 
-#pragma mark - Segue STuff
+#pragma mark - Storyboard
 
--(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
-    
-    if([segue.identifier isEqualToString:@"NewSort"]){
-        UINavigationController *nv = (UINavigationController *)segue.destinationViewController;
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    id destinationViewController = segue.destinationViewController;
+
+    if ([segue.identifier isEqualToString:@"NewSort"]) {
+        UINavigationController *nv = destinationViewController;
         ASSortViewController *nsvc = (ASSortViewController *)nv.topViewController;
         nsvc.delegate = self.listingsTableDataController;
     }
-    else if([segue.identifier isEqualToString:@"AddBusiness"]){
-        UINavigationController *nv = (UINavigationController *)segue.destinationViewController;
+
+    if ([segue.identifier isEqualToString:@"AddBusiness"]) {
+        UINavigationController *nv = destinationViewController;
         ASAddBusinessViewController *abvc = (ASAddBusinessViewController *)nv.topViewController;
         abvc.delegate = self;
+    }
+
+    if ([segue.identifier isEqualToString:@"ShowBusinessDetails"]) {
+        ASBusinessDetailsViewController *detailsViewController = destinationViewController;
+        ASBusinessList *businesses = self.listingsTableDataController.businessList;
+        NSArray *businessIDs = [businesses valueForKeyPath:@"entries.ID"];
+        NSInteger selectedRow = [self.tableView indexPathForSelectedRow].row;
+        detailsViewController.businessID = [businessIDs[selectedRow] unsignedIntegerValue];
     }
 }
 

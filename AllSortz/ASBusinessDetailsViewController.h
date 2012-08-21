@@ -8,4 +8,6 @@
 
 @interface ASBusinessDetailsViewController : UITableViewController
 
+@property NSUInteger businessID;
+
 @end
