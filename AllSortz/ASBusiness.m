@@ -21,6 +21,15 @@
     } while(0)
 #endif
 
+#ifndef SIMPLE_SETTER
+#define SIMPLE_SETTER(lower_name, caps_name, type) \
+    - (void)set ## caps_name:(type)lower_name \
+    { \
+        CHECK_FOR_MULTI_ASSIGN(_ ## lower_name); \
+        _ ## lower_name = lower_name; \
+    }
+#endif
+
 
 @implementation ASBusiness
 
@@ -39,60 +48,19 @@
     return nil;
 }
 
+
 #pragma mark - Custom setters
 
-- (void)setHours:(NSArray *)hours
-{
-    CHECK_FOR_MULTI_ASSIGN(_hours);
-    // TODO: Switch to more structured representation
-    // TODO: Check representation
-    _hours = hours;
-}
+SIMPLE_SETTER(address, Address, NSString *)
 
-- (void)setImage:(UIImage *)image
-{
-    CHECK_FOR_MULTI_ASSIGN(_image);
-    _image = image;
-}
+SIMPLE_SETTER(hours, Hours, NSArray *)
+SIMPLE_SETTER(name, Name, NSString *)
+SIMPLE_SETTER(phone, Phone, NSString *)
+SIMPLE_SETTER(website, Website, NSURL *)
 
-- (void)setImageID:(NSUInteger)imageID
-{
-    CHECK_FOR_MULTI_ASSIGN(_imageID);
-    _imageID = imageID;
-}
+SIMPLE_SETTER(image, Image, UIImage *)
+SIMPLE_SETTER(imageID, ImageID, NSUInteger)
 
-- (void)setAddress:(NSString *)address
-{
-    CHECK_FOR_MULTI_ASSIGN(_address);
-    // TODO: Switch to more structured representation
-    // TODO: Check representation
-    _address = address;
-}
-
-- (void)setName:(NSString *)name
-{
-    CHECK_FOR_MULTI_ASSIGN(_name);
-    _name = name;
-}
-
-- (void)setPhone:(NSString *)phone
-{
-    CHECK_FOR_MULTI_ASSIGN(_phone);
-    // TODO: Switch to more structured representation
-    // TODO: Check representation
-    _phone = phone;
-}
-
-- (void)setScore:(NSNumber *)score
-{
-    CHECK_FOR_MULTI_ASSIGN(_score);
-    _score = score;
-}
-
-- (void)setWebsite:(NSURL *)website
-{
-    CHECK_FOR_MULTI_ASSIGN(_website);
-    _website = website;
-}
+SIMPLE_SETTER(score, Score, NSNumber *)
 
 @end
