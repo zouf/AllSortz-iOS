@@ -12,6 +12,8 @@
 #define RATING_VIEW 100
 #define DISTANCE_VIEW 105
 #define TYPE_LABEL 104
+#define PRICE_VIEW 107
+#define RATE_VIEW 106
 
 @interface ASBusinessList : NSObject <UITableViewDataSource>
 {

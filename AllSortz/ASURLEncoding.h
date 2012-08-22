@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
-@interface ASURLEncoding : NSObject
+@interface NSDictionary (UrlEncoding)
+
+-(NSString*) urlEncodedString;
 
 @end

@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "ASBusinessList.h"
+#import "ASQuery.h"
 
 #define ICON_IMAGE_VIEW 600
 #define LABEL_VIEW 601
@@ -45,6 +46,7 @@
 
 -(void)newASSortViewController:(ASSortViewController *)nsvc didCreateNewSort:(ASBusinessList *)url;
 -(void)cancelNewASSortViewController:(ASSortViewController *)nsvc;
+-(void)waitOnQueryResponse:(ASQuery *)query;
 
 @end
 

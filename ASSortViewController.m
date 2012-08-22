@@ -44,8 +44,6 @@
                                        forKeyPath:@"query"
                                           options:NSKeyValueObservingOptionNew
                                           context:NULL];
-
-    
 }
 
 - (void)viewDidUnload
@@ -154,7 +152,6 @@
                         change:(NSDictionary *)change
                        context:(void *)context
 {
-    NSLog(@"Observed change at %@\n", keyPath);
     // If the business list changes, reassign
     if ([keyPath isEqualToString:@"query"]) {
         id newDataSource = [change objectForKey:NSKeyValueChangeNewKey];
@@ -205,16 +202,19 @@
         }
     }
     
-    UITextField *searchText = (UITextField*)[self.tableView viewWithTag:SEARCH_TEXT_VIEW];
     UISlider *distanceProx = (UISlider*)[self.tableView viewWithTag:DISTANCE_PROXIMITY_VIEW];;
     self.queryDataController.query.selectedTypes = lTypes;
     self.queryDataController.query.selectedSorts = lSorts;
+    self.queryDataController.query.searchText = ((UITextField*)[self.tableView viewWithTag:SEARCH_TEXT_VIEW]).text;
 
-    
-    
-    [self.queryDataController uploadData];
+  //  [self.queryDataController uploadData];
+    ASQuery *newQ = [[ASQuery alloc] init];
+    newQ.searchText =  [((UITextField*)[self.tableView viewWithTag:SEARCH_TEXT_VIEW]).text copy];
+    newQ.selectedSorts = lSorts;
+    newQ.selectedTypes = lTypes;
+    newQ.searchLocation = [NSString stringWithFormat:@"%f", distanceProx.value];
+    [self.delegate waitOnQueryResponse:newQ];
 
-    
-    [self.delegate newASSortViewController:self didCreateNewSort:self.queryDataController.businessList];
+
 }
 @end

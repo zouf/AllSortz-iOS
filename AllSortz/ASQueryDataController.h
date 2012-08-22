@@ -14,11 +14,9 @@
 @interface ASQueryDataController : NSObject  <NSURLConnectionDataDelegate>
 
 @property (strong, readonly) ASQuery *query;
-@property (strong, readonly) ASBusinessList *businessList;
+@property (strong, readonly) ASBusinessList *searchResults;
 
 - (BOOL)updateData;
-- (BOOL)uploadData;
-
 
 // NSURLConnectionDataDelegate
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response;

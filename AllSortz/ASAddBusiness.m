@@ -8,60 +8,13 @@
 
 #import "ASAddBusiness.h"
 
-// file "NSDictionary+UrlEncoding.m"
-
-
-// helper function: get the string form of any object
-static NSString *toString(id object) {
-    return [NSString stringWithFormat: @"%@", object];
-}
-
-// helper function: get the url encoded string form of any object
-static NSString *urlEncode(id object) {
-    NSString *string = toString(object);
-    return [string stringByAddingPercentEscapesUsingEncoding: NSUTF8StringEncoding];
-}
-
-@implementation NSDictionary (UrlEncoding)
-
--(NSString*) urlEncodedString {
-    NSMutableArray *parts = [NSMutableArray array];
-    for (id key in self) {
-        id value = [self objectForKey: key];
-        NSString *part = [NSString stringWithFormat: @"%@=%@", urlEncode(key), urlEncode(value)];
-        [parts addObject: part];
-    }
-    return [parts componentsJoinedByString: @"&"];
-}
-
-@end
-
 @implementation ASAddBusiness
-
 
 - (id)initWithJSONObject:(NSDictionary *)aJSONObject
 {
     if (!(self = [super init]) || ![[aJSONObject objectForKey:@"success"] boolValue])
         return nil;
-    self.allTypes = [[NSMutableArray alloc]init];
-    NSDictionary * results = [aJSONObject objectForKey:@"result"];
-    
-    NSMutableArray *lTypes = [[NSMutableArray alloc] init];
-    
-    for (NSDictionary * dict in results)
-    {
-        NSString *name = [dict objectForKey:@"typeName"];
-        NSInteger typeid = (NSInteger)[dict objectForKey:@"typeID"];
-        NSString *iconName = [dict objectForKey:@"typeIcon"];
-
-        NSDictionary * typeEntry= [NSDictionary dictionaryWithObjectsAndKeys:
-                                  name, @"typeName",
-                                  typeid ,@"typeID",
-                                  iconName ,@"typeIcon",nil];
-        [lTypes addObject:typeEntry];
-        
-    }
-    self.allTypes = lTypes;
+    self.allTypes = [aJSONObject objectForKey:@"result"];
     
     return self;
 }
@@ -103,9 +56,8 @@ static NSString *urlEncode(id object) {
     if (section == 1)
     {
         return [self.allTypes count];
-        // select types...
     }
-    
+    assert(NO);
 }
 
 @end

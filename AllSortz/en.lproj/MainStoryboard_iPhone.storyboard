@@ -384,14 +384,14 @@
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="105" contentMode="left" text="Distance" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="MMq-N5-xYX">
-                                                    <rect key="frame" x="235" y="4" width="114" height="21"/>
+                                                    <rect key="frame" x="242" y="4" width="114" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </label>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="105" contentMode="left" text="Price" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="Hiw-QS-dFR">
-                                                    <rect key="frame" x="235" y="21" width="114" height="21"/>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="107" contentMode="left" text="Price" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="Hiw-QS-dFR">
+                                                    <rect key="frame" x="242" y="21" width="114" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -531,48 +531,6 @@
         <image name="tab_map.png" width="30" height="30"/>
         <image name="tab_scan.png" width="30" height="30"/>
     </resources>
-    <classes>
-        <class className="ASAddBusinessDataController" superclassName="NSObject">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ASAddBusinessDataController.h"/>
-        </class>
-        <class className="ASAddBusinessViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ASAddBusinessViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="add:"/>
-                <relationship kind="action" name="cancel:"/>
-                <relationship kind="outlet" name="addBusinessDataController" candidateClass="ASAddBusinessDataController"/>
-                <relationship kind="outlet" name="businessNameField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
-            </relationships>
-        </class>
-        <class className="ASBusinessListDataController" superclassName="NSObject">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ASBusinessListDataController.h"/>
-        </class>
-        <class className="ASListingsViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ASListingsViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="listingsTableDataController" candidateClass="ASBusinessListDataController"/>
-                <relationship kind="outlet" name="searchBar" candidateClass="UISearchBar"/>
-                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
-            </relationships>
-        </class>
-        <class className="ASMapViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ASMapViewController.h"/>
-        </class>
-        <class className="ASQueryDataController" superclassName="NSObject">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ASQueryDataController.h"/>
-        </class>
-        <class className="ASSortViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ASSortViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="cancelTapped:"/>
-                <relationship kind="action" name="doneTapped:"/>
-                <relationship kind="outlet" name="queryDataController" candidateClass="ASQueryDataController"/>
-                <relationship kind="outlet" name="sortNameField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
-            </relationships>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

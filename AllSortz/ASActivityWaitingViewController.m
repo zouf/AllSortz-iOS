@@ -18,15 +18,38 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
+
     }
     return self;
 }
 
+-(id)initWithFrame:(CGRect)theFrame {
+    if (self = [super init]) {
+        frame = theFrame;
+        self.view.frame = theFrame;
+    }
+    return self;
+}
+
+
 - (void)viewDidLoad
 {
-    [super viewDidLoad];
-	// Do any additional setup after loading the view.
+    [super loadView];
+    container = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 110, 30)];
+    activityLabel = [[UILabel alloc] init];
+    activityLabel.text = NSLocalizedString(@"Loading", @"string1");
+    activityLabel.textColor = [UIColor lightGrayColor];
+    activityLabel.font = [UIFont boldSystemFontOfSize:17];
+    [container addSubview:activityLabel];
+    activityLabel.frame = CGRectMake(0, 3, 70, 25);
+    
+    activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    [container addSubview:activityIndicator];
+    activityIndicator.frame = CGRectMake(80, 0, 30, 30);
+    
+    [self.view addSubview:container];
+    container.center = CGPointMake(frame.size.width/2, frame.size.height/2);
+    self.view.backgroundColor = [UIColor whiteColor];
 }
 
 - (void)viewDidUnload
@@ -39,5 +62,18 @@
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
+
+-(void)viewWillAppear:(BOOL) animated {
+    [super viewWillAppear:animated];
+    [activityIndicator startAnimating];
+}
+
+-(void)viewWillDisappear:(BOOL) animated {
+    [super viewWillDisappear:animated];
+    [activityIndicator stopAnimating];
+}
+
+
+
 
 @end

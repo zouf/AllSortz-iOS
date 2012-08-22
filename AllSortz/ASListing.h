@@ -18,5 +18,6 @@
 @property (nonatomic) NSString *imageURLString;
 @property (nonatomic) float recommendation;
 @property (nonatomic) float userRating;
+@property (nonatomic) NSString * averagePrice;
 
 @end

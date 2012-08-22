@@ -8,7 +8,6 @@
 
 #import "ASBusinessListDataController.h"
 
-
 @interface ASBusinessListDataController ()
 
 @property (strong, readwrite) ASBusinessList *businessList;
@@ -37,10 +36,48 @@
 
 - (BOOL)updateDataWithNewList:(ASBusinessList*)newList
 {
+    
+
     self.businessList = newList;
     self.receivedData = nil;
     return YES;
 }
+
+
+- (BOOL)updateWithQuery:(ASQuery*)query
+{
+    static NSString *address = @"http://allsortz.com/api/businesses/search/";
+    
+    NSString *str = [[query serializeToDictionary] urlEncodedString];
+    NSData* data = [str dataUsingEncoding:NSUTF8StringEncoding];
+    NSURLRequest *request = [self postRequestWithAddress:address data:data];
+    NSURLConnection *connection = [NSURLConnection connectionWithRequest:request delegate:self];
+    if (!connection) {
+        // TODO: Some proper failure handling maybe
+        NSLog(@"Error\n");
+        return NO;
+    }
+    NSLog(@"Running upload data\n");
+    self.receivedData = [NSMutableData data];
+    return YES;
+}
+
+- (NSURLRequest *)postRequestWithAddress: (NSString *)address        // IN
+                                    data: (NSData *)data      // IN
+{
+    NSURL *url = [NSURL URLWithString:address];
+    NSMutableURLRequest *urlRequest =
+    [NSMutableURLRequest requestWithURL:url];
+    NSString *postLength = [NSString stringWithFormat:@"%d", [data length]];
+    [urlRequest setURL:[NSURL URLWithString:address]];
+    [urlRequest setHTTPMethod:@"POST"];
+    [urlRequest setValue:postLength forHTTPHeaderField:@"Content-Length"];
+    [urlRequest setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
+    [urlRequest setHTTPBody:data];
+    
+    return urlRequest;
+}
+
 
 #pragma mark - Connection data delegate
 

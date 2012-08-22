@@ -7,6 +7,8 @@
 //
 
 #import "ASBusinessList.h"
+#import "ASQuery.h"
+#import "ASURLEncoding.h"
 
 
 @interface ASBusinessListDataController : NSObject <NSURLConnectionDataDelegate>
@@ -15,6 +17,7 @@
 
 - (BOOL)updateData;
 - (BOOL)updateDataWithNewList:(ASBusinessList*)newList;
+- (BOOL)updateWithQuery:(ASQuery*)query;
 
 
 // NSURLConnectionDataDelegate

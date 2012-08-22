@@ -8,13 +8,14 @@
 
 #import "ASQuery.h"
 
+
+
 @implementation ASQuery
 
 - (id)initWithJSONObject:(NSDictionary *)aJSONObject
 {
     if (!(self = [super init]) || ![[aJSONObject objectForKey:@"success"] boolValue])
         return nil;
-    //NSLog(@"%@\n",self.sorts);
     NSDictionary * results = [aJSONObject objectForKey:@"result"];
     self.allSorts = [results objectForKey:@"tags"];
     self.allTypes = [results objectForKey:@"types"];
@@ -24,9 +25,7 @@
 
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-#warning Potentially incomplete method implementation.
-    // Return the number of sections.
+{    // Return the number of sections.
     return 3;
 }
 
@@ -34,9 +33,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-#warning Incomplete method implementation.
     // Return the number of rows in the section.
-    NSLog(@"NUmber of rows!\n");
     if (section == 0)
     {
         return 1;

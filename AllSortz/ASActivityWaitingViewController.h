@@ -9,5 +9,11 @@
 #import <UIKit/UIKit.h>
 
 @interface ASActivityWaitingViewController : UIViewController
-
+{
+    UILabel *activityLabel;
+    UIActivityIndicatorView *activityIndicator;
+    UIView *container;
+    CGRect frame;
+}
+-(id)initWithFrame:(CGRect) theFrame;
 @end

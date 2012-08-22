@@ -59,7 +59,6 @@ static NSString * const FORM_FLE_INPUT = @"uploaded";
 - (BOOL)uploadData
 {
     static NSString *address = @"http://allsortz.com/api/business/add/";
-    NSError* writeError = nil;
     NSString *str = [[self.business serializeToDictionary] urlEncodedString];
     NSData* data = [str dataUsingEncoding:NSUTF8StringEncoding];
     NSURLRequest *request = [self postRequestWithAddress:address data:data];
@@ -107,7 +106,6 @@ static NSString * const FORM_FLE_INPUT = @"uploaded";
 
     if (success == @"false")
     {
-        NSString *msg = [JSONresponse valueForKey:@"data"];
         return;
     }
     NSString *requestType = [JSONresponse valueForKey:@"requestType"];

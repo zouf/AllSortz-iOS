@@ -13,7 +13,7 @@
 @interface ASQueryDataController ()
 
 @property (strong, readwrite) ASQuery *query;
-@property (strong, readwrite) ASBusinessList *businessList;
+@property (strong, readwrite) ASBusinessList *searchResults;
 @property (strong) NSMutableData *receivedData;
 
 
@@ -38,39 +38,6 @@
     self.receivedData = [NSMutableData data];
     
     return YES;
-}
-
-- (BOOL)uploadData
-{
-    static NSString *address = @"http://allsortz.com/api/query/base/";
-    NSURL *url = [NSURL URLWithString:address];
-    NSURLRequest *request = [NSURLRequest requestWithURL:url];
-    
-    NSURLConnection *connection = [NSURLConnection connectionWithRequest:request delegate:self];
-    if (!connection) {
-        // TODO: Some proper failure handling maybe
-        NSLog(@"Error\n");
-        return NO;
-    }
-    NSLog(@"Running upload data\n");
-    self.receivedData = [NSMutableData data];
-    return YES;
-}
-
-- (NSURLRequest *)postRequestWithAddress: (NSString *)address        // IN
-                                    data: (NSData *)data      // IN
-{
-    NSURL *url = [NSURL URLWithString:address];
-    NSMutableURLRequest *urlRequest =
-    [NSMutableURLRequest requestWithURL:url];
-    NSString *postLength = [NSString stringWithFormat:@"%d", [data length]];
-    [urlRequest setURL:[NSURL URLWithString:address]];
-    [urlRequest setHTTPMethod:@"POST"];
-    [urlRequest setValue:postLength forHTTPHeaderField:@"Content-Length"];
-    [urlRequest setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
-    [urlRequest setHTTPBody:data];
-    
-    return urlRequest;
 }
 
 
@@ -106,11 +73,7 @@
         self.query = [[ASQuery alloc] initWithJSONObject:JSONresponse];
         self.receivedData = nil;
     }
-    else
-    {
-        self.businessList = [[ASBusinessList alloc] initWithJSONObject:JSONresponse];
-        self.receivedData = nil;
-    }
+
 
 }
 

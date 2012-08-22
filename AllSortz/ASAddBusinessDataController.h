@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "ASAddBusiness.h"
+#import "ASURLEncoding.h"
 
 @interface ASAddBusinessDataController : NSObject <NSURLConnectionDataDelegate>
 

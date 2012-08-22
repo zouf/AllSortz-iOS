@@ -58,6 +58,8 @@
 		0A7BAAC715DD483F00605B7D /* Placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A7BAAC615DD483F00605B7D /* Placeholder.png */; };
 		0AE3D40315DEB78A009F2F15 /* Icon57.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AE3D40115DEB78A009F2F15 /* Icon57.png */; };
 		0AE3D40415DEB78A009F2F15 /* Icon114.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AE3D40215DEB78A009F2F15 /* Icon114.png */; };
+		0AFF559C15E50E32002E5085 /* ASActivityWaitingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AFF559B15E50E32002E5085 /* ASActivityWaitingViewController.m */; };
+		0AFF55A215E53B1A002E5085 /* ASURLEncoding.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AFF55A115E53B1A002E5085 /* ASURLEncoding.m */; };
 		6C096F8315BD93CD0082ECDB /* tab_map@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6C096F7F15BD93CD0082ECDB /* tab_map@2x.png */; };
 		6C096F8415BD93CD0082ECDB /* tab_account@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6C096F8015BD93CD0082ECDB /* tab_account@2x.png */; };
 		6C096F8515BD93CD0082ECDB /* tab_scan@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6C096F8115BD93CD0082ECDB /* tab_scan@2x.png */; };
@@ -156,6 +158,10 @@
 		0A7BAAC615DD483F00605B7D /* Placeholder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Placeholder.png; sourceTree = "<group>"; };
 		0AE3D40115DEB78A009F2F15 /* Icon57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon57.png; sourceTree = "<group>"; };
 		0AE3D40215DEB78A009F2F15 /* Icon114.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon114.png; sourceTree = "<group>"; };
+		0AFF559A15E50E32002E5085 /* ASActivityWaitingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASActivityWaitingViewController.h; sourceTree = "<group>"; };
+		0AFF559B15E50E32002E5085 /* ASActivityWaitingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASActivityWaitingViewController.m; sourceTree = "<group>"; };
+		0AFF55A015E53B1A002E5085 /* ASURLEncoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASURLEncoding.h; sourceTree = "<group>"; };
+		0AFF55A115E53B1A002E5085 /* ASURLEncoding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASURLEncoding.m; sourceTree = "<group>"; };
 		6C096F7F15BD93CD0082ECDB /* tab_map@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab_map@2x.png"; sourceTree = "<group>"; };
 		6C096F8015BD93CD0082ECDB /* tab_account@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab_account@2x.png"; sourceTree = "<group>"; };
 		6C096F8115BD93CD0082ECDB /* tab_scan@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab_scan@2x.png"; sourceTree = "<group>"; };
@@ -221,6 +227,8 @@
 		0A0423FE15D9AD5D008143F0 /* Query Panel */ = {
 			isa = PBXGroup;
 			children = (
+				0AFF559A15E50E32002E5085 /* ASActivityWaitingViewController.h */,
+				0AFF559B15E50E32002E5085 /* ASActivityWaitingViewController.m */,
 				0A0423FB15D98896008143F0 /* ASQuery.h */,
 				0A0423FC15D98896008143F0 /* ASQuery.m */,
 				0A0423F815D97113008143F0 /* ASSortViewController.h */,
@@ -370,6 +378,8 @@
 		6C0CC23B15B7B1FC00F2F7B6 /* AllSortz */ = {
 			isa = PBXGroup;
 			children = (
+				0AFF55A015E53B1A002E5085 /* ASURLEncoding.h */,
+				0AFF55A115E53B1A002E5085 /* ASURLEncoding.m */,
 				0A04240815DA8DA3008143F0 /* Add Business */,
 				0A0423FF15D9AD80008143F0 /* Listings View */,
 				0A0423FE15D9AD5D008143F0 /* Query Panel */,
@@ -588,6 +598,8 @@
 				0A04240B15DA8DD6008143F0 /* ASAddBusinessViewController.m in Sources */,
 				0A04240E15DA8E03008143F0 /* ASAddBusinessDataController.m in Sources */,
 				0A04241115DA8E0E008143F0 /* ASAddBusiness.m in Sources */,
+				0AFF559C15E50E32002E5085 /* ASActivityWaitingViewController.m in Sources */,
+				0AFF55A215E53B1A002E5085 /* ASURLEncoding.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

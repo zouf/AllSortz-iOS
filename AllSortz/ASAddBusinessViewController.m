@@ -213,11 +213,7 @@
 }
 
 - (IBAction)cancel:(id)sender {
-    NSLog(@"Send a cancel command\n");
-    
     [self.delegate cancelASAddBusinessViewController:self];
-
-    
 }
 
 @end

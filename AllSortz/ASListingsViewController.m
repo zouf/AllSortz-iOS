@@ -19,6 +19,7 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) IBOutlet ASBusinessListDataController *listingsTableDataController;
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
+//@property (strong, nonatomic) IBOutlet ASActivityWaitingViewController *activityWaiting;
 
 @end
 
@@ -30,6 +31,7 @@
 
 
 @synthesize searchBar = _searchBar;
+//@synthesize activityWaiting = _activityWaiting;
 
 
 - (void)viewDidLoad
@@ -47,6 +49,7 @@
 - (void)viewDidUnload
 {
     [self setSearchBar:nil];
+   // [self setActivityWaiting:nil];
     [super viewDidUnload];
     [self.listingsTableDataController removeObserver:self forKeyPath:@"businessList"];
 }
@@ -61,7 +64,10 @@
 
     // Download data automatically if there's no data source
     if (!self.listingsTableDataController.businessList)
+    {
         [self.listingsTableDataController updateData];
+    
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -95,7 +101,6 @@
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AddBusinessCell"];
         if ( cell == nil)
         {
-#warning handle this?
             NSLog(@"Error case!\n");
             return nil;
             
@@ -139,38 +144,39 @@
         UILabel *distanceLabel = (UILabel *)[cell viewWithTag:DISTANCE_VIEW];
         distanceLabel.text = [listing.businessDistance  stringByAppendingString:@"mi."];
 
-        int i = 0;
-        NSLog(@"LISTING TYPES %@\n",listing.businessTypes);
-        for (NSMutableDictionary * t in listing.businessTypes)
+        
+        
+        UILabel *priceLabel = (UILabel *)[cell viewWithTag:PRICE_VIEW];
+        priceLabel.text = [NSString stringWithFormat:@"$%@", listing.averagePrice] ;
+
+        for (int i =0  ; i < NUM_TYPE_ICONS; i++ )
         {
             // first six types
-            if (i >= 6)
-                break;
-            
             NSInteger imageID = TYPE_ICON_IMAGE_BASE + i;
-
             UIImageView *typeIcon = (UIImageView *)[cell viewWithTag:imageID];
-            NSString * tIcon = [[t valueForKey:@"type"] valueForKey:@"typeIcon"];
-            
-            typeIcon.image = [UIImage imageNamed:tIcon];
-            typeIcon.hidden = NO;
-            i++;            
+            if (i >= listing.businessTypes.count)
+            {
+                typeIcon.hidden = YES;
+            }
+            else
+            {
+                NSMutableDictionary *t = [listing.businessTypes objectAtIndex:i];
+                
+                NSString * tIcon = [[t valueForKey:@"type"] valueForKey:@"typeIcon"];
+                
+                typeIcon.image = [UIImage imageNamed:tIcon];
+                typeIcon.hidden = NO;
+            }          
         }
         
+        UIProgressView *rateView =  (UIProgressView*)[cell viewWithTag:RATE_VIEW];
         
-        /*ASRateView *rateView = (ASRateView *)[cell viewWithTag:RATING_VIEW];
-        rateView.notSelectedImage = [UIImage imageNamed:@"kermit_empty.png"];
-        rateView.halfSelectedImage = [UIImage imageNamed:@"kermit_half.png"];
-        rateView.fullSelectedImage = [UIImage imageNamed:@"kermit_full.png"];
-       // NSLog(@"%@\n",[listing.userRating floatValue]);
-        rateView.rating = (float)listing.userRating;
-        rateView.editable = NO;
-        rateView.maxRating = 4;
-        rateView.delegate = self;*/
         
-        UIProgressView *rateView =  (UIProgressView*)[cell viewWithTag:106];
+#warning is this the recommendation or the user rating?
+        // if there's been a recommendation or user rating
+        
         rateView.progress = listing.userRating/4.0;
-        
+
         
 
         UIImageView *imageView = (UIImageView*)[cell viewWithTag:IMAGE_VIEW];
@@ -188,7 +194,6 @@
         }
         else
         {
-            //NSLog(@"Assigning %@!\n",cell);
             imageView.contentMode = UIViewContentModeScaleToFill;
             imageView.image = listing.businessPhoto;
         }
@@ -215,7 +220,6 @@
         iconDownloader.delegate = self;
         
         [self.imageDownloadsInProgress setObject:iconDownloader forKey:indexPath];
-        NSLog(@"Putting stuff intoindex %@\n",indexPath);
 
         [iconDownloader startDownload];
     }
@@ -224,7 +228,6 @@
 // this method is used in case the user scrolled into a set of cells that don't have their app icons yet
 - (void)loadImagesForOnscreenRows
 {
-    //NSLog(@"Loading imaages for onscreen rows\n");
     if ([self.listingsTableDataController.businessList.entries count] > 0)
     {
         NSArray *visiblePaths = [self.tableView indexPathsForVisibleRows];
@@ -246,9 +249,7 @@
 // called by our ImageDownloader when an icon is ready to be displayed
 - (void)imageDidLoad:(NSIndexPath *)indexPath
 {
-    ASIconDownloader *iconDownloader = [self.imageDownloadsInProgress objectForKey:indexPath];
-    //NSLog(@"Getting stuff from %@ for index %@\n",self.imageDownloadsInProgress,indexPath);
-    
+    ASIconDownloader *iconDownloader = [self.imageDownloadsInProgress objectForKey:indexPath];   
     
     if (iconDownloader != nil)
     {
@@ -296,6 +297,7 @@
         self.tableView.dataSource = (newDataSource == [NSNull null] ? nil : newDataSource);
         [self.imageDownloadsInProgress removeAllObjects];
         [self.tableView reloadData];
+        
     }
 }
 
@@ -312,6 +314,19 @@
 -(void)cancelNewASSortViewController:(ASSortViewController *)nsvc{
     [self.navigationController dismissModalViewControllerAnimated:YES];
 }
+
+
+-(void)waitOnQueryResponse:(ASQuery *)query{
+    [self.listingsTableDataController updateWithQuery:query];
+    [self.navigationController dismissModalViewControllerAnimated:YES];
+
+
+    /*    if (self.activityWaiting == nil) {
+     self.activityWaiting = [[ASActivityWaitingViewController alloc] initWithFrame:self.view.superview.bounds];
+     }
+     [self.tableView insertSubview:self.activityWaiting.view aboveSubview:self.tableView];*/
+}
+
 
 #pragma mark - #pragma mark - Create New Sort
 
@@ -337,7 +352,6 @@
         nsvc.delegate = self;
     }
     else if([segue.identifier isEqualToString:@"AddBusiness"]){
-        NSLog(@"%@\n",@"Whatup");
         UINavigationController *nv = (UINavigationController *)[segue destinationViewController];
         ASAddBusinessViewController *abvc = (ASAddBusinessViewController *)nv.topViewController;
         abvc.delegate = self;

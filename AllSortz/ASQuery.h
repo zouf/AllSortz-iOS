@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-
 @interface ASQuery : NSObject
 {
     NSString *searchText;
