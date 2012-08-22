@@ -531,6 +531,48 @@
         <image name="tab_map.png" width="30" height="30"/>
         <image name="tab_scan.png" width="30" height="30"/>
     </resources>
+    <classes>
+        <class className="ASAddBusinessDataController" superclassName="NSObject">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ASAddBusinessDataController.h"/>
+        </class>
+        <class className="ASAddBusinessViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ASAddBusinessViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="add:"/>
+                <relationship kind="action" name="cancel:"/>
+                <relationship kind="outlet" name="addBusinessDataController" candidateClass="ASAddBusinessDataController"/>
+                <relationship kind="outlet" name="businessNameField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
+            </relationships>
+        </class>
+        <class className="ASBusinessListDataController" superclassName="NSObject">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ASBusinessListDataController.h"/>
+        </class>
+        <class className="ASListingsViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ASListingsViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="listingsTableDataController" candidateClass="ASBusinessListDataController"/>
+                <relationship kind="outlet" name="searchBar" candidateClass="UISearchBar"/>
+                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
+            </relationships>
+        </class>
+        <class className="ASMapViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ASMapViewController.h"/>
+        </class>
+        <class className="ASQueryDataController" superclassName="NSObject">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ASQueryDataController.h"/>
+        </class>
+        <class className="ASSortViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ASSortViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="cancelTapped:"/>
+                <relationship kind="action" name="doneTapped:"/>
+                <relationship kind="outlet" name="queryDataController" candidateClass="ASQueryDataController"/>
+                <relationship kind="outlet" name="sortNameField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
+            </relationships>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
