@@ -283,7 +283,7 @@
 			name = "Add Business";
 			sourceTree = "<group>";
 		};
-		0A0ECA9815DD76E8007FD661 /* type_icons */ = {
+		0A0ECA9815DD76E8007FD661 /* Type Icons */ = {
 			isa = PBXGroup;
 			children = (
 				0A0ECAA415DD76E8007FD661 /* cocktail.png */,
@@ -322,6 +322,7 @@
 				0A0ECAB815DD76E8007FD661 /* wifi.png */,
 				0A0ECAB915DD76E8007FD661 /* wine.png */,
 			);
+			name = "Type Icons";
 			path = type_icons;
 			sourceTree = "<group>";
 		};
@@ -336,9 +337,9 @@
 				6C096F8715BD93F10082ECDB /* tab_map.png */,
 				6C096F7F15BD93CD0082ECDB /* tab_map@2x.png */,
 				6C096F8915BD93F10082ECDB /* tab_scan.png */,
-				0A0ECA9815DD76E8007FD661 /* type_icons */,
 				6C096F8115BD93CD0082ECDB /* tab_scan@2x.png */,
 				6C3A150C15E532DA006C9EC0 /* App Icons */,
+				0A0ECA9815DD76E8007FD661 /* Type Icons */,
 			);
 			name = Images;
 			sourceTree = "<group>";
