@@ -130,15 +130,8 @@
 		6C096F7E15BD93BE0082ECDB /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				6C096F8815BD93F10082ECDB /* tab_account.png */,
-				6C096F8015BD93CD0082ECDB /* tab_account@2x.png */,
-				6C096F8A15BD93F10082ECDB /* tab_listings.png */,
-				6C096F8215BD93CD0082ECDB /* tab_listings@2x.png */,
-				6C096F8715BD93F10082ECDB /* tab_map.png */,
-				6C096F7F15BD93CD0082ECDB /* tab_map@2x.png */,
-				6C096F8915BD93F10082ECDB /* tab_scan.png */,
-				6C096F8115BD93CD0082ECDB /* tab_scan@2x.png */,
 				6C3A150C15E532DA006C9EC0 /* App Icons */,
+				6C3A152215E54A68006C9EC0 /* Tab Bar Icons */,
 			);
 			name = Images;
 			sourceTree = "<group>";
@@ -165,11 +158,11 @@
 		6C0CC23415B7B1FC00F2F7B6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				6C0CC27815B7B9BE00F2F7B6 /* MapKit.framework */,
-				6C0CC23515B7B1FC00F2F7B6 /* UIKit.framework */,
-				6C0CC23715B7B1FC00F2F7B6 /* Foundation.framework */,
 				6C0CC23915B7B1FC00F2F7B6 /* CoreGraphics.framework */,
+				6C0CC23715B7B1FC00F2F7B6 /* Foundation.framework */,
+				6C0CC27815B7B9BE00F2F7B6 /* MapKit.framework */,
 				6C0CC26115B7B1FC00F2F7B6 /* SenTestingKit.framework */,
+				6C0CC23515B7B1FC00F2F7B6 /* UIKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -240,6 +233,21 @@
 				6C3A150E15E537A9006C9EC0 /* Icon-Small-50@2x.png */,
 			);
 			name = "App Icons";
+			sourceTree = "<group>";
+		};
+		6C3A152215E54A68006C9EC0 /* Tab Bar Icons */ = {
+			isa = PBXGroup;
+			children = (
+				6C096F8815BD93F10082ECDB /* tab_account.png */,
+				6C096F8015BD93CD0082ECDB /* tab_account@2x.png */,
+				6C096F8A15BD93F10082ECDB /* tab_listings.png */,
+				6C096F8215BD93CD0082ECDB /* tab_listings@2x.png */,
+				6C096F8715BD93F10082ECDB /* tab_map.png */,
+				6C096F7F15BD93CD0082ECDB /* tab_map@2x.png */,
+				6C096F8915BD93F10082ECDB /* tab_scan.png */,
+				6C096F8115BD93CD0082ECDB /* tab_scan@2x.png */,
+			);
+			name = "Tab Bar Icons";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
