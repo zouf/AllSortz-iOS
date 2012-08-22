@@ -15,7 +15,7 @@
 #define ACTIVITY_WAITING_VIEW 800
 #define TYPE_ICON_IMAGE_BASE 600
 
-@interface ASListingsViewController : UIViewController <UITableViewDelegate, UIScrollViewDelegate, UISearchBarDelegate, ASIconDownloaderDelegate, NewSortDelegate, NewBusinessDelegate>
+@interface ASListingsViewController : UIViewController <UITableViewDelegate, UITabBarControllerDelegate, UIScrollViewDelegate, UISearchBarDelegate, ASIconDownloaderDelegate, NewSortDelegate, NewBusinessDelegate>
 {
     NSMutableDictionary *imageDownloadsInProgress;  // the set of IconDownloader objects for each app    
 }

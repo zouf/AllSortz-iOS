@@ -136,7 +136,7 @@
 {
     
     if ([indexPath section ]== 0)
-        return 200;
+        return 244;
     return 45;
 }
 
@@ -196,6 +196,7 @@
     UITextField *urlField = (UITextField*)[self.tableView viewWithTag:BUSINESS_URL];
     UITextField *phoneField = (UITextField*)[self.tableView viewWithTag:BUSINESS_PHONE];
     UITextField *stateField =(UITextField*)[self.tableView viewWithTag:BUSINESS_STATE];
+    UITextField *photoURL =(UITextField*)[self.tableView viewWithTag:PHOTO_URL];
 
     
     business.businessName = nameField.text;
@@ -205,6 +206,8 @@
     business.businessPhone = phoneField.text;
     business.businessState = stateField.text;
     business.selectedTypes = lTypes;
+    business.businessPhotoURL = photoURL.text;
+
     
     
     [self.addBusinessDataController uploadData];
