@@ -631,7 +631,7 @@
     </scenes>
     <resources>
         <image name="Placeholder.png" width="360" height="360"/>
-        <image name="pie.png" width="60" height="60"/>
+        <image name="pie.png" width="30" height="30"/>
         <image name="tab_account.png" width="30" height="30"/>
         <image name="tab_listings.png" width="30" height="30"/>
         <image name="tab_map.png" width="30" height="30"/>
