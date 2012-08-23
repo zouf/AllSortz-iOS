@@ -21,7 +21,7 @@
                         <segue destination="Kk7-tR-ofS" kind="relationship" relationship="viewControllers" id="vGs-cZ-GmR"/>
                         <segue destination="rcy-Q3-2Kk" kind="relationship" relationship="viewControllers" id="rMk-bN-NyH"/>
                         <segue destination="pTR-B8-CFb" kind="relationship" relationship="viewControllers" id="UEH-xm-kiV"/>
-                        <segue destination="B3y-jJ-sif" kind="relationship" relationship="viewControllers" id="O1t-Ut-96I"/>
+                        <segue destination="Lq8-1e-PhY" kind="relationship" relationship="viewControllers" id="O1t-Ut-96I"/>
                     </connections>
                 </tabBarController>
             </objects>
@@ -58,20 +58,48 @@
             </objects>
             <point key="canvasLocation" x="-211" y="424"/>
         </scene>
-        <!--View Controller - Account-->
+        <!--User Profile View Controller-->
         <scene sceneID="wBF-fO-oE0">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="seg-n9-E66" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <viewController id="B3y-jJ-sif" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="1gW-zJ-OLH">
-                        <rect key="frame" x="0.0" y="20" width="320" height="411"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                <viewController id="B3y-jJ-sif" customClass="ASUserProfileViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="4fX-K5-tJe">
+                        <rect key="frame" x="0.0" y="64" width="320" height="367"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Le Question" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsFontSizeToFit="NO" id="8Qv-44-AYd">
+                                <rect key="frame" x="43" y="94" width="235" height="63"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" id="aZr-RF-7QW">
+                                <rect key="frame" x="101" y="224" width="118" height="23"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <action selector="importanceValueChanged:" destination="B3y-jJ-sif" eventType="valueChanged" id="eAo-cj-VoY"/>
+                                </connections>
+                            </slider>
+                        </subviews>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Account" image="tab_account.png" id="0Ji-et-geZ"/>
+                    <navigationItem key="navigationItem" id="GKC-LA-Z9K">
+                        <barButtonItem key="rightBarButtonItem" title="Item" id="Mch-nC-aoH">
+                            <connections>
+                                <segue destination="B3y-jJ-sif" kind="push" id="OnL-LB-78m"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="importanceValue" destination="aZr-RF-7QW" id="ugO-Kg-Rbl"/>
+                        <outlet property="questionText" destination="8Qv-44-AYd" id="GzJ-oh-MhR"/>
+                        <outlet property="userProfileDataController" destination="Heg-yu-rdf" id="IXE-dq-mg9"/>
+                    </connections>
                 </viewController>
+                <customObject id="Heg-yu-rdf" customClass="ASUserProfileDataController"/>
             </objects>
-            <point key="canvasLocation" x="-211" y="1040"/>
+            <point key="canvasLocation" x="315" y="1040"/>
         </scene>
         <!--Map View Controller - Map-->
         <scene sceneID="2ZB-qc-zaX">
@@ -531,6 +559,25 @@
             </objects>
             <point key="canvasLocation" x="810" y="-1457"/>
         </scene>
+        <!--Navigation Controller - Account-->
+        <scene sceneID="m60-Bt-LJh">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="X7z-KM-vjz" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <navigationController id="Lq8-1e-PhY" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Account" image="tab_account.png" id="0Ji-et-geZ"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="INa-OQ-dGa">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="B3y-jJ-sif" kind="relationship" relationship="rootViewController" id="D28-f2-r6Y"/>
+                    </connections>
+                </navigationController>
+            </objects>
+            <point key="canvasLocation" x="-211" y="1040"/>
+        </scene>
     </scenes>
     <resources>
         <image name="Placeholder.png" width="360" height="360"/>
@@ -581,10 +628,26 @@
                 <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
             </relationships>
         </class>
+        <class className="ASUserProfileDataController" superclassName="NSObject">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ASUserProfileDataController.h"/>
+        </class>
+        <class className="ASUserProfileViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ASUserProfileViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="importanceValueChanged:"/>
+                <relationship kind="outlet" name="importanceValue" candidateClass="UISlider"/>
+                <relationship kind="outlet" name="questionText" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="userProfileDataController" candidateClass="ASUserProfileDataController"/>
+            </relationships>
+        </class>
     </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
+    <inferredMetricsTieBreakers>
+        <segue reference="D28-f2-r6Y"/>
+    </inferredMetricsTieBreakers>
 </document>

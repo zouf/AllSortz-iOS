@@ -32,7 +32,7 @@
     
     for(NSDictionary * dict in _businesses)
     {
-        //NSString *businessName = [dict objectForKey:@"businesName"];
+        //NSString *businessName = [dict objectForKey:@"businesName"];  
         NSUInteger listingID = [[dict valueForKey:@"businessID"] unsignedIntegerValue];
         ASListing *listing = [[ASListing alloc] initWithID:listingID];
 

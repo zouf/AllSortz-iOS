@@ -51,6 +51,9 @@
 		0A3DB66615D5AF970069637D /* ASIconDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A3DB66515D5AF970069637D /* ASIconDownloader.m */; };
 		0A3DB67515D5B8FC0069637D /* ASListing.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A3DB67415D5B8FC0069637D /* ASListing.m */; };
 		0A7BAAC715DD483F00605B7D /* Placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A7BAAC615DD483F00605B7D /* Placeholder.png */; };
+		0AFE1B6F15E6995000636B4D /* ASUserProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AFE1B6E15E6995000636B4D /* ASUserProfileViewController.m */; };
+		0AFE1B7415E6997C00636B4D /* ASUserProfileDataController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AFE1B7315E6997C00636B4D /* ASUserProfileDataController.m */; };
+		0AFE1B7715E6999C00636B4D /* ASUserProfile.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AFE1B7615E6999C00636B4D /* ASUserProfile.m */; };
 		0AFF559C15E50E32002E5085 /* ASActivityWaitingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AFF559B15E50E32002E5085 /* ASActivityWaitingViewController.m */; };
 		0AFF55A215E53B1A002E5085 /* ASURLEncoding.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AFF55A115E53B1A002E5085 /* ASURLEncoding.m */; };
 		6C096F8315BD93CD0082ECDB /* tab_map@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6C096F7F15BD93CD0082ECDB /* tab_map@2x.png */; };
@@ -159,6 +162,12 @@
 		0A3DB67315D5B8FC0069637D /* ASListing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASListing.h; sourceTree = "<group>"; };
 		0A3DB67415D5B8FC0069637D /* ASListing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASListing.m; sourceTree = "<group>"; };
 		0A7BAAC615DD483F00605B7D /* Placeholder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Placeholder.png; sourceTree = "<group>"; };
+		0AFE1B6D15E6995000636B4D /* ASUserProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASUserProfileViewController.h; sourceTree = "<group>"; };
+		0AFE1B6E15E6995000636B4D /* ASUserProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASUserProfileViewController.m; sourceTree = "<group>"; };
+		0AFE1B7215E6997C00636B4D /* ASUserProfileDataController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASUserProfileDataController.h; sourceTree = "<group>"; };
+		0AFE1B7315E6997C00636B4D /* ASUserProfileDataController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASUserProfileDataController.m; sourceTree = "<group>"; };
+		0AFE1B7515E6999B00636B4D /* ASUserProfile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASUserProfile.h; sourceTree = "<group>"; };
+		0AFE1B7615E6999C00636B4D /* ASUserProfile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASUserProfile.m; sourceTree = "<group>"; };
 		0AFF559A15E50E32002E5085 /* ASActivityWaitingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASActivityWaitingViewController.h; sourceTree = "<group>"; };
 		0AFF559B15E50E32002E5085 /* ASActivityWaitingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASActivityWaitingViewController.m; sourceTree = "<group>"; };
 		0AFF55A015E53B1A002E5085 /* ASURLEncoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASURLEncoding.h; sourceTree = "<group>"; };
@@ -338,6 +347,19 @@
 			path = type_icons;
 			sourceTree = "<group>";
 		};
+		0AFE1B7115E6995C00636B4D /* User Profile */ = {
+			isa = PBXGroup;
+			children = (
+				0AFE1B6D15E6995000636B4D /* ASUserProfileViewController.h */,
+				0AFE1B6E15E6995000636B4D /* ASUserProfileViewController.m */,
+				0AFE1B7215E6997C00636B4D /* ASUserProfileDataController.h */,
+				0AFE1B7315E6997C00636B4D /* ASUserProfileDataController.m */,
+				0AFE1B7515E6999B00636B4D /* ASUserProfile.h */,
+				0AFE1B7615E6999C00636B4D /* ASUserProfile.m */,
+			);
+			name = "User Profile";
+			sourceTree = "<group>";
+		};
 		6C096F7E15BD93BE0082ECDB /* Images */ = {
 			isa = PBXGroup;
 			children = (
@@ -390,6 +412,7 @@
 				0AFF55A015E53B1A002E5085 /* ASURLEncoding.h */,
 				0AFF55A115E53B1A002E5085 /* ASURLEncoding.m */,
 				6C0CC24715B7B1FC00F2F7B6 /* MainStoryboard_iPhone.storyboard */,
+				0AFE1B7115E6995C00636B4D /* User Profile */,
 				6C0CC24A15B7B1FC00F2F7B6 /* MainStoryboard_iPad.storyboard */,
 				0A04240815DA8DA3008143F0 /* Add Business */,
 				6C096F7E15BD93BE0082ECDB /* Images */,
@@ -659,6 +682,9 @@
 				0A04241115DA8E0E008143F0 /* ASAddBusiness.m in Sources */,
 				0AFF559C15E50E32002E5085 /* ASActivityWaitingViewController.m in Sources */,
 				0AFF55A215E53B1A002E5085 /* ASURLEncoding.m in Sources */,
+				0AFE1B6F15E6995000636B4D /* ASUserProfileViewController.m in Sources */,
+				0AFE1B7415E6997C00636B4D /* ASUserProfileDataController.m in Sources */,
+				0AFE1B7715E6999C00636B4D /* ASUserProfile.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

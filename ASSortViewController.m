@@ -106,11 +106,11 @@
         static NSString *CellIdentifier = @"SortCell";
         UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CellIdentifier];
         UILabel *label =(UILabel *)[cell viewWithTag:LABEL_VIEW];
-        label.text = [[self.queryDataController.query.allSorts objectAtIndex:indexPath.row] objectForKey:@"tagName"];
+        label.text = [[self.queryDataController.query.allSorts objectAtIndex:indexPath.row] objectForKey:@"topicName"];
         
-        UIImageView *imageView =(UIImageView*)[cell viewWithTag:ICON_IMAGE_VIEW];
-        imageView.image = [UIImage imageNamed: [[self.queryDataController.query.allSorts objectAtIndex:indexPath.row] objectForKey:@"tagIcon"]];
-        imageView.backgroundColor = [UIColor lightGrayColor];
+        /*UIImageView *imageView =(UIImageView*)[cell viewWithTag:ICON_IMAGE_VIEW];
+        imageView.image = [UIImage imageNamed: [[self.queryDataController.query.allSorts objectAtIndex:indexPath.row] objectForKey:@"topicIcon"]];
+        imageView.backgroundColor = [UIColor lightGrayColor];*/
         return cell;
     }
     return nil;
@@ -196,7 +196,7 @@
         if ([cell isSelected])
         {
             NSDictionary *typeEntry =  [self.queryDataController.query.allTypes objectAtIndex:i];
-            [lSorts addObject:[typeEntry objectForKey:@"tagID"]];
+            [lSorts addObject:[typeEntry objectForKey:@"topicID"]];
             
         }
     }
