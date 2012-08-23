@@ -326,8 +326,11 @@
      }
      [self.tableView insertSubview:self.activityWaiting.view aboveSubview:self.tableView];*/
 }
-
-
+#pragma mark - Tab bar
+- (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController
+{
+    // ...
+}
 #pragma mark - #pragma mark - Create New Sort
 
 -(void) newASAddBusinessViewController:(ASAddBusinessViewController *)abvc didCreateNewBusiness:(ASAddBusiness *)business

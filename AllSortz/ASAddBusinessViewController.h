@@ -15,6 +15,8 @@
 #define BUSINESS_STATE 203
 #define BUSINESS_URL 204
 #define BUSINESS_PHONE 205
+#define PHOTO_URL 206
+
 
 
 

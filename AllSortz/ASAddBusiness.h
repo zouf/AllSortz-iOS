@@ -19,6 +19,7 @@
 
     NSString *businessPhone;
     NSString *businessURL;
+    NSString *businessPhotoURL;
     NSArray *selectedTypes;
 
 
@@ -34,6 +35,7 @@
 
 @property(nonatomic, retain) NSString *businessPhone;
 @property(nonatomic, retain) NSString *businessURL;
+@property(nonatomic, retain) NSString *businessPhotoURL;
 
 @property(nonatomic, retain) NSArray *selectedTypes;
 @property(nonatomic, retain) NSArray *allTypes;
