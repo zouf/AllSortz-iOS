@@ -20,7 +20,7 @@
                     <connections>
                         <segue destination="Kk7-tR-ofS" kind="relationship" relationship="viewControllers" id="vGs-cZ-GmR"/>
                         <segue destination="rcy-Q3-2Kk" kind="relationship" relationship="viewControllers" id="rMk-bN-NyH"/>
-                        <segue destination="pTR-B8-CFb" kind="relationship" relationship="viewControllers" id="UEH-xm-kiV"/>
+                        <segue destination="ODN-hD-8P9" kind="relationship" relationship="viewControllers" id="UEH-xm-kiV"/>
                         <segue destination="Lq8-1e-PhY" kind="relationship" relationship="viewControllers" id="O1t-Ut-96I"/>
                     </connections>
                 </tabBarController>
@@ -43,20 +43,55 @@
             </objects>
             <point key="canvasLocation" x="-211" y="-208"/>
         </scene>
-        <!--View Controller - Earn-->
+        <!--Topic Browse View Controller-->
         <scene sceneID="7pr-wc-NO3">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6uO-j2-tx0" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <viewController id="pTR-B8-CFb" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="BzF-NG-iQ8">
-                        <rect key="frame" x="0.0" y="20" width="320" height="411"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                    </view>
-                    <tabBarItem key="tabBarItem" title="Earn" image="tab_scan.png" id="WgS-Yo-3GE"/>
+                <viewController id="pTR-B8-CFb" customClass="ASTopicBrowseViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="74" sectionHeaderHeight="22" sectionFooterHeight="22" id="ETQ-cz-lk8">
+                        <rect key="frame" x="0.0" y="64" width="320" height="367"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="TopicCell" rowHeight="74" id="Uvz-RF-zqn">
+                                <rect key="frame" x="0.0" y="22" width="320" height="74"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="300" height="73"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <slider opaque="NO" tag="901" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" id="G3b-ZO-4L0">
+                                            <rect key="frame" x="101" y="37" width="118" height="23"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        </slider>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="900" contentMode="left" text="Topic Text" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="YF2-tU-LiO">
+                                            <rect key="frame" x="104" y="8" width="112" height="21"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                                <connections>
+                                    <segue destination="pTR-B8-CFb" kind="push" id="aAG-lX-OFJ"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="delegate" destination="pTR-B8-CFb" id="hie-Vh-uij"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="eXL-w6-Re3"/>
+                    <connections>
+                        <outlet property="tableView" destination="ETQ-cz-lk8" id="fsl-z1-9S7"/>
+                        <outlet property="userProfileDataController" destination="NTS-Cg-65v" id="uCu-ji-NuP"/>
+                    </connections>
                 </viewController>
+                <customObject id="NTS-Cg-65v" customClass="ASUserProfileDataController"/>
             </objects>
-            <point key="canvasLocation" x="-211" y="424"/>
+            <point key="canvasLocation" x="315" y="424"/>
         </scene>
         <!--User Profile View Controller-->
         <scene sceneID="wBF-fO-oE0">
@@ -578,6 +613,25 @@
             </objects>
             <point key="canvasLocation" x="-211" y="1040"/>
         </scene>
+        <!--Navigation Controller - Earn-->
+        <scene sceneID="vse-HR-hgC">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="996-nN-FUZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <navigationController id="ODN-hD-8P9" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Earn" image="tab_scan.png" id="WgS-Yo-3GE"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="hNQ-ZS-3U6">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="pTR-B8-CFb" kind="relationship" relationship="rootViewController" id="Y86-Xi-yfE"/>
+                    </connections>
+                </navigationController>
+            </objects>
+            <point key="canvasLocation" x="-211" y="424"/>
+        </scene>
     </scenes>
     <resources>
         <image name="Placeholder.png" width="360" height="360"/>
@@ -628,6 +682,13 @@
                 <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
             </relationships>
         </class>
+        <class className="ASTopicBrowseViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ASTopicBrowseViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="userProfileDataController" candidateClass="ASUserProfileDataController"/>
+            </relationships>
+        </class>
         <class className="ASUserProfileDataController" superclassName="NSObject">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/ASUserProfileDataController.h"/>
         </class>
@@ -637,7 +698,6 @@
                 <relationship kind="action" name="importanceValueChanged:"/>
                 <relationship kind="outlet" name="importanceValue" candidateClass="UISlider"/>
                 <relationship kind="outlet" name="questionText" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
                 <relationship kind="outlet" name="userProfileDataController" candidateClass="ASUserProfileDataController"/>
             </relationships>
         </class>
@@ -648,6 +708,7 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
+        <segue reference="Y86-Xi-yfE"/>
         <segue reference="D28-f2-r6Y"/>
     </inferredMetricsTieBreakers>
 </document>

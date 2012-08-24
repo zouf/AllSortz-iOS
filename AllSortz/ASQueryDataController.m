@@ -34,7 +34,6 @@
         NSLog(@"Error in API!\n");
         return NO;
     }
-    NSLog(@"Running update data\n");
     self.receivedData = [NSMutableData data];
     
     return YES;

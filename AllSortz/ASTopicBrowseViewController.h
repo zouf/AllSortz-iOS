@@ -1,5 +1,5 @@
 //
-//  ASUserProfileViewController.h
+//  ASTopicBrowseViewController.h
 //  AllSortz
 //
 //  Created by Matthew Zoufaly on 8/23/12.
@@ -8,17 +8,16 @@
 
 #import <UIKit/UIKit.h>
 #import "ASUserProfileDataController.h"
+#define TOPIC_TEXT 900
+#define TOPIC_SLIDER 901
+@interface ASTopicBrowseViewController : UIViewController
 
-
-@interface ASUserProfileViewController : UIViewController
-
-// Key-value observing
 - (void)observeValueForKeyPath:(NSString *)keyPath
                       ofObject:(id)object
                         change:(NSDictionary *)change
                        context:(void *)context;
 
-@property (nonatomic) NSInteger questionPosition;
+@property (nonatomic,retain) NSString* parentTopic;
 
 
 @end

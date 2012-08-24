@@ -9,8 +9,6 @@
 #import "ASUserProfileViewController.h"
 
 @interface ASUserProfileViewController ()
-
-@property (strong, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) IBOutlet ASUserProfileDataController *userProfileDataController;
 @property (weak, nonatomic) IBOutlet UILabel *questionText;
 @property (weak, nonatomic) IBOutlet UISlider *importanceValue;
@@ -58,12 +56,12 @@
     
     // Imitate default behavior of UITableViewController
     // deselectRowAtIndexPath:animated: should be fine taking a possible nil
-    [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:NO];
+
     
     // Download data automatically if there's no data source
     if (!self.userProfileDataController.userProfile)
     {
-        [self.userProfileDataController updateData];
+        [self.userProfileDataController updateData:nil ];
         
     }
 }

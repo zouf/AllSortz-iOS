@@ -34,7 +34,7 @@
     NSURLConnection *conn = [[NSURLConnection alloc] initWithRequest:
                              [NSURLRequest requestWithURL:
                               [NSURL URLWithString:self.listing.imageURLString]] delegate:self];
-    NSLog(@"%@\n",self.listing.imageURLString);
+    //NSLog(@"%@\n",self.listing.imageURLString);
     self.imageConnection = conn;
 
 }

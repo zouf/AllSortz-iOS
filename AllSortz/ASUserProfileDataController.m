@@ -17,9 +17,15 @@
 
 @implementation ASUserProfileDataController
 
-- (BOOL)updateData
+- (BOOL)updateData:(NSString*)parentTopic
 {
-    static NSString *address = @"http://allsortz.com/api/topics/";
+    NSString *address;
+    if (!parentTopic)
+        address = [NSString stringWithFormat:@"http://allsortz.com/api/topics"];
+    else
+        address = [NSString stringWithFormat:@"http://allsortz.com/api/topics/%@",parentTopic];
+
+    NSLog(@"Setting queryt o server %@\n", address);
     NSURL *url = [NSURL URLWithString:address];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     

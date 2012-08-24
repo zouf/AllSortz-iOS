@@ -14,7 +14,7 @@
 
 @property (strong, readonly) ASUserProfile *userProfile;
 
-- (BOOL)updateData;
+- (BOOL)updateData:(NSString*)parentTopic;
 
 
 

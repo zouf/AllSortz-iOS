@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface ASUserProfile : NSObject
+@interface ASUserProfile : NSObject <UITableViewDataSource>
 
 @property(nonatomic, retain) NSArray *sorts;
 @property(nonatomic, retain) NSMutableArray *importance;

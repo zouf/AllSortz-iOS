@@ -19,8 +19,6 @@
     {
         [self.importance addObject:[NSNumber numberWithFloat:0] ];
     }
-    NSLog(@"%@\n",self.importance);
-    
     return self;
 }
 
@@ -46,5 +44,11 @@
 }
 
 
+#pragma mark - Table data source
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return [self.sorts count] ;
+}
 
 @end

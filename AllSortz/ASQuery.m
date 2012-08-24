@@ -17,7 +17,7 @@
     if (!(self = [super init]) || ![[aJSONObject objectForKey:@"success"] boolValue])
         return nil;
     NSDictionary * results = [aJSONObject objectForKey:@"result"];
-    _allSorts = [results objectForKey:@"tags"];
+    _allSorts = [results objectForKey:@"topics"];
     _allTypes = [results objectForKey:@"types"];
     return self;
 }
