@@ -10,7 +10,11 @@
 
 @interface ASUserProfile : NSObject <UITableViewDataSource>
 
-@property(nonatomic, retain) NSArray *sorts;
+@property(nonatomic, retain) NSMutableArray *topics;
+@property(nonatomic, retain) NSMutableDictionary *tree;
+@property (nonatomic,retain) NSMutableArray *treePath;
+
+
 @property(nonatomic, retain) NSMutableArray *importance;
 
 //@property(nonatomic, retain) NSArray *allTypes;

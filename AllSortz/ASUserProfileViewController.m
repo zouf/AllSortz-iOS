@@ -31,12 +31,12 @@
                                           options:NSKeyValueObservingOptionNew
                                           context:NULL];
     
-    if (self.userProfileDataController.userProfile.sorts != nil)
+    if (self.userProfileDataController.userProfile.topics != nil)
     {
-        self.questionText.text = [[self.userProfileDataController.userProfile.sorts objectAtIndex:self.questionPosition] valueForKey:@"topicName"];
+        self.questionText.text = [[self.userProfileDataController.userProfile.topics objectAtIndex:self.questionPosition] valueForKey:@"topicName"];
         self.importanceValue.value = 0;
     }
-    NSLog(@"%@\n", self.userProfileDataController.userProfile.sorts);
+    NSLog(@"%@\n", self.userProfileDataController.userProfile.topics);
 
     
 }
@@ -61,7 +61,7 @@
     // Download data automatically if there's no data source
     if (!self.userProfileDataController.userProfile)
     {
-        [self.userProfileDataController updateData:nil ];
+        [self.userProfileDataController updateData];
         
     }
 }
@@ -98,7 +98,7 @@
     if ([keyPath isEqualToString:@"userProfile"]) {
         id newDataSource = [change objectForKey:NSKeyValueChangeNewKey];
 
-        self.questionText.text = [[self.userProfileDataController.userProfile.sorts objectAtIndex:self.questionPosition] valueForKey:@"topicName"];
+        self.questionText.text = [[self.userProfileDataController.userProfile.topics objectAtIndex:self.questionPosition] valueForKey:@"topicName"];
         self.importanceValue.value = 0;
 
     }

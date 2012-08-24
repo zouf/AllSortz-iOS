@@ -14,11 +14,17 @@
 {
     if (!(self = [super init]) || ![[aJSONObject objectForKey:@"success"] boolValue])
         return nil;
-    self.sorts = [aJSONObject objectForKey:@"result"];
-    for (int i = 0; i < [self.sorts count]; i++)
+    NSMutableDictionary *allTopics = [aJSONObject objectForKey:@"result"];
+    [self.treePath addObject:[allTopics valueForKey:@"topicName"]];
+    self.topics = [allTopics valueForKey:@"children"];
+    for (NSMutableDictionary * topic in self.topics)
+    {
+        NSLog(@"%@\n",topic);
+    }
+   /* for (int i = 0; i < [self.topics count]; i++)
     {
         [self.importance addObject:[NSNumber numberWithFloat:0] ];
-    }
+    }*/
     return self;
 }
 
@@ -48,7 +54,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [self.sorts count] ;
+    return [self.topics count] ;
 }
 
 @end

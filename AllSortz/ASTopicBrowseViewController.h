@@ -17,7 +17,9 @@
                         change:(NSDictionary *)change
                        context:(void *)context;
 
-@property (nonatomic,retain) NSString* parentTopic;
+
+
+@property (nonatomic,retain) NSArray * children;
 
 
 @end

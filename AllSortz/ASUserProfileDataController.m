@@ -17,13 +17,17 @@
 
 @implementation ASUserProfileDataController
 
-- (BOOL)updateData:(NSString*)parentTopic
+- (BOOL)updateData
 {
-    NSString *address;
-    if (!parentTopic)
-        address = [NSString stringWithFormat:@"http://allsortz.com/api/topics"];
-    else
-        address = [NSString stringWithFormat:@"http://allsortz.com/api/topics/%@",parentTopic];
+    
+   // NSLog(@"New topics are %@\n", newTopics);
+    
+    NSString * address = [NSString stringWithFormat:@"http://allsortz.com/api/topics/?parent="];
+    /*else
+    {
+        parentTopic = [parentTopic stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding];
+        address = [NSString stringWithFormat:@"http://127.0.0.1:8000/api/topics/?parent=%@",parentTopic];
+    }*/
 
     NSLog(@"Setting queryt o server %@\n", address);
     NSURL *url = [NSURL URLWithString:address];
@@ -39,6 +43,13 @@
     self.receivedData = [NSMutableData data];
     
     return YES;
+}
+
+- (void)updateWithArray:(NSArray*)newTopics
+{
+    self.userProfile = [[ASUserProfile alloc] init];
+    NSLog(@"New stuf %@\n",newTopics);
+    self.userProfile.topics = [NSArray arrayWithArray:newTopics];
 }
 
 - (NSURLRequest *)postRequestWithAddress: (NSString *)address        // IN
