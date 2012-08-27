@@ -718,7 +718,7 @@
 		6C0CC22815B7B1FC00F2F7B6 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				CLASSPREFIX = AS;
+				CLASSPREFIX = ASZ;
 				LastUpgradeCheck = 0430;
 				ORGANIZATIONNAME = "AllSortz, Inc.";
 			};
