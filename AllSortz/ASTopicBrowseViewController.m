@@ -35,6 +35,9 @@
                                        forKeyPath:@"userProfile"
                                           options:NSKeyValueObservingOptionNew
                                           context:NULL];
+    
+    
+
 }
 
 - (void)viewDidUnload
@@ -56,13 +59,14 @@
     // Download data automatically if there's no data source
     if (!self.userProfileDataController.userProfile)
     {
-        if (!self.children)
-            [self.userProfileDataController updateData];
+        if (!self.parentTopicID)
+            [self.userProfileDataController updateData:self.parentTopicID];
         else
         {
-            [self.userProfileDataController updateWithArray:self.children];
-            [self.tableView setDataSource:self.userProfileDataController.userProfile];
-            [self.tableView reloadData];
+            //[self.userProfileDataController updateWithArray:self.children];
+            [self.userProfileDataController updateData:self.parentTopicID];
+         //   [self.tableView setDataSource:self.userProfileDataController.userProfile];
+          //  [self.tableView reloadData];
         }
 
     }
@@ -73,22 +77,99 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
+- (void)segmentSelected:(id)sender withEvent: (UIEvent *) event{
+    UISegmentedControl *weightControl = (UISegmentedControl*)sender;
+    UITableViewCell * cell = (UITableViewCell*)weightControl.superview;
+//    NSLog(@"Cell with text %@ selected\n",lbl.text);
+   // NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+    UITableView *tv = (UITableView *)cell.superview;
+    
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+    //NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+    
+    
+  /*  UITouch * touch = [[event allTouches] anyObject];
+    CGPoint location = [touch locationInView: self.tableView];
+    NSIndexPath * indexPath = [self.tableView indexPathForRowAtPoint: location];*/
+
+    NSIndexPath *indexPath = nil;
+    for (int row = 0; row < [self.tableView numberOfRowsInSection:0]; row++) {
+        NSIndexPath* cellPath = [NSIndexPath indexPathForRow:row inSection:0];
+        UITableViewCell* cl = [tableView cellForRowAtIndexPath:cellPath];
+        UILabel * lbl = (UILabel*)[cl viewWithTag:900];
+        UISegmentedControl *sc = (UISegmentedControl*)[cl viewWithTag:TOPIC_WEIGHT];
+        if (sc == sender)
+        {
+            indexPath = [self.tableView indexPathForCell:cl];
+        }
+        
+        //do stuff with 'cell'
+    }
+    NSInteger topicID = [[[self.userProfileDataController.userProfile.topics objectAtIndex:indexPath.row] valueForKey:@"topicID"] integerValue];
+    float importance = 0.0;
+    
+    switch (weightControl.selectedSegmentIndex) {
+        case 0:
+            importance = -1.0;
+            break;
+        case 1:
+            importance = 0.0;
+            break;
+        case 2:
+            importance =  1.0;
+            break;
+        default:
+            importance =  0.0;
+            break;	
+    }
+    [[self.userProfileDataController.userProfile.topics objectAtIndex:indexPath.row] setValue:[NSString stringWithFormat:@"%f",importance] forKey:@"userWeight"];
+    [self.userProfileDataController updateImportance:topicID importanceValue:importance];
+
+}
+
+
+- (UITableViewCell *)tableView:(UITableView *)tv cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSString *CellIdentifier = @"TopicCell";
-    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    UITableViewCell *cell = [tv dequeueReusableCellWithIdentifier:CellIdentifier];
     
     UILabel *topicLabel = (UILabel*)[cell viewWithTag:TOPIC_TEXT];
     topicLabel.text = [[self.userProfileDataController.userProfile.topics objectAtIndex:indexPath.row] valueForKey:@"topicName"];
-    NSArray *children= [[self.userProfileDataController.userProfile.topics objectAtIndex:indexPath.row]valueForKey:@"children"];
-    NSLog(@"For %@ the num of children are %@\n",topicLabel.text,children.count);
-    if (children.count == 0)
+    //NSArray *children= [[self.userProfileDataController.userProfile.topics objectAtIndex:indexPath.row]valueForKey:@"children"];
+    NSInteger isLeaf = [[[self.userProfileDataController.userProfile.topics objectAtIndex:indexPath.row]valueForKey:@"isLeaf"] integerValue];
+    
+    
+    UISegmentedControl *topicWeight = (UISegmentedControl*)[cell viewWithTag:TOPIC_WEIGHT];
+    NSInteger weight = [[[self.userProfileDataController.userProfile.topics objectAtIndex:indexPath.row] valueForKey:@"userWeight"] integerValue];
+    
+    [topicWeight addTarget:self
+                    action:@selector(segmentSelected:withEvent:)
+               forControlEvents:UIControlEventValueChanged];
+
+    switch(weight)
+    {
+        case -1:
+            [topicWeight setSelectedSegmentIndex:0];
+            break;
+        case 0:
+            [topicWeight setSelectedSegmentIndex:1];
+            break;
+        case 1:
+            [topicWeight setSelectedSegmentIndex:2];
+            break;
+            
+        default:
+            [topicWeight setSelectedSegmentIndex:1];
+     
+    }
+    
+  //  NSLog(@"For %@ the num of children are %d weight %f\n",topicLabel.text,children.count,weight);
+    if (isLeaf == 1)
     {
         cell.accessoryType = UITableViewCellAccessoryNone;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
-    else
+    else 
     {
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         cell.selectionStyle = UITableViewCellSelectionStyleBlue;
@@ -110,33 +191,27 @@
         
     }
 }
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)tableView:(UITableView *)tv didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [tableView deselectRowAtIndexPath:indexPath animated:NO];
-    ASTopicBrowseViewController *viewControl = [[ASTopicBrowseViewController alloc] init];
+    [tv deselectRowAtIndexPath:indexPath animated:NO];
+   // ASTopicBrowseViewController *viewControl = [[ASTopicBrowseViewController alloc] init];
    // viewControl.selectedRegion = [regions objectAtIndex:indexPath.row];
-    NSMutableArray *children = [[self.userProfileDataController.userProfile.topics objectAtIndex:indexPath.row] valueForKey:@"children"];
-    if ( children.count != 0)
+   // NSMutableArray *children = [[self.userProfileDataController.userProfile.topics objectAtIndex:indexPath.row] valueForKey:@"children"];
+    NSInteger  parentID = [[[self.userProfileDataController.userProfile.topics objectAtIndex:indexPath.row] valueForKey:@"topicID"] integerValue];
+    NSInteger isLeaf = [[[self.userProfileDataController.userProfile.topics objectAtIndex:indexPath.row] valueForKey:@"isLeaf"] integerValue];
+        
+    if ( isLeaf == 0)
     {
         
         NSString *targetViewControllerIdentifier = nil;
         targetViewControllerIdentifier = @"BrowseViewControllerID";
         ASTopicBrowseViewController *vc = (ASTopicBrowseViewController*)[self.storyboard instantiateViewControllerWithIdentifier:targetViewControllerIdentifier];
-        [vc setChildren:children];
-        [self.navigationController pushViewController:vc animated:YES];
+        [vc setParentTopicID:parentID];
+        [self.navigationController  pushViewController:vc animated:YES];
     }
     else
         return;
 }
 
-#pragma mark - Segues
 
-- (IBAction)importanceValueChanged:(id)sender {
-    NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-
-//    NSString *parentTopic = [[self.userProfileDataController.userProfile.topics objectAtIndex:indexPath.row] valueForKey:@"topicName"];
-
-   // NSNumber *imp = [self.userProfileDataController.userProfile.importance objectAtIndex:self.questionPosition];
-   // imp = [NSNumber numberWithFloat:self.importanceValue.value];
-}
 @end

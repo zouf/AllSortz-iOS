@@ -46,7 +46,7 @@
 
 - (BOOL)updateWithQuery:(ASQuery*)query
 {
-    static NSString *address = @"http://allsortz.com/api/businesses/search/";
+    static NSString *address = @"http://127.0.0.1:8000/api/businesses/search/";
     
     NSString *str = [[query serializeToDictionary] urlEncodedString];
     NSData* data = [str dataUsingEncoding:NSUTF8StringEncoding];

@@ -36,8 +36,6 @@
         self.questionText.text = [[self.userProfileDataController.userProfile.topics objectAtIndex:self.questionPosition] valueForKey:@"topicName"];
         self.importanceValue.value = 0;
     }
-    NSLog(@"%@\n", self.userProfileDataController.userProfile.topics);
-
     
 }
 
@@ -61,7 +59,7 @@
     // Download data automatically if there's no data source
     if (!self.userProfileDataController.userProfile)
     {
-        [self.userProfileDataController updateData];
+        [self.userProfileDataController updateData:nil];
         
     }
 }
@@ -83,7 +81,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 150;
+    return 175;
 }
 
 

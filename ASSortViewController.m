@@ -190,28 +190,29 @@
             
         }
     }
-    for (NSInteger i = 0; i < [self.tableView numberOfRowsInSection:SORTS_SECTION]; ++i)
+   /* for (NSInteger i = 0; i < [self.tableView numberOfRowsInSection:SORTS_SECTION]; ++i)
     {
         UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:1]];
         if ([cell isSelected])
         {
-            NSDictionary *typeEntry =  [self.queryDataController.query.allTypes objectAtIndex:i];
+            NSDictionary *typeEntry =  [self.queryDataController.query.allSorts objectAtIndex:i];
             [lSorts addObject:[typeEntry objectForKey:@"topicID"]];
             
         }
-    }
+    }*/
     
-    UISlider *distanceProx = (UISlider*)[self.tableView viewWithTag:DISTANCE_PROXIMITY_VIEW];;
+    UISlider *distanceProx = (UISlider*)[self.tableView viewWithTag:DISTANCE_PROXIMITY_VIEW];
     self.queryDataController.query.selectedTypes = lTypes;
     self.queryDataController.query.selectedSorts = lSorts;
     self.queryDataController.query.searchText = ((UITextField*)[self.tableView viewWithTag:SEARCH_TEXT_VIEW]).text;
 
   //  [self.queryDataController uploadData];
     ASQuery *newQ = [[ASQuery alloc] init];
-    newQ.searchText =  [((UITextField*)[self.tableView viewWithTag:SEARCH_TEXT_VIEW]).text copy];
+    newQ.distanceWeight = [NSString stringWithFormat:@"%f",distanceProx.value];
+    newQ.searchText =  ((UITextField*)[self.tableView viewWithTag:SEARCH_TEXT_VIEW]).text;
     newQ.selectedSorts = lSorts;
     newQ.selectedTypes = lTypes;
-    newQ.searchLocation = [NSString stringWithFormat:@"%f", distanceProx.value];
+    newQ.searchLocation = ((UITextField*)[self.tableView viewWithTag:LOCATION_TEXT_VIEW]).text;
     [self.delegate waitOnQueryResponse:newQ];
 
 

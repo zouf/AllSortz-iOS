@@ -14,8 +14,10 @@
 
 @property (strong, readonly) ASUserProfile *userProfile;
 
-- (BOOL)updateData;
+- (BOOL)updateData:(NSInteger)parentTopic;
 - (void)updateWithArray:(NSArray*)newTopics;
+- (BOOL)updateImportance:(NSInteger)topicID  importanceValue:(float)importance;
+
 
 
 // NSURLConnectionDataDelegate

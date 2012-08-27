@@ -26,7 +26,11 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {    // Return the number of sections.
-    return 3;
+    
+    // CHANGE THIS TO 3
+#warning change to 3 to get the rots
+    //return 3;
+    return 2;
 }
 
 
@@ -62,11 +66,11 @@
     NSString *sortString = [[NSString alloc] initWithData:sortData encoding:NSUTF8StringEncoding];
     
     NSDictionary * dict= [NSDictionary dictionaryWithObjectsAndKeys:
-                         // self.distance, @"dw",
+                          self.distanceWeight, @"dw",
                           typeString, @"selectedTypes",
                           sortString, @"selectedSorts",
                           self.searchText ,@"searchText",
-                          self.searchLocation ,@"location",nil];
+                          self.searchLocation ,@"searchLocation",nil];
     
     return dict;
 }

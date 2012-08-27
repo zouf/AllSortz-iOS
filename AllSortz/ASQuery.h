@@ -15,6 +15,8 @@
 @property(nonatomic, retain) NSArray *allSorts;
 @property(nonatomic, retain) NSArray *selectedTypes;
 @property(nonatomic, retain) NSArray *selectedSorts;
+@property(nonatomic, retain) NSArray *distanceWeight;
+
 /*@property(nonatomic,retain) NSNumber * distance;
 @property(nonatomic,retain) NSNumber * value;
 

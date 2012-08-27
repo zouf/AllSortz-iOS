@@ -10,7 +10,7 @@
 
 @interface ASUserProfile : NSObject <UITableViewDataSource>
 
-@property(nonatomic, retain) NSMutableArray *topics;
+@property(atomic, retain) NSMutableArray *topics;
 @property(nonatomic, retain) NSMutableDictionary *tree;
 @property (nonatomic,retain) NSMutableArray *treePath;
 
@@ -20,6 +20,7 @@
 //@property(nonatomic, retain) NSArray *allTypes;
 
 - (id)initWithJSONObject:(NSDictionary *)aJSONObject;
+- (id)initWithArray:(NSMutableArray*)newTopics;
 - (NSDictionary *)serializeToDictionary;
 
 

@@ -15,11 +15,14 @@
     if (!(self = [super init]) || ![[aJSONObject objectForKey:@"success"] boolValue])
         return nil;
     NSMutableDictionary *allTopics = [aJSONObject objectForKey:@"result"];
-    [self.treePath addObject:[allTopics valueForKey:@"topicName"]];
-    self.topics = [allTopics valueForKey:@"children"];
-    for (NSMutableDictionary * topic in self.topics)
+   // [self.treePath addObject:[allTopics valueForKey:@"topicName"]];
+    self.topics = [[NSMutableArray alloc]init];
+    for (NSDictionary * d in [allTopics valueForKey:@"children"])
     {
-        NSLog(@"%@\n",topic);
+        NSLog(@"%@\n",d);
+        NSMutableDictionary *dict = [[NSMutableDictionary alloc]
+                                     initWithDictionary:d];
+        [self.topics addObject:dict];
     }
    /* for (int i = 0; i < [self.topics count]; i++)
     {
@@ -28,6 +31,20 @@
     return self;
 }
 
+
+- (id)initWithArray:(NSMutableArray *)newTopics
+{
+    if (!(self = [super init]) )
+        return nil;
+    self.topics = [[NSMutableArray alloc]init];
+    for(NSDictionary* d in newTopics)
+    {
+        NSMutableDictionary *dict = [[NSMutableDictionary alloc]
+                                     initWithDictionary:d];
+        [self.topics addObject:dict];
+    }
+    return self;
+}
 - (NSDictionary *) serializeToDictionary
 {
     //NSError * error;

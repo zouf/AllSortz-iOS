@@ -17,19 +17,22 @@
 
 @implementation ASUserProfileDataController
 
-- (BOOL)updateData
+- (BOOL)updateData:(NSInteger)parentTopicID;
 {
     
    // NSLog(@"New topics are %@\n", newTopics);
-    
-    NSString * address = [NSString stringWithFormat:@"http://allsortz.com/api/topics/?parent="];
+    NSString * address;
+    if (!parentTopicID)
+        address = [NSString stringWithFormat:@"http://allsortz.com/api/topics/?parent="];
+    else
+        address = [NSString stringWithFormat:@"http://allsortz.com/api/topics/?parent=%d",parentTopicID];
     /*else
     {
         parentTopic = [parentTopic stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding];
-        address = [NSString stringWithFormat:@"http://127.0.0.1:8000/api/topics/?parent=%@",parentTopic];
+        address = [NSString stringWithFormat:@"http://allsortz.com/api/topics/?parent=%@",parentTopic];
     }*/
 
-    NSLog(@"Setting queryt o server %@\n", address);
+    NSLog(@"Sending query to server %@\n", address);
     NSURL *url = [NSURL URLWithString:address];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     
@@ -45,11 +48,33 @@
     return YES;
 }
 
-- (void)updateWithArray:(NSArray*)newTopics
+- (BOOL)updateImportance:(NSInteger)topicID  importanceValue:(float)importance
 {
-    self.userProfile = [[ASUserProfile alloc] init];
-    NSLog(@"New stuf %@\n",newTopics);
-    self.userProfile.topics = [NSArray arrayWithArray:newTopics];
+    
+    // NSLog(@"New topics are %@\n", newTopics);
+    
+    NSString * address = [NSString stringWithFormat:@"http://allsortz.com/api/topic/subscribe/%d/?importance=%f",topicID, importance];
+
+    NSURL *url = [NSURL URLWithString:address];
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    
+    
+    NSURLConnection *connection = [NSURLConnection connectionWithRequest:request delegate:self];
+    if (!connection) {
+        // TODO: Some proper failure handling maybe
+        return NO;
+    }
+    NSLog(@"Running update data in user profile\n");
+    self.receivedData = [NSMutableData data];
+    
+    return YES;
+}
+
+- (void)updateWithArray:(NSMutableArray*)newTopics
+{
+    self.userProfile = [[ASUserProfile alloc] initWithArray:newTopics];
+
+    //self.userProfile.topics = [NSMutableArray arrayWithArray:newTopics];
 }
 
 - (NSURLRequest *)postRequestWithAddress: (NSString *)address        // IN
@@ -66,9 +91,9 @@
     [urlRequest setHTTPBody:data];
     
     return urlRequest;
-}
+}   
 
-
+/*
 - (BOOL)sendImportance
 {
     static NSString *address = @"http://allsortz.com/api/topics/importance/";
@@ -85,7 +110,7 @@
     self.receivedData = [NSMutableData data];
     
     return YES;
-}
+}*/
 
 
 #pragma mark - Connection data delegate
@@ -116,13 +141,18 @@
                                          
                                                                           error:NULL];
     NSString *success = [JSONresponse valueForKey:@"success"];
-    
+    NSString *requestType = [JSONresponse valueForKey:@"requestType"];
+
     if (success == @"false")
     {
         return;
     }
-    self.userProfile = [[ASUserProfile alloc] initWithJSONObject:JSONresponse];
-    self.receivedData = nil;
+    if ([requestType isEqualToString:@"topic"])
+    {
+        self.userProfile = [[ASUserProfile alloc] initWithJSONObject:JSONresponse];
+        self.receivedData = nil;
+    }
+    
 
 }
 

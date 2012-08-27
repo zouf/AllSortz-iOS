@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "ASUserProfileDataController.h"
 #define TOPIC_TEXT 900
-#define TOPIC_SLIDER 901
+#define TOPIC_WEIGHT 901
 @interface ASTopicBrowseViewController : UIViewController
 
 - (void)observeValueForKeyPath:(NSString *)keyPath
@@ -19,7 +19,10 @@
 
 
 
+- (void)segmentSelected:(id)sender;
+
 @property (nonatomic,retain) NSArray * children;
+@property (nonatomic) NSInteger  parentTopicID;
 
 
 @end
