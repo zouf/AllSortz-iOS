@@ -14,9 +14,11 @@
 @property (strong, nonatomic) IBOutlet ASQueryDataController *queryDataController;
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 
+
 @end
 
 @implementation ASSortViewController
+
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -43,7 +45,14 @@
                                        forKeyPath:@"query"
                                           options:NSKeyValueObservingOptionNew
                                           context:NULL];
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]
+                                   initWithTarget:self
+                                   action:@selector(dismissKeyboard)];
+    
+    [self.view addGestureRecognizer:tap];
 }
+
+
 
 - (void)viewDidUnload
 {
@@ -131,13 +140,14 @@
         return nil;
 	}
 	if(section == 1) {
-		sectionHeader = @"Business Types";
+		sectionHeader = @"Type";
+        
 	}
     else if(section == 2) {
 		sectionHeader = @"Sort Discussionss";
 	}
     label.text = sectionHeader;
-    label.font = [UIFont boldSystemFontOfSize:16.0];
+    label.font = [UIFont fontWithName:@"Gill Sans" size:18.0];
     label.textAlignment=UITextAlignmentCenter;
     
     [label setBackgroundColor:[UIColor clearColor]];
@@ -217,4 +227,5 @@
 
 
 }
+
 @end

@@ -138,8 +138,6 @@
         UILabel *distanceLabel = (UILabel *)[cell viewWithTag:DISTANCE_VIEW];
         distanceLabel.text = [listing.businessDistance  stringByAppendingString:@"mi."];
 
-        
-        
         UILabel *priceLabel = (UILabel *)[cell viewWithTag:PRICE_VIEW];
         priceLabel.text = [NSString stringWithFormat:@"$%@", listing.averagePrice] ;
 
@@ -169,8 +167,7 @@
 #warning is this the recommendation or the user rating?
         // if there's been a recommendation or user rating
         
-        rateView.progress = listing.userRating/4.0;
-
+        rateView.progress = listing.recommendation;
         
 
         UIImageView *imageView = (UIImageView*)[cell viewWithTag:IMAGE_VIEW];
