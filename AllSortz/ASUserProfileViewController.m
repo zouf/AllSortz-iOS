@@ -59,7 +59,7 @@
     // Download data automatically if there's no data source
     if (!self.userProfileDataController.userProfile)
     {
-        [self.userProfileDataController updateData:nil];
+        [self.userProfileDataController updateData:0];
         
     }
 }
@@ -84,8 +84,6 @@
     return 175;
 }
 
-
-
 #pragma mark - Key value observing
 - (void)observeValueForKeyPath:(NSString *)keyPath
                       ofObject:(id)object
@@ -94,7 +92,7 @@
 {
     // If the business list changes, reassign
     if ([keyPath isEqualToString:@"userProfile"]) {
-        id newDataSource = [change objectForKey:NSKeyValueChangeNewKey];
+        //id newDataSource = [change objectForKey:NSKeyValueChangeNewKey];
 
         self.questionText.text = [[self.userProfileDataController.userProfile.topics objectAtIndex:self.questionPosition] valueForKey:@"topicName"];
         self.importanceValue.value = 0;
@@ -112,8 +110,4 @@
 }
 
 
-- (IBAction)importanceValueChanged:(id)sender {
-    NSNumber *imp = [self.userProfileDataController.userProfile.importance objectAtIndex:self.questionPosition];
-    imp = [NSNumber numberWithFloat:self.importanceValue.value];
-}
 @end

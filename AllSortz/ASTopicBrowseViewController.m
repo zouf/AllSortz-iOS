@@ -79,24 +79,10 @@
 
 - (void)segmentSelected:(id)sender withEvent: (UIEvent *) event{
     UISegmentedControl *weightControl = (UISegmentedControl*)sender;
-    UITableViewCell * cell = (UITableViewCell*)weightControl.superview;
-//    NSLog(@"Cell with text %@ selected\n",lbl.text);
-   // NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-    UITableView *tv = (UITableView *)cell.superview;
-    
-
-    //NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
-    
-    
-  /*  UITouch * touch = [[event allTouches] anyObject];
-    CGPoint location = [touch locationInView: self.tableView];
-    NSIndexPath * indexPath = [self.tableView indexPathForRowAtPoint: location];*/
-
     NSIndexPath *indexPath = nil;
     for (int row = 0; row < [self.tableView numberOfRowsInSection:0]; row++) {
         NSIndexPath* cellPath = [NSIndexPath indexPathForRow:row inSection:0];
         UITableViewCell* cl = [tableView cellForRowAtIndexPath:cellPath];
-        UILabel * lbl = (UILabel*)[cl viewWithTag:900];
         UISegmentedControl *sc = (UISegmentedControl*)[cl viewWithTag:TOPIC_WEIGHT];
         if (sc == sender)
         {

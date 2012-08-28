@@ -86,7 +86,7 @@
     {
         NSString *CellIdentifier = @"SliderCell";
         UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
     }
     else if (section == TYPES_SECTION)

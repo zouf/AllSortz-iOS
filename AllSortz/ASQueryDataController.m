@@ -24,7 +24,7 @@
 @implementation ASQueryDataController
 - (BOOL)updateData
 {
-    static NSString *address = @"http://127.0.0.1:8000/api/query/base/";
+    static NSString *address = @"http://allsortz.com/api/query/base/";
     NSURL *url = [NSURL URLWithString:address];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     

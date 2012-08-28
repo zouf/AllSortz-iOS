@@ -18,7 +18,7 @@
     
     return self;
 }
-#warning - figure out a way to do this serialization better
+
 - (NSDictionary *) serializeToDictionary
 {
     NSError * error;
