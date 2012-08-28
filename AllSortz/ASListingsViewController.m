@@ -13,7 +13,7 @@
 #import "ASListing.h"
 #import "ASQuery.h"
 #import "ASAddBusinessViewController.h"
-#import "ASBusinessDetailsViewController.h"
+#import "ASZBusinessDetailsViewController.h"
 
 @interface ASListingsViewController ()
 
@@ -373,7 +373,7 @@
     }
 
     if ([segue.identifier isEqualToString:@"ShowBusinessDetails"]) {
-        ASBusinessDetailsViewController *detailsViewController = destinationViewController;
+        ASZBusinessDetailsViewController *detailsViewController = destinationViewController;
         ASBusinessList *businesses = self.listingsTableDataController.businessList;
         NSArray *businessIDs = [businesses valueForKeyPath:@"entries.ID"];
         NSInteger selectedRow = [self.tableView indexPathForSelectedRow].row;

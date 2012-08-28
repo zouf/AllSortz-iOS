@@ -715,7 +715,7 @@
         <scene sceneID="PRc-Zu-QnQ">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ksj-PR-5iR" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <tableViewController id="BSr-5B-9dv" customClass="ASBusinessDetailsViewController" sceneMemberID="viewController">
+                <tableViewController id="BSr-5B-9dv" customClass="ASZBusinessDetailsViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="XRO-gq-e4t">
                         <rect key="frame" x="0.0" y="64" width="320" height="367"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -772,9 +772,6 @@
                 <relationship kind="outlet" name="businessNameField" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
             </relationships>
-        </class>
-        <class className="ASBusinessDetailsViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ASBusinessDetailsViewController.h"/>
         </class>
         <class className="ASBusinessListDataController" superclassName="NSObject">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/ASBusinessListDataController.h"/>
@@ -845,6 +842,9 @@
             <relationships>
                 <relationship kind="action" name="importanceSelected:"/>
             </relationships>
+        </class>
+        <class className="ASZBusinessDetailsViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ASZBusinessDetailsViewController.h"/>
         </class>
     </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
