@@ -11,7 +11,7 @@
 @interface ASUserProfileViewController ()
 @property (strong, nonatomic) IBOutlet ASUserProfileDataController *userProfileDataController;
 @property (weak, nonatomic) IBOutlet UILabel *questionText;
-@property (weak, nonatomic) IBOutlet UISlider *importanceValue;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *importanceValue;
 - (IBAction)importanceValueChanged:(id)sender;
 @end
 
@@ -31,12 +31,8 @@
                                           options:NSKeyValueObservingOptionNew
                                           context:NULL];
     
-    if (self.userProfileDataController.userProfile.topics != nil)
-    {
-        self.questionText.text = [[self.userProfileDataController.userProfile.topics objectAtIndex:self.questionPosition] valueForKey:@"topicName"];
-        self.importanceValue.value = 0;
-    }
-    
+
+
 }
 
 - (void)viewDidUnload
@@ -59,8 +55,7 @@
     // Download data automatically if there's no data source
     if (!self.userProfileDataController.userProfile)
     {
-        [self.userProfileDataController updateData:0];
-        
+        [self.userProfileDataController updateData:self.parentTopicID];        
     }
 }
 
@@ -95,7 +90,10 @@
         //id newDataSource = [change objectForKey:NSKeyValueChangeNewKey];
 
         self.questionText.text = [[self.userProfileDataController.userProfile.topics objectAtIndex:self.questionPosition] valueForKey:@"topicName"];
-        self.importanceValue.value = 0;
+        NSInteger topicID = [[[self.userProfileDataController.userProfile.topics objectAtIndex:self.questionPosition] valueForKey:@"topicID"] integerValue];
+        NSInteger isLeaf = [[[self.userProfileDataController.userProfile.topics objectAtIndex:self.questionPosition] valueForKey:@"isLeaf"] integerValue];
+        [self.questionPath addObject:[NSNumber numberWithInt:topicID]];
+        NSLog(@"PATH IS %@\n",self.questionPath);
 
     }
 }
@@ -110,4 +108,66 @@
 }
 
 
+
+
+- (IBAction)importanceValueChanged:(id)sender {
+    
+    
+    //go back up the tree
+    if (self.questionPosition >= self.userProfileDataController.userProfile.topics.count)
+    {
+
+       (ASUserProfileViewController*)[self.navigationController popViewControllerAnimated:YES];
+    }
+    
+    switch (self.importanceValue.selectedSegmentIndex)
+    {
+        case 0:
+        case 1:
+        {
+            NSLog(@"Questiion position is %d\n", self.questionPosition);
+            //  NSInteger  parentID = [[[self.userProfileDataController.userProfile.topics objectAtIndex:self.questionPosition] valueForKey:@"topicID"] integerValue];
+            // NSInteger isLeaf = [[[self.userProfileDataController.userProfile.topics objectAtIndex:self.questionPosition] valueForKey:@"isLeaf"] integerValue];
+
+            NSString *targetViewControllerIdentifier = @"TopicQuestionID";
+            ASUserProfileViewController *vc = (ASUserProfileViewController*)[self.storyboard instantiateViewControllerWithIdentifier:targetViewControllerIdentifier];
+            
+            [vc setQuestionPosition:self.questionPosition +1];
+            [vc setParentTopicID:self.parentTopicID];
+            [vc setQuestionPath:[NSMutableArray arrayWithArray:self.questionPath]];
+             
+            [self.navigationController  pushViewController:vc animated:YES];
+            break;
+        }
+        case 2:  // dive down
+        {
+            NSInteger topicID = [[[self.userProfileDataController.userProfile.topics objectAtIndex:self.questionPosition] valueForKey:@"topicID"] integerValue];
+            NSInteger isLeaf = [[[self.userProfileDataController.userProfile.topics objectAtIndex:self.questionPosition] valueForKey:@"isLeaf"] integerValue];
+            
+            if (isLeaf)
+            {
+                NSString *targetViewControllerIdentifier = @"TopicQuestionID";
+                ASUserProfileViewController *vc = (ASUserProfileViewController*)[self.storyboard instantiateViewControllerWithIdentifier:targetViewControllerIdentifier];
+                
+                [vc setQuestionPosition:self.questionPosition +1];
+                [vc setParentTopicID:self.parentTopicID];
+                [vc setQuestionPath:[NSMutableArray arrayWithArray:self.questionPath]];
+                [self.navigationController  pushViewController:vc animated:YES];
+            }
+            else
+            {
+             
+                NSString *targetViewControllerIdentifier = @"TopicQuestionID";
+                ASUserProfileViewController *vc = (ASUserProfileViewController*)[self.storyboard instantiateViewControllerWithIdentifier:targetViewControllerIdentifier];
+                [vc setQuestionPosition:0];
+                [vc setParentTopicID:topicID];
+                [vc setQuestionPath:[NSMutableArray arrayWithArray:self.questionPath]];
+
+                [self.navigationController  pushViewController:vc animated:YES];
+            }
+            break;
+        }
+    }
+    
+}
 @end

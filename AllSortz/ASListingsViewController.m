@@ -309,13 +309,7 @@
 
 -(void)waitOnQueryResponse:(ASQuery *)query{
     [self.listingsTableDataController updateWithQuery:query];
-    [self.navigationController dismissModalViewControllerAnimated:YES];
 
-
-    /*    if (self.activityWaiting == nil) {
-     self.activityWaiting = [[ASActivityWaitingViewController alloc] initWithFrame:self.view.superview.bounds];
-     }
-     [self.tableView insertSubview:self.activityWaiting.view aboveSubview:self.tableView];*/
 }
 #pragma mark - Tab bar
 - (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController

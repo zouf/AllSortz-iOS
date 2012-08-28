@@ -19,6 +19,8 @@
                        context:(void *)context;
 
 @property (nonatomic) NSInteger questionPosition;
+@property (nonatomic) NSInteger  parentTopicID;
+@property (nonatomic,retain) NSMutableArray *  questionPath;
 
 
 @end

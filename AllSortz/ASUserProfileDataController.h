@@ -16,7 +16,8 @@
 
 - (BOOL)updateData:(NSInteger)parentTopic;
 - (void)updateWithArray:(NSArray*)newTopics;
-- (BOOL)updateImportance:(NSInteger)topicID  importanceValue:(float)importance;
+
+- (IBAction)importanceSelected:(id)sender;
 
 
 

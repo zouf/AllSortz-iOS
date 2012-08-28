@@ -70,6 +70,9 @@
     return YES;
 }
 
+- (IBAction)importanceSelected:(id)sender {
+}
+
 - (void)updateWithArray:(NSMutableArray*)newTopics
 {
     self.userProfile = [[ASUserProfile alloc] initWithArray:newTopics];

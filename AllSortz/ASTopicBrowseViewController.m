@@ -109,7 +109,7 @@
             break;	
     }
     [[self.userProfileDataController.userProfile.topics objectAtIndex:indexPath.row] setValue:[NSString stringWithFormat:@"%f",importance] forKey:@"userWeight"];
-    [self.userProfileDataController updateImportance:topicID importanceValue:importance];
+
 
 }
 

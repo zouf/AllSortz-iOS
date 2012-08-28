@@ -56,7 +56,7 @@
         // TODO: Some proper failure handling maybe
         NSLog(@"Error\n");
         return NO;
-    }
+    }   
     NSLog(@"Running upload data\n");
     self.receivedData = [NSMutableData data];
     return YES;

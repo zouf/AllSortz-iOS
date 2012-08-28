@@ -45,11 +45,8 @@
                                        forKeyPath:@"query"
                                           options:NSKeyValueObservingOptionNew
                                           context:NULL];
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]
-                                   initWithTarget:self
-                                   action:@selector(dismissKeyboard)];
+
     
-    [self.view addGestureRecognizer:tap];
 }
 
 
@@ -57,6 +54,7 @@
 - (void)viewDidUnload
 {
     [super viewDidUnload];
+    [self.queryDataController removeObserver:self forKeyPath:@"query"];
     self.queryDataController = nil;
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -200,16 +198,7 @@
             
         }
     }
-   /* for (NSInteger i = 0; i < [self.tableView numberOfRowsInSection:SORTS_SECTION]; ++i)
-    {
-        UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:1]];
-        if ([cell isSelected])
-        {
-            NSDictionary *typeEntry =  [self.queryDataController.query.allSorts objectAtIndex:i];
-            [lSorts addObject:[typeEntry objectForKey:@"topicID"]];
-            
-        }
-    }*/
+
     
     UISlider *distanceProx = (UISlider*)[self.tableView viewWithTag:DISTANCE_PROXIMITY_VIEW];
     self.queryDataController.query.selectedTypes = lTypes;
@@ -224,8 +213,10 @@
     newQ.selectedTypes = lTypes;
     newQ.searchLocation = ((UITextField*)[self.tableView viewWithTag:LOCATION_TEXT_VIEW]).text;
     [self.delegate waitOnQueryResponse:newQ];
+    [self.navigationController dismissModalViewControllerAnimated:YES];
+    [self.queryDataController removeObserver:self forKeyPath:@"query"];
 
-
+    
 }
 
 @end
