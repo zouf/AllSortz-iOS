@@ -6,8 +6,11 @@
 //  Copyright (c) 2012 AllSortz, Inc. All rights reserved.
 //
 
+@class ASBusiness;
+
 @interface ASZBusinessDetailsViewController : UITableViewController
 
 @property NSUInteger businessID;
+@property ASBusiness *business;
 
 @end
