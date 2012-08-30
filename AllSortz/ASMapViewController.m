@@ -14,7 +14,6 @@
 
 @property (weak, nonatomic) IBOutlet MKMapView *mv;
 @property (weak, nonatomic) NSMutableArray *businessPoints;
-@property(strong, nonatomic) ASCLController * locationController;
 
 
 -(void)zoomToFitMapAnnotations:(MKMapView*)mapView;
@@ -27,15 +26,12 @@
 @synthesize mv;
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.locationController = [[ASCLController alloc] init];
-    [self.locationController.locationManager startUpdatingLocation];
-    self.locationController.delegate = self.listingsTableDataController;
+    self.listingsTableDataController = [[ASBusinessListDataController alloc]init];
     [self.listingsTableDataController addObserver:self
                                        forKeyPath:@"businessList"
                                           options:NSKeyValueObservingOptionNew
                                           context:NULL];
     
-    self.mv.delegate = self;
     
     //declare latitude and longitude of map center
 	CLLocationCoordinate2D center;
@@ -107,6 +103,9 @@
     return annotationView;
 
 */
+    
+    if (annotation==self.mv.userLocation)
+        return nil;
     static NSString *AnnotationViewID = @"annotationViewID";
     MKPinAnnotationView *annotationView = (MKPinAnnotationView *)[thisMapView
                                                                   dequeueReusableAnnotationViewWithIdentifier:AnnotationViewID];

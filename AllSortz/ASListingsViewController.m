@@ -19,7 +19,6 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) IBOutlet ASBusinessListDataController *listingsTableDataController;
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
-@property (strong, nonatomic) ASCLController *locationController;
 
 
 
@@ -37,13 +36,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    self.locationController = [[ASCLController alloc] init];
-    [self.locationController.locationManager startUpdatingLocation];
-    self.locationController.delegate = self.listingsTableDataController;
-
-    
-    
+    self.listingsTableDataController = [[ASBusinessListDataController alloc]init];
     self.imageDownloadsInProgress = [NSMutableDictionary dictionary];
     [self.listingsTableDataController addObserver:self
                                        forKeyPath:@"businessList"

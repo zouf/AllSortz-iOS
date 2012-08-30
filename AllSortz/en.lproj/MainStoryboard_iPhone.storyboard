@@ -96,46 +96,28 @@
             </objects>
             <point key="canvasLocation" x="387" y="456"/>
         </scene>
-        <!--User Profile View Controller-->
+        <!--Social View Controller-->
         <scene sceneID="wBF-fO-oE0">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="seg-n9-E66" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <viewController storyboardIdentifier="TopicQuestionID" id="B3y-jJ-sif" customClass="ASUserProfileViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="TopicQuestionID" id="B3y-jJ-sif" customClass="ASSocialViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="4fX-K5-tJe">
                         <rect key="frame" x="0.0" y="64" width="320" height="367"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Le Question" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsFontSizeToFit="NO" id="8Qv-44-AYd">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Le Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsFontSizeToFit="NO" id="8Qv-44-AYd">
                                 <rect key="frame" x="43" y="94" width="235" height="63"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="GillSans" family="Gill Sans" pointSize="22"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <segmentedControl opaque="NO" tag="901" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="7jk-4C-WlQ">
-                                <rect key="frame" x="35" y="189" width="250" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <segments>
-                                    <segment title="Useless"/>
-                                    <segment title="Neutral"/>
-                                    <segment title="Important"/>
-                                </segments>
-                                <connections>
-                                    <action selector="importanceSelected:" destination="Heg-yu-rdf" eventType="valueChanged" id="TH2-fC-NoY"/>
-                                    <action selector="importanceValueChanged:" destination="B3y-jJ-sif" eventType="valueChanged" id="127-hD-BID"/>
-                                </connections>
-                            </segmentedControl>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="GKC-LA-Z9K"/>
-                    <connections>
-                        <outlet property="importanceValue" destination="7jk-4C-WlQ" id="jXH-j7-QvP"/>
-                        <outlet property="questionText" destination="8Qv-44-AYd" id="GzJ-oh-MhR"/>
-                        <outlet property="userProfileDataController" destination="Heg-yu-rdf" id="IXE-dq-mg9"/>
-                    </connections>
                 </viewController>
-                <customObject id="Heg-yu-rdf" customClass="ASUserProfileDataController"/>
+                <customObject id="Heg-yu-rdf" customClass="ASSocialDataController"/>
             </objects>
             <point key="canvasLocation" x="315" y="1040"/>
         </scene>
@@ -148,9 +130,12 @@
                         <rect key="frame" x="0.0" y="64" width="320" height="367"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" id="2HZ-ai-fsp">
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" id="2HZ-ai-fsp">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="367"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <connections>
+                                    <outlet property="delegate" destination="vkh-pH-Hmp" id="Vuu-3s-8Vd"/>
+                                </connections>
                             </mapView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -163,11 +148,9 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="listingsTableDataController" destination="Hcd-gu-zZa" id="CHA-tR-lMV"/>
                         <outlet property="mv" destination="2HZ-ai-fsp" id="Gwv-1R-hMx"/>
                     </connections>
                 </viewController>
-                <customObject id="Hcd-gu-zZa" customClass="ASBusinessListDataController"/>
             </objects>
             <point key="canvasLocation" x="387" y="-203"/>
         </scene>
@@ -564,11 +547,9 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="listingsTableDataController" destination="4En-EA-rzd" id="vmt-a9-8Ic"/>
                         <outlet property="tableView" destination="DF6-is-IYj" id="vRG-l2-Wzv"/>
                     </connections>
                 </viewController>
-                <customObject id="4En-EA-rzd" customClass="ASBusinessListDataController"/>
             </objects>
             <point key="canvasLocation" x="268" y="-847"/>
         </scene>
@@ -691,6 +672,12 @@
         <class className="ASQueryDataController" superclassName="NSObject">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/ASQueryDataController.h"/>
         </class>
+        <class className="ASSocialDataController" superclassName="NSObject">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ASSocialDataController.h"/>
+        </class>
+        <class className="ASSocialViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ASSocialViewController.h"/>
+        </class>
         <class className="ASSortViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/ASSortViewController.h"/>
             <relationships>
@@ -714,15 +701,6 @@
                 <relationship kind="action" name="importanceSelected:"/>
             </relationships>
         </class>
-        <class className="ASUserProfileViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ASUserProfileViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="importanceValueChanged:"/>
-                <relationship kind="outlet" name="importanceValue" candidateClass="UISegmentedControl"/>
-                <relationship kind="outlet" name="questionText" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="userProfileDataController" candidateClass="ASUserProfileDataController"/>
-            </relationships>
-        </class>
     </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
@@ -730,6 +708,6 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="w1D-Pu-gLz"/>
+        <segue reference="o3v-B7-O4S"/>
     </inferredMetricsTieBreakers>
 </document>

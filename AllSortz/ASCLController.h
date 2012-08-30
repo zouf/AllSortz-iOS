@@ -26,6 +26,8 @@
 
 @property (nonatomic, retain) CLLocationManager *locationManager;
 
+-(NSString *)getDeviceUIUD;
+
 - (void)locationManager:(CLLocationManager *)manager
     didUpdateToLocation:(CLLocation *)newLocation
            fromLocation:(CLLocation *)oldLocation;

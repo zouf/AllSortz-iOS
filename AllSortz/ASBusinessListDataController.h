@@ -15,6 +15,8 @@
 @interface ASBusinessListDataController : NSObject <NSURLConnectionDataDelegate, NewSortDelegate, ASCLControllerDelegate>
 
 @property (strong, readonly) ASBusinessList *businessList;
+@property (strong, readonly) ASBusinessList *businessMapList;
+
 
 - (BOOL)updateData;
 - (BOOL)updateDataWithNewList:(ASBusinessList*)newList;

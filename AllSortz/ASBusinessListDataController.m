@@ -1,4 +1,4 @@
-//
+    //
 //  ASBusinessDataController.m
 //  AllSortz
 //
@@ -11,8 +11,11 @@
 @interface ASBusinessListDataController ()
 
 @property (strong, readwrite) ASBusinessList *businessList;
+@property (strong, readwrite) ASBusinessList *businessMapList;
+
 @property (strong) NSMutableData *receivedData;
 @property(strong, atomic) CLLocation * currentLocation;
+@property (strong, nonatomic) ASCLController *locationController;
 
 @end
 
@@ -26,6 +29,12 @@ BOOL updated;
     if (self) {
         lock = [[NSLock alloc]init];
         updated = NO;
+        
+        self.locationController = [[ASCLController alloc] init];
+        [self.locationController.locationManager startUpdatingLocation];
+        self.locationController.delegate = self;
+        
+        
     }
     return self;
 }
@@ -111,7 +120,7 @@ BOOL updated;
                                                                           error:NULL];
     
     self.businessList = [[ASBusinessList alloc] initWithJSONObject:JSONresponse];
-        
+    //self.businessMapList =  [[ASBusinessList alloc] initWithJSONObject:JSONresponse];
     
     self.receivedData = nil;
 }
@@ -143,14 +152,9 @@ BOOL updated;
     {
         updated = YES;
        // NSLog(@"Update the server with location %@\n", self.currentLocation);
-        CFUUIDRef   uuid;
-        CFStringRef uuidStr;
-        
-        uuid = CFUUIDCreate(NULL);    
-        uuidStr = CFUUIDCreateString(NULL, uuid);
 
+        NSString * uuidStr = [self.locationController getDeviceUIUD];
         
-
         NSString *address = [NSString stringWithFormat:@"http://allsortz.com/api/businesses/?lat=%f&lon=%f&deviceID=%@",self.currentLocation.coordinate.latitude,self.currentLocation.coordinate.longitude,uuidStr];
         NSLog(@"Query server with %@\n",address);
         NSURL *url = [NSURL URLWithString:address];
