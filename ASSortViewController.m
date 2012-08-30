@@ -74,6 +74,15 @@
 }
 
 
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    [self.queryDataController removeObserver:self forKeyPath:@"query"];
+}
+
+
+
+
 
 #pragma mark - Update
 
@@ -180,7 +189,7 @@
 
 #pragma mark - Actions
 -(IBAction)cancelTapped:(id)sender{ 
-    [self.delegate cancelNewASSortViewController:self];
+    [self.navigationController dismissModalViewControllerAnimated:YES];
 }
 
 -(IBAction)doneTapped:(id)sender{
@@ -214,7 +223,7 @@
     newQ.searchLocation = ((UITextField*)[self.tableView viewWithTag:LOCATION_TEXT_VIEW]).text;
     [self.delegate waitOnQueryResponse:newQ];
     [self.navigationController dismissModalViewControllerAnimated:YES];
-    [self.queryDataController removeObserver:self forKeyPath:@"query"];
+
 
     
 }

@@ -36,6 +36,7 @@
         NSUInteger listingID = [[dict valueForKey:@"businessID"] unsignedIntegerValue];
         ASListing *listing = [[ASListing alloc] initWithID:listingID];
 
+        
         listing.businessName = [dict valueForKey:@"businessName"];
         listing.averagePrice = [dict valueForKey:@"averagePrice"];
         listing.imageURLString = [dict valueForKey:@"photoURL"];
@@ -43,6 +44,8 @@
         listing.businessDistance = [dict valueForKey:@"distanceFromCurrentUser"];
         listing.recommendation = [[dict valueForKey:@"ratingRecommendation"] floatValue];
         listing.userRating = [[dict valueForKey:@"ratingForCurrentUser"] floatValue];
+        listing.latitude =  [[dict valueForKey:@"latitude"] floatValue];
+        listing.longitude =  [[dict valueForKey:@"longitude"] floatValue];
 
         [_entries addObject:listing];
     }

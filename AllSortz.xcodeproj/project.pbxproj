@@ -51,6 +51,12 @@
 		0A3DB66615D5AF970069637D /* ASIconDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A3DB66515D5AF970069637D /* ASIconDownloader.m */; };
 		0A3DB67515D5B8FC0069637D /* ASListing.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A3DB67415D5B8FC0069637D /* ASListing.m */; };
 		0A7BAAC715DD483F00605B7D /* Placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A7BAAC615DD483F00605B7D /* Placeholder.png */; };
+		0AA6258315EE901B00C0BE8E /* ASMapPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AA6258215EE901B00C0BE8E /* ASMapPoint.m */; };
+		0AA6258515EEB85700C0BE8E /* def-as-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AA6258415EEB85600C0BE8E /* def-as-icon.png */; };
+		0AA6258B15EEBB9C00C0BE8E /* test-smaller.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AA6258A15EEBB9C00C0BE8E /* test-smaller.png */; };
+		0AA6259215EEBCAF00C0BE8E /* ASMapAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AA6259115EEBCAF00C0BE8E /* ASMapAnnotation.m */; };
+		0AA6259515EED1AD00C0BE8E /* ASCLController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AA6259415EED1AB00C0BE8E /* ASCLController.m */; };
+		0AA6259715EED5F900C0BE8E /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AA6259615EED5F800C0BE8E /* CoreLocation.framework */; };
 		0AFE1B6F15E6995000636B4D /* ASUserProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AFE1B6E15E6995000636B4D /* ASUserProfileViewController.m */; };
 		0AFE1B7415E6997C00636B4D /* ASUserProfileDataController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AFE1B7315E6997C00636B4D /* ASUserProfileDataController.m */; };
 		0AFE1B7715E6999C00636B4D /* ASUserProfile.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AFE1B7615E6999C00636B4D /* ASUserProfile.m */; };
@@ -163,6 +169,15 @@
 		0A3DB67315D5B8FC0069637D /* ASListing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASListing.h; sourceTree = "<group>"; };
 		0A3DB67415D5B8FC0069637D /* ASListing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASListing.m; sourceTree = "<group>"; };
 		0A7BAAC615DD483F00605B7D /* Placeholder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Placeholder.png; sourceTree = "<group>"; };
+		0AA6258115EE901B00C0BE8E /* ASMapPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASMapPoint.h; sourceTree = "<group>"; };
+		0AA6258215EE901B00C0BE8E /* ASMapPoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASMapPoint.m; sourceTree = "<group>"; };
+		0AA6258415EEB85600C0BE8E /* def-as-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "def-as-icon.png"; sourceTree = "<group>"; };
+		0AA6258A15EEBB9C00C0BE8E /* test-smaller.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "test-smaller.png"; sourceTree = "<group>"; };
+		0AA6259015EEBCAF00C0BE8E /* ASMapAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASMapAnnotation.h; sourceTree = "<group>"; };
+		0AA6259115EEBCAF00C0BE8E /* ASMapAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASMapAnnotation.m; sourceTree = "<group>"; };
+		0AA6259315EED1A800C0BE8E /* ASCLController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASCLController.h; sourceTree = "<group>"; };
+		0AA6259415EED1AB00C0BE8E /* ASCLController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASCLController.m; sourceTree = "<group>"; };
+		0AA6259615EED5F800C0BE8E /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		0AFE1B6D15E6995000636B4D /* ASUserProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASUserProfileViewController.h; sourceTree = "<group>"; };
 		0AFE1B6E15E6995000636B4D /* ASUserProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASUserProfileViewController.m; sourceTree = "<group>"; };
 		0AFE1B7215E6997C00636B4D /* ASUserProfileDataController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASUserProfileDataController.h; sourceTree = "<group>"; };
@@ -233,6 +248,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0AA6259715EED5F900C0BE8E /* CoreLocation.framework in Frameworks */,
 				6C0CC27915B7B9BE00F2F7B6 /* MapKit.framework in Frameworks */,
 				6C0CC23615B7B1FC00F2F7B6 /* UIKit.framework in Frameworks */,
 				6C0CC23815B7B1FC00F2F7B6 /* Foundation.framework in Frameworks */,
@@ -290,6 +306,10 @@
 			children = (
 				6CD1384915B8370D0032A4F1 /* ASMapViewController.h */,
 				6CD1384A15B8370D0032A4F1 /* ASMapViewController.m */,
+				0AA6258115EE901B00C0BE8E /* ASMapPoint.h */,
+				0AA6258215EE901B00C0BE8E /* ASMapPoint.m */,
+				0AA6259015EEBCAF00C0BE8E /* ASMapAnnotation.h */,
+				0AA6259115EEBCAF00C0BE8E /* ASMapAnnotation.m */,
 			);
 			name = "Map View";
 			sourceTree = "<group>";
@@ -368,6 +388,8 @@
 		6C096F7E15BD93BE0082ECDB /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				0AA6258A15EEBB9C00C0BE8E /* test-smaller.png */,
+				0AA6258415EEB85600C0BE8E /* def-as-icon.png */,
 				0A7BAAC615DD483F00605B7D /* Placeholder.png */,
 				6C3A150C15E532DA006C9EC0 /* App Icons */,
 				6C3A152F15E54BC5006C9EC0 /* Launch Images */,
@@ -380,6 +402,7 @@
 		6C0CC22615B7B1FC00F2F7B6 = {
 			isa = PBXGroup;
 			children = (
+				0AA6259615EED5F800C0BE8E /* CoreLocation.framework */,
 				6C0CC23B15B7B1FC00F2F7B6 /* AllSortz */,
 				6C0CC26715B7B1FC00F2F7B6 /* AllSortzTests */,
 				6C0CC23415B7B1FC00F2F7B6 /* Frameworks */,
@@ -425,6 +448,8 @@
 				0A04240015D9AD99008143F0 /* Map View */,
 				0A0423FE15D9AD5D008143F0 /* Query Panel */,
 				6C0CC23C15B7B1FC00F2F7B6 /* Supporting Files */,
+				0AA6259315EED1A800C0BE8E /* ASCLController.h */,
+				0AA6259415EED1AB00C0BE8E /* ASCLController.m */,
 			);
 			path = AllSortz;
 			sourceTree = "<group>";
@@ -637,6 +662,8 @@
 				6C61B73915E580140041276B /* ASDefault-Portrait~ipad.png in Resources */,
 				6C61B73A15E580140041276B /* ASDefault@2x~iphone.png in Resources */,
 				6C61B73B15E580140041276B /* ASDefault~iphone.png in Resources */,
+				0AA6258515EEB85700C0BE8E /* def-as-icon.png in Resources */,
+				0AA6258B15EEBB9C00C0BE8E /* test-smaller.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -691,6 +718,9 @@
 				0AFE1B7415E6997C00636B4D /* ASUserProfileDataController.m in Sources */,
 				0AFE1B7715E6999C00636B4D /* ASUserProfile.m in Sources */,
 				0AFE1B7D15E70C6600636B4D /* ASTopicBrowseViewController.m in Sources */,
+				0AA6258315EE901B00C0BE8E /* ASMapPoint.m in Sources */,
+				0AA6259215EEBCAF00C0BE8E /* ASMapAnnotation.m in Sources */,
+				0AA6259515EED1AD00C0BE8E /* ASCLController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

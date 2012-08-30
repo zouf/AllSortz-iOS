@@ -9,9 +9,10 @@
 #import "ASBusinessList.h"
 #import "ASQuery.h"
 #import "ASURLEncoding.h"
+#import "ASSortViewController.h"
+#import "ASCLController.h"
 
-
-@interface ASBusinessListDataController : NSObject <NSURLConnectionDataDelegate>
+@interface ASBusinessListDataController : NSObject <NSURLConnectionDataDelegate, NewSortDelegate, ASCLControllerDelegate>
 
 @property (strong, readonly) ASBusinessList *businessList;
 

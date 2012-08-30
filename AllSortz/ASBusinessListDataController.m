@@ -12,25 +12,29 @@
 
 @property (strong, readwrite) ASBusinessList *businessList;
 @property (strong) NSMutableData *receivedData;
+@property(strong, atomic) CLLocation * currentLocation;
 
 @end
 
 
 @implementation ASBusinessListDataController
 
+NSLock *lock;
+BOOL updated;
+- (id)init {
+    self = [super init];
+    if (self) {
+        lock = [[NSLock alloc]init];
+        updated = NO;
+    }
+    return self;
+}
+
 - (BOOL)updateData
 {
-    static NSString *address = @"http://allsortz.com/api/businesses/";
-    NSURL *url = [NSURL URLWithString:address];
-    NSURLRequest *request = [NSURLRequest requestWithURL:url];
-
-    NSURLConnection *connection = [NSURLConnection connectionWithRequest:request delegate:self];
-    if (!connection) {
-        // TODO: Some proper failure handling maybe
-        return NO;
-    }
-    self.receivedData = [NSMutableData data];
-
+    updated = NO;
+    // will allow the update location thread to populate the list.
+    // might need to redesign this
     return YES;
 }
 
@@ -111,5 +115,63 @@
     
     self.receivedData = nil;
 }
+
+#pragma mark - Receive query info
+-(void)newASSortViewController:(ASSortViewController *)nsvc didCreateNewSort:(ASBusinessList *)newList{
+    // Update the data based on the new query
+    //[self.listingsTableDataController.businessList.entries removeAllObjects];
+    
+    [self updateDataWithNewList:newList];
+ ///   [self.navigationController dismissModalViewControllerAnimated:YES];
+}
+
+-(void)cancelNewASSortViewController:(ASSortViewController *)nsvc{
+  //  [self.navigationController dismissModalViewControllerAnimated:YES];
+}
+
+
+-(void)waitOnQueryResponse:(ASQuery *)query{
+    [self updateWithQuery:query];
+    
+}
+
+#pragma mark - Receive Location info
+- (void)locationUpdate:(CLLocation *)location
+{
+    self.currentLocation = [location copy];
+    if (!updated)
+    {
+        updated = YES;
+       // NSLog(@"Update the server with location %@\n", self.currentLocation);
+        CFUUIDRef   uuid;
+        CFStringRef uuidStr;
+        
+        uuid = CFUUIDCreate(NULL);    
+        uuidStr = CFUUIDCreateString(NULL, uuid);
+
+        
+
+        NSString *address = [NSString stringWithFormat:@"http://allsortz.com/api/businesses/?lat=%f&lon=%f&deviceID=%@",self.currentLocation.coordinate.latitude,self.currentLocation.coordinate.longitude,uuidStr];
+        NSLog(@"Query server with %@\n",address);
+        NSURL *url = [NSURL URLWithString:address];
+        NSURLRequest *request = [NSURLRequest requestWithURL:url];
+        
+        NSURLConnection *connection = [NSURLConnection connectionWithRequest:request delegate:self];
+        if (!connection) {
+            // TODO: Some proper failure handling maybe
+            return;
+        }
+        self.receivedData = [NSMutableData data];
+        
+        return;
+
+    }
+}
+
+- (void)locationError:(NSError *)error
+{
+    
+}
+
 
 @end

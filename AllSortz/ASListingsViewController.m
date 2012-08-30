@@ -19,6 +19,12 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) IBOutlet ASBusinessListDataController *listingsTableDataController;
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
+@property (strong, nonatomic) ASCLController *locationController;
+
+
+
+
+
 //@property (strong, nonatomic) IBOutlet ASActivityWaitingViewController *activityWaiting;
 
 @end
@@ -31,12 +37,18 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.locationController = [[ASCLController alloc] init];
+    [self.locationController.locationManager startUpdatingLocation];
+    self.locationController.delegate = self.listingsTableDataController;
+
+    
+    
     self.imageDownloadsInProgress = [NSMutableDictionary dictionary];
     [self.listingsTableDataController addObserver:self
                                        forKeyPath:@"businessList"
                                           options:NSKeyValueObservingOptionNew
-                                          context:NULL];
-    
+                                          context:NULL];   
 }
 
 
@@ -64,6 +76,8 @@
     }
 }
 
+
+
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
@@ -71,6 +85,10 @@
     [self.tableView flashScrollIndicators];
 }
 
+
+
+
+#pragma mark - Table specific operations
 
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -197,9 +215,6 @@
 
 
 #pragma mark - Load Icons
-#pragma mark -
-#pragma mark Table cell image support
-
 - (void)startIconDownload:(ASListing *)listing forIndexPath:(NSIndexPath *)indexPath
 {
     ASIconDownloader *iconDownloader = [self.imageDownloadsInProgress objectForKey:indexPath];
@@ -289,11 +304,12 @@
         [self.imageDownloadsInProgress removeAllObjects];
         [self.tableView reloadData];
         
+        
     }
 }
 
-#pragma mark - Create New Sort
-
+#pragma mark - Query
+/*
 -(void)newASSortViewController:(ASSortViewController *)nsvc didCreateNewSort:(ASBusinessList *)newList{
     // Update the data based on the new query
     //[self.listingsTableDataController.businessList.entries removeAllObjects];
@@ -310,7 +326,7 @@
 -(void)waitOnQueryResponse:(ASQuery *)query{
     [self.listingsTableDataController updateWithQuery:query];
 
-}
+}*/
 #pragma mark - Tab bar
 - (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController
 {
@@ -337,7 +353,7 @@
     if([segue.identifier isEqualToString:@"NewSort"]){
         UINavigationController *nv = (UINavigationController *)segue.destinationViewController;
         ASSortViewController *nsvc = (ASSortViewController *)nv.topViewController;
-        nsvc.delegate = self;
+        nsvc.delegate = self.listingsTableDataController;
     }
     else if([segue.identifier isEqualToString:@"AddBusiness"]){
         UINavigationController *nv = (UINavigationController *)segue.destinationViewController;

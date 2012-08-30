@@ -15,6 +15,9 @@
 @property (nonatomic) NSString *businessName;
 @property (nonatomic) UIImage *businessPhoto;
 @property (nonatomic) NSArray *businessTypes;
+@property (nonatomic) float latitude;
+@property (nonatomic) float longitude;
+
 @property (readonly) NSUInteger ID;
 @property (nonatomic) NSString *imageURLString;
 @property (nonatomic) float recommendation;
