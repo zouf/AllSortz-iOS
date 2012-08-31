@@ -65,4 +65,6 @@ SIMPLE_SETTER(imageID, ImageID, NSUInteger)
 
 SIMPLE_SETTER(score, Score, NSNumber *)
 
+SIMPLE_SETTER(topics, Topics, NSArray *)
+
 @end

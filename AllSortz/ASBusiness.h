@@ -26,6 +26,8 @@
 
 @property (nonatomic) NSNumber *score;
 
+@property (nonatomic) NSArray *topics;
+
 - (id)initWithID:(NSUInteger)anID;
 
 @end
