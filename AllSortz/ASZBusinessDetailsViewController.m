@@ -6,66 +6,77 @@
 //  Copyright (c) 2012 AllSortz, Inc. All rights reserved.
 //
 
-#import "ASBusiness.h"
 #import "ASZBusinessDetailsViewController.h"
 
-
-@interface ASZBusinessDetailsViewController ()
-@property NSOperationQueue *queue;   // Assuming we only need one
-@end
+#import "ASZBusinessDetailsDataController.h"
 
 
 @implementation ASZBusinessDetailsViewController
-
-#pragma mark - View controller
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 
-    // Download business info
+    [self.dataController addObserver:self
+                          forKeyPath:@"business"
+                             options:NSKeyValueObservingOptionNew
+                             context:NULL];
+//    [self.dataController addObserver:self
+//                          forKeyPath:@"business.image"
+//                             options:NSKeyValueObservingOptionNew
+//                             context:NULL];
 
-    static NSString *endpoint = @"http://allsortz.com/api/business/";
-    NSString *address = [endpoint stringByAppendingFormat:@"%lu", (unsigned long)self.businessID];
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:address]];
-    void (^handler)(NSURLResponse *, NSData *, NSError *) = ^(NSURLResponse *response, NSData *data, NSError *error) {
-        NSDictionary *JSONresponse = [NSJSONSerialization JSONObjectWithData:data options:0 error:NULL];
-        if (!JSONresponse || ![JSONresponse[@"success"] boolValue]) {
-            self.business = nil;
-            return;
-        }
-        self.business = [self businessFromJSONResult:JSONresponse[@"result"]];
-        // TODO: Refresh table here
-    };
-
-    if (!self.queue)
-        self.queue = [[NSOperationQueue alloc] init];
-    [NSURLConnection sendAsynchronousRequest:request queue:self.queue completionHandler:handler];
+    [self.dataController refreshBusinessAsynchronouslyWithID:self.businessID];
 }
 
-- (ASBusiness *)businessFromJSONResult:(NSDictionary *)result
+- (void)viewDidUnload {
+    [self.dataController removeObserver:self forKeyPath:@"business"];
+//    [self.dataController removeObserver:self forKeyPath:@"business.image"];
+    self.dataController = nil;
+
+    [super viewDidUnload];
+}
+
+- (void)viewDidDisappear:(BOOL)animated
 {
-    ASBusiness *business = [[ASBusiness alloc] initWithID:[result[@"businessID"] unsignedIntegerValue]];
+    [self.dataController removeObserver:self forKeyPath:@"business"];
+//    [self.dataController removeObserver:self forKeyPath:@"business.image"];
+    [super viewDidDisappear:animated];
+}
 
-    business.address = result[@"streetAddr"];
-    business.city = result[@"businessCity"];
-    business.state = result[@"businessState"];
+#pragma mark - Key-value observing
 
-    business.hours = [result[@"businessHours"] componentsSeparatedByString:@", "];
-    business.name = result[@"businessName"];
-    business.phone = result[@"businessPhone"];
-    business.website = [NSURL URLWithString:result[@"businessURL"]];
+- (void)observeValueForKeyPath:(NSString *)keyPath
+                      ofObject:(id)object
+                        change:(NSDictionary *)change
+                       context:(void *)context
+{
+//    if ([keyPath isEqual:@"business"] || [keyPath isEqual:@"business.image"]) {
+    if ([keyPath isEqual:@"business"]) {
+//        // Table view has to be refreshed on main thread
+        [self.tableView performSelectorOnMainThread:@selector(reloadData)
+                                         withObject:nil
+                                      waitUntilDone:NO];
+    }
+}
 
-    // Fetch image asynchronously
-    NSURLRequest *imageRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:result[@"photoURL"]]];
-    void (^imageHandler)(NSURLResponse *, NSData *, NSError *) = ^(NSURLResponse *response, NSData *data, NSError *error) {
-        business.image = data ? [UIImage imageWithData:data] : nil;
-    };
-    if (!self.queue)
-        self.queue = [[NSOperationQueue alloc] init];
-    [NSURLConnection sendAsynchronousRequest:imageRequest queue:self.queue completionHandler:imageHandler];
 
-    return business;
+#pragma mark - Table view delegate
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    switch (indexPath.section) {
+        case ASZBusinessDetailsHeaderSection:
+            return 132;
+            break;
+        case ASZBusinessDetailsInfoSection:
+            return 22;
+        case ASZBusinessDetailsTopicSection:
+            return 88;
+        default:
+            return tableView.rowHeight;
+            break;
+    }
 }
 
 @end
