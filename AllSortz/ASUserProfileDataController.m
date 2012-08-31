@@ -76,8 +76,6 @@
 - (void)updateWithArray:(NSMutableArray*)newTopics
 {
     self.userProfile = [[ASUserProfile alloc] initWithArray:newTopics];
-
-    //self.userProfile.topics = [NSMutableArray arrayWithArray:newTopics];
 }
 
 - (NSURLRequest *)postRequestWithAddress: (NSString *)address        // IN

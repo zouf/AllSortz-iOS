@@ -60,6 +60,7 @@
 		0AAB66C415EFA4E800F22011 /* ASUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AAB66BF15EFA4E800F22011 /* ASUser.m */; };
 		0AAB66C515EFA4E800F22011 /* ASSocialDataController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AAB66C115EFA4E800F22011 /* ASSocialDataController.m */; };
 		0AAB66C615EFA4E800F22011 /* ASSocialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AAB66C315EFA4E800F22011 /* ASSocialViewController.m */; };
+		0AAB66C915EFE50300F22011 /* ASProfilePictureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AAB66C815EFE50300F22011 /* ASProfilePictureViewController.m */; };
 		0AFE1B6F15E6995000636B4D /* ASUserProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AFE1B6E15E6995000636B4D /* ASUserProfileViewController.m */; };
 		0AFE1B7415E6997C00636B4D /* ASUserProfileDataController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AFE1B7315E6997C00636B4D /* ASUserProfileDataController.m */; };
 		0AFE1B7715E6999C00636B4D /* ASUserProfile.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AFE1B7615E6999C00636B4D /* ASUserProfile.m */; };
@@ -187,6 +188,8 @@
 		0AAB66C115EFA4E800F22011 /* ASSocialDataController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASSocialDataController.m; sourceTree = "<group>"; };
 		0AAB66C215EFA4E800F22011 /* ASSocialViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASSocialViewController.h; sourceTree = "<group>"; };
 		0AAB66C315EFA4E800F22011 /* ASSocialViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASSocialViewController.m; sourceTree = "<group>"; };
+		0AAB66C715EFE50300F22011 /* ASProfilePictureViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASProfilePictureViewController.h; sourceTree = "<group>"; };
+		0AAB66C815EFE50300F22011 /* ASProfilePictureViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASProfilePictureViewController.m; sourceTree = "<group>"; };
 		0AFE1B6D15E6995000636B4D /* ASUserProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASUserProfileViewController.h; sourceTree = "<group>"; };
 		0AFE1B6E15E6995000636B4D /* ASUserProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASUserProfileViewController.m; sourceTree = "<group>"; };
 		0AFE1B7215E6997C00636B4D /* ASUserProfileDataController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASUserProfileDataController.h; sourceTree = "<group>"; };
@@ -388,6 +391,8 @@
 				0AAB66C115EFA4E800F22011 /* ASSocialDataController.m */,
 				0AAB66C215EFA4E800F22011 /* ASSocialViewController.h */,
 				0AAB66C315EFA4E800F22011 /* ASSocialViewController.m */,
+				0AAB66C715EFE50300F22011 /* ASProfilePictureViewController.h */,
+				0AAB66C815EFE50300F22011 /* ASProfilePictureViewController.m */,
 			);
 			name = Social;
 			sourceTree = "<group>";
@@ -747,6 +752,7 @@
 				0AAB66C415EFA4E800F22011 /* ASUser.m in Sources */,
 				0AAB66C515EFA4E800F22011 /* ASSocialDataController.m in Sources */,
 				0AAB66C615EFA4E800F22011 /* ASSocialViewController.m in Sources */,
+				0AAB66C915EFE50300F22011 /* ASProfilePictureViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

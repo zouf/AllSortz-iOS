@@ -10,4 +10,12 @@
 
 @interface ASUser : NSObject
 
+@property(atomic, retain) NSString *userName;
+@property(nonatomic, retain) NSString *userEmail;
+@property (nonatomic,retain) NSString *userPassword;
+
+
+- (id)initWithJSONObject:(NSDictionary *)aJSONObject;
+
+
 @end

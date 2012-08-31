@@ -40,6 +40,27 @@
     return UUID;
 }
 
+-(void)storeUnamePassword:(NSString*)uname :(NSString*)password
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:uname forKey:@"ASusername"];
+    [defaults setObject:uname forKey:@"ASpassword"];
+    return;
+}
+
+-(NSString*)getStoredUname
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    return [defaults valueForKey:@"ASusername"];
+}
+
+-(NSString*)getStoredPassword
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    return [defaults valueForKey:@"ASpassword"];
+
+}
+
 - (void)locationManager:(CLLocationManager *)manager
 	didUpdateToLocation:(CLLocation *)newLocation
            fromLocation:(CLLocation *)oldLocation

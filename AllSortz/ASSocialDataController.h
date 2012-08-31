@@ -7,7 +7,20 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "ASUser.h"
+#import "ASCLController.h"
 
-@interface ASSocialDataController : NSObject
+@interface ASSocialDataController : NSObject <NSURLConnectionDataDelegate, ASCLControllerDelegate>
 
+@property (strong, readonly) ASUser *userProfile;
+
+- (BOOL)updateData;
+- (BOOL)updateUserData;
+
+
+// NSURLConnectionDataDelegate
+- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response;
+- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data;
+- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error;
+- (void)connectionDidFinishLoading:(NSURLConnection *)connection;
 @end

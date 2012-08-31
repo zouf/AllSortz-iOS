@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ASSocialDataController.h"
 
 @interface ASSocialViewController : UIViewController
 

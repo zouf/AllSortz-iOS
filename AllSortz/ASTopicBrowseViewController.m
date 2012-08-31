@@ -59,15 +59,7 @@
     // Download data automatically if there's no data source
     if (!self.userProfileDataController.userProfile)
     {
-        if (!self.parentTopicID)
-            [self.userProfileDataController updateData:self.parentTopicID];
-        else
-        {
-            //[self.userProfileDataController updateWithArray:self.children];
-            [self.userProfileDataController updateData:self.parentTopicID];
-         //   [self.tableView setDataSource:self.userProfileDataController.userProfile];
-          //  [self.tableView reloadData];
-        }
+        [self.userProfileDataController updateData:self.parentTopicID];
 
     }
 }

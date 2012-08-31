@@ -35,7 +35,8 @@
 - (void)locationManager:(CLLocationManager *)manager
        didFailWithError:(NSError *)error;
 
-
-
+-(void)storeUnamePassword:(NSString*)uname :(NSString*)password;
+-(NSString*)getStoredUname;
+-(NSString*)getSToredPassword;
 @end
 
