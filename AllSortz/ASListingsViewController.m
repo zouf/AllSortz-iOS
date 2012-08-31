@@ -20,6 +20,7 @@
 @property (strong, nonatomic) IBOutlet ASBusinessListDataController *listingsTableDataController;
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 
+@property (weak, nonatomic) IBOutlet UIView *overlayView;
 
 
 
@@ -32,6 +33,7 @@
 @implementation ASListingsViewController
 
 #pragma mark - View controller
+@synthesize overlayView = _overlayView;
 
 - (void)viewDidLoad
 {
@@ -41,12 +43,22 @@
     [self.listingsTableDataController addObserver:self
                                        forKeyPath:@"businessList"
                                           options:NSKeyValueObservingOptionNew
-                                          context:NULL];   
+                                          context:NULL];
+    UIActivityIndicatorView *activityView=[[UIActivityIndicatorView alloc]     initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+    
+    activityView.center=self.overlayView.center;
+    
+    [activityView startAnimating];
+    
+    [self.overlayView addSubview:activityView];
+
 }
 
 
 - (void)viewDidUnload
 {
+    [self setOverlayView:nil];
+    [self setOverlayView:nil];
     [super viewDidUnload];
     self.searchBar = nil;
     // self.activityWaiting = nil;
@@ -174,8 +186,6 @@
         
         UIProgressView *rateView =  (UIProgressView*)[cell viewWithTag:RATE_VIEW];
         
-        
-#warning is this the recommendation or the user rating?
         // if there's been a recommendation or user rating
         
         rateView.progress = listing.recommendation;
@@ -296,8 +306,9 @@
         self.tableView.dataSource = (newDataSource == [NSNull null] ? nil : newDataSource);
         [self.imageDownloadsInProgress removeAllObjects];
         [self.tableView reloadData];
-        
-        
+    
+        [self.overlayView removeFromSuperview];
+
     }
 }
 

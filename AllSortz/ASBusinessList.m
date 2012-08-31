@@ -15,7 +15,6 @@
 @interface ASBusinessList ()
 
 
-- (void)startIconDownload:(ASListing *)listing forIndexPath:(NSIndexPath *)indexPath;
 @property (strong) NSArray *businesses;
 
 @end

@@ -15,7 +15,7 @@
 #import "ASSortViewController.h"
 #import "ASMapAnnotation.h"
 
-@interface ASMapViewController : UIViewController <MKMapViewDelegate,ASCLControllerDelegate>
+@interface ASMapViewController : UIViewController <MKMapViewDelegate>
 
 
 - (void)observeValueForKeyPath:(NSString *)keyPath

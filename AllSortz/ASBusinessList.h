@@ -32,7 +32,6 @@
 @property (nonatomic, retain) NSMutableArray *entries;
 
 
-- (void)appImageDidLoad:(NSIndexPath *)indexPath;
 
 
 

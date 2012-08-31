@@ -10,12 +10,13 @@
 
 @interface ASProfilePictureViewController ()
 @property (weak, nonatomic) IBOutlet UIImageView *image;
-@property (weak, nonatomic) IBOutlet UITableView *thisView;
 @property (strong, nonatomic) IBOutlet ASSocialDataController *socialDataController;
+@property (weak, nonatomic) IBOutlet UIView *overlayView;
 
 @end
 
 @implementation ASProfilePictureViewController
+@synthesize overlayView;
 @synthesize nameBox;
 @synthesize emailBox;
 @synthesize passwordBox;
@@ -60,9 +61,8 @@
 #pragma mark - When Tap Save Button
 -(IBAction)saveImageAction:(id)sender
 {
-    UIImage *image=imageView.image;
     //save photo to photoAlbum
-    UIImageWriteToSavedPhotosAlbum(image,self, @selector(CheckedImage:didFinishSavingWithError:contextInfo:), nil);
+    UIImageWriteToSavedPhotosAlbum(self.imageView.image,self, @selector(CheckedImage:didFinishSavingWithError:contextInfo:), nil);
     saveImageBotton.enabled=NO;
 }
 
@@ -117,12 +117,22 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-  /*  [self.socialDataController addObserver:self
+    self.socialDataController = [[ASSocialDataController alloc]init];
+
+    
+
+    [self.socialDataController addObserver:self
                                        forKeyPath:@"userProfile"
                                           options:NSKeyValueObservingOptionNew
                                           context:NULL];
+    UIActivityIndicatorView *activityView=[[UIActivityIndicatorView alloc]     initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
     
-    */
+    activityView.center=self.overlayView.center;
+    
+    [activityView startAnimating];
+    
+    [self.overlayView addSubview:activityView];
+
     UITapGestureRecognizer *gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyboard)];
     // For selecting cell.
     gestureRecognizer.cancelsTouchesInView = NO;
@@ -140,6 +150,7 @@
     [self setNameBox:nil];
     [self setEmailBox:nil];
     [self setPasswordBox:nil];
+    [self setOverlayView:nil];
     [super viewDidUnload];
 }
 
@@ -190,9 +201,11 @@
 {
     if ([keyPath isEqualToString:@"userProfile"])
     {
+        
         self.nameBox.text = self.socialDataController.userProfile.userName;
         self.emailBox.text = self.socialDataController.userProfile.userEmail;
-        //self.passwordBox.text = self.socialDataController.userProfile.userPassword;
+
+        [self.overlayView removeFromSuperview];
 
     }
 }

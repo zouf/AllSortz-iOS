@@ -16,18 +16,17 @@
 @property (strong) NSMutableData *receivedData;
 @property(strong, atomic) CLLocation * currentLocation;
 @property (strong, nonatomic) ASCLController *locationController;
-
+ 
+@property(strong, atomic) NSLock* lock;
 @end
 
 
 @implementation ASBusinessListDataController
 
-NSLock *lock;
-BOOL updated;
 - (id)init {
     self = [super init];
     if (self) {
-        lock = [[NSLock alloc]init];
+        self.lock = [[NSLock alloc]init];
         
         self.locationController = [[ASCLController alloc] init];
         [self.locationController.locationManager startUpdatingLocation];
@@ -40,7 +39,7 @@ BOOL updated;
 
 - (BOOL)updateData
 {
-    [lock unlock];
+    [self.lock unlock];
     // will allow the update location thread to populate the list.
     // might need to redesign this
     return YES;
@@ -113,6 +112,7 @@ BOOL updated;
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
 {
     // TODO: Actual error handling
+    [self.lock unlock];
     NSLog(@"ERROR %@\n",error);
     self.receivedData = nil;
 }
@@ -156,7 +156,7 @@ BOOL updated;
 - (void)locationUpdate:(CLLocation *)location
 {
     self.currentLocation = [location copy];
-    if ([lock tryLock])
+    if ([self.lock tryLock])
     {
        // NSLog(@"Update the server with location %@\n", self.currentLocation);
 

@@ -14,6 +14,7 @@
 
 @property (weak, nonatomic) IBOutlet MKMapView *mv;
 @property (weak, nonatomic) NSMutableArray *businessPoints;
+@property (weak, nonatomic) IBOutlet UIView *overlayView;
 
 
 -(void)zoomToFitMapAnnotations:(MKMapView*)mapView;
@@ -23,6 +24,7 @@
 
 
 @implementation ASMapViewController
+@synthesize overlayView = _overlayView;
 @synthesize mv;
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -31,6 +33,15 @@
                                        forKeyPath:@"businessList"
                                           options:NSKeyValueObservingOptionNew
                                           context:NULL];
+    
+    UIActivityIndicatorView *activityView=[[UIActivityIndicatorView alloc]     initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+    
+    activityView.center=self.overlayView.center;
+    
+    [activityView startAnimating];
+    
+    [self.overlayView addSubview:activityView];
+
     
     
     //declare latitude and longitude of map center
@@ -104,7 +115,7 @@
 
 */
     
-    if (annotation==self.mv.userLocation)
+    if ((MKUserLocation*)annotation==self.mv.userLocation)
         return nil;
     static NSString *AnnotationViewID = @"annotationViewID";
     MKPinAnnotationView *annotationView = (MKPinAnnotationView *)[thisMapView
@@ -141,6 +152,7 @@
 }
 - (void)viewDidUnload {
     [self setMv:nil];
+    [self setOverlayView:nil];
     [super viewDidUnload];
 }
 
@@ -193,6 +205,8 @@
         //add annotations array to the mapView
         [self.mv addAnnotations:self.businessPoints];
         [self zoomToFitMapAnnotations:self.mv];
+        
+        [self.overlayView removeFromSuperview];
     }
 }
 
