@@ -37,6 +37,6 @@
 
 -(void)storeUnamePassword:(NSString*)uname :(NSString*)password;
 -(NSString*)getStoredUname;
--(NSString*)getSToredPassword;
+-(NSString*)getStoredPassword;
 @end
 

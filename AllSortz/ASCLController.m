@@ -44,19 +44,27 @@
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults setObject:uname forKey:@"ASusername"];
-    [defaults setObject:uname forKey:@"ASpassword"];
+    [defaults setObject:password forKey:@"ASpassword"];
     return;
 }
 
 -(NSString*)getStoredUname
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    if (![defaults valueForKey:@"ASusername"])
+    {
+        [defaults setObject:@"none" forKey:@"ASusername"];
+    }
     return [defaults valueForKey:@"ASusername"];
 }
 
 -(NSString*)getStoredPassword
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    if (![defaults valueForKey:@"ASpassword"])
+    {
+        [defaults setObject:@"generated_password" forKey:@"ASpassword"];
+    }
     return [defaults valueForKey:@"ASpassword"];
 
 }

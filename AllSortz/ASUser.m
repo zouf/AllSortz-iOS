@@ -17,9 +17,9 @@
         return nil;
     NSMutableDictionary *results = [aJSONObject objectForKey:@"result"];
     // [self.treePath addObject:[allTopics valueForKey:@"topicName"]];
-    self.userName = [[results valueForKey:@"userName"] stringValue];
-    self.userEmail = [[results valueForKey:@"userEmail"] stringValue];
-    self.userPassword = [[results valueForKey:@"userPassword"] stringValue];
+    self.userName = [results valueForKey:@"userName"];
+    self.userEmail = [results valueForKey:@"userEmail"] ;
+  //  self.userPassword = [results valueForKey:@"userPassword"];
 
     return self;
 }

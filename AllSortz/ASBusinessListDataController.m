@@ -28,7 +28,6 @@ BOOL updated;
     self = [super init];
     if (self) {
         lock = [[NSLock alloc]init];
-        updated = NO;
         
         self.locationController = [[ASCLController alloc] init];
         [self.locationController.locationManager startUpdatingLocation];
@@ -41,7 +40,7 @@ BOOL updated;
 
 - (BOOL)updateData
 {
-    updated = NO;
+    [lock unlock];
     // will allow the update location thread to populate the list.
     // might need to redesign this
     return YES;
@@ -59,7 +58,11 @@ BOOL updated;
 
 - (BOOL)updateWithQuery:(ASQuery*)query
 {
-    static NSString *address = @"http://allsortz.com/api/businesses/search/";
+    
+    NSString *address = [NSString stringWithFormat:@"http://allsortz.com/api/businesses/search/?uname=%@&password=%@&lat=%f&lon=%f&deviceID=%@",  [self.locationController getStoredUname], [self.locationController getStoredPassword],
+                         self.currentLocation.coordinate.latitude,self.currentLocation.coordinate.longitude,[self.locationController getDeviceUIUD]];
+    
+    NSLog(@"Query server with %@\n",address);
     
     NSString *str = [[query serializeToDictionary] urlEncodedString];
     NSData* data = [str dataUsingEncoding:NSUTF8StringEncoding];
@@ -110,19 +113,24 @@ BOOL updated;
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
 {
     // TODO: Actual error handling
+    NSLog(@"ERROR %@\n",error);
     self.receivedData = nil;
 }
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
-    NSMutableDictionary *JSONresponse = [NSJSONSerialization JSONObjectWithData:self.receivedData
-                                                                        options:0
-                                                                          error:NULL];
     
-    self.businessList = [[ASBusinessList alloc] initWithJSONObject:JSONresponse];
-    //self.businessMapList =  [[ASBusinessList alloc] initWithJSONObject:JSONresponse];
-    
-    self.receivedData = nil;
+    if (self.receivedData)
+    {
+        NSMutableDictionary *JSONresponse = [NSJSONSerialization JSONObjectWithData:self.receivedData
+                                                                            options:0
+                                                                              error:NULL];
+        
+        self.businessList = [[ASBusinessList alloc] initWithJSONObject:JSONresponse];
+        //self.businessMapList =  [[ASBusinessList alloc] initWithJSONObject:JSONresponse];
+        
+        self.receivedData = nil;
+    }
 }
 
 #pragma mark - Receive query info
@@ -148,14 +156,14 @@ BOOL updated;
 - (void)locationUpdate:(CLLocation *)location
 {
     self.currentLocation = [location copy];
-    if (!updated)
+    if ([lock tryLock])
     {
-        updated = YES;
        // NSLog(@"Update the server with location %@\n", self.currentLocation);
 
-        NSString * uuidStr = [self.locationController getDeviceUIUD];
         
-        NSString *address = [NSString stringWithFormat:@"http://allsortz.com/api/businesses/?lat=%f&lon=%f&deviceID=%@",self.currentLocation.coordinate.latitude,self.currentLocation.coordinate.longitude,uuidStr];
+        NSString *address = [NSString stringWithFormat:@"http://allsortz.com/api/businesses/?uname=%@&password=%@&lat=%f&lon=%f&deviceID=%@", [self.locationController getStoredUname], [self.locationController getStoredPassword],
+                             self.currentLocation.coordinate.latitude,self.currentLocation.coordinate.longitude,[self.locationController getDeviceUIUD]];
+        
         NSLog(@"Query server with %@\n",address);
         NSURL *url = [NSURL URLWithString:address];
         NSURLRequest *request = [NSURLRequest requestWithURL:url];
@@ -167,7 +175,9 @@ BOOL updated;
         }
         self.receivedData = [NSMutableData data];
         
+        
         return;
+        
 
     }
 }

@@ -25,4 +25,10 @@
 -(IBAction)showCameraAction:(id)sender;
 -(IBAction)saveImageAction:(id)sender;
 
+// Key-value observing
+- (void)observeValueForKeyPath:(NSString *)keyPath
+                      ofObject:(id)object
+                        change:(NSDictionary *)change
+                       context:(void *)context;
+
 @end

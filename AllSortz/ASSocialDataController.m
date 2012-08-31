@@ -41,11 +41,11 @@ BOOL updated;
 - (BOOL)updateData
 {
 
-    // NSLog(@"Update the server with location %@\n", self.currentLocation);
     
-    NSString * uuidStr = [self.locationController getDeviceUIUD];
+    NSString *address = [NSString stringWithFormat:@"http://allsortz.com/api/user/?uname=%@&password=%@&lat=%f&lon=%f&deviceID=%@",  [self.locationController getStoredUname], [self.locationController getStoredPassword],
+        self.currentLocation.coordinate.latitude,self.currentLocation.coordinate.longitude,[self.locationController getDeviceUIUD]];
     
-    NSString *address = [NSString stringWithFormat:@"http://allsortz.com/api/user/?deviceID=%@",uuidStr];
+
     NSLog(@"Get user profile data with %@\n",address);
     NSURL *url = [NSURL URLWithString:address];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
@@ -66,10 +66,9 @@ BOOL updated;
 {
     
     
-    NSString * uuidStr = [self.locationController getDeviceUIUD];
     
-    NSString *address = [NSString stringWithFormat:@"http://allsortz.com/api/user/update/?deviceID=%@",uuidStr];
-
+    NSString *address = [NSString stringWithFormat:@"http://allsortz.com/api/user/update/?uname=%@&password=%@&lat=%f&lon=%f&deviceID=%@",  [self.locationController getStoredUname], [self.locationController getStoredPassword],
+        self.currentLocation.coordinate.latitude,self.currentLocation.coordinate.longitude,[self.locationController getDeviceUIUD]];
     
 
     NSURL *url = [NSURL URLWithString:address];
@@ -132,9 +131,6 @@ BOOL updated;
                                                                         options:0
                                          
                                                                           error:NULL];
-    NSString *success = [JSONresponse valueForKey:@"success"];
-    NSString *requestType = [JSONresponse valueForKey:@"requestType"];
-    
     
     self.userProfile = [[ASUser alloc] initWithJSONObject:JSONresponse];
     self.receivedData = nil;

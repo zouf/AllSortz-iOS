@@ -117,6 +117,12 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+  /*  [self.socialDataController addObserver:self
+                                       forKeyPath:@"userProfile"
+                                          options:NSKeyValueObservingOptionNew
+                                          context:NULL];
+    
+    */
     UITapGestureRecognizer *gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyboard)];
     // For selecting cell.
     gestureRecognizer.cancelsTouchesInView = NO;
@@ -176,5 +182,19 @@
     return YES;
 }
 
+// Key-value observing
+- (void)observeValueForKeyPath:(NSString *)keyPath
+                      ofObject:(id)object
+                        change:(NSDictionary *)change
+                       context:(void *)context
+{
+    if ([keyPath isEqualToString:@"userProfile"])
+    {
+        self.nameBox.text = self.socialDataController.userProfile.userName;
+        self.emailBox.text = self.socialDataController.userProfile.userEmail;
+        //self.passwordBox.text = self.socialDataController.userProfile.userPassword;
+
+    }
+}
 
 @end
