@@ -15,6 +15,8 @@
 
 #define TOPICNAMELABEL_TAG 1010
 #define TOPICTEXTVIEW_TAG 1012
+#define TOPICRATINGVIEW_TAG 1013
+
 
 @interface ASZBusinessDetailsDataController ()
 
@@ -70,6 +72,8 @@
                                                 @"name": [category valueForKeyPath:@"topic.parentName"],
                                                 @"rating": [category valueForKey:@"bustopicRating"],
                                                 @"summary": [category valueForKey:@"bustopicContent"]}];
+        
+        NSLog(@"%@\n",category);
 
         // Don't want a mutable dictionary in there
         [topics addObject:[NSDictionary dictionaryWithDictionary:topic]];
@@ -122,6 +126,9 @@
 
             UITextView *topicSummary = (UITextView *)[cell.contentView viewWithTag:TOPICTEXTVIEW_TAG];
             topicSummary.text = [topic valueForKey:@"summary"];
+            
+            UIProgressView *ratingView = (UIProgressView*)[cell.contentView viewWithTag:TOPICRATINGVIEW_TAG];
+            ratingView.progress = [[topic valueForKey:@"rating"] floatValue];
         }
             return cell;
         default:

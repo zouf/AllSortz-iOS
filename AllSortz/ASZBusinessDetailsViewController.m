@@ -72,7 +72,7 @@
         case ASZBusinessDetailsInfoSection:
             return 22;
         case ASZBusinessDetailsTopicSection:
-            return 88;
+            return 130;
         default:
             return tableView.rowHeight;
             break;
