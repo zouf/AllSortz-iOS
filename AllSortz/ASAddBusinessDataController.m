@@ -7,6 +7,7 @@
 //
 
 #import "ASAddBusinessDataController.h"
+#import "ASCLController.h"
 
 static NSString * const BOUNDARY = @"0xKhTmLbOuNdArY";
 static NSString * const FORM_FLE_INPUT = @"uploaded";
@@ -15,15 +16,27 @@ static NSString * const FORM_FLE_INPUT = @"uploaded";
 
     @property (strong, readwrite) ASAddBusiness *business;
     @property (strong) NSMutableData *receivedData;
+@property (strong, nonatomic) ASCLController *locationController;
 
 
 @end
 
 @implementation ASAddBusinessDataController
 
+- (id)init {
+    self = [super init];
+    if (self) {
+        self.locationController = [[ASCLController alloc] init];
+    }
+    return self;
+}
+
+
 - (BOOL)updateData
 {
-    static NSString *address = @"http://allsortz.com/api/types/";
+    
+    NSString *address = [NSString stringWithFormat:@"http://allsortz.com/api/types/?uname=%@&password=%@&deviceID=%@",  [self.locationController getStoredUname], [self.locationController getStoredPassword],[self.locationController getDeviceUIUD]];
+
     NSURL *url = [NSURL URLWithString:address];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     
@@ -58,7 +71,8 @@ static NSString * const FORM_FLE_INPUT = @"uploaded";
 
 - (BOOL)uploadData
 {
-    static NSString *address = @"http://allsortz.com/api/business/add/";
+    NSString *address = [NSString stringWithFormat:@"http://allsortz.com/api/business/add/?uname=%@&password=%@&deviceID=%@",  [self.locationController getStoredUname], [self.locationController getStoredPassword],[self.locationController getDeviceUIUD]];
+
     NSString *str = [[self.business serializeToDictionary] urlEncodedString];
     NSData* data = [str dataUsingEncoding:NSUTF8StringEncoding];
     NSURLRequest *request = [self postRequestWithAddress:address data:data];

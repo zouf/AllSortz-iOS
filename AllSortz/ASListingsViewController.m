@@ -76,6 +76,9 @@
     // Download data automatically if there's no data source
     if (!self.listingsTableDataController.businessList)
     {
+        [self.listingsTableDataController setBus_low:0];
+        [self.listingsTableDataController setBus_high:10];
+        [self.listingsTableDataController setIsListingView:YES];
         [self.listingsTableDataController updateData];
     
     }

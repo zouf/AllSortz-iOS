@@ -15,6 +15,7 @@
 @property (strong, readwrite) ASQuery *query;
 @property (strong, readwrite) ASBusinessList *searchResults;
 @property (strong) NSMutableData *receivedData;
+@property (strong, nonatomic) ASCLController *locationController;
 
 
 @end
@@ -22,12 +23,22 @@
 
 
 @implementation ASQueryDataController
+
+- (id)init {
+    self = [super init];
+    if (self) {
+        self.locationController = [[ASCLController alloc] init];     
+    }
+    return self;
+}
+
 - (BOOL)updateData
 {
-    static NSString *address = @"http://allsortz.com/api/query/base/";
+        
+    NSString *address = [NSString stringWithFormat:@"http://allsortz.com/api/query/base/?uname=%@&password=%@&deviceID=%@",  [self.locationController getStoredUname], [self.locationController getStoredPassword],[self.locationController getDeviceUIUD]];
     NSURL *url = [NSURL URLWithString:address];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
-    
+    NSLog(@"%@\n",address);
     NSURLConnection *connection = [NSURLConnection connectionWithRequest:request delegate:self];
     if (!connection) {
         // TODO: Some proper failure handling maybe

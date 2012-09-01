@@ -7,7 +7,7 @@
 //
 
 #import "ASSocialDataController.h"
-
+#import "ASURLEncoding.h"
 @interface ASSocialDataController ()
 
 @property (strong, readwrite) ASUser *userProfile;
@@ -70,9 +70,15 @@ BOOL updated;
     NSString *address = [NSString stringWithFormat:@"http://allsortz.com/api/user/update/?uname=%@&password=%@&lat=%f&lon=%f&deviceID=%@",  [self.locationController getStoredUname], [self.locationController getStoredPassword],
         self.currentLocation.coordinate.latitude,self.currentLocation.coordinate.longitude,[self.locationController getDeviceUIUD]];
     
+    [self.locationController storeUnamePassword:self.userProfile.userName :self.userProfile.userPassword];
+    
+    NSLog(@"Update the user profile data with %@\n",address);
 
-    NSURL *url = [NSURL URLWithString:address];
-    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    NSString *str = [[self.userProfile serializeToDictionary] urlEncodedString];
+    NSLog(@"POST STRING IS %@\n",str);
+    NSData* data = [str dataUsingEncoding:NSUTF8StringEncoding];
+    NSURLRequest *request = [self postRequestWithAddress:address data:data];
+    
     
     
     NSURLConnection *connection = [NSURLConnection connectionWithRequest:request delegate:self];

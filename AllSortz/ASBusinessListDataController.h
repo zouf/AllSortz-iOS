@@ -11,6 +11,7 @@
 #import "ASURLEncoding.h"
 #import "ASSortViewController.h"
 #import "ASCLController.h"
+#import <MapKit/MapKit.h>
 
 @interface ASBusinessListDataController : NSObject <NSURLConnectionDataDelegate, NewSortDelegate, ASCLControllerDelegate>
 
@@ -19,9 +20,15 @@
 
 
 - (BOOL)updateData;
+- (BOOL)updateWithRect;
+
 - (BOOL)updateDataWithNewList:(ASBusinessList*)newList;
 - (BOOL)updateWithQuery:(ASQuery*)query;
 
+@property (nonatomic, assign) MKCoordinateRegion rect;
+@property (nonatomic, assign) NSInteger bus_low;
+@property (nonatomic, assign) NSInteger bus_high;
+@property (nonatomic, assign) BOOL isListingView;
 
 // NSURLConnectionDataDelegate
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response;

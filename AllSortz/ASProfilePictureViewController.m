@@ -32,7 +32,18 @@
 
 - (IBAction)updateTapped:(id)sender {
     NSLog(@"Update User Profile %@\n",emailBox.text);
+    [self.socialDataController.userProfile setUserEmail:emailBox.text];
+    [self.socialDataController.userProfile setUserName:nameBox.text];
+    [self.socialDataController.userProfile setUserPassword:passwordBox.text];
+
     [self.socialDataController updateUserData];
+    UIActivityIndicatorView *activityView=[[UIActivityIndicatorView alloc]     initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+    
+    activityView.center=self.overlayView.center;
+    
+    [activityView startAnimating];
+    
+    [self.overlayView addSubview:activityView];
 }
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     
@@ -204,10 +215,13 @@
         
         self.nameBox.text = self.socialDataController.userProfile.userName;
         self.emailBox.text = self.socialDataController.userProfile.userEmail;
+        
+        
 
         [self.overlayView removeFromSuperview];
 
     }
+    
 }
 
 @end

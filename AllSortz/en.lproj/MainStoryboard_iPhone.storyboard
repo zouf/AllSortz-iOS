@@ -105,7 +105,7 @@
                         <rect key="frame" x="0.0" y="64" width="320" height="367"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" tag="800" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Name" borderStyle="roundedRect" placeholder="Le Name" minimumFontSize="17" clearButtonMode="whileEditing" id="jik-2k-2g5">
+                            <textField opaque="NO" clipsSubviews="YES" tag="800" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Name" minimumFontSize="17" clearButtonMode="whileEditing" id="jik-2k-2g5">
                                 <rect key="frame" x="20" y="154" width="292" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="GillSans" family="Gill Sans" pointSize="14"/>
@@ -115,7 +115,7 @@
                                     <outlet property="delegate" destination="B3y-jJ-sif" id="ZaB-8k-S1a"/>
                                 </connections>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" tag="801" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Email" borderStyle="roundedRect" placeholder="Le E-mail" minimumFontSize="17" id="zTo-Dd-5rl">
+                            <textField opaque="NO" clipsSubviews="YES" tag="801" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" minimumFontSize="17" id="zTo-Dd-5rl">
                                 <rect key="frame" x="20" y="193" width="292" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="GillSans" family="Gill Sans" pointSize="14"/>
@@ -125,7 +125,7 @@
                                     <outlet property="delegate" destination="B3y-jJ-sif" id="OCH-Ju-urI"/>
                                 </connections>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" tag="802" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Password" borderStyle="roundedRect" placeholder="Le Password" minimumFontSize="17" id="nIQ-6x-ekQ">
+                            <textField opaque="NO" clipsSubviews="YES" tag="802" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" minimumFontSize="17" id="nIQ-6x-ekQ">
                                 <rect key="frame" x="20" y="232" width="292" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="GillSans" family="Gill Sans" pointSize="14"/>
@@ -210,6 +210,11 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="Map" id="sq9-Ug-LDz">
+                        <barButtonItem key="leftBarButtonItem" title="Refresh" id="7e6-4Z-sGg">
+                            <connections>
+                                <action selector="refreshTheMap:" destination="vkh-pH-Hmp" id="3cE-vi-oa5"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Query" id="RBY-0a-KNN">
                             <connections>
                                 <segue destination="NAQ-9X-QBW" kind="modal" identifier="NewSort" id="o3v-B7-O4S"/>
@@ -742,9 +747,11 @@
         <class className="ASMapViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/ASMapViewController.h"/>
             <relationships>
+                <relationship kind="action" name="refreshTheMap:"/>
                 <relationship kind="outlet" name="listingsTableDataController" candidateClass="ASBusinessListDataController"/>
                 <relationship kind="outlet" name="mv" candidateClass="MKMapView"/>
                 <relationship kind="outlet" name="overlayView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="refreshMap" candidateClass="UIBarButtonItem"/>
             </relationships>
         </class>
         <class className="ASProfilePictureViewController" superclassName="UIViewController">
@@ -799,6 +806,6 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="w1D-Pu-gLz"/>
+        <segue reference="o3v-B7-O4S"/>
     </inferredMetricsTieBreakers>
 </document>

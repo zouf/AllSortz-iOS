@@ -16,6 +16,7 @@
 @property (weak, nonatomic) NSMutableArray *businessPoints;
 @property (weak, nonatomic) IBOutlet UIView *overlayView;
 
+- (IBAction)refreshTheMap:(id)sender;
 
 -(void)zoomToFitMapAnnotations:(MKMapView*)mapView;
 
@@ -64,6 +65,14 @@
 	
 	
     [super viewDidLoad];
+}
+
+- (IBAction)refreshTheMap:(id)sender {
+    [self.listingsTableDataController setRect:self.mv.region];
+    [self.listingsTableDataController setIsListingView:NO];
+    [self.listingsTableDataController updateWithRect];
+    
+
 }
 
 -(void)zoomToFitMapAnnotations:(MKMapView*)mapView
@@ -153,6 +162,7 @@
 - (void)viewDidUnload {
     [self setMv:nil];
     [self setOverlayView:nil];
+
     [super viewDidUnload];
 }
 
@@ -166,7 +176,10 @@
     [super viewWillAppear:animated];
     if (!self.listingsTableDataController.businessList)
     {
-        [self.listingsTableDataController updateData];
+        MKMapRect  rect = self.mv.visibleMapRect;
+        [self.listingsTableDataController setRect:self.mv.region];
+        [self.listingsTableDataController setIsListingView:NO];
+        [self.listingsTableDataController updateWithRect];
         
     }
 }
@@ -174,6 +187,8 @@
 
 
 #pragma mark - Key-value observing
+
+
 
 - (void)observeValueForKeyPath:(NSString *)keyPath
                       ofObject:(id)object

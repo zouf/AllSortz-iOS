@@ -16,6 +16,7 @@
 
 
 - (id)initWithJSONObject:(NSDictionary *)aJSONObject;
+- (NSDictionary *)serializeToDictionary;
 
 
 @end

@@ -24,6 +24,19 @@
     return self;
 }
 
+- (NSDictionary *) serializeToDictionary
+{
+    //NSError * error;
+    //NSData *jsonData =  [NSJSONSerialization dataWithJSONObject:self.selectedTypes options:NSJSONWritingPrettyPrinted error:&error];
+    //NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    
+     NSDictionary * dict= [NSDictionary dictionaryWithObjectsAndKeys:
+     self.userName, @"userName",
+     self.userEmail ,@"userEmail",
+     self.userPassword ,@"userPassword",nil];
+     
+    return dict;
+}
 
 
 
