@@ -85,6 +85,7 @@
          CGFloat maxy_corner_pt = maxy-5;
          
          CGFloat corner_radius = 5;
+         CGPathRelease(path);
         
          path = CGPathCreateMutable();
          CGPathMoveToPoint(path, NULL, 15.0, 0.5);

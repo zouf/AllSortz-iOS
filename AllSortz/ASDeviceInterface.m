@@ -30,9 +30,8 @@
     {
         CFUUIDRef UUIDRef = CFUUIDCreate(kCFAllocatorDefault);
         CFStringRef UUIDSRef = CFUUIDCreateString(kCFAllocatorDefault, UUIDRef);
-        UUID = [NSString stringWithFormat:@"%@", UUIDSRef];
-        
-        [defaults setObject:UUID forKey:@"UUID"];
+        [defaults setObject:(__bridge_transfer NSString *)UUIDSRef forKey:@"UUID"];
+        CFRelease(UUIDRef);
     }
     else {
         UUID = [defaults valueForKey:@"UUID"];
