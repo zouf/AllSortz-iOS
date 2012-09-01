@@ -31,7 +31,12 @@
 
 - (void)refreshBusinessAsynchronouslyWithID:(NSUInteger)ID
 {
-    NSString *address = [NSString stringWithFormat:@"http://allsortz.com/api/business/%lu", (unsigned long)ID];
+    if (!(ID && self.username && self.currentLatitude && self.currentLongitude && self.UUID)) {
+        self.business = nil;
+        return;
+    }
+
+    NSString *address = [NSString stringWithFormat:@"http://allsortz.com/api/business/%lu?uname=%@&password=%@&lat=%f&lon=%f&deviceID=%@", (unsigned long)ID, self.username, self.password, self.currentLatitude, self.currentLongitude, self.UUID];
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:address]];
     void (^handler)(NSURLResponse *, NSData *, NSError *) = ^(NSURLResponse *response, NSData *data, NSError *error) {
         NSDictionary *JSONresponse = [NSJSONSerialization JSONObjectWithData:data options:0 error:NULL];

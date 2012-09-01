@@ -27,6 +27,12 @@ typedef enum ASZBusinessDetailsInfoRow : NSInteger {
 
 @property ASBusiness *business;
 
+@property NSString *username;
+@property NSString *password;
+@property CGFloat currentLatitude;
+@property CGFloat currentLongitude;
+@property NSString *UUID;
+
 - (void)refreshBusinessAsynchronouslyWithID:(NSUInteger)ID;
 
 @end

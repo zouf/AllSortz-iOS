@@ -14,6 +14,7 @@
 #import "ASQuery.h"
 #import "ASAddBusinessViewController.h"
 #import "ASZBusinessDetailsViewController.h"
+#import "ASZBusinessDetailsDataController.h"
 
 @interface ASListingsViewController ()
 
@@ -378,6 +379,14 @@
         NSArray *businessIDs = [businesses valueForKeyPath:@"entries.ID"];
         NSInteger selectedRow = [self.tableView indexPathForSelectedRow].row;
         detailsViewController.businessID = [businessIDs[selectedRow] unsignedIntegerValue];
+
+        ASZBusinessDetailsDataController *detailsDataController = detailsViewController.dataController;
+        ASBusinessListDataController *listDataController = self.listingsTableDataController;
+        detailsDataController.username = [listDataController.locationController getStoredUname];
+        detailsDataController.password = [listDataController.locationController getStoredPassword];
+        detailsDataController.UUID = [listDataController.locationController getDeviceUIUD];
+        detailsDataController.currentLatitude = listDataController.currentLocation.coordinate.latitude;
+        detailsDataController.currentLongitude = listDataController.currentLocation.coordinate.longitude;
     }
 }
 
