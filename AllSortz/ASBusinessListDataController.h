@@ -17,7 +17,8 @@
 
 @property (strong, readonly) ASBusinessList *businessList;
 @property (strong, readonly) ASBusinessList *businessMapList;
-
+@property(strong, atomic) CLLocation * currentLocation;
+@property (strong, nonatomic) ASCLController *locationController;
 
 - (BOOL)updateData;
 - (BOOL)updateWithRect;

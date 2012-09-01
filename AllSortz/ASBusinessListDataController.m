@@ -14,9 +14,7 @@
 @property (strong, readwrite) ASBusinessList *businessMapList;
 
 @property (strong) NSMutableData *receivedData;
-@property(strong, atomic) CLLocation * currentLocation;
-@property (strong, nonatomic) ASCLController *locationController;
-
+ 
 @property(strong, atomic) NSLock* lock;
 
 
