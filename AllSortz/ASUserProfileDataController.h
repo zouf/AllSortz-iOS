@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "ASUserProfile.h"
 #import "ASURLEncoding.h"
+#import "ASDeviceInterface.h"
 
 @interface ASUserProfileDataController : NSObject <NSURLConnectionDataDelegate>
 
@@ -18,8 +19,6 @@
 - (void)updateWithArray:(NSArray*)newTopics;
 
 - (IBAction)importanceSelected:(id)sender;
-
-
 
 // NSURLConnectionDataDelegate
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response;

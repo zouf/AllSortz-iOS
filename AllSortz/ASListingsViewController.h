@@ -9,7 +9,6 @@
 #import "ASIconDownloader.h"
 #import "ASAddBusinessViewController.h"
 #import "ASActivityWaitingViewController.h"
-#import "ASCLController.h"
 
 #define NUM_TYPE_ICONS 6
 #define ACTIVITY_WAITING_VIEW 800

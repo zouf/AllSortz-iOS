@@ -8,7 +8,7 @@
 
 #import "ASQuery.h"
 #import "ASBusinessList.h"
-#import "ASCLController.h"
+#import "ASDeviceInterface.h"
 
 @interface ASQueryDataController : NSObject  <NSURLConnectionDataDelegate>
 

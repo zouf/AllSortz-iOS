@@ -10,18 +10,18 @@
 #import <UIKit/UIKit.h>
 #import <CoreLocation/CoreLocation.h>
 
-@protocol ASCLControllerDelegate
+@protocol ASDeviceInterfaceDelegate
 @required
 - (void)locationUpdate:(CLLocation *)location;
 - (void)locationError:(NSError *)error;
 @end
 
 
-@interface ASCLController : NSObject <CLLocationManagerDelegate>{
+@interface ASDeviceInterface : NSObject <CLLocationManagerDelegate>{
     CLLocationManager *locationManager;
 }
 
-@property(strong,nonatomic)id<ASCLControllerDelegate>delegate;
+@property(strong,nonatomic)id<ASDeviceInterfaceDelegate>delegate;
 
 
 @property (nonatomic, retain) CLLocationManager *locationManager;

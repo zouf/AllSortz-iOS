@@ -54,7 +54,7 @@
 		0AA6258515EEB85700C0BE8E /* def-as-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AA6258415EEB85600C0BE8E /* def-as-icon.png */; };
 		0AA6258B15EEBB9C00C0BE8E /* test-smaller.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AA6258A15EEBB9C00C0BE8E /* test-smaller.png */; };
 		0AA6259215EEBCAF00C0BE8E /* ASMapAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AA6259115EEBCAF00C0BE8E /* ASMapAnnotation.m */; };
-		0AA6259515EED1AD00C0BE8E /* ASCLController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AA6259415EED1AB00C0BE8E /* ASCLController.m */; };
+		0AA6259515EED1AD00C0BE8E /* ASDeviceInterface.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AA6259415EED1AB00C0BE8E /* ASDeviceInterface.m */; };
 		0AA6259715EED5F900C0BE8E /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AA6259615EED5F800C0BE8E /* CoreLocation.framework */; };
 		0AAB66C415EFA4E800F22011 /* ASUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AAB66BF15EFA4E800F22011 /* ASUser.m */; };
 		0AAB66C515EFA4E800F22011 /* ASSocialDataController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AAB66C115EFA4E800F22011 /* ASSocialDataController.m */; };
@@ -214,8 +214,8 @@
 		0AA6258A15EEBB9C00C0BE8E /* test-smaller.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "test-smaller.png"; sourceTree = "<group>"; };
 		0AA6259015EEBCAF00C0BE8E /* ASMapAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASMapAnnotation.h; sourceTree = "<group>"; };
 		0AA6259115EEBCAF00C0BE8E /* ASMapAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASMapAnnotation.m; sourceTree = "<group>"; };
-		0AA6259315EED1A800C0BE8E /* ASCLController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASCLController.h; sourceTree = "<group>"; };
-		0AA6259415EED1AB00C0BE8E /* ASCLController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASCLController.m; sourceTree = "<group>"; };
+		0AA6259315EED1A800C0BE8E /* ASDeviceInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASDeviceInterface.h; sourceTree = "<group>"; };
+		0AA6259415EED1AB00C0BE8E /* ASDeviceInterface.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASDeviceInterface.m; sourceTree = "<group>"; };
 		0AA6259615EED5F800C0BE8E /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		0AAB66BE15EFA4E800F22011 /* ASUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASUser.h; sourceTree = "<group>"; };
 		0AAB66BF15EFA4E800F22011 /* ASUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASUser.m; sourceTree = "<group>"; };
@@ -585,8 +585,8 @@
 				0A04240015D9AD99008143F0 /* Map View */,
 				0A0423FE15D9AD5D008143F0 /* Query Panel */,
 				6C0CC23C15B7B1FC00F2F7B6 /* Supporting Files */,
-				0AA6259315EED1A800C0BE8E /* ASCLController.h */,
-				0AA6259415EED1AB00C0BE8E /* ASCLController.m */,
+				0AA6259315EED1A800C0BE8E /* ASDeviceInterface.h */,
+				0AA6259415EED1AB00C0BE8E /* ASDeviceInterface.m */,
 			);
 			path = AllSortz;
 			sourceTree = "<group>";
@@ -903,7 +903,7 @@
 				0AFE1B7D15E70C6600636B4D /* ASTopicBrowseViewController.m in Sources */,
 				0AA6258315EE901B00C0BE8E /* ASMapPoint.m in Sources */,
 				0AA6259215EEBCAF00C0BE8E /* ASMapAnnotation.m in Sources */,
-				0AA6259515EED1AD00C0BE8E /* ASCLController.m in Sources */,
+				0AA6259515EED1AD00C0BE8E /* ASDeviceInterface.m in Sources */,
 				0AAB66C415EFA4E800F22011 /* ASUser.m in Sources */,
 				0AAB66C515EFA4E800F22011 /* ASSocialDataController.m in Sources */,
 				0AAB66C915EFE50300F22011 /* ASProfilePictureViewController.m in Sources */,

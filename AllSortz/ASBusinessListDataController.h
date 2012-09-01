@@ -10,15 +10,15 @@
 #import "ASQuery.h"
 #import "ASURLEncoding.h"
 #import "ASSortViewController.h"
-#import "ASCLController.h"
+#import "ASDeviceInterface.h"
 #import <MapKit/MapKit.h>
 
-@interface ASBusinessListDataController : NSObject <NSURLConnectionDataDelegate, NewSortDelegate, ASCLControllerDelegate>
+@interface ASBusinessListDataController : NSObject <NSURLConnectionDataDelegate, NewSortDelegate, ASDeviceInterfaceDelegate>
 
 @property (strong, readonly) ASBusinessList *businessList;
 @property (strong, readonly) ASBusinessList *businessMapList;
 @property(strong, atomic) CLLocation * currentLocation;
-@property (strong, nonatomic) ASCLController *locationController;
+@property (strong, nonatomic) ASDeviceInterface *deviceInterface;
 
 - (BOOL)updateData;
 - (BOOL)updateWithRect;

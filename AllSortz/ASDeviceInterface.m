@@ -6,9 +6,9 @@
 //  Copyright (c) 2012 AllSortz, Inc. All rights reserved.
 //
 
-#import "ASCLController.h"
+#import "ASDeviceInterface.h"
 
-@implementation ASCLController
+@implementation ASDeviceInterface
 
 @synthesize locationManager;
 

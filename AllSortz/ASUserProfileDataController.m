@@ -11,21 +11,31 @@
 
 @property (strong, readwrite) ASUserProfile *userProfile;
 @property (strong) NSMutableData *receivedData;
+@property (strong, nonatomic) ASDeviceInterface *deviceInterface;
 
 
 @end
 
 @implementation ASUserProfileDataController
 
+- (id)init {
+    self = [super init];
+    if (self) {
+        self.deviceInterface = [[ASDeviceInterface alloc] init];
+    }
+    return self;
+}
+
 - (BOOL)updateData:(NSInteger)parentTopicID;
 {
     
-   // NSLog(@"New topics are %@\n", newTopics);
     NSString * address;
     if (!parentTopicID)
-        address = [NSString stringWithFormat:@"http://allsortz.com/api/topics/?parent="];
+        address = [NSString stringWithFormat:@"http://allsortz.com/api/topics/?uname=%@&password=%@&deviceID=%@&parent=",
+                   [self.deviceInterface getStoredUname], [self.deviceInterface getStoredPassword],[self.deviceInterface getDeviceUIUD]];
     else
-        address = [NSString stringWithFormat:@"http://allsortz.com/api/topics/?parent=%d",parentTopicID];
+        address = [NSString stringWithFormat:@"http://allsortz.com/api/topics/?uname=%@&password=%@&deviceID=%@&parent=",
+                   [self.deviceInterface getStoredUname], [self.deviceInterface getStoredPassword],[self.deviceInterface getDeviceUIUD],parentTopicID];
     /*else
     {
         parentTopic = [parentTopic stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding];

@@ -382,9 +382,9 @@
 
         ASZBusinessDetailsDataController *detailsDataController = detailsViewController.dataController;
         ASBusinessListDataController *listDataController = self.listingsTableDataController;
-        detailsDataController.username = [listDataController.locationController getStoredUname];
-        detailsDataController.password = [listDataController.locationController getStoredPassword];
-        detailsDataController.UUID = [listDataController.locationController getDeviceUIUD];
+        detailsDataController.username = [listDataController.deviceInterface getStoredUname];
+        detailsDataController.password = [listDataController.deviceInterface getStoredPassword];
+        detailsDataController.UUID = [listDataController.deviceInterface getDeviceUIUD];
         detailsDataController.currentLatitude = listDataController.currentLocation.coordinate.latitude;
         detailsDataController.currentLongitude = listDataController.currentLocation.coordinate.longitude;
     }

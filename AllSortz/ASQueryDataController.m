@@ -15,7 +15,7 @@
 @property (strong, readwrite) ASQuery *query;
 @property (strong, readwrite) ASBusinessList *searchResults;
 @property (strong) NSMutableData *receivedData;
-@property (strong, nonatomic) ASCLController *locationController;
+@property (strong, nonatomic) ASDeviceInterface *deviceInterface;
 
 
 @end
@@ -27,7 +27,7 @@
 - (id)init {
     self = [super init];
     if (self) {
-        self.locationController = [[ASCLController alloc] init];     
+        self.deviceInterface = [[ASDeviceInterface alloc] init];     
     }
     return self;
 }
@@ -35,7 +35,8 @@
 - (BOOL)updateData
 {
         
-    NSString *address = [NSString stringWithFormat:@"http://allsortz.com/api/query/base/?uname=%@&password=%@&deviceID=%@",  [self.locationController getStoredUname], [self.locationController getStoredPassword],[self.locationController getDeviceUIUD]];
+    NSString *address = [NSString stringWithFormat:@"http://allsortz.com/api/query/base/?uname=%@&password=%@&deviceID=%@",
+        [self.deviceInterface getStoredUname], [self.deviceInterface getStoredPassword],[self.deviceInterface getDeviceUIUD]];
     NSURL *url = [NSURL URLWithString:address];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     NSLog(@"%@\n",address);

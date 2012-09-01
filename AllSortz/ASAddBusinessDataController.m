@@ -7,7 +7,7 @@
 //
 
 #import "ASAddBusinessDataController.h"
-#import "ASCLController.h"
+#import "ASDeviceInterface.h"
 
 static NSString * const BOUNDARY = @"0xKhTmLbOuNdArY";
 static NSString * const FORM_FLE_INPUT = @"uploaded";
@@ -16,7 +16,7 @@ static NSString * const FORM_FLE_INPUT = @"uploaded";
 
     @property (strong, readwrite) ASAddBusiness *business;
     @property (strong) NSMutableData *receivedData;
-@property (strong, nonatomic) ASCLController *locationController;
+@property (strong, nonatomic) ASDeviceInterface *deviceInterface;
 
 
 @end
@@ -26,7 +26,7 @@ static NSString * const FORM_FLE_INPUT = @"uploaded";
 - (id)init {
     self = [super init];
     if (self) {
-        self.locationController = [[ASCLController alloc] init];
+        self.deviceInterface = [[ASDeviceInterface alloc] init];
     }
     return self;
 }
@@ -35,7 +35,7 @@ static NSString * const FORM_FLE_INPUT = @"uploaded";
 - (BOOL)updateData
 {
     
-    NSString *address = [NSString stringWithFormat:@"http://allsortz.com/api/types/?uname=%@&password=%@&deviceID=%@",  [self.locationController getStoredUname], [self.locationController getStoredPassword],[self.locationController getDeviceUIUD]];
+    NSString *address = [NSString stringWithFormat:@"http://allsortz.com/api/types/?uname=%@&password=%@&deviceID=%@",  [self.deviceInterface getStoredUname], [self.deviceInterface getStoredPassword],[self.deviceInterface getDeviceUIUD]];
 
     NSURL *url = [NSURL URLWithString:address];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
@@ -71,7 +71,7 @@ static NSString * const FORM_FLE_INPUT = @"uploaded";
 
 - (BOOL)uploadData
 {
-    NSString *address = [NSString stringWithFormat:@"http://allsortz.com/api/business/add/?uname=%@&password=%@&deviceID=%@",  [self.locationController getStoredUname], [self.locationController getStoredPassword],[self.locationController getDeviceUIUD]];
+    NSString *address = [NSString stringWithFormat:@"http://allsortz.com/api/business/add/?uname=%@&password=%@&deviceID=%@",  [self.deviceInterface getStoredUname], [self.deviceInterface getStoredPassword],[self.deviceInterface getDeviceUIUD]];
 
     NSString *str = [[self.business serializeToDictionary] urlEncodedString];
     NSData* data = [str dataUsingEncoding:NSUTF8StringEncoding];

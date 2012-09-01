@@ -14,7 +14,7 @@
 
 @property (strong) NSMutableData *receivedData;
 @property(strong, atomic) CLLocation * currentLocation;
-@property (strong, nonatomic) ASCLController *locationController;
+@property (strong, nonatomic) ASDeviceInterface *deviceInterface;
 
 @end
 
@@ -29,9 +29,9 @@ BOOL updated;
         lock = [[NSLock alloc]init];
         updated = NO;
         
-        self.locationController = [[ASCLController alloc] init];
-        [self.locationController.locationManager startUpdatingLocation];
-        self.locationController.delegate = self;
+        self.deviceInterface = [[ASDeviceInterface alloc] init];
+        [self.deviceInterface.locationManager startUpdatingLocation];
+        self.deviceInterface.delegate = self;
         
         
     }
@@ -42,8 +42,8 @@ BOOL updated;
 {
 
     
-    NSString *address = [NSString stringWithFormat:@"http://allsortz.com/api/user/?uname=%@&password=%@&lat=%f&lon=%f&deviceID=%@",  [self.locationController getStoredUname], [self.locationController getStoredPassword],
-        self.currentLocation.coordinate.latitude,self.currentLocation.coordinate.longitude,[self.locationController getDeviceUIUD]];
+    NSString *address = [NSString stringWithFormat:@"http://allsortz.com/api/user/?uname=%@&password=%@&lat=%f&lon=%f&deviceID=%@",  [self.deviceInterface getStoredUname], [self.deviceInterface getStoredPassword],
+        self.currentLocation.coordinate.latitude,self.currentLocation.coordinate.longitude,[self.deviceInterface getDeviceUIUD]];
     
 
     NSLog(@"Get user profile data with %@\n",address);
@@ -67,10 +67,10 @@ BOOL updated;
     
     
     
-    NSString *address = [NSString stringWithFormat:@"http://allsortz.com/api/user/update/?uname=%@&password=%@&lat=%f&lon=%f&deviceID=%@",  [self.locationController getStoredUname], [self.locationController getStoredPassword],
-        self.currentLocation.coordinate.latitude,self.currentLocation.coordinate.longitude,[self.locationController getDeviceUIUD]];
+    NSString *address = [NSString stringWithFormat:@"http://allsortz.com/api/user/update/?uname=%@&password=%@&lat=%f&lon=%f&deviceID=%@",  [self.deviceInterface getStoredUname], [self.deviceInterface getStoredPassword],
+        self.currentLocation.coordinate.latitude,self.currentLocation.coordinate.longitude,[self.deviceInterface getDeviceUIUD]];
     
-    [self.locationController storeUnamePassword:self.userProfile.userName :self.userProfile.userPassword];
+    [self.deviceInterface storeUnamePassword:self.userProfile.userName :self.userProfile.userPassword];
     
     NSLog(@"Update the user profile data with %@\n",address);
 

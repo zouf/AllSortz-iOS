@@ -28,9 +28,9 @@
     if (self) {
         self.lock = [[NSLock alloc]init];
         
-        self.locationController = [[ASCLController alloc] init];
-        [self.locationController.locationManager startUpdatingLocation];
-        self.locationController.delegate = self;
+        self.deviceInterface = [[ASDeviceInterface alloc] init];
+        [self.deviceInterface.locationManager startUpdatingLocation];
+        self.deviceInterface.delegate = self;
         
         
     }
@@ -55,7 +55,6 @@
 
 - (BOOL)updateDataWithNewList:(ASBusinessList*)newList
 {
-    
 
     self.businessList = newList;
     self.receivedData = nil;
@@ -66,8 +65,8 @@
 - (BOOL)updateWithQuery:(ASQuery*)query
 {
     
-    NSString *address = [NSString stringWithFormat:@"http://allsortz.com/api/businesses/search/?uname=%@&password=%@&lat=%f&lon=%f&deviceID=%@",  [self.locationController getStoredUname], [self.locationController getStoredPassword],
-                         self.currentLocation.coordinate.latitude,self.currentLocation.coordinate.longitude,[self.locationController getDeviceUIUD]];
+    NSString *address = [NSString stringWithFormat:@"http://allsortz.com/api/businesses/search/?uname=%@&password=%@&lat=%f&lon=%f&deviceID=%@",  [self.deviceInterface getStoredUname], [self.deviceInterface getStoredPassword],
+                         self.currentLocation.coordinate.latitude,self.currentLocation.coordinate.longitude,[self.deviceInterface getDeviceUIUD]];
     
     NSLog(@"Query server with %@\n",address);
     
@@ -172,8 +171,8 @@
        // NSLog(@"Update the server with location %@\n", self.currentLocation);
         if (self.isListingView)
         {
-            address = [NSString stringWithFormat:@"http://127.0.0.1:8000/api/businesses/?uname=%@&password=%@&lat=%f&lon=%f&deviceID=%@&bus_low=%d&bus_high=%d", [self.locationController getStoredUname], [self.locationController getStoredPassword],
-                                 self.currentLocation.coordinate.latitude,self.currentLocation.coordinate.longitude,[self.locationController getDeviceUIUD],self.bus_low,self.bus_high];
+            address = [NSString stringWithFormat:@"http://127.0.0.1:8000/api/businesses/?uname=%@&password=%@&lat=%f&lon=%f&deviceID=%@&bus_low=%d&bus_high=%d", [self.deviceInterface getStoredUname], [self.deviceInterface getStoredPassword],
+                                 self.currentLocation.coordinate.latitude,self.currentLocation.coordinate.longitude,[self.deviceInterface getDeviceUIUD],self.bus_low,self.bus_high];
         }
         else
         {
@@ -184,8 +183,8 @@
             float miny = center.longitude  - (self.rect.span.longitudeDelta  / 2.0);
 
 
-            address = [NSString stringWithFormat:@"http://127.0.0.1:8000/api/businesses/map/?uname=%@&password=%@&lat=%f&lon=%f&deviceID=%@&min_x=%f&min_y=%f&max_x=%f&max_y=%f", [self.locationController getStoredUname], [self.locationController getStoredPassword],
-                       self.currentLocation.coordinate.latitude,self.currentLocation.coordinate.longitude,[self.locationController getDeviceUIUD],minx,miny,maxx,maxy];
+            address = [NSString stringWithFormat:@"http://127.0.0.1:8000/api/businesses/map/?uname=%@&password=%@&lat=%f&lon=%f&deviceID=%@&min_x=%f&min_y=%f&max_x=%f&max_y=%f", [self.deviceInterface getStoredUname], [self.deviceInterface getStoredPassword],
+                       self.currentLocation.coordinate.latitude,self.currentLocation.coordinate.longitude,[self.deviceInterface getDeviceUIUD],minx,miny,maxx,maxy];
         }
         
         

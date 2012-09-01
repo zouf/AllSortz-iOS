@@ -8,9 +8,9 @@
 
 #import <Foundation/Foundation.h>
 #import "ASUser.h"
-#import "ASCLController.h"
+#import "ASDeviceInterface.h"
 
-@interface ASSocialDataController : NSObject <NSURLConnectionDataDelegate, ASCLControllerDelegate>
+@interface ASSocialDataController : NSObject <NSURLConnectionDataDelegate, ASDeviceInterfaceDelegate>
 
 @property (strong, readonly) ASUser *userProfile;
 
