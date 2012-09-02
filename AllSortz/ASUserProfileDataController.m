@@ -34,15 +34,10 @@
         address = [NSString stringWithFormat:@"http://allsortz.com/api/topics/?uname=%@&password=%@&deviceID=%@&parent=",
                    [self.deviceInterface getStoredUname], [self.deviceInterface getStoredPassword],[self.deviceInterface getDeviceUIUD]];
     else
-        address = [NSString stringWithFormat:@"http://allsortz.com/api/topics/?uname=%@&password=%@&deviceID=%@&parent=",
+        address = [NSString stringWithFormat:@"http://allsortz.com/api/topics/?uname=%@&password=%@&deviceID=%@&parent=%d",
                    [self.deviceInterface getStoredUname], [self.deviceInterface getStoredPassword],[self.deviceInterface getDeviceUIUD],parentTopicID];
-    /*else
-    {
-        parentTopic = [parentTopic stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding];
-        address = [NSString stringWithFormat:@"http://allsortz.com/api/topics/?parent=%@",parentTopic];
-    }*/
 
-    NSLog(@"Sending query to server %@\n", address);
+    NSLog(@"Get Topics Query: %@\n", address);
     NSURL *url = [NSURL URLWithString:address];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     
@@ -52,7 +47,6 @@
         // TODO: Some proper failure handling maybe
         return NO;
     }
-    NSLog(@"Running update data in user profile\n");
     self.receivedData = [NSMutableData data];
     
     return YES;
@@ -63,18 +57,19 @@
     
     // NSLog(@"New topics are %@\n", newTopics);
     
-    NSString * address = [NSString stringWithFormat:@"http://allsortz.com/api/topic/subscribe/%d/?importance=%f",topicID, importance];
 
+    NSString * address = [NSString stringWithFormat:@"http://allsortz.com/api/topic/subscribe/%d/?importance=%f&uname=%@&password=%@&deviceID=%@&parent=",
+                   topicID,importance, [self.deviceInterface getStoredUname], [self.deviceInterface getStoredPassword],[self.deviceInterface getDeviceUIUD]];
     NSURL *url = [NSURL URLWithString:address];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     
+    NSLog(@"Query to update importance %@\n", address);
     
     NSURLConnection *connection = [NSURLConnection connectionWithRequest:request delegate:self];
     if (!connection) {
         // TODO: Some proper failure handling maybe
         return NO;
     }
-    NSLog(@"Running update data in user profile\n");
     self.receivedData = [NSMutableData data];
     
     return YES;

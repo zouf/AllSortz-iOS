@@ -39,6 +39,7 @@
     }
 
     NSString *address = [NSString stringWithFormat:@"http://allsortz.com/api/business/%lu?uname=%@&password=%@&lat=%f&lon=%f&deviceID=%@", (unsigned long)ID, self.username, self.password, self.currentLatitude, self.currentLongitude, self.UUID];
+    NSLog(@"Get details with query %@",address);
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:address]];
     void (^handler)(NSURLResponse *, NSData *, NSError *) = ^(NSURLResponse *response, NSData *data, NSError *error) {
         NSDictionary *JSONresponse = [NSJSONSerialization JSONObjectWithData:data options:0 error:NULL];
@@ -129,6 +130,12 @@
             
             UIProgressView *ratingView = (UIProgressView*)[cell.contentView viewWithTag:TOPICRATINGVIEW_TAG];
             ratingView.progress = [[topic valueForKey:@"rating"] floatValue];
+            
+            if(self.business.image)
+            {
+                UIImageView *imageView = (UIImageView*)[cell.contentView viewWithTag:BUSINESSIMAGEVIEW_TAG];
+                imageView.image = self.business.image;
+            }
         }
             return cell;
         default:

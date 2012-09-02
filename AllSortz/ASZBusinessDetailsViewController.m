@@ -21,17 +21,17 @@
                           forKeyPath:@"business"
                              options:NSKeyValueObservingOptionNew
                              context:NULL];
-//    [self.dataController addObserver:self
-//                          forKeyPath:@"business.image"
-//                             options:NSKeyValueObservingOptionNew
-//                             context:NULL];
+    [self.dataController addObserver:self
+                          forKeyPath:@"business.image"
+                             options:NSKeyValueObservingOptionNew
+                             context:NULL];
 
     [self.dataController refreshBusinessAsynchronouslyWithID:self.businessID];
 }
 
 - (void)viewDidUnload {
     [self.dataController removeObserver:self forKeyPath:@"business"];
-//    [self.dataController removeObserver:self forKeyPath:@"business.image"];
+    [self.dataController removeObserver:self forKeyPath:@"business.image"];
     self.dataController = nil;
 
     [super viewDidUnload];
@@ -40,7 +40,7 @@
 - (void)viewDidDisappear:(BOOL)animated
 {
     [self.dataController removeObserver:self forKeyPath:@"business"];
-//    [self.dataController removeObserver:self forKeyPath:@"business.image"];
+    [self.dataController removeObserver:self forKeyPath:@"business.image"];
     [super viewDidDisappear:animated];
 }
 
@@ -51,12 +51,20 @@
                         change:(NSDictionary *)change
                        context:(void *)context
 {
-//    if ([keyPath isEqual:@"business"] || [keyPath isEqual:@"business.image"]) {
-    if ([keyPath isEqual:@"business"]) {
-//        // Table view has to be refreshed on main thread
-        [self.tableView performSelectorOnMainThread:@selector(reloadData)
-                                         withObject:nil
-                                      waitUntilDone:NO];
+    if ([keyPath isEqual:@"business"] || [keyPath isEqual:@"business.image"]) {
+       if ([self.dataController valueForKeyPath:@"business.image"] != nil)
+        {
+            UIImageView *imageView = (UIImageView*)[self.tableView viewWithTag:1000];
+            imageView.image = [self.dataController valueForKeyPath:@"business.image"];
+        }
+        else
+        {
+       
+            // Table view has to be refreshed on main thread
+            [self.tableView performSelectorOnMainThread:@selector(reloadData)
+                                             withObject:nil
+                                          waitUntilDone:NO];
+        }
     }
 }
 
@@ -72,7 +80,7 @@
         case ASZBusinessDetailsInfoSection:
             return 22;
         case ASZBusinessDetailsTopicSection:
-            return 130;
+            return 100;
         default:
             return tableView.rowHeight;
             break;

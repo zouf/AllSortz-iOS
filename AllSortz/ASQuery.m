@@ -59,12 +59,22 @@
 - (NSDictionary *) serializeToDictionary
 {
     NSError * error;
-    NSData *typeData =  [NSJSONSerialization dataWithJSONObject:self.selectedTypes options:NSJSONWritingPrettyPrinted error:&error];
-    NSString *typeString = [[NSString alloc] initWithData:typeData encoding:NSUTF8StringEncoding];
+    NSString *typeString = @"";
+    if (self.selectedTypes.count > 0)
+    {
+        NSData *typeData =  [NSJSONSerialization dataWithJSONObject:self.selectedTypes options:NSJSONWritingPrettyPrinted error:&error];
+        typeString = [[NSString alloc] initWithData:typeData encoding:NSUTF8StringEncoding];
+    }
     
-    NSData *sortData =  [NSJSONSerialization dataWithJSONObject:self.selectedSorts options:NSJSONWritingPrettyPrinted error:&error];
-    NSString *sortString = [[NSString alloc] initWithData:sortData encoding:NSUTF8StringEncoding];
+    NSString *sortString = @"";
+    if (self.selectedSorts.count > 0)
+    {
+        NSData *sortData =  [NSJSONSerialization dataWithJSONObject:self.selectedSorts options:NSJSONWritingPrettyPrinted error:&error];
+        sortString = [[NSString alloc] initWithData:sortData encoding:NSUTF8StringEncoding];
+
+    }
     
+
     NSDictionary * dict= [NSDictionary dictionaryWithObjectsAndKeys:
                           self.distanceWeight, @"dw",
                           typeString, @"selectedTypes",

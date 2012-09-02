@@ -65,10 +65,10 @@
 - (BOOL)updateWithQuery:(ASQuery*)query
 {
     
-    NSString *address = [NSString stringWithFormat:@"http://allsortz.com/api/businesses/search/?uname=%@&password=%@&lat=%f&lon=%f&deviceID=%@",  [self.deviceInterface getStoredUname], [self.deviceInterface getStoredPassword],
+    NSString *address = [NSString stringWithFormat:@"http://127.0.0.1:8000/api/businesses/search/?uname=%@&password=%@&lat=%f&lon=%f&deviceID=%@",  [self.deviceInterface getStoredUname], [self.deviceInterface getStoredPassword],
                          self.currentLocation.coordinate.latitude,self.currentLocation.coordinate.longitude,[self.deviceInterface getDeviceUIUD]];
     
-    NSLog(@"Query server with %@\n",address);
+    NSLog(@"Search query server with %@\n",address);
     
     NSString *str = [[query serializeToDictionary] urlEncodedString];
     NSData* data = [str dataUsingEncoding:NSUTF8StringEncoding];
@@ -78,8 +78,7 @@
         // TODO: Some proper failure handling maybe
         NSLog(@"Error\n");
         return NO;
-    }   
-    NSLog(@"Running upload data\n");
+    }
     self.receivedData = [NSMutableData data];
     return YES;
 }

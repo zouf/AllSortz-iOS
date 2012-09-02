@@ -38,6 +38,8 @@
     NSString *address = [NSString stringWithFormat:@"http://allsortz.com/api/query/base/?uname=%@&password=%@&deviceID=%@",
         [self.deviceInterface getStoredUname], [self.deviceInterface getStoredPassword],[self.deviceInterface getDeviceUIUD]];
     NSURL *url = [NSURL URLWithString:address];
+    
+    
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     NSLog(@"%@\n",address);
     NSURLConnection *connection = [NSURLConnection connectionWithRequest:request delegate:self];

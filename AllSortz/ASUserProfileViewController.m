@@ -93,8 +93,6 @@
         NSInteger topicID = [[[self.userProfileDataController.userProfile.topics objectAtIndex:self.questionPosition] valueForKey:@"topicID"] integerValue];
         NSInteger isLeaf = [[[self.userProfileDataController.userProfile.topics objectAtIndex:self.questionPosition] valueForKey:@"isLeaf"] integerValue];
         [self.questionPath addObject:[NSNumber numberWithInt:topicID]];
-        NSLog(@"PATH IS %@\n",self.questionPath);
-
     }
 }
 
@@ -125,9 +123,6 @@
         case 0:
         case 1:
         {
-            NSLog(@"Questiion position is %d\n", self.questionPosition);
-            //  NSInteger  parentID = [[[self.userProfileDataController.userProfile.topics objectAtIndex:self.questionPosition] valueForKey:@"topicID"] integerValue];
-            // NSInteger isLeaf = [[[self.userProfileDataController.userProfile.topics objectAtIndex:self.questionPosition] valueForKey:@"isLeaf"] integerValue];
 
             NSString *targetViewControllerIdentifier = @"TopicQuestionID";
             ASUserProfileViewController *vc = (ASUserProfileViewController*)[self.storyboard instantiateViewControllerWithIdentifier:targetViewControllerIdentifier];
