@@ -108,11 +108,11 @@
         NSString *temperature = [NSString stringWithFormat:@"%0.2f", mp.score];
         [[UIColor blackColor] set];
         [temperature drawInRect:CGRectMake(15.0, 5.0, 50.0, 40.0) withFont:[UIFont fontWithName:@"Gill Sans" size:5]];
-        NSString *imageName = nil;
+       /* NSString *imageName = nil;
         if (mp.score > 0.5)
             imageName = @"test-smaller.png";
         else
-            imageName = @"Placeholder.png";
+            imageName = @"Placeholder.png";*/
         //[[UIImage imageNamed:imageName] drawInRect:CGRectMake(12.5, 28.0, 45.0, 45.0)];
     }
 }

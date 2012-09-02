@@ -91,7 +91,7 @@
 
         self.questionText.text = [[self.userProfileDataController.userProfile.topics objectAtIndex:self.questionPosition] valueForKey:@"topicName"];
         NSInteger topicID = [[[self.userProfileDataController.userProfile.topics objectAtIndex:self.questionPosition] valueForKey:@"topicID"] integerValue];
-        NSInteger isLeaf = [[[self.userProfileDataController.userProfile.topics objectAtIndex:self.questionPosition] valueForKey:@"isLeaf"] integerValue];
+        //NSInteger isLeaf = [[[self.userProfileDataController.userProfile.topics objectAtIndex:self.questionPosition] valueForKey:@"isLeaf"] integerValue];
         [self.questionPath addObject:[NSNumber numberWithInt:topicID]];
     }
 }

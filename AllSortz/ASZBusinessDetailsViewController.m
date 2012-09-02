@@ -16,6 +16,18 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    UITapGestureRecognizer* singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleTap:)];
+    singleTap.numberOfTapsRequired = 1;
+    singleTap.numberOfTouchesRequired = 1;
+    [self.tableView addGestureRecognizer:singleTap];
+    
+
+
+}
+
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
 
     [self.dataController addObserver:self
                           forKeyPath:@"business"
@@ -25,7 +37,7 @@
                           forKeyPath:@"business.image"
                              options:NSKeyValueObservingOptionNew
                              context:NULL];
-
+    
     [self.dataController refreshBusinessAsynchronouslyWithID:self.businessID];
 }
 
@@ -70,6 +82,23 @@
 
 
 #pragma mark - Table view delegate
+
+- (void)singleTap:(UITapGestureRecognizer *)tap
+{
+    CGPoint currentTouchPosition = [tap locationInView:self.tableView];
+    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint: currentTouchPosition];
+    NSLog(@"Section is %d\n", indexPath.section );
+    if (indexPath.section == 2)
+    {
+        NSLog(@"%d\n",indexPath.row);
+        [self performSegueWithIdentifier:@"SegueTopicDetails" sender:self];
+    }
+}
+
+- (void)tableView:(UITableView *)tableViewdidSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return;
+}
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {

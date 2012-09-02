@@ -176,7 +176,6 @@
     [super viewWillAppear:animated];
     if (!self.listingsTableDataController.businessList)
     {
-        MKMapRect  rect = self.mv.visibleMapRect;
         [self.listingsTableDataController setRect:self.mv.region];
         [self.listingsTableDataController setIsListingView:NO];
         [self.listingsTableDataController updateWithRect];

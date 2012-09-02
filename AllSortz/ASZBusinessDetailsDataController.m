@@ -105,6 +105,7 @@
 
 #pragma mark - Table view data source
 
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = nil;
@@ -136,6 +137,8 @@
                 UIImageView *imageView = (UIImageView*)[cell.contentView viewWithTag:BUSINESSIMAGEVIEW_TAG];
                 imageView.image = self.business.image;
             }
+
+
         }
             return cell;
         default:

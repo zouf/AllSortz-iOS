@@ -69,7 +69,7 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
-- (void)segmentSelected:(id)sender withEvent: (UIEvent *) event{
+- (void)segmentSelected:(id)sender {
     UISegmentedControl *weightControl = (UISegmentedControl*)sender;
     NSIndexPath *indexPath = nil;
     for (int row = 0; row < [self.tableView numberOfRowsInSection:0]; row++) {

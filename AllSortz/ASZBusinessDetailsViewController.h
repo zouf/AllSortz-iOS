@@ -9,7 +9,7 @@
 @class ASZBusinessDetailsDataController;
 
 
-@interface ASZBusinessDetailsViewController : UITableViewController <UITableViewDelegate>
+@interface ASZBusinessDetailsViewController : UITableViewController <UITableViewDelegate,UIGestureRecognizerDelegate>
 
 @property NSUInteger businessID;
 @property IBOutlet ASZBusinessDetailsDataController *dataController;
