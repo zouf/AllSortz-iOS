@@ -6,7 +6,6 @@
 //  Copyright (c) 2012 AllSortz, Inc. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
 #import "ASUserProfileDataController.h"
 
 
@@ -19,8 +18,8 @@
                        context:(void *)context;
 
 @property (nonatomic) NSInteger questionPosition;
-@property (nonatomic) NSInteger  parentTopicID;
-@property (nonatomic,retain) NSMutableArray *  questionPath;
+@property (nonatomic) NSInteger parentTopicID;
+@property (nonatomic) NSMutableArray *questionPath;
 
 
 @end
