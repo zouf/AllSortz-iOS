@@ -18,8 +18,7 @@
 #define BUSINESSURL_TAG 1005
 #define BUSINESSADDRESS_TAG 1006
 #define BUSINESSSCORE_TAG 1007
-
-
+#define BUSINESSDIST_TAG 1008
 
 
 
@@ -75,7 +74,9 @@
     business.address = result[@"streetAddr"];
     business.city = result[@"businessCity"];
     business.state = result[@"businessState"];
-
+    business.zipcode = result[@"zipcode"];
+    
+    business.distance = result[@"distanceFromCurrentUser"];
     business.hours = [result[@"businessHours"] componentsSeparatedByString:@", "];
     business.name = result[@"businessName"];
     business.phone = result[@"businessPhone"];
@@ -138,20 +139,75 @@
             UILabel *name = (UILabel *)[cell.contentView viewWithTag:BUSINESSNAMELABEL_TAG];
             name.text = self.business.name;
             
-            UILabel *hours = (UILabel*)[cell.contentView viewWithTag:BUSINESSHOURS_TAG];
-            hours.text = self.business.hours[0];
+            UITextView *hours = (UITextView*)[cell.contentView viewWithTag:BUSINESSHOURS_TAG];
+            //hours.text = self.business.hours[0];
+            NSMutableString *hourArray = [NSMutableString stringWithFormat:@""];
+            
+            for (NSString *str in self.business.hours)
+            {
+                [hourArray appendString:str];
+                [hourArray appendString:@"\n"];
+            }
+            hours.text = hourArray;
+            
             
             UIButton *url = (UIButton *)[cell.contentView viewWithTag:BUSINESSURL_TAG];
             [url setTitle:self.business.website.path forState:UIControlStateNormal];
+            if (!self.business.website.path || [self.business.website.path isEqualToString:@""] )
+            {
+                [url setTitle:@"Edit" forState:UIControlStateNormal];
+                // add a transition to edit here
+                        
+            }
+            else
+            {
+                [url setTitle:self.business.website.path forState:UIControlStateNormal];
+   
+            }
             
             UIButton *phone = (UIButton *)[cell.contentView viewWithTag:BUSINESSPHONE_TAG];
-            [phone setTitle:self.business.phone forState:UIControlStateNormal];
+            if (!self.business.phone || [self.business.phone isEqualToString:@""])
+            {
+                [phone setTitle:@"Nothing Yet" forState:UIControlStateNormal];
+            }
+            else
+            {
+                [phone setTitle:self.business.phone forState:UIControlStateNormal];
+            }
             
             UIImageView *healthGrade = (UIImageView*)[cell.contentView viewWithTag:BUSINESSHEALTH_TAG];
+            NSString *imageName;
+            if ([self.business.healthGrade isEqualToString:@"A"])
+            {
+                imageName = @"NYCRestaurant_A.gif";
+            }
+            else if([self.business.healthGrade isEqualToString:@"B"])
+            {
+                imageName = @"NYCRestaurant_A.gif";
+            }
+            else if ([self.business.healthGrade isEqualToString:@"C"])
+            {
+                imageName = @"NYCRestaurant_C.gif";
+
+            }
+            else if ([self.business.healthGrade isEqualToString:@"Z"])
+            {
+                imageName = @"NYCRestaurant_GP.gif";
+            }
+            else
+            {
+                imageName = @"NYCRestaurant_closed.gif";
+            }
+            healthGrade.image = [UIImage imageNamed:imageName];
             
             UIProgressView* score = (UIProgressView*)[cell.contentView viewWithTag:BUSINESSSCORE_TAG];
+            score.progress = self.business.recommendation;
             
-
+            UILabel *distance = (UILabel*)[cell.contentView viewWithTag:BUSINESSDIST_TAG];
+            distance.text = [NSString stringWithFormat:@"%0.2fmi.",[self.business.distance floatValue]];
+            
+            UITextView *address = (UITextView*)[cell.contentView viewWithTag:BUSINESSADDRESS_TAG];
+            address.text = [NSString stringWithFormat:@"%@\n%@, %@ %@\n",self.business.address,self.business.city,self.business.state,self.business.zipcode];
 
         }
             return cell;

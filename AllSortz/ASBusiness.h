@@ -15,6 +15,8 @@
 @property (nonatomic) NSString *address;
 @property (nonatomic) NSString *city;
 @property (nonatomic) NSString *state;
+@property (nonatomic) NSString *zipcode;
+
 
 @property (nonatomic) NSArray *hours;
 @property (nonatomic) NSString *name;
@@ -26,6 +28,8 @@
 
 @property (nonatomic) UIImage *image;
 @property (nonatomic) NSUInteger imageID;
+
+@property (nonatomic) NSNumber *distance;
 
 @property (nonatomic) NSNumber *score;
 

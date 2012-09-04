@@ -12,6 +12,11 @@
 
 #import "ASZTopicDetailViewController.h"
 
+#import "ASBusiness.h"
+
+#define CELL_WIDTH 209
+#define CELL_MARGIN 5
+
 @implementation ASZBusinessDetailsViewController
 
 - (void)viewDidLoad
@@ -141,11 +146,26 @@
         case ASZBusinessDetailsInfoSection:
             return 22;
         case ASZBusinessDetailsTopicSection:
-            return 100;
+        {
+                        
+            NSArray *topics =  self.dataController.business.topics;
+            id topic = topics[indexPath.row];
+            
+            NSString * text = [topic valueForKey:@"summary"];
+
+            CGSize constraint = CGSizeMake(CELL_WIDTH - (CELL_MARGIN * 2), 20000.0f);
+            
+            CGSize size = [text sizeWithFont:[UIFont fontWithName:@"Gill Sans" size:10] constrainedToSize:constraint lineBreakMode:UILineBreakModeWordWrap];
+            
+            CGFloat height = MAX(size.height, 44.0f);
+            
+            return height + (CELL_MARGIN * 2);
+            break;
+        }
         default:
             return tableView.rowHeight;
             break;
     }
-}
-
-@end
+    }
+    
+    @end

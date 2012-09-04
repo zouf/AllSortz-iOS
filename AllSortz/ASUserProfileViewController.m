@@ -15,33 +15,24 @@
 - (IBAction)importanceValueChanged:(id)sender;
 @end
 
-@implementation ASUserProfileViewController
-@synthesize questionText = _questionText;
-@synthesize importanceValue = _importanceValue;
 
+@implementation ASUserProfileViewController
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
     [self.userProfileDataController addObserver:self
-                                       forKeyPath:@"userProfile"
-                                          options:NSKeyValueObservingOptionNew
-                                          context:NULL];
-    
-
-
+                                     forKeyPath:@"userProfile"
+                                        options:NSKeyValueObservingOptionNew
+                                        context:NULL];
 }
 
 - (void)viewDidUnload
 {
-    [self setQuestionText:nil];
-    [self setImportanceValue:nil];
+    self.questionText = nil;
+    self.importanceValue = nil;
     [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -59,11 +50,6 @@
     }
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSString *CellIdentifier = @"UserProfileData";
@@ -71,8 +57,6 @@
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
-
-
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
