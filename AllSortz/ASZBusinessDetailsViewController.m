@@ -136,7 +136,7 @@
 {
     switch (indexPath.section) {
         case ASZBusinessDetailsHeaderSection:
-            return 132;
+            return 216;
             break;
         case ASZBusinessDetailsInfoSection:
             return 22;
