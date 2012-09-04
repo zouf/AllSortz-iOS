@@ -8,6 +8,10 @@
 
 #import "ASMapViewController.h"
 
+#import "ASZBusinessDetailsDataController.h"
+
+#import "ASZBusinessDetailsViewController.h"
+
 @interface ASMapViewController()
 
 @property (strong, nonatomic) IBOutlet ASBusinessListDataController *listingsTableDataController;
@@ -152,11 +156,24 @@
     return annotationView;
 }
 
+#pragma mark - Annotation Selection
 
 - (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control
 {
     ASMapPoint *mp = (ASMapPoint*)view.annotation;
-    NSLog(@"Go to detail for business with id %d", mp.tag);
+    NSString *targetViewControllerIdentifier = @"ShowBusinessDetails";
+    ASZBusinessDetailsViewController *vc = (ASZBusinessDetailsViewController*)[self.storyboard instantiateViewControllerWithIdentifier:targetViewControllerIdentifier];
+    [vc setBusinessID:mp.tag];
+    
+    ASZBusinessDetailsDataController *detailsDataController = vc.dataController;
+    ASBusinessListDataController *listDataController = self.listingsTableDataController;
+    detailsDataController.username = [listDataController.deviceInterface getStoredUname];
+    detailsDataController.password = [listDataController.deviceInterface getStoredPassword];
+    detailsDataController.UUID = [listDataController.deviceInterface getDeviceUIUD];
+    detailsDataController.currentLatitude = listDataController.currentLocation.coordinate.latitude;
+    detailsDataController.currentLongitude = listDataController.currentLocation.coordinate.longitude;
+
+    [self.navigationController  pushViewController:vc animated:YES];
     
 }
 - (void)viewDidUnload {
@@ -232,11 +249,29 @@
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     
+    id destinationViewController = segue.destinationViewController;
+    
     if([segue.identifier isEqualToString:@"NewSort"]){
-        UINavigationController *nv = (UINavigationController *)segue.destinationViewController;
+        UINavigationController *nv = (UINavigationController *)(destinationViewController);
         ASSortViewController *nsvc = (ASSortViewController *)nv.topViewController;
         nsvc.delegate = self.listingsTableDataController;
     }
+    else if ([segue.identifier isEqualToString:@"ShowBusinessDetailsSegue"]) {
+        ASZBusinessDetailsViewController *detailsViewController = destinationViewController;
+        ASBusinessList *businesses = self.listingsTableDataController.businessList;
+        NSArray *businessIDs = [businesses valueForKeyPath:@"entries.ID"];
+      //  NSInteger selectedRow =
+       // detailsViewController.businessID = [businessIDs[selectedRow] unsignedIntegerValue];
+        
+        ASZBusinessDetailsDataController *detailsDataController = detailsViewController.dataController;
+        ASBusinessListDataController *listDataController = self.listingsTableDataController;
+        detailsDataController.username = [listDataController.deviceInterface getStoredUname];
+        detailsDataController.password = [listDataController.deviceInterface getStoredPassword];
+        detailsDataController.UUID = [listDataController.deviceInterface getDeviceUIUD];
+        detailsDataController.currentLatitude = listDataController.currentLocation.coordinate.latitude;
+        detailsDataController.currentLongitude = listDataController.currentLocation.coordinate.longitude;
+    }
+
 }
 
 @end

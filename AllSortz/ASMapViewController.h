@@ -24,6 +24,7 @@
                         change:(NSDictionary *)change
                        context:(void *)context;
 
+- (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view;
 
 
 @end

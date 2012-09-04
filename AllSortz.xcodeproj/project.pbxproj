@@ -49,7 +49,16 @@
 		0A0ECADF15DD82BF007FD661 /* latenight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A0ECADE15DD82BF007FD661 /* latenight@2x.png */; };
 		0A3DB66615D5AF970069637D /* ASIconDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A3DB66515D5AF970069637D /* ASIconDownloader.m */; };
 		0A3DB67515D5B8FC0069637D /* ASListing.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A3DB67415D5B8FC0069637D /* ASListing.m */; };
+		0A4A377B15F4F8100061001B /* libSocketRocket.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A4A377A15F4F8100061001B /* libSocketRocket.a */; };
 		0A7BAAC715DD483F00605B7D /* Placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A7BAAC615DD483F00605B7D /* Placeholder.png */; };
+		0A90C60415F4F0DA00BB427E /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A90C60315F4F0DA00BB427E /* libicucore.dylib */; };
+		0A90C60615F4F0E200BB427E /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A90C60515F4F0E200BB427E /* CFNetwork.framework */; };
+		0A90C60815F4F0EC00BB427E /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A90C60715F4F0EC00BB427E /* CoreData.framework */; };
+		0A90C60A15F4F0F300BB427E /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A90C60915F4F0F300BB427E /* Security.framework */; };
+		0A90CFD715F4F62900BB427E /* libPonyDebugger.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A90CFD615F4F49700BB427E /* libPonyDebugger.a */; };
+		0AA1045115F3CA420029EDD7 /* ASZTopicDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AA1045015F3CA420029EDD7 /* ASZTopicDetailViewController.m */; };
+		0AA1045415F3CA4E0029EDD7 /* ASZTopic.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AA1045315F3CA4E0029EDD7 /* ASZTopic.m */; };
+		0AA1045715F3CD7A0029EDD7 /* ASZTopicDetailDataController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AA1045615F3CD7A0029EDD7 /* ASZTopicDetailDataController.m */; };
 		0AA6258315EE901B00C0BE8E /* ASMapPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AA6258215EE901B00C0BE8E /* ASMapPoint.m */; };
 		0AA6258515EEB85700C0BE8E /* def-as-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AA6258415EEB85600C0BE8E /* def-as-icon.png */; };
 		0AA6258B15EEBB9C00C0BE8E /* test-smaller.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AA6258A15EEBB9C00C0BE8E /* test-smaller.png */; };
@@ -147,6 +156,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		0A90CFD515F4F49700BB427E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0A90CFCD15F4F49600BB427E /* PonyDebugger.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F683ADAC14FC1B4C008EBBA7;
+			remoteInfo = PonyDebugger;
+		};
 		6C0CC26515B7B1FC00F2F7B6 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 6C0CC22815B7B1FC00F2F7B6 /* Project object */;
@@ -207,7 +223,19 @@
 		0A3DB66515D5AF970069637D /* ASIconDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIconDownloader.m; sourceTree = "<group>"; };
 		0A3DB67315D5B8FC0069637D /* ASListing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASListing.h; sourceTree = "<group>"; };
 		0A3DB67415D5B8FC0069637D /* ASListing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASListing.m; sourceTree = "<group>"; };
+		0A4A377A15F4F8100061001B /* libSocketRocket.a */ = {isa = PBXFileReference; lastKnownFileType = file; name = libSocketRocket.a; path = "Frameworks/PonyDebugger/ObjC/SocketRocket/build/Release-iphoneos/libSocketRocket.a"; sourceTree = "<group>"; };
 		0A7BAAC615DD483F00605B7D /* Placeholder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Placeholder.png; sourceTree = "<group>"; };
+		0A90C60315F4F0DA00BB427E /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
+		0A90C60515F4F0E200BB427E /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		0A90C60715F4F0EC00BB427E /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		0A90C60915F4F0F300BB427E /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		0A90CFCD15F4F49600BB427E /* PonyDebugger.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PonyDebugger.xcodeproj; path = Frameworks/PonyDebugger/ObjC/PonyDebugger.xcodeproj; sourceTree = "<group>"; };
+		0AA1044F15F3CA420029EDD7 /* ASZTopicDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASZTopicDetailViewController.h; sourceTree = "<group>"; };
+		0AA1045015F3CA420029EDD7 /* ASZTopicDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASZTopicDetailViewController.m; sourceTree = "<group>"; };
+		0AA1045215F3CA4D0029EDD7 /* ASZTopic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASZTopic.h; sourceTree = "<group>"; };
+		0AA1045315F3CA4E0029EDD7 /* ASZTopic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASZTopic.m; sourceTree = "<group>"; };
+		0AA1045515F3CD790029EDD7 /* ASZTopicDetailDataController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASZTopicDetailDataController.h; sourceTree = "<group>"; };
+		0AA1045615F3CD7A0029EDD7 /* ASZTopicDetailDataController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASZTopicDetailDataController.m; sourceTree = "<group>"; };
 		0AA6258115EE901B00C0BE8E /* ASMapPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASMapPoint.h; sourceTree = "<group>"; };
 		0AA6258215EE901B00C0BE8E /* ASMapPoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASMapPoint.m; sourceTree = "<group>"; };
 		0AA6258415EEB85600C0BE8E /* def-as-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "def-as-icon.png"; sourceTree = "<group>"; };
@@ -335,10 +363,16 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0A4A377B15F4F8100061001B /* libSocketRocket.a in Frameworks */,
+				0A90CFD715F4F62900BB427E /* libPonyDebugger.a in Frameworks */,
+				6C0CC23815B7B1FC00F2F7B6 /* Foundation.framework in Frameworks */,
+				0A90C60A15F4F0F300BB427E /* Security.framework in Frameworks */,
+				0A90C60815F4F0EC00BB427E /* CoreData.framework in Frameworks */,
+				0A90C60615F4F0E200BB427E /* CFNetwork.framework in Frameworks */,
+				0A90C60415F4F0DA00BB427E /* libicucore.dylib in Frameworks */,
 				0AA6259715EED5F900C0BE8E /* CoreLocation.framework in Frameworks */,
 				6C0CC27915B7B9BE00F2F7B6 /* MapKit.framework in Frameworks */,
 				6C0CC23615B7B1FC00F2F7B6 /* UIKit.framework in Frameworks */,
-				6C0CC23815B7B1FC00F2F7B6 /* Foundation.framework in Frameworks */,
 				6C0CC23A15B7B1FC00F2F7B6 /* CoreGraphics.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -490,6 +524,36 @@
 			path = type_icons;
 			sourceTree = "<group>";
 		};
+		0A4A377C15F4F8990061001B /* PonyDebugger */ = {
+			isa = PBXGroup;
+			children = (
+				0A4A377A15F4F8100061001B /* libSocketRocket.a */,
+				0A90CFCD15F4F49600BB427E /* PonyDebugger.xcodeproj */,
+			);
+			name = PonyDebugger;
+			sourceTree = "<group>";
+		};
+		0A90CFCE15F4F49600BB427E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				0A90CFD615F4F49700BB427E /* libPonyDebugger.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		0AA1045815F3CD840029EDD7 /* Topic Detail */ = {
+			isa = PBXGroup;
+			children = (
+				0AA1045515F3CD790029EDD7 /* ASZTopicDetailDataController.h */,
+				0AA1045615F3CD7A0029EDD7 /* ASZTopicDetailDataController.m */,
+				0AA1044F15F3CA420029EDD7 /* ASZTopicDetailViewController.h */,
+				0AA1045015F3CA420029EDD7 /* ASZTopicDetailViewController.m */,
+				0AA1045215F3CA4D0029EDD7 /* ASZTopic.h */,
+				0AA1045315F3CA4E0029EDD7 /* ASZTopic.m */,
+			);
+			name = "Topic Detail";
+			sourceTree = "<group>";
+		};
 		0AAB66BC15EFA4DD00F22011 /* Social */ = {
 			isa = PBXGroup;
 			children = (
@@ -535,11 +599,16 @@
 		6C0CC22615B7B1FC00F2F7B6 = {
 			isa = PBXGroup;
 			children = (
-				0AA6259615EED5F800C0BE8E /* CoreLocation.framework */,
 				6C0CC23B15B7B1FC00F2F7B6 /* AllSortz */,
+				0A4A377C15F4F8990061001B /* PonyDebugger */,
 				6C0CC26715B7B1FC00F2F7B6 /* AllSortzTests */,
 				6C0CC23415B7B1FC00F2F7B6 /* Frameworks */,
 				6C0CC23215B7B1FC00F2F7B6 /* Products */,
+				0A90C60915F4F0F300BB427E /* Security.framework */,
+				0A90C60715F4F0EC00BB427E /* CoreData.framework */,
+				0A90C60515F4F0E200BB427E /* CFNetwork.framework */,
+				0A90C60315F4F0DA00BB427E /* libicucore.dylib */,
+				0AA6259615EED5F800C0BE8E /* CoreLocation.framework */,
 			);
 			sourceTree = "<group>";
 		};
@@ -579,6 +648,7 @@
 				0AFE1B7115E6995C00636B4D /* User Profile */,
 				6C0CC24A15B7B1FC00F2F7B6 /* MainStoryboard_iPad.storyboard */,
 				0A04240815DA8DA3008143F0 /* Add Business */,
+				0AA1045815F3CD840029EDD7 /* Topic Detail */,
 				6C2121F915D450FF004ACD4C /* Business Details */,
 				6C096F7E15BD93BE0082ECDB /* Images */,
 				0A0423FF15D9AD80008143F0 /* Listings View */,
@@ -737,6 +807,12 @@
 			mainGroup = 6C0CC22615B7B1FC00F2F7B6;
 			productRefGroup = 6C0CC23215B7B1FC00F2F7B6 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 0A90CFCE15F4F49600BB427E /* Products */;
+					ProjectRef = 0A90CFCD15F4F49600BB427E /* PonyDebugger.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				6C0CC23015B7B1FC00F2F7B6 /* AllSortz */,
@@ -744,6 +820,16 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		0A90CFD615F4F49700BB427E /* libPonyDebugger.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libPonyDebugger.a;
+			remoteRef = 0A90CFD515F4F49700BB427E /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		6C0CC22F15B7B1FC00F2F7B6 /* Resources */ = {
@@ -911,6 +997,9 @@
 				6C21220115D45B08004ACD4C /* ASBusiness.m in Sources */,
 				6C21220A15D86F27004ACD4C /* ASException.m in Sources */,
 				6C0379F815EEAC8A0010FC28 /* ASZBusinessDetailsDataController.m in Sources */,
+				0AA1045115F3CA420029EDD7 /* ASZTopicDetailViewController.m in Sources */,
+				0AA1045415F3CA4E0029EDD7 /* ASZTopic.m in Sources */,
+				0AA1045715F3CD7A0029EDD7 /* ASZTopicDetailDataController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -989,6 +1078,11 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-lSocketRocket",
+					"-lPonyDebugger",
+				);
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1009,6 +1103,11 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-lSocketRocket",
+					"-lPonyDebugger",
+				);
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -1020,6 +1119,7 @@
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "AllSortz/AllSortz-Prefix.pch";
+				HEADER_SEARCH_PATHS = "$(CONFIGURATION_BUILD_DIR)/usr/local/include/**";
 				INFOPLIST_FILE = "AllSortz/AllSortz-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;

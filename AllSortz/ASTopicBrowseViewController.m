@@ -98,9 +98,12 @@
             break;
         default:
             importance =  0.0;
-            break;	
+            break;
     }
-
+    NSString * impInt = [NSString stringWithFormat:@"%f:",importance];   
+    id topic = [self.userProfileDataController.userProfile.topics objectAtIndex:indexPath.row];
+    [topic setValue:impInt forKey:@"userWeight"];
+    
     [self.userProfileDataController updateImportance:topicID importanceValue:importance];
     
 }
@@ -121,7 +124,7 @@
     NSInteger weight = [[[self.userProfileDataController.userProfile.topics objectAtIndex:indexPath.row] valueForKey:@"userWeight"] integerValue];
     
     [topicWeight addTarget:self
-                    action:@selector(segmentSelected:withEvent:)
+                    action:@selector(segmentSelected:)
                forControlEvents:UIControlEventValueChanged];
 
     switch(weight)

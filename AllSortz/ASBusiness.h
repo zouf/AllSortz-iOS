@@ -19,6 +19,9 @@
 @property (nonatomic) NSArray *hours;
 @property (nonatomic) NSString *name;
 @property (nonatomic) NSString *phone;
+@property (nonatomic) NSString *healthGrade;
+@property (nonatomic) CGFloat recommendation;
+
 @property (nonatomic) NSURL *website;
 
 @property (nonatomic) UIImage *image;

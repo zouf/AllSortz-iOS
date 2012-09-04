@@ -14,4 +14,7 @@
 @property NSUInteger businessID;
 @property IBOutlet ASZBusinessDetailsDataController *dataController;
 
+
+- (void) assignImageToImageView:(UIImage *)img;
+
 @end

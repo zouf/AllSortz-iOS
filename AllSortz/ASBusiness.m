@@ -58,7 +58,11 @@ SIMPLE_SETTER(state, State, NSString *)
 SIMPLE_SETTER(hours, Hours, NSArray *)
 SIMPLE_SETTER(name, Name, NSString *)
 SIMPLE_SETTER(phone, Phone, NSString *)
+SIMPLE_SETTER(recommendation, Recommendation, CGFloat)
+
 SIMPLE_SETTER(website, Website, NSURL *)
+
+SIMPLE_SETTER(healthGrade, HealthGrade, NSString *)
 
 SIMPLE_SETTER(image, Image, UIImage *)
 SIMPLE_SETTER(imageID, ImageID, NSUInteger)

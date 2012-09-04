@@ -10,6 +10,7 @@
 
 #import "ASZBusinessDetailsDataController.h"
 
+#import "ASZTopicDetailViewController.h"
 
 @implementation ASZBusinessDetailsViewController
 
@@ -56,6 +57,7 @@
     [super viewDidDisappear:animated];
 }
 
+
 #pragma mark - Key-value observing
 
 - (void)observeValueForKeyPath:(NSString *)keyPath
@@ -64,19 +66,20 @@
                        context:(void *)context
 {
     if ([keyPath isEqual:@"business"] || [keyPath isEqual:@"business.image"]) {
-       if ([self.dataController valueForKeyPath:@"business.image"] != nil)
-        {
-            UIImageView *imageView = (UIImageView*)[self.tableView viewWithTag:1000];
-            imageView.image = [self.dataController valueForKeyPath:@"business.image"];
+        if ([self.dataController valueForKeyPath:@"business.image"] != nil) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                UIImageView *imageView = (UIImageView*)[self.tableView viewWithTag:1000];
+                imageView.image = [self.dataController valueForKeyPath:@"business.image"];
+            });
         }
         else
         {
-       
             // Table view has to be refreshed on main thread
             [self.tableView performSelectorOnMainThread:@selector(reloadData)
                                              withObject:nil
-                                          waitUntilDone:NO];
+                                        waitUntilDone:NO];
         }
+        
     }
 }
 
@@ -87,13 +90,42 @@
 {
     CGPoint currentTouchPosition = [tap locationInView:self.tableView];
     NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint: currentTouchPosition];
-    NSLog(@"Section is %d\n", indexPath.section );
     if (indexPath.section == 2)
     {
-        NSLog(@"%d\n",indexPath.row);
-        [self performSegueWithIdentifier:@"SegueTopicDetails" sender:self];
+        id bus  = self.dataController.business;
+        id topics = [bus valueForKey:@"topics"];
+                
+        NSArray *topicsArray = (NSArray*)topics;
+        id topic = topicsArray[indexPath.row];
+        NSInteger topicID = [[topic valueForKey:@"ID"] integerValue];
+
+        
+        NSString *targetViewControllerIdentifier = nil;
+        targetViewControllerIdentifier = @"TopicDetailViewControllerID";
+        ASZTopicDetailViewController *vc = (ASZTopicDetailViewController*)[self.storyboard instantiateViewControllerWithIdentifier:targetViewControllerIdentifier];
+        
+        
+        
+        ASZTopicDetailDataController *topicDetailsController = vc.dataController;
+        ASZBusinessDetailsDataController *businessDetailsController = self.dataController;
+        topicDetailsController.username = businessDetailsController.username;
+        topicDetailsController.password = businessDetailsController.password;
+        topicDetailsController.UUID = businessDetailsController.UUID;
+        topicDetailsController.currentLatitude = businessDetailsController.currentLatitude;
+        topicDetailsController.currentLongitude = businessDetailsController.currentLongitude;
+        
+        topicDetailsController.topic = [[ASZTopic alloc] initWithID:topicID];
+        topicDetailsController.topic.name = [topic valueForKey:@"name"];
+        topicDetailsController.topic.summary = [topic valueForKey:@"summary"];
+        topicDetailsController.topic.rating = [[topic valueForKey:@"rating"] floatValue];
+
+
+        [self.navigationController  pushViewController:vc animated:YES];
+        
     }
 }
+
+
 
 - (void)tableView:(UITableView *)tableViewdidSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
