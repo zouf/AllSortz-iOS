@@ -141,11 +141,11 @@
             UILabel *hours = (UILabel*)[cell.contentView viewWithTag:BUSINESSHOURS_TAG];
             hours.text = self.business.hours[0];
             
-            UILabel *url = (UILabel*)[cell.contentView viewWithTag:BUSINESSURL_TAG];
-            url.text = self.business.website.path;
+            UIButton *url = (UIButton *)[cell.contentView viewWithTag:BUSINESSURL_TAG];
+            [url setTitle:self.business.website.path forState:UIControlStateNormal];
             
-            UILabel *phone = (UILabel*)[cell.contentView viewWithTag:BUSINESSPHONE_TAG];
-            phone.text = self.business.phone;
+            UIButton *phone = (UIButton *)[cell.contentView viewWithTag:BUSINESSPHONE_TAG];
+            [phone setTitle:self.business.phone forState:UIControlStateNormal];
             
             UIImageView *healthGrade = (UIImageView*)[cell.contentView viewWithTag:BUSINESSHEALTH_TAG];
             

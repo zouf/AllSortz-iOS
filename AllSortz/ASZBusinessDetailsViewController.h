@@ -15,6 +15,6 @@
 @property IBOutlet ASZBusinessDetailsDataController *dataController;
 
 
-- (void) assignImageToImageView:(UIImage *)img;
+- (IBAction)dialBusinessPhone;
 
 @end

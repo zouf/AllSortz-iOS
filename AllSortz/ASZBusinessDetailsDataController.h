@@ -23,7 +23,7 @@ typedef enum ASZBusinessDetailsInfoRow : NSInteger {
 @class ASBusiness;
 
 
-@interface ASZBusinessDetailsDataController : NSObject <UITableViewDataSource,UIGestureRecognizerDelegate>
+@interface ASZBusinessDetailsDataController : NSObject <UITableViewDataSource, UIGestureRecognizerDelegate>
 
 @property ASBusiness *business;
 

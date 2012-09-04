@@ -20,10 +20,8 @@
     UITapGestureRecognizer* singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleTap:)];
     singleTap.numberOfTapsRequired = 1;
     singleTap.numberOfTouchesRequired = 1;
+    singleTap.cancelsTouchesInView = NO;
     [self.tableView addGestureRecognizer:singleTap];
-    
-
-
 }
 
 -(void)viewDidAppear:(BOOL)animated
@@ -71,9 +69,7 @@
                 UIImageView *imageView = (UIImageView*)[self.tableView viewWithTag:1000];
                 imageView.image = [self.dataController valueForKeyPath:@"business.image"];
             });
-        }
-        else
-        {
+        } else {
             // Table view has to be refreshed on main thread
             [self.tableView performSelectorOnMainThread:@selector(reloadData)
                                              withObject:nil
@@ -83,6 +79,10 @@
     }
 }
 
+- (IBAction)dialBusinessPhone {
+    // TODO: Implement once taps are passed through
+    return;
+}
 
 #pragma mark - Table view delegate
 
@@ -136,7 +136,7 @@
 {
     switch (indexPath.section) {
         case ASZBusinessDetailsHeaderSection:
-            return 216;
+            return 230;
             break;
         case ASZBusinessDetailsInfoSection:
             return 22;
