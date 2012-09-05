@@ -22,11 +22,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    UITapGestureRecognizer* singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleTap:)];
-    singleTap.numberOfTapsRequired = 1;
-    singleTap.numberOfTouchesRequired = 1;
-    singleTap.cancelsTouchesInView = NO;
-    [self.tableView addGestureRecognizer:singleTap];
+
 }
 
 -(void)viewDidAppear:(BOOL)animated
@@ -89,46 +85,12 @@
     return;
 }
 
-#pragma mark - Table view delegate
-
-- (void)singleTap:(UITapGestureRecognizer *)tap
-{
-    CGPoint currentTouchPosition = [tap locationInView:self.tableView];
-    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint: currentTouchPosition];
-    if (indexPath.section == 2)
-    {
-        id bus  = self.dataController.business;
-        id topics = [bus valueForKey:@"topics"];
-                
-        NSArray *topicsArray = (NSArray*)topics;
-        id topic = topicsArray[indexPath.row];
-        NSInteger topicID = [[topic valueForKey:@"ID"] integerValue];
-
-        
-        NSString *targetViewControllerIdentifier = nil;
-        targetViewControllerIdentifier = @"TopicDetailViewControllerID";
-        ASZTopicDetailViewController *vc = (ASZTopicDetailViewController*)[self.storyboard instantiateViewControllerWithIdentifier:targetViewControllerIdentifier];
-        
-        
-        
-        ASZTopicDetailDataController *topicDetailsController = vc.dataController;
-        ASZBusinessDetailsDataController *businessDetailsController = self.dataController;
-        topicDetailsController.username = businessDetailsController.username;
-        topicDetailsController.password = businessDetailsController.password;
-        topicDetailsController.UUID = businessDetailsController.UUID;
-        topicDetailsController.currentLatitude = businessDetailsController.currentLatitude;
-        topicDetailsController.currentLongitude = businessDetailsController.currentLongitude;
-        
-        topicDetailsController.topic = [[ASZTopic alloc] initWithID:topicID];
-        topicDetailsController.topic.name = [topic valueForKey:@"name"];
-        topicDetailsController.topic.summary = [topic valueForKey:@"summary"];
-        topicDetailsController.topic.rating = [[topic valueForKey:@"rating"] floatValue];
-
-
-        [self.navigationController  pushViewController:vc animated:YES];
-        
-    }
+- (IBAction)goToURL:(id)sender {
+    //TODO implement
+    return;
 }
+
+#pragma mark - Table view delegate
 
 
 

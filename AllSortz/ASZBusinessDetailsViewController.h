@@ -9,12 +9,13 @@
 @class ASZBusinessDetailsDataController;
 
 
-@interface ASZBusinessDetailsViewController : UITableViewController <UITableViewDelegate,UIGestureRecognizerDelegate>
+@interface ASZBusinessDetailsViewController : UITableViewController <UITableViewDelegate>
 
 @property NSUInteger businessID;
 @property IBOutlet ASZBusinessDetailsDataController *dataController;
 
 
 - (IBAction)dialBusinessPhone;
+- (IBAction)goToURL:(id)sender;
 
 @end

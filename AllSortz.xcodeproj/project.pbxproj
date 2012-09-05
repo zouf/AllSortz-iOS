@@ -50,11 +50,6 @@
 		0A3DB66615D5AF970069637D /* ASIconDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A3DB66515D5AF970069637D /* ASIconDownloader.m */; };
 		0A3DB67515D5B8FC0069637D /* ASListing.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A3DB67415D5B8FC0069637D /* ASListing.m */; };
 		0A4A377B15F4F8100061001B /* libSocketRocket.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A4A377A15F4F8100061001B /* libSocketRocket.a */; };
-		0A4A37A615F6F55E0061001B /* NYCRestaurant_A.gif in Resources */ = {isa = PBXBuildFile; fileRef = 0A4A37A115F6F55E0061001B /* NYCRestaurant_A.gif */; };
-		0A4A37A715F6F55E0061001B /* NYCRestaurant_B.gif in Resources */ = {isa = PBXBuildFile; fileRef = 0A4A37A215F6F55E0061001B /* NYCRestaurant_B.gif */; };
-		0A4A37A815F6F55E0061001B /* NYCRestaurant_C.gif in Resources */ = {isa = PBXBuildFile; fileRef = 0A4A37A315F6F55E0061001B /* NYCRestaurant_C.gif */; };
-		0A4A37A915F6F55E0061001B /* NYCRestaurant_closed.gif in Resources */ = {isa = PBXBuildFile; fileRef = 0A4A37A415F6F55E0061001B /* NYCRestaurant_closed.gif */; };
-		0A4A37AA15F6F55E0061001B /* NYCRestaurant_GP.gif in Resources */ = {isa = PBXBuildFile; fileRef = 0A4A37A515F6F55E0061001B /* NYCRestaurant_GP.gif */; };
 		0A7BAAC715DD483F00605B7D /* Placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A7BAAC615DD483F00605B7D /* Placeholder.png */; };
 		0A90C60415F4F0DA00BB427E /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A90C60315F4F0DA00BB427E /* libicucore.dylib */; };
 		0A90C60615F4F0E200BB427E /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A90C60515F4F0E200BB427E /* CFNetwork.framework */; };
@@ -73,6 +68,11 @@
 		0AAB66C415EFA4E800F22011 /* ASUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AAB66BF15EFA4E800F22011 /* ASUser.m */; };
 		0AAB66C515EFA4E800F22011 /* ASSocialDataController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AAB66C115EFA4E800F22011 /* ASSocialDataController.m */; };
 		0AAB66C915EFE50300F22011 /* ASProfilePictureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AAB66C815EFE50300F22011 /* ASProfilePictureViewController.m */; };
+		0AE5C41815F77A5E00BF110C /* NYCRestaurant_A.gif in Resources */ = {isa = PBXBuildFile; fileRef = 0AE5C41315F77A5E00BF110C /* NYCRestaurant_A.gif */; };
+		0AE5C41915F77A5E00BF110C /* NYCRestaurant_B.gif in Resources */ = {isa = PBXBuildFile; fileRef = 0AE5C41415F77A5E00BF110C /* NYCRestaurant_B.gif */; };
+		0AE5C41A15F77A5E00BF110C /* NYCRestaurant_C.gif in Resources */ = {isa = PBXBuildFile; fileRef = 0AE5C41515F77A5E00BF110C /* NYCRestaurant_C.gif */; };
+		0AE5C41B15F77A5E00BF110C /* NYCRestaurant_closed.gif in Resources */ = {isa = PBXBuildFile; fileRef = 0AE5C41615F77A5E00BF110C /* NYCRestaurant_closed.gif */; };
+		0AE5C41C15F77A5E00BF110C /* NYCRestaurant_GP.gif in Resources */ = {isa = PBXBuildFile; fileRef = 0AE5C41715F77A5E00BF110C /* NYCRestaurant_GP.gif */; };
 		0AFE1B6F15E6995000636B4D /* ASUserProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AFE1B6E15E6995000636B4D /* ASUserProfileViewController.m */; };
 		0AFE1B7415E6997C00636B4D /* ASUserProfileDataController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AFE1B7315E6997C00636B4D /* ASUserProfileDataController.m */; };
 		0AFE1B7715E6999C00636B4D /* ASUserProfile.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AFE1B7615E6999C00636B4D /* ASUserProfile.m */; };
@@ -229,11 +229,6 @@
 		0A3DB67315D5B8FC0069637D /* ASListing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASListing.h; sourceTree = "<group>"; };
 		0A3DB67415D5B8FC0069637D /* ASListing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASListing.m; sourceTree = "<group>"; };
 		0A4A377A15F4F8100061001B /* libSocketRocket.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSocketRocket.a; path = "Frameworks/PonyDebugger/ObjC/SocketRocket/build/Release-iphoneos/libSocketRocket.a"; sourceTree = "<group>"; };
-		0A4A37A115F6F55E0061001B /* NYCRestaurant_A.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = NYCRestaurant_A.gif; path = ../NYCRestaurant_A.gif; sourceTree = "<group>"; };
-		0A4A37A215F6F55E0061001B /* NYCRestaurant_B.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = NYCRestaurant_B.gif; path = ../NYCRestaurant_B.gif; sourceTree = "<group>"; };
-		0A4A37A315F6F55E0061001B /* NYCRestaurant_C.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = NYCRestaurant_C.gif; path = ../NYCRestaurant_C.gif; sourceTree = "<group>"; };
-		0A4A37A415F6F55E0061001B /* NYCRestaurant_closed.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = NYCRestaurant_closed.gif; path = ../NYCRestaurant_closed.gif; sourceTree = "<group>"; };
-		0A4A37A515F6F55E0061001B /* NYCRestaurant_GP.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = NYCRestaurant_GP.gif; path = ../NYCRestaurant_GP.gif; sourceTree = "<group>"; };
 		0A7BAAC615DD483F00605B7D /* Placeholder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Placeholder.png; sourceTree = "<group>"; };
 		0A90C60315F4F0DA00BB427E /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
 		0A90C60515F4F0E200BB427E /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
@@ -261,6 +256,11 @@
 		0AAB66C115EFA4E800F22011 /* ASSocialDataController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASSocialDataController.m; sourceTree = "<group>"; };
 		0AAB66C715EFE50300F22011 /* ASProfilePictureViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASProfilePictureViewController.h; sourceTree = "<group>"; };
 		0AAB66C815EFE50300F22011 /* ASProfilePictureViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASProfilePictureViewController.m; sourceTree = "<group>"; };
+		0AE5C41315F77A5E00BF110C /* NYCRestaurant_A.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = NYCRestaurant_A.gif; sourceTree = "<group>"; };
+		0AE5C41415F77A5E00BF110C /* NYCRestaurant_B.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = NYCRestaurant_B.gif; sourceTree = "<group>"; };
+		0AE5C41515F77A5E00BF110C /* NYCRestaurant_C.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = NYCRestaurant_C.gif; sourceTree = "<group>"; };
+		0AE5C41615F77A5E00BF110C /* NYCRestaurant_closed.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = NYCRestaurant_closed.gif; sourceTree = "<group>"; };
+		0AE5C41715F77A5E00BF110C /* NYCRestaurant_GP.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = NYCRestaurant_GP.gif; sourceTree = "<group>"; };
 		0AFE1B6D15E6995000636B4D /* ASUserProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASUserProfileViewController.h; sourceTree = "<group>"; };
 		0AFE1B6E15E6995000636B4D /* ASUserProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASUserProfileViewController.m; sourceTree = "<group>"; };
 		0AFE1B7215E6997C00636B4D /* ASUserProfileDataController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASUserProfileDataController.h; sourceTree = "<group>"; };
@@ -546,11 +546,11 @@
 		0A4A379615F6E4910061001B /* DOH */ = {
 			isa = PBXGroup;
 			children = (
-				0A4A37A115F6F55E0061001B /* NYCRestaurant_A.gif */,
-				0A4A37A215F6F55E0061001B /* NYCRestaurant_B.gif */,
-				0A4A37A315F6F55E0061001B /* NYCRestaurant_C.gif */,
-				0A4A37A415F6F55E0061001B /* NYCRestaurant_closed.gif */,
-				0A4A37A515F6F55E0061001B /* NYCRestaurant_GP.gif */,
+				0AE5C41315F77A5E00BF110C /* NYCRestaurant_A.gif */,
+				0AE5C41415F77A5E00BF110C /* NYCRestaurant_B.gif */,
+				0AE5C41515F77A5E00BF110C /* NYCRestaurant_C.gif */,
+				0AE5C41615F77A5E00BF110C /* NYCRestaurant_closed.gif */,
+				0AE5C41715F77A5E00BF110C /* NYCRestaurant_GP.gif */,
 			);
 			name = DOH;
 			sourceTree = "<group>";
@@ -956,11 +956,11 @@
 				6C9DE93115E6C1100050BF14 /* sushi.png in Resources */,
 				6C9DE93215E6C1100050BF14 /* wifi.png in Resources */,
 				6C9DE93315E6C1100050BF14 /* wine.png in Resources */,
-				0A4A37A615F6F55E0061001B /* NYCRestaurant_A.gif in Resources */,
-				0A4A37A715F6F55E0061001B /* NYCRestaurant_B.gif in Resources */,
-				0A4A37A815F6F55E0061001B /* NYCRestaurant_C.gif in Resources */,
-				0A4A37A915F6F55E0061001B /* NYCRestaurant_closed.gif in Resources */,
-				0A4A37AA15F6F55E0061001B /* NYCRestaurant_GP.gif in Resources */,
+				0AE5C41815F77A5E00BF110C /* NYCRestaurant_A.gif in Resources */,
+				0AE5C41915F77A5E00BF110C /* NYCRestaurant_B.gif in Resources */,
+				0AE5C41A15F77A5E00BF110C /* NYCRestaurant_C.gif in Resources */,
+				0AE5C41B15F77A5E00BF110C /* NYCRestaurant_closed.gif in Resources */,
+				0AE5C41C15F77A5E00BF110C /* NYCRestaurant_GP.gif in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

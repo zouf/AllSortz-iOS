@@ -7,7 +7,8 @@
 //
 
 #import "ASZBusinessDetailsDataController.h"
-
+#import "ASZTopicDetailViewController.h"
+#import "ASZBusinessDetailsViewController.h"
 #import "ASBusiness.h"
 
 #define BUSINESSIMAGEVIEW_TAG 1000
@@ -34,6 +35,7 @@
 
 @property NSOperationQueue *queue;  // Assume we only need one for now
 @property (weak, nonatomic) IBOutlet UITableView *businessTableView;
+@property (weak, nonatomic) IBOutlet ASZBusinessDetailsViewController *viewController;
 
 - (ASBusiness *)businessFromJSONResult:(NSDictionary *)result;
 
@@ -44,6 +46,7 @@
 
 #pragma mark - Data download
 @synthesize businessTableView = _businessTableView;
+@synthesize viewController = _viewController;
 
 - (void)refreshBusinessAsynchronouslyWithID:(NSUInteger)ID
 {
@@ -127,6 +130,46 @@
 
 #pragma mark - Table view data source
 
+- (void)singleTap:(UITapGestureRecognizer *)tap
+{
+    CGPoint currentTouchPosition = [tap locationInView:self.businessTableView];
+    NSIndexPath *indexPath = [self.businessTableView indexPathForRowAtPoint: currentTouchPosition];
+    if (indexPath.section == 2)
+    {
+        id bus  = self.business;
+        id topics = [bus valueForKey:@"topics"];
+        
+        NSArray *topicsArray = (NSArray*)topics;
+        id topic = topicsArray[indexPath.row];
+        NSInteger topicID = [[topic valueForKey:@"ID"] integerValue];
+        
+        
+        NSString *targetViewControllerIdentifier = nil;
+        targetViewControllerIdentifier = @"TopicDetailViewControllerID";
+
+        ASZTopicDetailViewController *vc = (ASZTopicDetailViewController*)[self.viewController.storyboard instantiateViewControllerWithIdentifier:targetViewControllerIdentifier];
+        
+        
+        
+        ASZTopicDetailDataController *topicDetailsController = vc.dataController;
+        ASZBusinessDetailsDataController *businessDetailsController = self;
+        topicDetailsController.username = businessDetailsController.username;
+        topicDetailsController.password = businessDetailsController.password;
+        topicDetailsController.UUID = businessDetailsController.UUID;
+        topicDetailsController.currentLatitude = businessDetailsController.currentLatitude;
+        topicDetailsController.currentLongitude = businessDetailsController.currentLongitude;
+        
+        topicDetailsController.topic = [[ASZTopic alloc] initWithID:topicID];
+        topicDetailsController.topic.name = [topic valueForKey:@"name"];
+        topicDetailsController.topic.summary = [topic valueForKey:@"summary"];
+        topicDetailsController.topic.rating = [[topic valueForKey:@"rating"] floatValue];
+        
+        
+        [self.viewController.navigationController  pushViewController:vc animated:YES];
+        
+    }
+}
+
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -136,6 +179,8 @@
         case ASZBusinessDetailsHeaderSection:
             cell = [tableView dequeueReusableCellWithIdentifier:@"BusinessDetailsHeaderCell"];
         {
+            if (!self.business)
+                [cell setHidden:YES];
             UILabel *name = (UILabel *)[cell.contentView viewWithTag:BUSINESSNAMELABEL_TAG];
             name.text = self.business.name;
             
@@ -225,10 +270,11 @@
             UIProgressView *ratingView = (UIProgressView*)[cell.contentView viewWithTag:TOPICRATINGVIEW_TAG];
             ratingView.progress = [[topic valueForKey:@"rating"] floatValue];
             
-            
-            
-            
-            
+            UITapGestureRecognizer* singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleTap:)];
+            singleTap.numberOfTapsRequired = 1;
+            singleTap.numberOfTouchesRequired = 1;
+            singleTap.cancelsTouchesInView = NO;
+            [cell addGestureRecognizer:singleTap];
 
         }
             return cell;
