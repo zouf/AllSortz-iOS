@@ -8,70 +8,77 @@
 
 #import "ASZTopicDetailDataController.h"
 
+#define TOPICSUMMARY_TAG 1020
+#define TOPICNAME_TAG 1021
+#define TOPICRATING_TAG 1022
+#define TOPICEDITBUTTON_TAG 1023
+
 @implementation ASZTopicDetailDataController
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-#warning Potentially incomplete method implementation.
     // Return the number of sections.
-    return 0;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-#warning Incomplete method implementation.
     // Return the number of rows in the section.
-    return 0;
+    return 2;
+}
+
+
+- (IBAction)editDonePressed:(id)sender {
+//    UITableViewCell *cell = (UITableViewCell*)sender;
+    
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    NSString *CellIdentifier = nil;
+    UITableViewCell *cell= nil;
+    
+    NSLog(@"%d\n",indexPath.row);
+    // top row for label and rating
+    if (indexPath.row == 0)
+    {
+        CellIdentifier = @"TopicTitleCell";
+        cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        UILabel * title = (UILabel *)[cell viewWithTag:TOPICNAME_TAG];
+        title.text = self.topic.name;
+        
+        UISlider *slider = (UISlider *)[cell viewWithTag:TOPICRATING_TAG];
+        slider.value = self.topic.rating;
+        
+        
+    }
+    else if (indexPath.row==1)  // for the text summary
+    {
+        CellIdentifier = @"TopicSummaryCell";
+        cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        
+        UITextView *summaryText = (UITextView*)[cell viewWithTag:TOPICSUMMARY_TAG];
+        summaryText.text = self.topic.summary;
+        [summaryText setEditable:NO];
+        
+        UIButton *button = (UIButton*)[cell viewWithTag:TOPICEDITBUTTON_TAG];
+        button.titleLabel.text = @"Edit Summary";
+        [button addTarget:self action:@selector(editDonePressed:) forControlEvents:UIControlEventTouchDown];
+        return cell;
+    }
+    else
+    {
+        return cell;
+    }
     
     // Configure the cell...
     
     return cell;
 }
 
-/*
- // Override to support conditional editing of the table view.
- - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
- {
- // Return NO if you do not want the specified item to be editable.
- return YES;
- }
- */
 
-/*
- // Override to support editing the table view.
- - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
- {
- if (editingStyle == UITableViewCellEditingStyleDelete) {
- // Delete the row from the data source
- [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
- }
- else if (editingStyle == UITableViewCellEditingStyleInsert) {
- // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
- }
- }
- */
 
-/*
- // Override to support rearranging the table view.
- - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
- {
- }
- */
-
-/*
- // Override to support conditional rearranging of the table view.
- - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
- {
- // Return NO if you do not want the item to be re-orderable.
- return YES;
- }
- */
+ 
 
 @end

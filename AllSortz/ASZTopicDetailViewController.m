@@ -8,8 +8,14 @@
 
 #import "ASZTopicDetailViewController.h"
 
+
+
+#define CELL_WIDTH 300
+#define CELL_MARGIN 10
+#define BUTTON_SPACE 150
 @interface ASZTopicDetailViewController ()
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
+- (IBAction)editDonePressed:(id)sender;
 
 @end
 
@@ -52,15 +58,31 @@
 
 #pragma mark - Table view delegate
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     */
+    switch (indexPath.row) {
+        case 0:
+            return 110;
+            break;
+        case 1:
+        {
+            
+            NSString * text =   self.dataController.topic.summary;
+            
+            CGSize constraint = CGSizeMake(CELL_WIDTH - (CELL_MARGIN * 2), 20000.0f);
+            
+            CGSize size = [text sizeWithFont:[UIFont fontWithName:@"Gill Sans Light" size:14.0] constrainedToSize:constraint lineBreakMode:UILineBreakModeWordWrap];
+            
+            CGFloat height = MAX(size.height, 44.0f);
+            
+            return height + (CELL_MARGIN * 2) + BUTTON_SPACE 	;
+            break;
+        }
+        default:
+            return self.tableView.rowHeight;
+            break;
+    }
 }
+
 
 @end
