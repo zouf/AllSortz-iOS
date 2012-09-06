@@ -17,7 +17,6 @@
 @property (strong) NSMutableData *receivedData;
 @property (strong, nonatomic) ASDeviceInterface *deviceInterface;
 
-
 @end
 
 

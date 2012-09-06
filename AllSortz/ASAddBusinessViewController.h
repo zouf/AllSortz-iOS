@@ -8,13 +8,7 @@
 
 #import "ASAddBusiness.h"
 
-#define BUSINESS_NAME 200
-#define BUSINESS_STREET 201
-#define BUSINESS_CITY 202
-#define BUSINESS_STATE 203
-#define BUSINESS_URL 204
-#define BUSINESS_PHONE 205
-#define PHOTO_URL 206
+
 
 
 
@@ -25,7 +19,6 @@
 @interface ASAddBusinessViewController : UITableViewController
 
 @property(strong,nonatomic)id<NewBusinessDelegate>delegate;
-@property(strong,nonatomic)IBOutlet UITextField *businessNameField;
 
 - (IBAction)add:(id)sender;
 - (IBAction)cancel:(id)sender;

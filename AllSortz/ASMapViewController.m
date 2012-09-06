@@ -47,8 +47,6 @@
     
     [self.overlayView addSubview:activityView];
 
-    
-    
     //declare latitude and longitude of map center
 	CLLocationCoordinate2D center;
 	center.latitude =  40.350816;
@@ -66,17 +64,23 @@
 	region.center = center;
 	region.span = span;
 	self.mv.region = [self.mv regionThatFits:region];
-	
-	
+
     [super viewDidLoad];
+    if (!self.listingsTableDataController.businessList)
+    {
+        NSLog(@"Map view entered on latitude %f\n",self.mv.region.center.latitude);
+        [self.listingsTableDataController setRect:self.mv.region];
+        [self.listingsTableDataController setIsListingView:NO];
+        [self.listingsTableDataController updateData];
+        
+    }
 }
 
 - (IBAction)refreshTheMap:(id)sender {
+    [self.listingsTableDataController.businessList.entries removeAllObjects];
     [self.listingsTableDataController setRect:self.mv.region];
     [self.listingsTableDataController setIsListingView:NO];
-    [self.listingsTableDataController updateWithRect];
-    
-
+    [self.listingsTableDataController updateData];
 }
 
 -(void)zoomToFitMapAnnotations:(MKMapView*)mapView
@@ -94,6 +98,9 @@
     
     for(ASMapPoint* annotation in mapView.annotations)
     {
+        //ignore the user's location annotation
+        if ((MKUserLocation*)annotation==self.mv.userLocation)
+            continue;
         topLeftCoord.longitude = fmin(topLeftCoord.longitude, annotation.coordinate.longitude);
         topLeftCoord.latitude = fmax(topLeftCoord.latitude, annotation.coordinate.latitude);
         
@@ -114,20 +121,7 @@
 //this is the required method implementation for MKMapView annotations
 - (MKAnnotationView *) mapView:(MKMapView *)thisMapView
              viewForAnnotation:(ASMapPoint *)annotation
-{
-   /*
-    ASMapAnnotation *annotationView =
-    (ASMapAnnotation *)[self.mv dequeueReusableAnnotationViewWithIdentifier:AnnotationViewID];
-    if (annotationView == nil)
-    {
-        annotationView = [[ASMapAnnotation alloc] initWithAnnotation:annotation reuseIdentifier:AnnotationViewID] ;
-    }
-    annotationView.annotation = annotation;
-    annotationView.canShowCallout = YES;
-    return annotationView;
-
-*/
-    
+{    
     if ((MKUserLocation*)annotation==self.mv.userLocation)
         return nil;
     static NSString *AnnotationViewID = @"annotationViewID";
@@ -183,28 +177,9 @@
     [super viewDidUnload];
 }
 
-- (void)mapView:(MKMapView *)mapView didAddAnnotationViews:(NSArray *)views{
-    NSLog(@"Annotation added!");
-
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    if (!self.listingsTableDataController.businessList)
-    {
-        [self.listingsTableDataController setRect:self.mv.region];
-        [self.listingsTableDataController setIsListingView:NO];
-        [self.listingsTableDataController updateWithRect];
-        
-    }
-}
-
 
 
 #pragma mark - Key-value observing
-
-
 
 - (void)observeValueForKeyPath:(NSString *)keyPath
                       ofObject:(id)object
@@ -241,11 +216,7 @@
     }
 }
 
-
-
 #pragma mark - Query
-
-
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     
@@ -254,15 +225,13 @@
     if([segue.identifier isEqualToString:@"NewSort"]){
         UINavigationController *nv = (UINavigationController *)(destinationViewController);
         ASSortViewController *nsvc = (ASSortViewController *)nv.topViewController;
+        [self.listingsTableDataController setRect:self.mv.region];
+        NSLog(@"Zouf:  the rect center starts as %f\n",self.listingsTableDataController.rect.center.latitude);
+
         nsvc.delegate = self.listingsTableDataController;
     }
     else if ([segue.identifier isEqualToString:@"ShowBusinessDetailsSegue"]) {
         ASZBusinessDetailsViewController *detailsViewController = destinationViewController;
-        ASBusinessList *businesses = self.listingsTableDataController.businessList;
-        NSArray *businessIDs = [businesses valueForKeyPath:@"entries.ID"];
-      //  NSInteger selectedRow =
-       // detailsViewController.businessID = [businessIDs[selectedRow] unsignedIntegerValue];
-        
         ASZBusinessDetailsDataController *detailsDataController = detailsViewController.dataController;
         ASBusinessListDataController *listDataController = self.listingsTableDataController;
         detailsDataController.username = [listDataController.deviceInterface getStoredUname];

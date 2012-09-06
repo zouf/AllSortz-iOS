@@ -1,4 +1,4 @@
-    //
+        //
 //  ASBusinessDataController.m
 //  AllSortz
 //
@@ -8,14 +8,15 @@
 
 #import "ASBusinessListDataController.h"
 #import <MapKit/MapKit.h>
+
+
 @interface ASBusinessListDataController ()
 
 @property (strong, readwrite) ASBusinessList *businessList;
-@property (strong, readwrite) ASBusinessList *businessMapList;
 
 @property (strong) NSMutableData *receivedData;
  
-@property(strong, atomic) NSLock* lock;
+@property(strong, atomic) NSLock* updateFlag;
 
 
 @end
@@ -26,28 +27,23 @@
 - (id)init {
     self = [super init];
     if (self) {
-        self.lock = [[NSLock alloc]init];
+        self.updateFlag = [[NSLock alloc]init];
         
         self.deviceInterface = [[ASDeviceInterface alloc] init];
         [self.deviceInterface.locationManager startUpdatingLocation];
         self.deviceInterface.delegate = self;
-        
-        
     }
     return self;
 }
 
 - (BOOL)updateData
 {
-    [self.lock unlock];
-    // will allow the update location thread to populate the list.
-    // might need to redesign this
-    return YES;
-}
-
-- (BOOL)updateWithRect
-{
-    [self.lock unlock];
+    // pass to query update if necessary
+    if (self.searchQuery != nil)
+        return [self updateWithQuery];
+    [self.updateFlag unlock];
+    
+    
     // will allow the update location thread to populate the list.
     // might need to redesign this
     return YES;
@@ -55,22 +51,41 @@
 
 - (BOOL)updateDataWithNewList:(ASBusinessList*)newList
 {
-
     self.businessList = newList;
     self.receivedData = nil;
     return YES;
 }
 
 
-- (BOOL)updateWithQuery:(ASQuery*)query
+- (BOOL)updateWithQuery
 {
+
+    NSString *address = nil;
     
-    NSString *address = [NSString stringWithFormat:@"http://127.0.0.1:8000/api/businesses/search/?uname=%@&password=%@&lat=%f&lon=%f&deviceID=%@",  [self.deviceInterface getStoredUname], [self.deviceInterface getStoredPassword],
-                         self.currentLocation.coordinate.latitude,self.currentLocation.coordinate.longitude,[self.deviceInterface getDeviceUIUD]];
+    if (self.isListingView)
+    {
+        address = [NSString stringWithFormat:@"http://allsortz.com/api/businesses/?uname=%@&password=%@&lat=%f&lon=%f&deviceID=%@&bus_low=%d&bus_high=%d", [self.deviceInterface getStoredUname], [self.deviceInterface getStoredPassword],
+                   self.currentLocation.coordinate.latitude,self.currentLocation.coordinate.longitude,[self.deviceInterface getDeviceUIUD],self.businessList.entries.count,self.businessList.entries.count + NUM_RESULTS];
+    }
+    else
+    {
+        NSLog(@"RECT IS %f\n", self.rect.center.latitude);
+        CLLocationCoordinate2D center = self.rect.center;
+        float maxx = center.latitude  + (self.rect.span.latitudeDelta  / 2.0);
+        float maxy = center.longitude  + (self.rect.span.longitudeDelta  / 2.0);
+        float minx = center.latitude  - (self.rect.span.latitudeDelta  / 2.0);
+        float miny = center.longitude  - (self.rect.span.longitudeDelta  / 2.0);
+        
+        
+        address = [NSString stringWithFormat:@"http://allsortz.com/api/businesses/map/?uname=%@&password=%@&lat=%f&lon=%f&deviceID=%@&min_x=%f&min_y=%f&max_x=%f&max_y=%f", [self.deviceInterface getStoredUname], [self.deviceInterface getStoredPassword],
+                   self.currentLocation.coordinate.latitude,self.currentLocation.coordinate.longitude,[self.deviceInterface getDeviceUIUD],minx,miny,maxx,maxy];
+    }
+    
+    
     
     NSLog(@"Search query server with %@\n",address);
     
-    NSString *str = [[query serializeToDictionary] urlEncodedString];
+    NSString *str = [[self.searchQuery serializeToDictionary] urlEncodedString];
     NSData* data = [str dataUsingEncoding:NSUTF8StringEncoding];
     NSURLRequest *request = [self postRequestWithAddress:address data:data];
     NSURLConnection *connection = [NSURLConnection connectionWithRequest:request delegate:self];
@@ -118,7 +133,7 @@
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
 {
     // TODO: Actual error handling
-    [self.lock unlock];
+    [self.updateFlag unlock];
     NSLog(@"ERROR %@\n",error);
     self.receivedData = nil;
 }
@@ -132,37 +147,46 @@
                                                                             options:0
                                                                               error:NULL];
         
-        self.businessList = [[ASBusinessList alloc] initWithJSONObject:JSONresponse];
-        //self.businessMapList =  [[ASBusinessList alloc] initWithJSONObject:JSONresponse];
-        
+        if (!self.businessList)
+        {
+            self.businessList = [[ASBusinessList alloc] initWithJSONObject:JSONresponse];
+        }
+        else
+        {
+            ASBusinessList *newList = [[ASBusinessList alloc] initWithJSONObject:JSONresponse];
+            NSMutableArray *appendedList = self.businessList.entries;
+            for (NSDictionary *dict in newList.entries)
+            {
+                [appendedList addObject:dict];
+            }
+            [newList setEntries:appendedList];
+            self.businessList = newList;
+        }
         self.receivedData = nil;
     }
 }
 
 #pragma mark - Receive query info
--(void)newASSortViewController:(ASSortViewController *)nsvc didCreateNewSort:(ASBusinessList *)newList{
-    // Update the data based on the new query
-    //[self.listingsTableDataController.businessList.entries removeAllObjects];
-    
-    [self updateDataWithNewList:newList];
- ///   [self.navigationController dismissModalViewControllerAnimated:YES];
-}
-
--(void)cancelNewASSortViewController:(ASSortViewController *)nsvc{
-  //  [self.navigationController dismissModalViewControllerAnimated:YES];
-}
-
 
 -(void)waitOnQueryResponse:(ASQuery *)query{
-    [self updateWithQuery:query];
-    
+    self.searchQuery = [[ASQuery alloc]init];
+    self.searchQuery.searchLocation = [query.searchLocation copy];
+    self.searchQuery.searchText = [query.searchText copy];
+    self.searchQuery.selectedTypes = [query.selectedTypes copy];
+    self.searchQuery.distanceWeight = [query.distanceWeight copy];
+    self.businessList = nil;
+    // need to update data here for non-listing view!
+    if (!self.isListingView)
+    {
+        [self updateData];
+    }
 }
 
 #pragma mark - Receive Location info
 - (void)locationUpdate:(CLLocation *)location
 {
     self.currentLocation = [location copy];
-    if ([self.lock tryLock])
+    if ([self.updateFlag tryLock])
     {
         
         NSString *address;
@@ -171,7 +195,7 @@
         if (self.isListingView)
         {
             address = [NSString stringWithFormat:@"http://allsortz.com/api/businesses/?uname=%@&password=%@&lat=%f&lon=%f&deviceID=%@&bus_low=%d&bus_high=%d", [self.deviceInterface getStoredUname], [self.deviceInterface getStoredPassword],
-                                 self.currentLocation.coordinate.latitude,self.currentLocation.coordinate.longitude,[self.deviceInterface getDeviceUIUD],self.bus_low,self.bus_high];
+                                 self.currentLocation.coordinate.latitude,self.currentLocation.coordinate.longitude,[self.deviceInterface getDeviceUIUD],self.businessList.entries.count,self.businessList.entries.count + NUM_RESULTS];
         }
         else
         {
@@ -186,8 +210,6 @@
                        self.currentLocation.coordinate.latitude,self.currentLocation.coordinate.longitude,[self.deviceInterface getDeviceUIUD],minx,miny,maxx,maxy];
         }
         
-        
-        
         NSLog(@"Query server with %@\n",address);
         NSURL *url = [NSURL URLWithString:address];
         NSURLRequest *request = [NSURLRequest requestWithURL:url];
@@ -198,11 +220,7 @@
             return;
         }
         self.receivedData = [NSMutableData data];
-        
-        
         return;
-        
-
     }
 }
 

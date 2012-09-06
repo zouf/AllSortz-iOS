@@ -13,22 +13,22 @@
 #import "ASDeviceInterface.h"
 #import <MapKit/MapKit.h>
 
+#define NUM_RESULTS 20
+
 @interface ASBusinessListDataController : NSObject <NSURLConnectionDataDelegate, NewSortDelegate, ASDeviceInterfaceDelegate>
 
 @property (strong, readonly) ASBusinessList *businessList;
-@property (strong, readonly) ASBusinessList *businessMapList;
 @property(strong, atomic) CLLocation * currentLocation;
 @property (strong, nonatomic) ASDeviceInterface *deviceInterface;
 
 - (BOOL)updateData;
-- (BOOL)updateWithRect;
 
 - (BOOL)updateDataWithNewList:(ASBusinessList*)newList;
-- (BOOL)updateWithQuery:(ASQuery*)query;
+- (BOOL)updateWithQuery;
 
 @property (nonatomic, assign) MKCoordinateRegion rect;
-@property (nonatomic, assign) NSInteger bus_low;
-@property (nonatomic, assign) NSInteger bus_high;
+@property (nonatomic, strong) ASQuery *searchQuery;
+
 @property (nonatomic, assign) BOOL isListingView;
 
 // NSURLConnectionDataDelegate

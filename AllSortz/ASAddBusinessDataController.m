@@ -114,8 +114,7 @@ static NSString * const FORM_FLE_INPUT = @"uploaded";
 {
     NSMutableDictionary *JSONresponse = [NSJSONSerialization JSONObjectWithData:self.receivedData
                                                                         options:0
-    
-                                                                          error:NULL];
+                                                                        error:NULL];
     NSString *success = [JSONresponse valueForKey:@"success"];
 
     if (success == @"false")

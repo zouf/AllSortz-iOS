@@ -9,7 +9,7 @@
 #import "ASBusinessList.h"
 #import "ASRateView.h"
 
-#define NUM_STATIC_CELLS 1
+#define NUM_STATIC_CELLS 2
 
 
 @interface ASBusinessList ()

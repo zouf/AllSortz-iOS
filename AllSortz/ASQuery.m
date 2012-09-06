@@ -27,9 +27,7 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {    // Return the number of sections.
     
-    // CHANGE THIS TO 3
-#warning change to 3 to get the rots
-    //return 3;
+    // Use a third section for the 'topics' if you want to filter by topics that have given ratings
     return 2;
 }
 
@@ -42,17 +40,18 @@
     {
         return 1;
     }
-    else if (section == 1)
+    else 
     {
         int ct = [self.allTypes count];
         return ct;
     }
-    else
+    // to include topics
+   /* else
     {
         int ct = [self.allSorts count];
         return ct;
         
-    }
+    }*/
     return 0;
 }
 

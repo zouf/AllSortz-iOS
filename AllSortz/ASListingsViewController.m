@@ -16,18 +16,16 @@
 #import "ASZBusinessDetailsViewController.h"
 #import "ASZBusinessDetailsDataController.h"
 
+#define BUSINESS_NAME 200
+
 @interface ASListingsViewController ()
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) IBOutlet ASBusinessListDataController *listingsTableDataController;
-@property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 
 @property (weak, nonatomic) IBOutlet UIView *overlayView;
 
 
-
-
-//@property (strong, nonatomic) IBOutlet ASActivityWaitingViewController *activityWaiting;
 
 @end
 
@@ -35,24 +33,29 @@
 @implementation ASListingsViewController
 
 #pragma mark - View controller
+
 @synthesize overlayView = _overlayView;
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     self.listingsTableDataController = [[ASBusinessListDataController alloc]init];
+    
     self.imageDownloadsInProgress = [NSMutableDictionary dictionary];
     [self.listingsTableDataController addObserver:self
                                        forKeyPath:@"businessList"
                                           options:NSKeyValueObservingOptionNew
                                           context:NULL];
+   // [self.tableView.superview addSubview:self.overlayView];
+    
+    
     UIActivityIndicatorView *activityView=[[UIActivityIndicatorView alloc]     initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
     
     activityView.center=self.overlayView.center;
     
     [activityView startAnimating];
-    
-    [self.overlayView addSubview:activityView];
+    activityView.color= [UIColor blackColor];
+ //   [self.overlayView addSubview:activityView];
 
 }
 
@@ -60,11 +63,9 @@
 - (void)viewDidUnload
 {
     [self setOverlayView:nil];
-    [self setOverlayView:nil];
-    [super viewDidUnload];
-    self.searchBar = nil;
-    // self.activityWaiting = nil;
     [self.listingsTableDataController removeObserver:self forKeyPath:@"businessList"];
+
+    [super viewDidUnload];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -78,8 +79,7 @@
     // Download data automatically if there's no data source
     if (!self.listingsTableDataController.businessList)
     {
-        [self.listingsTableDataController setBus_low:0];
-        [self.listingsTableDataController setBus_high:10];
+        // tell the data controller that its not using map APIs
         [self.listingsTableDataController setIsListingView:YES];
         [self.listingsTableDataController updateData];
     
@@ -95,6 +95,10 @@
     [self.tableView flashScrollIndicators];
 }
 
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+}
 
 
 
@@ -106,6 +110,7 @@
     
     if (indexPath.row<[self.listingsTableDataController.businessList.entries count])
         return 72;
+
     return 59;
 }
 
@@ -118,7 +123,7 @@
     static NSString *PlaceholderCellIdentifier = @"PlaceholderCell";
     
     //Add business cell
-    if (indexPath.row >= [self.listingsTableDataController.businessList.entries count])
+    if (indexPath.row == [self.listingsTableDataController.businessList.entries count] + 1)
     {
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AddBusinessCell"];
         if ( cell == nil)
@@ -129,6 +134,21 @@
         }
         return cell;
     }
+    
+    // next / previous cell
+    if (indexPath.row == [self.listingsTableDataController.businessList.entries count] )
+    {
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"NextPrevCell"];
+        if ( cell == nil)
+        {
+            NSLog(@"Error case!\n");
+            return nil;
+            
+        }
+        return cell;
+    }
+    
+    
     
     
     // add a placeholder cell while waiting on table data
@@ -311,36 +331,13 @@
         self.tableView.dataSource = (newDataSource == [NSNull null] ? nil : newDataSource);
         [self.imageDownloadsInProgress removeAllObjects];
         [self.tableView reloadData];
-    
-        [self.overlayView removeFromSuperview];
+//        [self.overlayView setHidden:YES];
+//        [self.overlayView removeFromSuperview];
 
     }
 }
 
-#pragma mark - Query
-/*
--(void)newASSortViewController:(ASSortViewController *)nsvc didCreateNewSort:(ASBusinessList *)newList{
-    // Update the data based on the new query
-    //[self.listingsTableDataController.businessList.entries removeAllObjects];
-    
-    [self.listingsTableDataController updateDataWithNewList:newList];
-    [self.navigationController dismissModalViewControllerAnimated:YES];
-}
 
--(void)cancelNewASSortViewController:(ASSortViewController *)nsvc{
-    [self.navigationController dismissModalViewControllerAnimated:YES];
-}
-
-
--(void)waitOnQueryResponse:(ASQuery *)query{
-    [self.listingsTableDataController updateWithQuery:query];
-
-}*/
-#pragma mark - Tab bar
-- (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController
-{
-    // ...
-}
 #pragma mark - #pragma mark - Create New Sort
 
 -(void) newASAddBusinessViewController:(ASAddBusinessViewController *)abvc didCreateNewBusiness:(ASAddBusiness *)business
@@ -379,7 +376,7 @@
         NSArray *businessIDs = [businesses valueForKeyPath:@"entries.ID"];
         NSInteger selectedRow = [self.tableView indexPathForSelectedRow].row;
         detailsViewController.businessID = [businessIDs[selectedRow] unsignedIntegerValue];
-
+        
         ASZBusinessDetailsDataController *detailsDataController = detailsViewController.dataController;
         ASBusinessListDataController *listDataController = self.listingsTableDataController;
         detailsDataController.username = [listDataController.deviceInterface getStoredUname];
@@ -388,6 +385,10 @@
         detailsDataController.currentLatitude = listDataController.currentLocation.coordinate.latitude;
         detailsDataController.currentLongitude = listDataController.currentLocation.coordinate.longitude;
     }
+}
+
+- (IBAction)tapNext:(id)sender {
+    [self.listingsTableDataController updateData];
 }
 
 @end

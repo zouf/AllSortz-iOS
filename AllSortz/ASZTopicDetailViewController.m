@@ -15,7 +15,6 @@
 #define BUTTON_SPACE 150
 @interface ASZTopicDetailViewController ()
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
-- (IBAction)editDonePressed:(id)sender;
 
 @end
 

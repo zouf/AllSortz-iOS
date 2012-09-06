@@ -12,12 +12,46 @@
 
 #import "ASZTopicDetailViewController.h"
 
+
+#import "ASZEditBusinessDetailsViewController.h"
+
 #import "ASBusiness.h"
 
 #define CELL_WIDTH 209
 #define CELL_MARGIN 5
 
 @implementation ASZBusinessDetailsViewController
+
+- (IBAction)editTapped:(id)sender {
+    NSString *targetViewControllerIdentifier = nil;
+    [self performSegueWithIdentifier:@"EditBusinessSegue" sender:self];
+}
+
+#pragma mark - Storyboard segue
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    id destinationViewController = segue.destinationViewController;
+
+    if ([segue.identifier isEqualToString:@"EditBusinessSegue"]) {
+        
+        //create a view for editing. Has almost all of the same features as this view, but will allow for editing
+        UINavigationController *nv = destinationViewController;
+        ASZEditBusinessDetailsViewController *detailsViewController = (ASZEditBusinessDetailsViewController *)nv.topViewController;
+        detailsViewController.dataController.business = self.dataController.business;
+        detailsViewController.dataController.username = self.dataController.username;
+        detailsViewController.dataController.password = self.dataController.password;
+
+        detailsViewController.dataController.UUID = self.dataController.UUID;
+        detailsViewController.dataController.currentLatitude = self.dataController.currentLatitude;
+        detailsViewController.dataController.currentLongitude = self.dataController.currentLongitude;
+        detailsViewController.businessID  = self.businessID;//.currentLongitude;
+
+        
+
+        
+    }
+}
+
 
 - (void)viewDidLoad
 {

@@ -28,10 +28,10 @@
     return 2;
 }
 
-
-- (IBAction)editDonePressed:(id)sender {
-//    UITableViewCell *cell = (UITableViewCell*)sender;
-    
+- (void)refreshBusinessAsynchronouslyWithID:(NSUInteger)ID;
+{
+    //todo implement if necessary
+    return;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -39,7 +39,6 @@
     NSString *CellIdentifier = nil;
     UITableViewCell *cell= nil;
     
-    NSLog(@"%d\n",indexPath.row);
     // top row for label and rating
     if (indexPath.row == 0)
     {

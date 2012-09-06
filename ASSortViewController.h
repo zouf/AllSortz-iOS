@@ -39,8 +39,6 @@
 
 @protocol NewSortDelegate <NSObject>
 
--(void)newASSortViewController:(ASSortViewController *)nsvc didCreateNewSort:(ASBusinessList *)url;
--(void)cancelNewASSortViewController:(ASSortViewController *)nsvc;
 -(void)waitOnQueryResponse:(ASQuery *)query;
 
 @end

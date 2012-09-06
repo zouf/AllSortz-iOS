@@ -25,6 +25,7 @@
 // the set of IconDownloader objects for each app
 @property (nonatomic, retain) NSMutableDictionary *imageDownloadsInProgress;
 
+@property (nonatomic) NSInteger result_base_counter;
 
 
 @end

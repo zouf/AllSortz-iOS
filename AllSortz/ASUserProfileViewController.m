@@ -98,8 +98,7 @@
     //go back up the tree
     if (self.questionPosition >= self.userProfileDataController.userProfile.topics.count)
     {
-
-       (ASUserProfileViewController*)[self.navigationController popViewControllerAnimated:YES];
+        [self.navigationController popViewControllerAnimated:YES];
     }
     
     switch (self.importanceValue.selectedSegmentIndex)

@@ -10,6 +10,14 @@
 #import "ASAddBusinessDataController.h"
 #define IMAGE_VIEW 600
 #define LABEL_VIEW 601
+
+#define BUSINESS_NAME 200
+#define BUSINESS_STREET 201
+#define BUSINESS_CITY 202
+#define BUSINESS_STATE 203
+#define BUSINESS_URL 204
+#define BUSINESS_PHONE 205
+#define PHOTO_URL 206
 @interface ASAddBusinessViewController ()
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) IBOutlet ASAddBusinessDataController *addBusinessDataController;
@@ -72,6 +80,9 @@
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
+
+
+#pragma mark - Table view delegate
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -139,23 +150,6 @@
     return 45;
 }
 
-
-#pragma mark - Table view delegate
-/* DOESNT WORK
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
-	
-	NSString *sectionHeader = nil;
-    return @"BLARG!\n";
-	
-	if(section == 0) {
-		sectionHeader = @"Business Info";
-	}
-	if(section == 1) {
-		sectionHeader = @"Business Type";
-	}
-
-	return sectionHeader;
-}*/
 
 #pragma mark - Key value observing
 - (void)observeValueForKeyPath:(NSString *)keyPath
