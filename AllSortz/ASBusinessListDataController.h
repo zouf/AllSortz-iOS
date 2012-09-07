@@ -22,6 +22,8 @@
 @property (strong, nonatomic) ASDeviceInterface *deviceInterface;
 
 - (BOOL)updateData;
+- (BOOL)performUpdate;
+
 
 - (BOOL)updateDataWithNewList:(ASBusinessList*)newList;
 - (BOOL)updateWithQuery;
@@ -29,7 +31,7 @@
 @property (nonatomic, assign) MKCoordinateRegion rect;
 @property (nonatomic, strong) ASQuery *searchQuery;
 
-@property (nonatomic, assign) BOOL isListingView;
+@property (nonatomic, assign) BOOL updateAList;
 
 // NSURLConnectionDataDelegate
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response;

@@ -18,6 +18,9 @@
  
 @property(strong, atomic) NSLock* updateFlag;
 
+@property(strong, atomic) NSLock* requestInProgress;
+
+
 
 @end
 
@@ -28,7 +31,7 @@
     self = [super init];
     if (self) {
         self.updateFlag = [[NSLock alloc]init];
-        
+        self.requestInProgress  = [[NSLock alloc]init];
         self.deviceInterface = [[ASDeviceInterface alloc] init];
         [self.deviceInterface.locationManager startUpdatingLocation];
         self.deviceInterface.delegate = self;
@@ -41,7 +44,18 @@
     // pass to query update if necessary
     if (self.searchQuery != nil)
         return [self updateWithQuery];
-    [self.updateFlag unlock];
+    
+    // if we have a location, continue with the update
+    if(self.currentLocation)
+        return [self performUpdate];
+        
+    
+    // unlock the update flag to allow the location updater to call update
+    // this is in case the phone doesnt update location frequently enougb
+    
+    if ([self.updateFlag tryLock])
+        [self.updateFlag  unlock];
+    
     
     
     // will allow the update location thread to populate the list.
@@ -62,14 +76,14 @@
 
     NSString *address = nil;
     
-    if (self.isListingView)
+    if (self.updateAList)
     {
         address = [NSString stringWithFormat:@"http://allsortz.com/api/businesses/?uname=%@&password=%@&lat=%f&lon=%f&deviceID=%@&bus_low=%d&bus_high=%d", [self.deviceInterface getStoredUname], [self.deviceInterface getStoredPassword],
                    self.currentLocation.coordinate.latitude,self.currentLocation.coordinate.longitude,[self.deviceInterface getDeviceUIUD],self.businessList.entries.count,self.businessList.entries.count + NUM_RESULTS];
     }
     else
     {
-        NSLog(@"RECT IS %f\n", self.rect.center.latitude);
+        self.businessList = nil;
         CLLocationCoordinate2D center = self.rect.center;
         float maxx = center.latitude  + (self.rect.span.latitudeDelta  / 2.0);
         float maxy = center.longitude  + (self.rect.span.longitudeDelta  / 2.0);
@@ -123,11 +137,13 @@
 {
     // Reset data store on new requests
     [self.receivedData setLength:0];
+
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
 {
     [self.receivedData appendData:data];
+    
 }
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
@@ -136,6 +152,8 @@
     [self.updateFlag unlock];
     NSLog(@"ERROR %@\n",error);
     self.receivedData = nil;
+    [self.requestInProgress unlock];
+
 }
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection
@@ -163,6 +181,7 @@
             self.businessList = newList;
         }
         self.receivedData = nil;
+        [self.requestInProgress unlock];
     }
 }
 
@@ -175,11 +194,51 @@
     self.searchQuery.selectedTypes = [query.selectedTypes copy];
     self.searchQuery.distanceWeight = [query.distanceWeight copy];
     self.businessList = nil;
-    // need to update data here for non-listing view!
-    if (!self.isListingView)
+    
+    
+    [self setUpdateAList:YES];
+    [self updateData];
+
+}
+
+-(BOOL)performUpdate
+{
+    if (![self.requestInProgress tryLock])
+        return NO;
+    NSString *address;
+
+    // NSLog(@"Update the server with location %@\n", self.currentLocation);
+    if (self.updateAList)
     {
-        [self updateData];
+        address = [NSString stringWithFormat:@"http://allsortz.com/api/businesses/?uname=%@&password=%@&lat=%f&lon=%f&deviceID=%@&bus_low=%d&bus_high=%d", [self.deviceInterface getStoredUname], [self.deviceInterface getStoredPassword],
+                   self.currentLocation.coordinate.latitude,self.currentLocation.coordinate.longitude,[self.deviceInterface getDeviceUIUD],self.businessList.entries.count,self.businessList.entries.count + NUM_RESULTS];
     }
+    else
+    {
+        //completely refresh the data
+        [self setBusinessList:nil];
+        CLLocationCoordinate2D center = self.rect.center;
+        float maxx = center.latitude  + (self.rect.span.latitudeDelta  / 2.0);
+        float maxy = center.longitude  + (self.rect.span.longitudeDelta  / 2.0);
+        float minx = center.latitude  - (self.rect.span.latitudeDelta  / 2.0);
+        float miny = center.longitude  - (self.rect.span.longitudeDelta  / 2.0);
+        
+        
+        address = [NSString stringWithFormat:@"http://allsortz.com/api/businesses/map/?uname=%@&password=%@&lat=%f&lon=%f&deviceID=%@&min_x=%f&min_y=%f&max_x=%f&max_y=%f", [self.deviceInterface getStoredUname], [self.deviceInterface getStoredPassword],
+                   self.currentLocation.coordinate.latitude,self.currentLocation.coordinate.longitude,[self.deviceInterface getDeviceUIUD],minx,miny,maxx,maxy];
+    }
+
+    NSLog(@"Query server with %@\n",address);
+    NSURL *url = [NSURL URLWithString:address];
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+
+    NSURLConnection *connection = [NSURLConnection connectionWithRequest:request delegate:self];
+    if (!connection) {
+        // TODO: Some proper failure handling maybe
+        return NO;
+    }
+    self.receivedData = [NSMutableData data];
+    return YES;
 }
 
 #pragma mark - Receive Location info
@@ -188,39 +247,7 @@
     self.currentLocation = [location copy];
     if ([self.updateFlag tryLock])
     {
-        
-        NSString *address;
-        
-       // NSLog(@"Update the server with location %@\n", self.currentLocation);
-        if (self.isListingView)
-        {
-            address = [NSString stringWithFormat:@"http://allsortz.com/api/businesses/?uname=%@&password=%@&lat=%f&lon=%f&deviceID=%@&bus_low=%d&bus_high=%d", [self.deviceInterface getStoredUname], [self.deviceInterface getStoredPassword],
-                                 self.currentLocation.coordinate.latitude,self.currentLocation.coordinate.longitude,[self.deviceInterface getDeviceUIUD],self.businessList.entries.count,self.businessList.entries.count + NUM_RESULTS];
-        }
-        else
-        {
-            CLLocationCoordinate2D center = self.rect.center;
-            float maxx = center.latitude  + (self.rect.span.latitudeDelta  / 2.0);
-            float maxy = center.longitude  + (self.rect.span.longitudeDelta  / 2.0);
-            float minx = center.latitude  - (self.rect.span.latitudeDelta  / 2.0);
-            float miny = center.longitude  - (self.rect.span.longitudeDelta  / 2.0);
-
-
-            address = [NSString stringWithFormat:@"http://allsortz.com/api/businesses/map/?uname=%@&password=%@&lat=%f&lon=%f&deviceID=%@&min_x=%f&min_y=%f&max_x=%f&max_y=%f", [self.deviceInterface getStoredUname], [self.deviceInterface getStoredPassword],
-                       self.currentLocation.coordinate.latitude,self.currentLocation.coordinate.longitude,[self.deviceInterface getDeviceUIUD],minx,miny,maxx,maxy];
-        }
-        
-        NSLog(@"Query server with %@\n",address);
-        NSURL *url = [NSURL URLWithString:address];
-        NSURLRequest *request = [NSURLRequest requestWithURL:url];
-        
-        NSURLConnection *connection = [NSURLConnection connectionWithRequest:request delegate:self];
-        if (!connection) {
-            // TODO: Some proper failure handling maybe
-            return;
-        }
-        self.receivedData = [NSMutableData data];
-        return;
+        [self performUpdate];
     }
 }
 

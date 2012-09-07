@@ -15,16 +15,16 @@
 #import "ASAddBusinessViewController.h"
 #import "ASZBusinessDetailsViewController.h"
 #import "ASZBusinessDetailsDataController.h"
-
+#import "ASMapViewController.h"
 #define BUSINESS_NAME 200
 
 @interface ASListingsViewController ()
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (strong, nonatomic) IBOutlet ASBusinessListDataController *listingsTableDataController;
 
 @property (weak, nonatomic) IBOutlet UIView *overlayView;
 
+- (IBAction)goToMap:(id)sender;
 
 
 @end
@@ -39,24 +39,43 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.listingsTableDataController = [[ASBusinessListDataController alloc]init];
+    if (!self.listingsTableDataController)
+        self.listingsTableDataController = [[ASBusinessListDataController alloc]init];
     
     self.imageDownloadsInProgress = [NSMutableDictionary dictionary];
     [self.listingsTableDataController addObserver:self
                                        forKeyPath:@"businessList"
                                           options:NSKeyValueObservingOptionNew
                                           context:NULL];
+    [self.listingsTableDataController addObserver:self
+                                       forKeyPath:@"businessList.entries"
+                                          options:NSKeyValueObservingOptionNew
+                                          context:NULL];
+
    // [self.tableView.superview addSubview:self.overlayView];
     
-    
+/*
     UIActivityIndicatorView *activityView=[[UIActivityIndicatorView alloc]     initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
     
     activityView.center=self.overlayView.center;
     
     [activityView startAnimating];
-    activityView.color= [UIColor blackColor];
+    activityView.color= [UIColor blackColor];*/
  //   [self.overlayView addSubview:activityView];
-
+    // Download data automatically if there's no data source
+    if (!self.listingsTableDataController.businessList)
+    {
+        // tell the data controller that its not using map APIs
+        [self.listingsTableDataController setUpdateAList:YES];
+        [self.listingsTableDataController updateData];
+        
+    }
+    else
+    {
+        //assign the data source
+        self.tableView.dataSource = self.listingsTableDataController.businessList;
+        [self loadListElements];
+    }
 }
 
 
@@ -76,14 +95,7 @@
     // deselectRowAtIndexPath:animated: should be fine taking a possible nil
     [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:NO];
 
-    // Download data automatically if there's no data source
-    if (!self.listingsTableDataController.businessList)
-    {
-        // tell the data controller that its not using map APIs
-        [self.listingsTableDataController setIsListingView:YES];
-        [self.listingsTableDataController updateData];
-    
-    }
+
 }
 
 
@@ -320,6 +332,12 @@
 
 #pragma mark - Key-value observing
 
+-(void)loadListElements
+{
+    [self.imageDownloadsInProgress removeAllObjects];
+    [self.tableView reloadData];
+}
+
 - (void)observeValueForKeyPath:(NSString *)keyPath
                       ofObject:(id)object
                         change:(NSDictionary *)change
@@ -329,11 +347,7 @@
     if ([keyPath isEqualToString:@"businessList"]) {
         id newDataSource = [change objectForKey:NSKeyValueChangeNewKey];
         self.tableView.dataSource = (newDataSource == [NSNull null] ? nil : newDataSource);
-        [self.imageDownloadsInProgress removeAllObjects];
-        [self.tableView reloadData];
-//        [self.overlayView setHidden:YES];
-//        [self.overlayView removeFromSuperview];
-
+        [self loadListElements];
     }
 }
 
@@ -388,7 +402,21 @@
 }
 
 - (IBAction)tapNext:(id)sender {
+    [self.listingsTableDataController setUpdateAList:YES];
     [self.listingsTableDataController updateData];
 }
 
+- (IBAction)goToMap:(id)sender {
+    
+
+    if (!self.mapViewController)
+    {
+        NSString *targetViewControllerIdentifier = nil;
+        targetViewControllerIdentifier = @"MapViewControllerID";
+        self.mapViewController = (ASMapViewController*)[self.storyboard instantiateViewControllerWithIdentifier:targetViewControllerIdentifier];
+        [self.mapViewController setListViewController:self];
+    }
+    [self.mapViewController setListingsTableDataController:self.listingsTableDataController];
+    [self.navigationController pushViewController:self.mapViewController animated:NO];
+}
 @end

@@ -10,17 +10,23 @@
 
 #import "ASZBusinessDetailsDataController.h"
 
+#import "ASListingsViewController.h"
+
+
 #import "ASZBusinessDetailsViewController.h"
 
 @interface ASMapViewController()
-
-@property (strong, nonatomic) IBOutlet ASBusinessListDataController *listingsTableDataController;
-
 @property (weak, nonatomic) IBOutlet MKMapView *mv;
 @property (weak, nonatomic) NSMutableArray *businessPoints;
 @property (weak, nonatomic) IBOutlet UIView *overlayView;
 
+@property(assign) MKCoordinateRegion prevRegion;
+@property(assign) BOOL startMoving;
+
+@property NSOperationQueue *queue;  // Assume we only need one for now
+
 - (IBAction)refreshTheMap:(id)sender;
+- (IBAction)goToListing:(id)sender;
 
 -(void)zoomToFitMapAnnotations:(MKMapView*)mapView;
 
@@ -28,25 +34,20 @@
 
 
 
+
 @implementation ASMapViewController
 @synthesize overlayView = _overlayView;
 @synthesize mv;
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.listingsTableDataController = [[ASBusinessListDataController alloc]init];
+    //self.listingsTableDataController = [[ASBusinessListDataController alloc]init];
     [self.listingsTableDataController addObserver:self
                                        forKeyPath:@"businessList"
                                           options:NSKeyValueObservingOptionNew
                                           context:NULL];
     
-    UIActivityIndicatorView *activityView=[[UIActivityIndicatorView alloc]     initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-    
-    activityView.center=self.overlayView.center;
-    
-    [activityView startAnimating];
-    
-    [self.overlayView addSubview:activityView];
-
     //declare latitude and longitude of map center
 	CLLocationCoordinate2D center;
 	center.latitude =  40.350816;
@@ -64,28 +65,120 @@
 	region.center = center;
 	region.span = span;
 	self.mv.region = [self.mv regionThatFits:region];
+    
 
-    [super viewDidLoad];
+    // on initial load of this view controller, update from the server if there's no business list
     if (!self.listingsTableDataController.businessList)
     {
         NSLog(@"Map view entered on latitude %f\n",self.mv.region.center.latitude);
         [self.listingsTableDataController setRect:self.mv.region];
-        [self.listingsTableDataController setIsListingView:NO];
+        [self.listingsTableDataController setUpdateAList:NO];
         [self.listingsTableDataController updateData];
         
     }
+    else // business list comes from somewhere else
+    {
+        [self loadMapElements];
+        [self zoomToFitMapAnnotations:self.mv];
+    }
+
+
 }
 
-- (IBAction)refreshTheMap:(id)sender {
-    [self.listingsTableDataController.businessList.entries removeAllObjects];
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    //this should never be called. but, in case we get to a situation where there is no businessList, call update on the server
+    if (!self.listingsTableDataController.businessList)
+    {
+        NSLog(@"Map view entered on latitude %f\n",self.mv.region.center.latitude);
+        [self.listingsTableDataController setRect:self.mv.region];
+        [self.listingsTableDataController setUpdateAList:NO];
+        [self.listingsTableDataController updateData];
+        
+    }
+    
+    // fit to the elements on the map
+    [self zoomToFitMapAnnotations:self.mv];
+
+}
+- (IBAction)refreshTapped:(id)sender {
     [self.listingsTableDataController setRect:self.mv.region];
-    [self.listingsTableDataController setIsListingView:NO];
+    
+    [self.listingsTableDataController setUpdateAList:NO];
     [self.listingsTableDataController updateData];
+    //self.prevRegion = self.mv.region;
+}
+
+- (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated
+{
+    return;
+    
+    /*NSLog(@"Map view entered on latitude %f\n",self.mv.region.center.latitude);
+    
+ 
+    
+    MKCoordinateRegion region = self.mv.region;
+    CLLocationCoordinate2D location =  self.prevRegion.center;
+    
+    CLLocationCoordinate2D center   = region.center;
+    CLLocationCoordinate2D northWestCorner, southEastCorner;
+    
+    northWestCorner.latitude  = center.latitude  - (region.span.latitudeDelta  / 2.0);
+    northWestCorner.longitude = center.longitude - (region.span.longitudeDelta / 2.0);
+    southEastCorner.latitude  = center.latitude  + (region.span.latitudeDelta  / 2.0);
+    southEastCorner.longitude = center.longitude + (region.span.longitudeDelta / 2.0);
+    
+    if (
+        location.latitude  >= northWestCorner.latitude &&
+        location.latitude  <= southEastCorner.latitude &&
+        
+        location.longitude >= northWestCorner.longitude &&
+        location.longitude <= southEastCorner.longitude
+        )
+    {
+        // Old center is in this region dont update
+        NSLog(@"Center (%f, %f) span (%f, %f) user: (%f, %f)| IN!", region.center.latitude, region.center.longitude, region.span.latitudeDelta, region.span.longitudeDelta, location.latitude, location.longitude);
+        self.prevRegion = self.mv.region;
+        
+    }else {
+        
+        // User location (location) out of the region - NOT ok :-(
+        NSLog(@"Center (%f, %f) span (%f, %f) user: (%f, %f)| OUT!", region.center.latitude, region.center.longitude, region.span.latitudeDelta, region.span.longitudeDelta, location.latitude, location.longitude);
+        [self.listingsTableDataController setRect:self.mv.region];
+        [self.listingsTableDataController setUpdateAList:NO];
+        [self.listingsTableDataController updateData];
+        self.prevRegion = self.mv.region;
+    }
+    */
+
+
+
+}
+
+- (IBAction)goToListing:(id)sender {
+    
+ /*   if (!self.listViewController)
+    {
+        NSString *targetViewControllerIdentifier = nil;
+        targetViewControllerIdentifier = @"ListViewControllerID";
+        self.listViewController = (ASListingsViewController*)[self.storyboard instantiateViewControllerWithIdentifier:targetViewControllerIdentifier];
+        [self.listViewController setMapViewController:self];
+    }
+    
+
+
+    [self.listViewController setListingsTableDataController:self.listingsTableDataController];
+    [self.navigationController  pushViewController:self.listViewController animated:NO];*/
+    [self.navigationController popViewControllerAnimated:NO];
 }
 
 -(void)zoomToFitMapAnnotations:(MKMapView*)mapView
 {
     if([mapView.annotations count] == 0)
+        return;
+    
+    if ([self.listingsTableDataController.businessList.entries count] == 0)
         return;
     
     CLLocationCoordinate2D topLeftCoord;
@@ -130,23 +223,50 @@
 	if(annotationView == nil)
 	{
 		annotationView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:AnnotationViewID];
-        UIButton *rightButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
-        annotationView.rightCalloutAccessoryView = rightButton;
-        //I choose to color all the annotations green, except for the one with tag == 4
-        if((annotation).score  >0.5)
-            annotationView.pinColor = MKPinAnnotationColorGreen;
-        else
-            annotationView.pinColor = MKPinAnnotationColorRed;
-
-        annotationView.animatesDrop=FALSE;
         
-        //tapping the pin produces a gray box which shows title and subtitle
-        annotationView.canShowCallout = YES;
+        
 	}
+    UIButton *rightButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+    annotationView.rightCalloutAccessoryView = rightButton;
+    //I choose to color all the annotations green, except for the one with tag == 4
+    if((annotation).score  >0.5)
+        annotationView.pinColor = MKPinAnnotationColorGreen;
+    else
+        annotationView.pinColor = MKPinAnnotationColorRed;
+    
+    annotationView.animatesDrop=FALSE;
+    
+    //tapping the pin produces a gray box which shows title and subtitle
+    annotationView.canShowCallout = YES;
+    
+    // Change this to rightCallout... to move the image to the right side
+    annotationView.annotation = annotation;
+        
+   
+    // Fetch image asynchronously
+    
+    if (!annotation.business.businessPhoto)
+    {
+        NSURLRequest *imageRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:annotation.business.imageURLString]];
+        void (^imageHandler)(NSURLResponse *, NSData *, NSError *) = ^(NSURLResponse *response, NSData *data, NSError *error) {
+            annotation.business.businessPhoto = [UIImage imageWithData:data];
+            UIImageView *myImageView = [[UIImageView alloc] initWithImage:annotation.business.businessPhoto];
+            myImageView.frame = CGRectMake(0,0,31,31); // Change the size of the image to fit the callout
+            annotationView.leftCalloutAccessoryView = myImageView;
+
+        };
+        if (!self.queue)
+            self.queue = [[NSOperationQueue alloc] init];
+        [NSURLConnection sendAsynchronousRequest:imageRequest queue:self.queue completionHandler:imageHandler];
+
+    }
     else
     {
-        annotationView.annotation = annotation;
+        UIImageView *myImageView = [[UIImageView alloc] initWithImage:annotation.business.businessPhoto];
+        myImageView.frame = CGRectMake(0,0,31,31); // Change the size of the image to fit the callout
+        annotationView.leftCalloutAccessoryView = myImageView;
     }
+
     return annotationView;
 }
 
@@ -181,6 +301,38 @@
 
 #pragma mark - Key-value observing
 
+-(void)loadMapElements
+{
+    if (!self.listingsTableDataController.businessList)
+        return;
+
+    // if CHANGE!
+        
+    //create annotations and add to the busStopAnnotations array
+    NSMutableArray *myArray = [[NSMutableArray alloc] init];
+    self.businessPoints = myArray;
+    for (ASListing *bus in self.listingsTableDataController.businessList.entries)
+    {
+        CLLocationCoordinate2D annotationCenter;
+        annotationCenter.latitude = bus.latitude;
+        annotationCenter.longitude = bus.longitude;
+        ASMapPoint *mp = [[ASMapPoint alloc] initWithCoordinate:annotationCenter withScore:bus.recommendation withTag:bus.ID withTitle:bus.businessName withSubtitle:[NSString stringWithFormat:@"Score %0.2f",   bus.recommendation]];
+        mp.business = bus;
+        [self.businessPoints addObject:mp];
+    }
+
+    // remove all annotations
+    NSMutableArray *toRemove = [NSMutableArray arrayWithCapacity:10];
+    for (id annotation in self.mv.annotations)
+        if (annotation != self.mv.userLocation)
+            [toRemove addObject:annotation];
+    [self.mv removeAnnotations:toRemove];
+    
+    //add annotations array to the mapView
+    [self.mv addAnnotations:self.businessPoints];
+    
+}
+
 - (void)observeValueForKeyPath:(NSString *)keyPath
                       ofObject:(id)object
                         change:(NSDictionary *)change
@@ -188,32 +340,10 @@
 {
     // If the business list changes, reassign
     if ([keyPath isEqualToString:@"businessList"]) {
-        
-        // remove all annotations
-        NSMutableArray *toRemove = [NSMutableArray arrayWithCapacity:10];
-        for (id annotation in self.mv.annotations)
-            if (annotation != self.mv.userLocation)
-                [toRemove addObject:annotation];
-        [self.mv removeAnnotations:toRemove];
-        
-        //create annotations and add to the busStopAnnotations array
-        NSMutableArray *myArray = [[NSMutableArray alloc] init];
-        self.businessPoints = myArray;
-        for (ASListing *bus in self.listingsTableDataController.businessList.entries)
-        {
-            CLLocationCoordinate2D annotationCenter;
-            annotationCenter.latitude = bus.latitude;
-            annotationCenter.longitude = bus.longitude;
-            ASMapPoint *mp = [[ASMapPoint alloc] initWithCoordinate:annotationCenter withScore:bus.recommendation withTag:bus.ID withTitle:bus.businessName withSubtitle:[NSString stringWithFormat:@"%0.2f",   bus.recommendation]];
-            [self.businessPoints addObject:mp];
-        }
-        
-        //add annotations array to the mapView
-        [self.mv addAnnotations:self.businessPoints];
+        [self loadMapElements];
         [self zoomToFitMapAnnotations:self.mv];
-        
-        [self.overlayView removeFromSuperview];
     }
+
 }
 
 #pragma mark - Query
@@ -242,5 +372,16 @@
     }
 
 }
+
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
+{
+    NSLog(@"SEARCH!\n");
+}
+
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
+{
+    [self.view endEditing:YES];
+}
+
 
 @end

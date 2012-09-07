@@ -23,7 +23,6 @@
 @implementation ASZBusinessDetailsViewController
 
 - (IBAction)editTapped:(id)sender {
-    NSString *targetViewControllerIdentifier = nil;
     [self performSegueWithIdentifier:@"EditBusinessSegue" sender:self];
 }
 

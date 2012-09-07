@@ -13,9 +13,14 @@
 #import "ASBusinessList.h"
 #import "ASMapPoint.h"
 #import "ASSortViewController.h"
+#import "ASListingsViewController.h"
 #import "ASMapAnnotation.h"
 
 @interface ASMapViewController : UIViewController <MKMapViewDelegate>
+
+
+@property (strong, nonatomic) IBOutlet ASBusinessListDataController *listingsTableDataController;
+@property (strong, nonatomic) IBOutlet ASListingsViewController *listViewController;
 
 
 
@@ -24,6 +29,8 @@
                         change:(NSDictionary *)change
                        context:(void *)context;
 
+
+-(void)loadMapElements;
 //- (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view;
 
 
