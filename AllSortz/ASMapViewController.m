@@ -356,8 +356,6 @@
         UINavigationController *nv = (UINavigationController *)(destinationViewController);
         ASSortViewController *nsvc = (ASSortViewController *)nv.topViewController;
         [self.listingsTableDataController setRect:self.mv.region];
-        NSLog(@"Zouf:  the rect center starts as %f\n",self.listingsTableDataController.rect.center.latitude);
-
         nsvc.delegate = self.listingsTableDataController;
     }
     else if ([segue.identifier isEqualToString:@"ShowBusinessDetailsSegue"]) {
@@ -375,7 +373,17 @@
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
-    NSLog(@"SEARCH!\n");
+    
+    //  [self.queryDataController uploadData];
+    ASQuery *newQ = [[ASQuery alloc] init];
+    newQ.distanceWeight = [NSString stringWithFormat:@"0"];
+    newQ.searchText =  searchBar.text;
+    [self.listingsTableDataController setSearchQuery:newQ];
+    [self.listingsTableDataController setRect:self.mv.region];
+    [self.listingsTableDataController setUpdateAList:NO];
+    [self.listingsTableDataController updateWithQuery];
+    [self.view endEditing:YES];
+    
 }
 
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
