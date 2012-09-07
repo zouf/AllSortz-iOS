@@ -23,7 +23,7 @@
 @synthesize image;
 
 @synthesize imageView;
-@synthesize saveImageBotton;
+@synthesize saveImageButton;
 
 
 
@@ -74,7 +74,7 @@
 {
     //save photo to photoAlbum
     UIImageWriteToSavedPhotosAlbum(self.imageView.image,self, @selector(CheckedImage:didFinishSavingWithError:contextInfo:), nil);
-    saveImageBotton.enabled=NO;
+    saveImageButton.enabled=NO;
 }
 
 #pragma mark - Check Save Image Error
@@ -107,7 +107,7 @@
     //Show OriginalImage size
     NSLog(@"OriginalImage%@",image);
     imageView.image=originalImage;
-    saveImageBotton.enabled=YES;
+    saveImageButton.enabled=YES;
     [self dismissModalViewControllerAnimated:YES];
 }
 

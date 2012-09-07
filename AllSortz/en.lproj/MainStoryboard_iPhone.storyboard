@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="2549" systemVersion="12A269" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="4">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="2549" systemVersion="11E53" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="4">
     <dependencies>
         <deployment defaultVersion="1296" identifier="iOS"/>
         <development version="4400" identifier="xcode"/>
@@ -162,7 +162,7 @@
                         <outlet property="nameBox" destination="jik-2k-2g5" id="HKz-Ea-tfQ"/>
                         <outlet property="overlayView" destination="ijZ-lj-o3R" id="jQK-Hs-vnL"/>
                         <outlet property="passwordBox" destination="nIQ-6x-ekQ" id="x6v-lD-TAb"/>
-                        <outlet property="saveImageBotton" destination="Tat-mZ-QOf" id="be5-rG-kp4"/>
+                        <outlet property="saveImageButton" destination="Tat-mZ-QOf" id="PGx-8b-GTO"/>
                     </connections>
                 </viewController>
             </objects>

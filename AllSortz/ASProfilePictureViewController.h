@@ -12,7 +12,7 @@
 @interface ASProfilePictureViewController :  UIViewController<UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIScrollViewDelegate>
 
 @property(nonatomic,retain)IBOutlet UIImageView *imageView;
-@property(nonatomic,retain)IBOutlet UIBarButtonItem *saveImageBotton;
+@property(nonatomic,retain)IBOutlet UIBarButtonItem *saveImageButton;
 
 @property (weak, nonatomic) IBOutlet UITextField *nameBox;
 @property (weak, nonatomic) IBOutlet UITextField *emailBox;
