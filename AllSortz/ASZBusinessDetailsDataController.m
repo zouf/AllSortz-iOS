@@ -94,6 +94,7 @@
     
     for (NSDictionary *category in result[@"categories"]) {
         NSMutableDictionary *topic = [NSMutableDictionary dictionary];
+        NSLog(@"%@\n",category);
         [topic setValuesForKeysWithDictionary:@{@"ID": [category valueForKeyPath:@"topic.parentID"],
                                                 @"name": [category valueForKeyPath:@"topic.parentName"],
                                                 @"rating": [category valueForKey:@"bustopicRating"],
@@ -116,7 +117,7 @@
     }];
 
     // Fetch image asynchronously
-    NSURLRequest *imageRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:result[@"photoURL"]]];
+    NSURLRequest *imageRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:result[@"photoLargeURL"]]];
     void (^imageHandler)(NSURLResponse *, NSData *, NSError *) = ^(NSURLResponse *response, NSData *data, NSError *error) {
         business.image = [UIImage imageWithData:data];
     };

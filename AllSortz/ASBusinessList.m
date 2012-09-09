@@ -38,7 +38,7 @@
         
         listing.businessName = [dict valueForKey:@"businessName"];
         listing.averagePrice = [dict valueForKey:@"averagePrice"];
-        listing.imageURLString = [dict valueForKey:@"photoURL"];
+        listing.imageURLString = [dict valueForKey:@"photoMedURL"];
         listing.businessTypes = [dict valueForKey:@"types"];
         listing.businessDistance = [dict valueForKey:@"distanceFromCurrentUser"];
         listing.recommendation = [[dict valueForKey:@"ratingRecommendation"] floatValue];
