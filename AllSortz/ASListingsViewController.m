@@ -16,6 +16,7 @@
 #import "ASZBusinessDetailsViewController.h"
 #import "ASZBusinessDetailsDataController.h"
 #import "ASMapViewController.h"
+#import "ASZBusinessListingSingleton.h"
 #define BUSINESS_NAME 200
 
 @interface ASListingsViewController ()
@@ -24,7 +25,7 @@
 
 @property (weak, nonatomic) IBOutlet UIView *overlayView;
 
-- (IBAction)goToMap:(id)sender;
+//- (IBAction)goToMap:(id)sender;
 
 
 @end
@@ -39,8 +40,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    if (!self.listingsTableDataController)
-        self.listingsTableDataController = [[ASBusinessListDataController alloc]init];
+    
+    
+    self.listingsTableDataController =[[ASZBusinessListingSingleton sharedDataListing] getListDataController];
+    
+    
     
     self.imageDownloadsInProgress = [NSMutableDictionary dictionary];
     [self.listingsTableDataController addObserver:self
@@ -52,17 +56,7 @@
                                           options:NSKeyValueObservingOptionNew
                                           context:NULL];
 
-   // [self.tableView.superview addSubview:self.overlayView];
-    
-/*
-    UIActivityIndicatorView *activityView=[[UIActivityIndicatorView alloc]     initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-    
-    activityView.center=self.overlayView.center;
-    
-    [activityView startAnimating];
-    activityView.color= [UIColor blackColor];*/
- //   [self.overlayView addSubview:activityView];
-    // Download data automatically if there's no data source
+
     if (!self.listingsTableDataController.businessList)
     {
         // tell the data controller that its not using map APIs
@@ -90,6 +84,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
 
     // Imitate default behavior of UITableViewController
     // deselectRowAtIndexPath:animated: should be fine taking a possible nil
@@ -104,6 +99,8 @@
 {
     [super viewDidAppear:animated];
     // Imitate default behavior of UITableViewController
+
+    
     [self.tableView flashScrollIndicators];
 }
 
@@ -405,7 +402,7 @@
     [self.listingsTableDataController setUpdateAList:YES];
     [self.listingsTableDataController updateData];
 }
-
+/*
 - (IBAction)goToMap:(id)sender {
     
 
@@ -418,5 +415,5 @@
     }
     [self.mapViewController setListingsTableDataController:self.listingsTableDataController];
     [self.navigationController pushViewController:self.mapViewController animated:NO];
-}
+}*/
 @end

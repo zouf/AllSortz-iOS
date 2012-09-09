@@ -15,6 +15,9 @@
 
 @property ASBusiness *business;
 
+@property NSArray *allTypes;
+
+
 @property NSString *username;
 @property NSString *password;
 @property CGFloat currentLatitude;

@@ -149,10 +149,13 @@
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
 {
     // TODO: Actual error handling
-    [self.updateFlag unlock];
+    if ([self.updateFlag tryLock])
+        [self.updateFlag unlock];
     NSLog(@"ERROR %@\n",error);
     self.receivedData = nil;
-    [self.requestInProgress unlock];
+    
+    if ([self.updateFlag tryLock])
+        [self.requestInProgress unlock];
 
 }
 
@@ -181,7 +184,9 @@
             self.businessList = newList;
         }
         self.receivedData = nil;
+        [self.requestInProgress tryLock];
         [self.requestInProgress unlock];
+        
     }
 }
 

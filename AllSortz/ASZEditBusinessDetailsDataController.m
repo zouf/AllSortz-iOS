@@ -20,7 +20,8 @@
 #define BUSINESS_PHONE 205
 #define BUSINESS_HOURS 206
 
-
+#define TYPE_LABEL_VIEW 601
+#define TYPE_IMAGE_VIEW 600
 @interface ASZEditBusinessDetailsDataController ()
 
 @property NSOperationQueue *queue;  // Assume we only need one for now
@@ -52,10 +53,24 @@
         self.business = [self businessFromJSONResult:JSONresponse[@"result"]];
     };
     
+    
+    NSString * typeAddress = [NSString stringWithFormat:@"http://allsortz.com/api/types/?uname=%@&password=%@&lat=%f&lon=%f&deviceID=%@",  self.username, self.password, self.currentLatitude, self.currentLongitude, self.UUID];
+
+    NSURLRequest *typeRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:typeAddress]];
+    void (^typeHandler)(NSURLResponse *, NSData *, NSError *) = ^(NSURLResponse *response, NSData *data, NSError *error) {
+        NSDictionary *JSONresponse = [NSJSONSerialization JSONObjectWithData:data options:0 error:NULL];
+        self.allTypes = [JSONresponse objectForKey:@"result"];
+
+    };
+    NSLog(@"Get types with query %@",typeAddress);
+
     if (!self.queue)
         self.queue = [[NSOperationQueue alloc] init];
     [NSURLConnection sendAsynchronousRequest:request queue:self.queue completionHandler:handler];
+    [NSURLConnection sendAsynchronousRequest:typeRequest queue:self.queue completionHandler:typeHandler];
+
 }
+
 
 - (ASBusiness *)businessFromJSONResult:(NSDictionary *)result
 {
@@ -125,10 +140,14 @@
     
     if (indexPath.section == 0)
     {
-        UITableViewCell *cell = [self.businessTableView dequeueReusableCellWithIdentifier:@"BusinessData"];
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"BusinessData"];
         ;
 
+        if (!self.business)
+            return cell;
         ASBusiness *business = self.business;
+        
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
         UITextField *nameField = (UITextField*)[cell viewWithTag:BUSINESS_NAME];
         UITextField *streetField = (UITextField*)[cell viewWithTag:BUSINESS_STREET];
@@ -137,15 +156,8 @@
         UITextField *phoneField = (UITextField*)[cell viewWithTag:BUSINESS_PHONE];
         UITextField *stateField =(UITextField*)[cell viewWithTag:BUSINESS_STATE];
         UITextView *hoursField = (UITextView*)[cell viewWithTag:BUSINESS_HOURS];
-        /*
-        business.businessName = nameField.text;
-        business.businessAddress = streetField.text;
-        business.businessCity = cityField.text;
-        business.businessURL = urlField.text;
-        business.businessPhone = phoneField.text;
-        business.businessState = stateField.text;
-        business.selectedTypes = lTypes;
-        */
+
+        
         nameField.text = business.name;// = nameField.text;
         streetField.text = business.address;
         cityField.text = business.city;
@@ -167,7 +179,25 @@
     }
     else if (indexPath.section == 1)
     {
-        //types
+
+      
+        
+        NSString *CellIdentifier = @"TypeCell";
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        if (!self.allTypes)
+            return cell;
+        NSLog(@"%d %d\n",[self.allTypes count], indexPath.row);
+        UILabel *label =(UILabel *)[cell viewWithTag:TYPE_LABEL_VIEW];
+        NSDictionary *dict = [self.allTypes objectAtIndex:indexPath.row];
+        
+        label.text = [dict objectForKey:@"typeName"];
+        
+        UIImageView *imageView =(UIImageView*)[cell viewWithTag:TYPE_IMAGE_VIEW];
+        imageView.image = [UIImage imageNamed: [[self.allTypes objectAtIndex:indexPath.row] objectForKey:@"typeIcon"]];
+        imageView.backgroundColor = [UIColor lightGrayColor];
+        return cell;
+ 
+
     }
     return nil;
 
@@ -186,7 +216,7 @@
             break;
         case 1:
             // TODO: Show info
-            return 0;
+            return [self.allTypes count];
             break;
         default:
             return 0;

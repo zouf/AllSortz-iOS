@@ -181,6 +181,10 @@
         {
             if (!self.business)
                 [cell setHidden:YES];
+            
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            
+            
             UILabel *name = (UILabel *)[cell.contentView viewWithTag:BUSINESSNAMELABEL_TAG];
             name.text = self.business.name;
             
@@ -241,18 +245,20 @@
             }
             else
             {
-                imageName = @"NYCRestaurant_closed.gif";
+                imageName = @"healthy.png";
             }
-            healthGrade.image = [UIImage imageNamed:imageName];
             
+            UIImage *img = [UIImage imageNamed:imageName];
+            healthGrade.image =img;
+            healthGrade.backgroundColor = [UIColor lightGrayColor];
             UIProgressView* score = (UIProgressView*)[cell.contentView viewWithTag:BUSINESSSCORE_TAG];
             score.progress = self.business.recommendation;
             
             UILabel *distance = (UILabel*)[cell.contentView viewWithTag:BUSINESSDIST_TAG];
             distance.text = [NSString stringWithFormat:@"%0.2fmi.",[self.business.distance floatValue]];
             
-            UITextView *address = (UITextView*)[cell.contentView viewWithTag:BUSINESSADDRESS_TAG];
-            address.text = [NSString stringWithFormat:@"%@\n%@, %@ %@\n",self.business.address,self.business.city,self.business.state,self.business.zipcode];
+            UIButton *address = (UIButton*)[cell.contentView viewWithTag:BUSINESSADDRESS_TAG];
+            address.titleLabel.text = [NSString stringWithFormat:@"%@\n%@, %@ %@\n",self.business.address,self.business.city,self.business.state,self.business.zipcode];
 
         }
             return cell;

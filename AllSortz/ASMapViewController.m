@@ -12,6 +12,7 @@
 
 #import "ASListingsViewController.h"
 
+#import "ASZBusinessListingSingleton.h"
 
 #import "ASZBusinessDetailsViewController.h"
 
@@ -25,7 +26,7 @@
 
 @property NSOperationQueue *queue;  // Assume we only need one for now
 
-- (IBAction)refreshTheMap:(id)sender;
+//- (IBAction)refreshTheMap:(id)sender;
 - (IBAction)goToListing:(id)sender;
 
 -(void)zoomToFitMapAnnotations:(MKMapView*)mapView;
@@ -42,7 +43,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    //self.listingsTableDataController = [[ASBusinessListDataController alloc]init];
+    
+    self.listingsTableDataController =[[ASZBusinessListingSingleton sharedDataListing] getListDataController];
+    
+    
+    
     [self.listingsTableDataController addObserver:self
                                        forKeyPath:@"businessList"
                                           options:NSKeyValueObservingOptionNew
@@ -82,7 +87,14 @@
         [self zoomToFitMapAnnotations:self.mv];
     }
 
+    UITapGestureRecognizer *gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyboard)];
+    // For selecting cell.
+    gestureRecognizer.cancelsTouchesInView = NO;
+    [self.view addGestureRecognizer:gestureRecognizer];
+}
 
+- (void) hideKeyboard {
+    [self.view endEditing:YES];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -157,19 +169,7 @@
 }
 
 - (IBAction)goToListing:(id)sender {
-    
- /*   if (!self.listViewController)
-    {
-        NSString *targetViewControllerIdentifier = nil;
-        targetViewControllerIdentifier = @"ListViewControllerID";
-        self.listViewController = (ASListingsViewController*)[self.storyboard instantiateViewControllerWithIdentifier:targetViewControllerIdentifier];
-        [self.listViewController setMapViewController:self];
-    }
-    
 
-
-    [self.listViewController setListingsTableDataController:self.listingsTableDataController];
-    [self.navigationController  pushViewController:self.listViewController animated:NO];*/
     [self.navigationController popViewControllerAnimated:NO];
 }
 
@@ -303,9 +303,6 @@
 
 -(void)loadMapElements
 {
-    if (!self.listingsTableDataController.businessList)
-        return;
-
     // if CHANGE!
         
     //create annotations and add to the busStopAnnotations array
@@ -341,7 +338,7 @@
     // If the business list changes, reassign
     if ([keyPath isEqualToString:@"businessList"]) {
         [self loadMapElements];
-        [self zoomToFitMapAnnotations:self.mv];
+        //[self zoomToFitMapAnnotations:self.mv];
     }
 
 }
@@ -373,12 +370,12 @@
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
-    
-    //  [self.queryDataController uploadData];
     ASQuery *newQ = [[ASQuery alloc] init];
     newQ.distanceWeight = [NSString stringWithFormat:@"0"];
     newQ.searchText =  searchBar.text;
     [self.listingsTableDataController setSearchQuery:newQ];
+    
+    NSLog(@"region is at %f\n",self.mv.region.center.latitude);
     [self.listingsTableDataController setRect:self.mv.region];
     [self.listingsTableDataController setUpdateAList:NO];
     [self.listingsTableDataController updateWithQuery];

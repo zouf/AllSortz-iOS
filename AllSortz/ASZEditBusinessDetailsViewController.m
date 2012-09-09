@@ -25,6 +25,8 @@
 {
     [super viewDidLoad];
     
+    
+    
 }
 
 -(void)viewDidAppear:(BOOL)animated
@@ -39,17 +41,32 @@
                           forKeyPath:@"business.image"
                              options:NSKeyValueObservingOptionNew
                              context:NULL];
+    [self.dataController addObserver:self
+                          forKeyPath:@"allTypes"
+                             options:NSKeyValueObservingOptionNew
+                             context:NULL];
     
-   // [self.dataController refreshBusinessAsynchronouslyWithID:self.businessID];
+    [self.dataController refreshBusinessAsynchronouslyWithID:self.businessID];
     [self.tableView performSelectorOnMainThread:@selector(reloadData)
                                      withObject:nil
                                   waitUntilDone:NO];
     [self.tableView reloadData];
+    
+    UITapGestureRecognizer *gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyboard)];
+    // For selecting cell.
+    gestureRecognizer.cancelsTouchesInView = NO;
+    [self.view addGestureRecognizer:gestureRecognizer];
+}
+
+- (void) hideKeyboard {
+    [self.view endEditing:YES];
 }
 
 - (void)viewDidUnload {
     [self.dataController removeObserver:self forKeyPath:@"business"];
     [self.dataController removeObserver:self forKeyPath:@"business.image"];
+    [self.dataController removeObserver:self forKeyPath:@"allTypes"];
+
     self.dataController = nil;
     
     [super viewDidUnload];
@@ -59,6 +76,8 @@
 {
     [self.dataController removeObserver:self forKeyPath:@"business"];
     [self.dataController removeObserver:self forKeyPath:@"business.image"];
+    [self.dataController removeObserver:self forKeyPath:@"allTypes"];
+
     [super viewDidDisappear:animated];
 }
 
@@ -84,6 +103,12 @@
         }
         
     }
+    if ([keyPath isEqual:@"allTypes"])
+    {
+        [self.tableView performSelectorOnMainThread:@selector(reloadData)
+                                         withObject:nil
+                                      waitUntilDone:NO];
+    }
 }
 
 #pragma mark - Table view delegate
@@ -102,7 +127,7 @@
             return 300;
             break;
         case 1:
-            return 22;
+            return 45;
         default:
             return tableView.rowHeight;
             break;

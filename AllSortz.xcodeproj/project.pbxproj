@@ -49,6 +49,7 @@
 		0A0ECADF15DD82BF007FD661 /* latenight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A0ECADE15DD82BF007FD661 /* latenight@2x.png */; };
 		0A13E56B15F804EE00DD9A3F /* ASZEditBusinessDetailsDataController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A13E56A15F804EE00DD9A3F /* ASZEditBusinessDetailsDataController.m */; };
 		0A13E56F15F8089800DD9A3F /* ASZEditBusinessDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A13E56E15F8089800DD9A3F /* ASZEditBusinessDetailsViewController.m */; };
+		0A37505615FBF29900DAB6F3 /* ASZBusinessListingSingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A37505515FBF29800DAB6F3 /* ASZBusinessListingSingleton.m */; };
 		0A38F0C115FA45070050EA5E /* grey_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A38F0C015FA45060050EA5E /* grey_icon.png */; };
 		0A3DB66615D5AF970069637D /* ASIconDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A3DB66515D5AF970069637D /* ASIconDownloader.m */; };
 		0A3DB67515D5B8FC0069637D /* ASListing.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A3DB67415D5B8FC0069637D /* ASListing.m */; };
@@ -231,6 +232,8 @@
 		0A13E56A15F804EE00DD9A3F /* ASZEditBusinessDetailsDataController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASZEditBusinessDetailsDataController.m; sourceTree = "<group>"; };
 		0A13E56D15F8089800DD9A3F /* ASZEditBusinessDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASZEditBusinessDetailsViewController.h; sourceTree = "<group>"; };
 		0A13E56E15F8089800DD9A3F /* ASZEditBusinessDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASZEditBusinessDetailsViewController.m; sourceTree = "<group>"; };
+		0A37505415FBF29700DAB6F3 /* ASZBusinessListingSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASZBusinessListingSingleton.h; sourceTree = "<group>"; };
+		0A37505515FBF29800DAB6F3 /* ASZBusinessListingSingleton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASZBusinessListingSingleton.m; sourceTree = "<group>"; };
 		0A38F0C015FA45060050EA5E /* grey_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grey_icon.png; sourceTree = "<group>"; };
 		0A3DB66415D5AF970069637D /* ASIconDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIconDownloader.h; sourceTree = "<group>"; };
 		0A3DB66515D5AF970069637D /* ASIconDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIconDownloader.m; sourceTree = "<group>"; };
@@ -453,7 +456,7 @@
 			name = "Map View";
 			sourceTree = "<group>";
 		};
-		0A04240815DA8DA3008143F0 /* Add Business */ = {
+		0A04240815DA8DA3008143F0 /* Add */ = {
 			isa = PBXGroup;
 			children = (
 				0A04240915DA8DD6008143F0 /* ASAddBusinessViewController.h */,
@@ -463,7 +466,7 @@
 				0A04240F15DA8E0D008143F0 /* ASAddBusiness.h */,
 				0A04241015DA8E0D008143F0 /* ASAddBusiness.m */,
 			);
-			name = "Add Business";
+			name = Add;
 			sourceTree = "<group>";
 		};
 		0A0ECA9815DD76E8007FD661 /* Type Icons */ = {
@@ -689,7 +692,6 @@
 				6C0CC24715B7B1FC00F2F7B6 /* MainStoryboard_iPhone.storyboard */,
 				0AFE1B7115E6995C00636B4D /* Browse Topics */,
 				6C0CC24A15B7B1FC00F2F7B6 /* MainStoryboard_iPad.storyboard */,
-				0A04240815DA8DA3008143F0 /* Add Business */,
 				0AA1045815F3CD840029EDD7 /* Topic Detail */,
 				6C2121F915D450FF004ACD4C /* Business Details */,
 				6C096F7E15BD93BE0082ECDB /* Images */,
@@ -699,6 +701,8 @@
 				6C0CC23C15B7B1FC00F2F7B6 /* Supporting Files */,
 				0AA6259315EED1A800C0BE8E /* ASDeviceInterface.h */,
 				0AA6259415EED1AB00C0BE8E /* ASDeviceInterface.m */,
+				0A37505415FBF29700DAB6F3 /* ASZBusinessListingSingleton.h */,
+				0A37505515FBF29800DAB6F3 /* ASZBusinessListingSingleton.m */,
 			);
 			path = AllSortz;
 			sourceTree = "<group>";
@@ -736,6 +740,7 @@
 		6C2121F915D450FF004ACD4C /* Business Details */ = {
 			isa = PBXGroup;
 			children = (
+				0A04240815DA8DA3008143F0 /* Add */,
 				0A13E56C15F8086700DD9A3F /* Edit */,
 				6C2121FF15D45B08004ACD4C /* ASBusiness.h */,
 				6C21220015D45B08004ACD4C /* ASBusiness.m */,
@@ -1052,6 +1057,7 @@
 				0AA1045715F3CD7A0029EDD7 /* ASZTopicDetailDataController.m in Sources */,
 				0A13E56B15F804EE00DD9A3F /* ASZEditBusinessDetailsDataController.m in Sources */,
 				0A13E56F15F8089800DD9A3F /* ASZEditBusinessDetailsViewController.m in Sources */,
+				0A37505615FBF29900DAB6F3 /* ASZBusinessListingSingleton.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
