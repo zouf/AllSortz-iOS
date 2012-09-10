@@ -213,9 +213,21 @@
     if ([keyPath isEqualToString:@"userProfile"])
     {
         
-        self.nameBox.text = self.socialDataController.userProfile.userName;
-        self.emailBox.text = self.socialDataController.userProfile.userEmail;
-        
+
+        if (!self.socialDataController.userProfile.registered)
+        {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Register"
+                                                            message:@"Register with an email, username, and password"
+                                                           delegate:nil
+                                                  cancelButtonTitle:@"OK"
+                                                  otherButtonTitles:nil];
+            [alert show];
+        }
+        else
+        {
+            self.nameBox.text = self.socialDataController.userProfile.userName;
+            self.emailBox.text = self.socialDataController.userProfile.userEmail;
+        }
         
 
         [self.overlayView removeFromSuperview];

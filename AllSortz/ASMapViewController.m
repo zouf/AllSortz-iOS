@@ -19,25 +19,18 @@
 @interface ASMapViewController()
 @property (weak, nonatomic) IBOutlet MKMapView *mv;
 @property (weak, nonatomic) NSMutableArray *businessPoints;
-@property (weak, nonatomic) IBOutlet UIView *overlayView;
 
 @property(assign) MKCoordinateRegion prevRegion;
-@property(assign) BOOL startMoving;
 
 @property NSOperationQueue *queue;  // Assume we only need one for now
 
 //- (IBAction)refreshTheMap:(id)sender;
-- (IBAction)goToListing:(id)sender;
 
 -(void)zoomToFitMapAnnotations:(MKMapView*)mapView;
 
 @end
 
-
-
-
 @implementation ASMapViewController
-@synthesize overlayView = _overlayView;
 @synthesize mv;
 
 
@@ -45,9 +38,7 @@
     [super viewDidLoad];
     
     self.listingsTableDataController =[[ASZBusinessListingSingleton sharedDataListing] getListDataController];
-    
-    
-    
+     
     [self.listingsTableDataController addObserver:self
                                        forKeyPath:@"businessList"
                                           options:NSKeyValueObservingOptionNew
@@ -97,9 +88,17 @@
     [self.view endEditing:YES];
 }
 
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:YES];
+}
+
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    
+    
     //this should never be called. but, in case we get to a situation where there is no businessList, call update on the server
     if (!self.listingsTableDataController.businessList)
     {
@@ -116,10 +115,8 @@
 }
 - (IBAction)refreshTapped:(id)sender {
     [self.listingsTableDataController setRect:self.mv.region];
-    
     [self.listingsTableDataController setUpdateAList:NO];
     [self.listingsTableDataController updateData];
-    //self.prevRegion = self.mv.region;
 }
 
 - (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated
@@ -168,10 +165,6 @@
 
 }
 
-- (IBAction)goToListing:(id)sender {
-
-    [self.navigationController popViewControllerAnimated:NO];
-}
 
 -(void)zoomToFitMapAnnotations:(MKMapView*)mapView
 {
@@ -279,6 +272,7 @@
     ASZBusinessDetailsViewController *vc = (ASZBusinessDetailsViewController*)[self.storyboard instantiateViewControllerWithIdentifier:targetViewControllerIdentifier];
     [vc setBusinessID:mp.tag];
     
+    
     ASZBusinessDetailsDataController *detailsDataController = vc.dataController;
     ASBusinessListDataController *listDataController = self.listingsTableDataController;
     detailsDataController.username = [listDataController.deviceInterface getStoredUname];
@@ -287,13 +281,13 @@
     detailsDataController.currentLatitude = listDataController.currentLocation.coordinate.latitude;
     detailsDataController.currentLongitude = listDataController.currentLocation.coordinate.longitude;
 
+    
     [self.navigationController  pushViewController:vc animated:YES];
+    [self.navigationController setNavigationBarHidden:NO];
     
 }
 - (void)viewDidUnload {
     [self setMv:nil];
-    [self setOverlayView:nil];
-
     [super viewDidUnload];
 }
 
@@ -303,8 +297,8 @@
 
 -(void)loadMapElements
 {
-    // if CHANGE!
-        
+    // TODO: can we loadMapElements only if there's been a change to the business list?
+    
     //create annotations and add to the busStopAnnotations array
     NSMutableArray *myArray = [[NSMutableArray alloc] init];
     self.businessPoints = myArray;
@@ -338,13 +332,12 @@
     // If the business list changes, reassign
     if ([keyPath isEqualToString:@"businessList"]) {
         [self loadMapElements];
-        //[self zoomToFitMapAnnotations:self.mv];
     }
 
 }
 
-#pragma mark - Query
 
+/*
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     
     id destinationViewController = segue.destinationViewController;
@@ -364,9 +357,10 @@
         detailsDataController.UUID = [listDataController.deviceInterface getDeviceUIUD];
         detailsDataController.currentLatitude = listDataController.currentLocation.coordinate.latitude;
         detailsDataController.currentLongitude = listDataController.currentLocation.coordinate.longitude;
+
     }
 
-}
+}*/
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {

@@ -13,7 +13,7 @@
 @property(atomic, retain) NSString *userName;
 @property(nonatomic, retain) NSString *userEmail;
 @property (nonatomic,retain) NSString *userPassword;
-
+@property (assign) BOOL registered;
 
 - (id)initWithJSONObject:(NSDictionary *)aJSONObject;
 - (NSDictionary *)serializeToDictionary;

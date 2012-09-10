@@ -94,13 +94,11 @@
     
     for (NSDictionary *category in result[@"categories"]) {
         NSMutableDictionary *topic = [NSMutableDictionary dictionary];
-        NSLog(@"%@\n",category);
         [topic setValuesForKeysWithDictionary:@{@"ID": [category valueForKeyPath:@"topic.parentID"],
                                                 @"name": [category valueForKeyPath:@"topic.parentName"],
                                                 @"rating": [category valueForKey:@"bustopicRating"],
                                                 @"summary": [category valueForKey:@"bustopicContent"]}];
         
-        NSLog(@"%@\n",category);
 
         // Don't want a mutable dictionary in there
         [topics addObject:[NSDictionary dictionaryWithDictionary:topic]];

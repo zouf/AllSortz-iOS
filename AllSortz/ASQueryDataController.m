@@ -40,7 +40,6 @@
     
     
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
-    NSLog(@"%@\n",address);
     NSURLConnection *connection = [NSURLConnection connectionWithRequest:request delegate:self];
     if (!connection) {
         // TODO: Some proper failure handling maybe

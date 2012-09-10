@@ -54,11 +54,6 @@
 
 - (BOOL)updateImportance:(NSInteger)topicID  importanceValue:(float)importance
 {
-    
-    // NSLog(@"New topics are %@\n", newTopics);
-    
-    
-    
 
     NSString * address = [NSString stringWithFormat:@"http://allsortz.com/api/topic/subscribe/%d/?importance=%f&uname=%@&password=%@&deviceID=%@&parent=",
                    topicID,importance, [self.deviceInterface getStoredUname], [self.deviceInterface getStoredPassword],[self.deviceInterface getDeviceUIUD]];

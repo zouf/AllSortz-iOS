@@ -19,8 +19,16 @@
     // [self.treePath addObject:[allTopics valueForKey:@"topicName"]];
     self.userName = [results valueForKey:@"userName"];
     self.userEmail = [results valueForKey:@"userEmail"] ;
-  //  self.userPassword = [results valueForKey:@"userPassword"];
+    NSString *reg = [results valueForKey:@"registered"];
 
+    if ([reg isEqualToString:@"false"])
+    {
+        self.registered = NO;
+    }
+    else
+    {
+        self.registered = YES;
+    }
     return self;
 }
 

@@ -19,7 +19,6 @@
     self.topics = [[NSMutableArray alloc]init];
     for (NSDictionary * d in [allTopics valueForKey:@"children"])
     {
-        NSLog(@"%@\n",d);
         NSMutableDictionary *dict = [[NSMutableDictionary alloc]
                                      initWithDictionary:d];
         [self.topics addObject:dict];
