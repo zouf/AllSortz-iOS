@@ -75,7 +75,7 @@
     else // business list comes from somewhere else
     {
         [self loadMapElements];
-        [self zoomToFitMapAnnotations:self.mv];
+        //[self zoomToFitMapAnnotations:self.mv];
     }
 
     UITapGestureRecognizer *gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyboard)];
@@ -110,7 +110,7 @@
     }
     
     // fit to the elements on the map
-    [self zoomToFitMapAnnotations:self.mv];
+    //[self zoomToFitMapAnnotations:self.mv];
 
 }
 - (IBAction)refreshTapped:(id)sender {

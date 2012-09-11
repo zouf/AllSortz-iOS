@@ -56,7 +56,6 @@
 
 #pragma mark - Show camera
 
-
 -(IBAction)showCameraAction:(id)sender
 {
     UIImagePickerController *imagePickController=[[UIImagePickerController alloc]init];
@@ -227,6 +226,10 @@
         {
             self.nameBox.text = self.socialDataController.userProfile.userName;
             self.emailBox.text = self.socialDataController.userProfile.userEmail;
+            
+
+
+
         }
         
 

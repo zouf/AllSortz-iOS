@@ -19,6 +19,9 @@
 #import "ASZBusinessListingSingleton.h"
 #define BUSINESS_NAME 200
 
+#define RELOAD_DISTANCE 15
+
+
 @interface ASListingsViewController ()
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -326,6 +329,17 @@
     [self loadImagesForOnscreenRows];
 }
 
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    NSArray *visiblePaths = [self.tableView indexPathsForVisibleRows];
+    NSIndexPath *max = [visiblePaths objectAtIndex:[visiblePaths count]-1];
+    
+    if (max.row > [self.listingsTableDataController.businessList.entries count] - RELOAD_DISTANCE)
+                    {
+                        [self.listingsTableDataController setUpdateAList:YES];
+                        [self.listingsTableDataController updateData];
+                    }
+}
 
 #pragma mark - Key-value observing
 
@@ -398,10 +412,15 @@
     }
 }
 
+
+
 - (IBAction)tapNext:(id)sender {
     [self.listingsTableDataController setUpdateAList:YES];
     [self.listingsTableDataController updateData];
 }
+
+
+
 /*
 - (IBAction)goToMap:(id)sender {
     

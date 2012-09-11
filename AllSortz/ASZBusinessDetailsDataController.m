@@ -27,6 +27,7 @@
 #define TOPICNAMELABEL_TAG 1010
 #define TOPICTEXTVIEW_TAG 1012
 #define TOPICRATINGVIEW_TAG 1013
+#define TOPICRATINGSLIDER_TAG 1014
 
 
 
@@ -257,7 +258,9 @@
             distance.text = [NSString stringWithFormat:@"%0.2fmi.",[self.business.distance floatValue]];
             
             UIButton *address = (UIButton*)[cell.contentView viewWithTag:BUSINESSADDRESS_TAG];
-            address.titleLabel.text = [NSString stringWithFormat:@"%@\n%@, %@ %@\n",self.business.address,self.business.city,self.business.state,self.business.zipcode];
+            address.titleLabel.lineBreakMode = UILineBreakModeWordWrap;
+            address.titleLabel.textAlignment = UITextAlignmentCenter;
+            [address setTitle:[NSString stringWithFormat:@"%@\n%@, %@ %@\n",self.business.address,self.business.city,self.business.state,self.business.zipcode] forState:UIControlStateNormal];
 
         }
             return cell;
@@ -274,6 +277,9 @@
             
             UIProgressView *ratingView = (UIProgressView*)[cell.contentView viewWithTag:TOPICRATINGVIEW_TAG];
             ratingView.progress = [[topic valueForKey:@"rating"] floatValue];
+            
+            UISlider *sliderView = (UISlider*)[cell.contentView viewWithTag:TOPICRATINGSLIDER_TAG];
+            sliderView.value = [[topic valueForKey:@"rating"] floatValue];
             
             UITapGestureRecognizer* singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleTap:)];
             singleTap.numberOfTapsRequired = 1;
