@@ -90,7 +90,7 @@
 }
 
 
-
+/*
 
 - (IBAction)importanceValueChanged:(id)sender {
     
@@ -147,5 +147,5 @@
         }
     }
     
-}
+}*/
 @end

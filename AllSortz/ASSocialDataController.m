@@ -67,7 +67,7 @@ BOOL updated;
     
     
     
-    NSString *address = [NSString stringWithFormat:@"http://127.0.0.1:8000/api/user/update/?uname=%@&password=%@&lat=%f&lon=%f&deviceID=%@",  [self.deviceInterface getStoredUname], [self.deviceInterface getStoredPassword],
+    NSString *address = [NSString stringWithFormat:@"http://allsortz.com/api/user/update/?uname=%@&password=%@&lat=%f&lon=%f&deviceID=%@",  [self.deviceInterface getStoredUname], [self.deviceInterface getStoredPassword],
         self.currentLocation.coordinate.latitude,self.currentLocation.coordinate.longitude,[self.deviceInterface getDeviceUIUD]];
     
     [self.deviceInterface storeUnamePassword:self.userProfile.userName :self.userProfile.userPassword];

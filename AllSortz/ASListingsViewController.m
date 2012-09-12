@@ -332,6 +332,10 @@
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     NSArray *visiblePaths = [self.tableView indexPathsForVisibleRows];
+    
+    if(![visiblePaths count])
+        return;
+    
     NSIndexPath *max = [visiblePaths objectAtIndex:[visiblePaths count]-1];
     
     if (max.row > [self.listingsTableDataController.businessList.entries count] - RELOAD_DISTANCE)

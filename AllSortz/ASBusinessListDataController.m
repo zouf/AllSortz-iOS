@@ -16,7 +16,7 @@
 
 @property (strong) NSMutableData *receivedData;
  
-@property(strong, atomic) NSLock* updateFlag;
+@property(strong, atomic) NSLock* updateAfterLocationChange;
 
 @property(strong, atomic) NSLock* requestInProgress;
 
@@ -30,7 +30,7 @@
 - (id)init {
     self = [super init];
     if (self) {
-        self.updateFlag = [[NSLock alloc]init];
+        self.updateAfterLocationChange = [[NSLock alloc]init];
         self.requestInProgress  = [[NSLock alloc]init];
         self.deviceInterface = [[ASDeviceInterface alloc] init];
         [self.deviceInterface.locationManager startUpdatingLocation];
@@ -52,9 +52,10 @@
     
     // unlock the update flag to allow the location updater to call update
     // this is in case the phone doesnt update location frequently enougb
+    if ([self.updateAfterLocationChange tryLock])
+        [self.updateAfterLocationChange  unlock];
     
-    if ([self.updateFlag tryLock])
-        [self.updateFlag  unlock];
+    //unlocking here means we're giving the location updater the chance to get the lock (which will trigger an update)
     
     
     
@@ -73,8 +74,20 @@
 
 - (BOOL)updateWithQuery
 {
-
+    
+    // we're already doing an update, don't send 2 requests at once
+    if (![self.requestInProgress tryLock])
+        return NO;
+    
     NSString *address = nil;
+    
+    // this is the first time we've seen this query (so, set pagination to 0)
+    if (!self.searchQuery.goneToServer)
+    {
+        self.businessList = nil;
+        self.searchQuery.goneToServer = YES;
+    }
+    
     
     if (self.updateAList)
     {
@@ -148,15 +161,8 @@
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
 {
-    // TODO: Actual error handling
-    if ([self.updateFlag tryLock])
-        [self.updateFlag unlock];
     NSLog(@"ERROR %@\n",error);
     self.receivedData = nil;
-    
-    if ([self.updateFlag tryLock])
-        [self.requestInProgress unlock];
-
 }
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection
@@ -184,7 +190,6 @@
             self.businessList = newList;
         }
         self.receivedData = nil;
-        [self.requestInProgress tryLock];
         [self.requestInProgress unlock];
         
     }
@@ -194,12 +199,11 @@
 
 -(void)waitOnQueryResponse:(ASQuery *)query{
     self.searchQuery = [[ASQuery alloc]init];
+    self.searchQuery.goneToServer = NO;
     self.searchQuery.searchLocation = [query.searchLocation copy];
     self.searchQuery.searchText = [query.searchText copy];
     self.searchQuery.selectedTypes = [query.selectedTypes copy];
     self.searchQuery.distanceWeight = [query.distanceWeight copy];
-    self.businessList = nil;
-    
     
     [self setUpdateAList:YES];
     [self updateData];
@@ -250,7 +254,10 @@
 - (void)locationUpdate:(CLLocation *)location
 {
     self.currentLocation = [location copy];
-    if ([self.updateFlag tryLock])
+    
+    //if the lock can be acquired here, that means an updateThread allowed it. Thus, even if we're continually calling this function,
+    // it will only call performUpdate as much as allowed
+    if ([self.updateAfterLocationChange tryLock])
     {
         [self performUpdate];
     }

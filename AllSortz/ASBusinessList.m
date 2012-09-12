@@ -26,7 +26,8 @@
 {
     if (!(self = [super init]) || ![[aJSONObject objectForKey:@"success"] boolValue])
         return nil;
-    _businesses = [aJSONObject objectForKey:@"result"];
+    NSDictionary *serverBusList = [aJSONObject objectForKey:@"result"];
+    _businesses = [serverBusList objectForKey:@"businesses"];
     _entries = [[NSMutableArray alloc]init];
     
     for(NSDictionary * dict in _businesses)

@@ -10,6 +10,9 @@
 
 @property(nonatomic, retain) NSString *searchText;
 @property(nonatomic, retain) NSString *searchLocation;
+@property(assign) BOOL goneToServer;
+
+
 
 @property(nonatomic, retain) NSArray *allTypes;
 @property(nonatomic, retain) NSArray *allSorts;

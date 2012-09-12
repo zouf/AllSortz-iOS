@@ -45,6 +45,8 @@
                                        forKeyPath:@"query"
                                           options:NSKeyValueObservingOptionNew
                                           context:NULL];
+    
+    
 
     
 }
@@ -63,6 +65,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
     
     // Imitate default behavior of UITableViewController
     // deselectRowAtIndexPath:animated: should be fine taking a possible nil
@@ -110,11 +113,24 @@
         NSString *CellIdentifier = @"TypeCell";
         UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CellIdentifier];
         UILabel *label =(UILabel *)[cell viewWithTag:LABEL_VIEW];
+
         label.text = [[self.queryDataController.query.allTypes objectAtIndex:indexPath.row] objectForKey:@"typeName"];
         
         UIImageView *imageView =(UIImageView*)[cell viewWithTag:ICON_IMAGE_VIEW];
-        imageView.image = [UIImage imageNamed: [[self.queryDataController.query.allTypes objectAtIndex:indexPath.row] objectForKey:@"typeIcon"]];
-        imageView.backgroundColor = [UIColor lightGrayColor];
+        
+        NSString *imageName = [[self.queryDataController.query.allTypes objectAtIndex:indexPath.row] objectForKey:@"typeIcon"];
+        if([imageName isEqualToString:@"none.png"])
+        {
+            imageView.image = [UIImage imageNamed: @"dining.png"];
+            imageView.backgroundColor = [UIColor lightGrayColor];
+        }
+        else
+        {
+            imageView.image = [UIImage imageNamed: [[self.queryDataController.query.allTypes objectAtIndex:indexPath.row] objectForKey:@"typeIcon"]];
+            imageView.backgroundColor = [UIColor lightGrayColor];
+        }
+        
+
         return cell;        
     }
     else if (section == SORTS_SECTION)
@@ -147,7 +163,7 @@
         return nil;
 	}
 	if(section == 1) {
-		sectionHeader = @"Type";
+		sectionHeader = @"Browse Types";
         
 	}
     else if(section == 2) {
@@ -197,7 +213,7 @@
     NSMutableArray *lTypes =[[NSMutableArray alloc]init];
     NSMutableArray *lSorts =[[NSMutableArray alloc]init];
 
-    for (NSInteger i = 0; i < [self.tableView numberOfRowsInSection:TYPES_SECTION]; ++i)
+    for (NSInteger i = 0; i < [self.queryDataController.query.allTypes count]; ++i)
     {
         UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:1]];
         if ([cell isSelected])
@@ -209,14 +225,27 @@
     }
 
     
-    UISlider *distanceProx = (UISlider*)[self.tableView viewWithTag:DISTANCE_PROXIMITY_VIEW];
+    UISegmentedControl *distanceProx = (UISegmentedControl*)[self.tableView viewWithTag:DISTANCE_PROXIMITY_VIEW];
+    CGFloat dw = 0.0;
+    if (distanceProx.selectedSegmentIndex == 0) //walk
+    {
+        dw =1;
+    }
+    else if (distanceProx.selectedSegmentIndex == 1) //bike
+    {
+        dw = 0.6;
+    }
+    else  //anywhere
+    {
+        dw = 0.3;
+    }
     self.queryDataController.query.selectedTypes = lTypes;
     self.queryDataController.query.selectedSorts = lSorts;
     self.queryDataController.query.searchText = ((UITextField*)[self.tableView viewWithTag:SEARCH_TEXT_VIEW]).text;
 
   //  [self.queryDataController uploadData];
     ASQuery *newQ = [[ASQuery alloc] init];
-    newQ.distanceWeight = [NSString stringWithFormat:@"%f",distanceProx.value];
+    newQ.distanceWeight = [NSString stringWithFormat:@"%f",dw];
     newQ.searchText =  ((UITextField*)[self.tableView viewWithTag:SEARCH_TEXT_VIEW]).text;
     newQ.selectedSorts = lSorts;
     newQ.selectedTypes = lTypes;

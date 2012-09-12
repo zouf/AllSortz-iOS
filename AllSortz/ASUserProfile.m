@@ -23,10 +23,6 @@
                                      initWithDictionary:d];
         [self.topics addObject:dict];
     }
-   /* for (int i = 0; i < [self.topics count]; i++)
-    {
-        [self.importance addObject:[NSNumber numberWithFloat:0] ];
-    }*/
     return self;
 }
 
