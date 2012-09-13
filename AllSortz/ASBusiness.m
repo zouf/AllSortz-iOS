@@ -74,6 +74,7 @@ SIMPLE_SETTER(imageID, ImageID, NSUInteger)
 SIMPLE_SETTER(score, Score, NSNumber *)
 
 
+SIMPLE_SETTER(types, Types, NSArray *)
 
 SIMPLE_SETTER(topics, Topics, NSArray *)
 

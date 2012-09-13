@@ -17,8 +17,8 @@
 
 #import "ASBusiness.h"
 
-#define CELL_WIDTH 209
-#define CELL_MARGIN 5
+#define CELL_WIDTH 224
+#define CELL_MARGIN 8
 
 @implementation ASZBusinessDetailsViewController
 

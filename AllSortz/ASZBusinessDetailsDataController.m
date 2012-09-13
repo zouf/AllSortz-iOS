@@ -14,7 +14,7 @@
 #define BUSINESSIMAGEVIEW_TAG 1000
 #define BUSINESSNAMELABEL_TAG 1001
 #define BUSINESSHEALTH_TAG 1002
-#define BUSINESSHOURS_TAG 1003
+#define BUSINESSTYPES_TAG 1003
 #define BUSINESSPHONE_TAG 1004
 #define BUSINESSURL_TAG 1005
 #define BUSINESSADDRESS_TAG 1006
@@ -28,7 +28,7 @@
 #define TOPICTEXTVIEW_TAG 1012
 #define TOPICRATINGVIEW_TAG 1013
 #define TOPICRATINGSLIDER_TAG 1014
-
+#define TOPICRATINGSEGMENTED_TAG 1015
 
 
 
@@ -93,6 +93,24 @@
     NSDictionary *hinfo = result[@"health_info"];
     business.healthGrade = [hinfo valueForKey:@"health_grade"];
     
+    
+    NSMutableArray *types = [NSMutableArray arrayWithCapacity:[result[@"types"] count]];
+    for (NSDictionary *t in result[@"types"])
+    {
+        NSMutableDictionary *type = [NSMutableDictionary dictionary];
+        
+        NSLog(@"%@\n",t);
+        NSLog(@"%@\n", [t valueForKeyPath:@"type.typeID"]);
+        NSLog(@"%@\n", [t valueForKeyPath:@"type.typeName"]);
+        NSLog(@"%@\n", [t valueForKeyPath:@"type.typeIcon"]);
+        [type setValue:[t valueForKeyPath:@"type.typeID"] forKey:@"ID"];
+        [type setValue:[t valueForKeyPath:@"type.typeName"] forKey:@"name"];
+        [type setValue:[t valueForKeyPath:@"type.typeIcon"] forKey:@"icon"];
+        [types addObject:[NSDictionary dictionaryWithDictionary:type]];
+        
+    }
+    business.types = types;
+    
     for (NSDictionary *category in result[@"categories"]) {
         NSMutableDictionary *topic = [NSMutableDictionary dictionary];
         [topic setValuesForKeysWithDictionary:@{@"ID": [category valueForKeyPath:@"topic.parentID"],
@@ -100,18 +118,23 @@
                                                 @"rating": [category valueForKey:@"bustopicRating"],
                                                 @"summary": [category valueForKey:@"bustopicContent"]}];
         
-
+        
+        if ([[topic valueForKey:@"name"] isEqualToString:@"Main"])
+        {
+            [topic setValue:@"Synopsis" forKeyPath:@"name"];
+        }
         // Don't want a mutable dictionary in there
         [topics addObject:[NSDictionary dictionaryWithDictionary:topic]];
     }
 
+    
     // Sort topics into order they should be displayed
     business.topics = [topics sortedArrayUsingComparator:^NSComparisonResult (id obj1, id obj2) {
         NSString *name1 = [obj1 valueForKey:@"name"];
         NSString *name2 = [obj2 valueForKey:@"name"];
         if ([name1 isEqualToString:name2]) return NSOrderedSame;
-        if ([name1 isEqualToString:@"Main"]) return NSOrderedAscending;
-        if ([name2 isEqualToString:@"Main"]) return NSOrderedDescending;
+        if ([name1 isEqualToString:@"Synopsis"]) return NSOrderedAscending;
+        if ([name2 isEqualToString:@"Synopsis"]) return NSOrderedDescending;
         return [name1 localizedCompare:name2];
     }];
 
@@ -161,6 +184,7 @@
         
         topicDetailsController.topic = [[ASZTopic alloc] initWithID:topicID];
         topicDetailsController.topic.name = [topic valueForKey:@"name"];
+
         topicDetailsController.topic.summary = [topic valueForKey:@"summary"];
         topicDetailsController.topic.rating = [[topic valueForKey:@"rating"] floatValue];
         
@@ -188,16 +212,15 @@
             UILabel *name = (UILabel *)[cell.contentView viewWithTag:BUSINESSNAMELABEL_TAG];
             name.text = self.business.name;
             
-            UITextView *hours = (UITextView*)[cell.contentView viewWithTag:BUSINESSHOURS_TAG];
-            //hours.text = self.business.hours[0];
-            NSMutableString *hourArray = [NSMutableString stringWithFormat:@""];
+            UITextView *types = (UITextView*)[cell.contentView viewWithTag:BUSINESSTYPES_TAG];
+            NSMutableString *typeArrayStr = [[NSMutableString alloc] initWithString:@""];
             
-            for (NSString *str in self.business.hours)
+            for (NSDictionary *d in self.business.types)
             {
-                [hourArray appendString:str];
-                [hourArray appendString:@"\n"];
+                [typeArrayStr appendString:[d valueForKey:@"name"]];
+                [typeArrayStr appendString:@"\n"];
             }
-            hours.text = hourArray;
+            types.text = [NSString stringWithString:typeArrayStr];
             
             
             UIButton *url = (UIButton *)[cell.contentView viewWithTag:BUSINESSURL_TAG];
@@ -275,17 +298,30 @@
             UITextView *topicSummary = (UITextView *)[cell.contentView viewWithTag:TOPICTEXTVIEW_TAG];
             topicSummary.text = [topic valueForKey:@"summary"];
             
-            UIProgressView *ratingView = (UIProgressView*)[cell.contentView viewWithTag:TOPICRATINGVIEW_TAG];
+           /* UIProgressView *ratingView = (UIProgressView*)[cell.contentView viewWithTag:TOPICRATINGVIEW_TAG];
             ratingView.progress = [[topic valueForKey:@"rating"] floatValue];
             
             UISlider *sliderView = (UISlider*)[cell.contentView viewWithTag:TOPICRATINGSLIDER_TAG];
-            sliderView.value = [[topic valueForKey:@"rating"] floatValue];
+            sliderView.value = [[topic valueForKey:@"rating"] floatValue];*/
+            
+            UISegmentedControl *rateSelector = (UISegmentedControl*)[cell.contentView viewWithTag:TOPICRATINGSEGMENTED_TAG];
+            [rateSelector setSelectedSegmentIndex:1];
+            UIFont *font = [UIFont fontWithName:@"Gill Sans" size:12];
+            NSDictionary *attributes = [NSDictionary dictionaryWithObject:font
+                                                                   forKey:UITextAttributeFont];
+            [rateSelector setTitleTextAttributes:attributes
+                                            forState:UIControlStateNormal];
+            CGRect r = rateSelector.frame;
+            r.size.height = 25.0;
+            [rateSelector setFrame:r];
+            
+
             
             UITapGestureRecognizer* singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleTap:)];
             singleTap.numberOfTapsRequired = 1;
             singleTap.numberOfTouchesRequired = 1;
             singleTap.cancelsTouchesInView = NO;
-            [cell addGestureRecognizer:singleTap];
+            [topicSummary addGestureRecognizer:singleTap];
 
         }
             return cell;
