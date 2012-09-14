@@ -12,7 +12,6 @@
 @property (strong, nonatomic) IBOutlet ASUserProfileDataController *userProfileDataController;
 @property (weak, nonatomic) IBOutlet UILabel *questionText;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *importanceValue;
-- (IBAction)importanceValueChanged:(id)sender;
 @end
 
 

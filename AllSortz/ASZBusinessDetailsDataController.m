@@ -83,7 +83,7 @@
     NSLog(@"Get details with query %@",address);
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:address]];
     void (^handler)(NSURLResponse *, NSData *, NSError *) = ^(NSURLResponse *response, NSData *data, NSError *error) {
-        NSDictionary *JSONresponse = [NSJSONSerialization JSONObjectWithData:data options:0 error:NULL];
+        //NSDictionary *JSONresponse = [NSJSONSerialization JSONObjectWithData:data options:0 error:NULL];
        // self.business = [self businessFromJSONResult:JSONresponse[@"result"]];
     };
     
@@ -167,7 +167,9 @@
                                                 @"rating": [category valueForKey:@"bustopicRating"],
                                                 @"summary": [category valueForKey:@"bustopicContent"],
          @"avgRating" : [category valueForKey:@"bustopicAvgRating"],
+         @"ratingAdjective" : [ category valueForKey:@"bustopicRatingAdjective"],
          @"bustopicID": [category valueForKey:@"bustopicID"]}];
+        
         
         
         if ([[topic valueForKey:@"name"] isEqualToString:@"Main"])
@@ -365,7 +367,7 @@
             UILabel *avgRatingLabel = (UILabel*)[cell viewWithTag:TOPICAVGRATINGSLABEL_TAG];
             
             NSLog(@"%@\n",[topic valueForKey:@"avgRating"]);
-            avgRatingLabel.text = [NSString stringWithFormat:@"%0.2f\n",[[topic valueForKey:@"avgRating"] floatValue] ];
+            avgRatingLabel.text = [NSString stringWithFormat:@"%@",[topic valueForKey:@"ratingAdjective"]  ];
             
             
             UITapGestureRecognizer* singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleTap:)];

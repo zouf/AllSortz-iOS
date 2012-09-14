@@ -22,23 +22,34 @@
 @property (nonatomic) NSString *name;
 @property (nonatomic) NSString *phone;
 
+// the health violation text
 @property (nonatomic) NSString *healthViolationText;
+
+// The actual grade for the business (letter encoded)
 @property (nonatomic) NSString *healthGrade;
+
+//The personalize score for the business
 @property (nonatomic) CGFloat recommendation;
 
+//the business' website
 @property (nonatomic) NSURL *website;
 
+//the businesses image which will be set by separate request
 @property (nonatomic) UIImage *image;
+
+//ID of the image
 @property (nonatomic) NSUInteger imageID;
 
+//distance from the current user
 @property (nonatomic) NSNumber *distance;
 
-@property (nonatomic) NSNumber *score;
+//The average rating for the business 
 @property (nonatomic) NSNumber *avgRating;
 
-
+//array of types associated with business
 @property (nonatomic) NSArray *types;
 
+//array of toipcs associated with the business
 @property (nonatomic) NSArray *topics;
 
 - (id)initWithID:(NSUInteger)anID;
