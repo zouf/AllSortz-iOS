@@ -66,6 +66,7 @@ SIMPLE_SETTER(distance, Distance, NSNumber *)
 
 SIMPLE_SETTER(website, Website, NSURL *)
 
+SIMPLE_SETTER(healthViolationText, HealthViolationText, NSString *)
 SIMPLE_SETTER(healthGrade, HealthGrade, NSString *)
 
 SIMPLE_SETTER(image, Image, UIImage *)

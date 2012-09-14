@@ -49,6 +49,50 @@
 @synthesize businessTableView = _businessTableView;
 @synthesize viewController = _viewController;
 
+
+-(UIImage*) getImageForGrade:(NSString *)healthGrade
+{
+    NSString *imageName;
+    if ([healthGrade isEqualToString:@"A"])
+    {
+        imageName = @"NYCRestaurant_A.gif";
+    }
+    else if([healthGrade isEqualToString:@"B"])
+    {
+        imageName = @"NYCRestaurant_B.gif";
+    }
+    else if ([healthGrade isEqualToString:@"C"])
+    {
+        imageName = @"NYCRestaurant_C.gif";
+        
+    }
+    else if ([healthGrade isEqualToString:@"Z"])
+    {
+        imageName = @"NYCRestaurant_GP.gif";
+    }
+    else
+    {
+        imageName = @"NYCRestaurant_GP.gif";
+    }
+    return [UIImage imageNamed:imageName];
+}
+
+-(void)rateBusinessTopicAsynchronously:(NSUInteger)btID withRating:(NSInteger)rating
+{
+    NSString *address = [NSString stringWithFormat:@"http://127.0.0.1:8000/api/business/topic/rate/%lu/?uname=%@&password=%@&lat=%f&lon=%f&deviceID=%@&rating=%d", (unsigned long)btID, self.username, self.password, self.currentLatitude, self.currentLongitude, self.UUID,rating];
+    NSLog(@"Get details with query %@",address);
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:address]];
+    void (^handler)(NSURLResponse *, NSData *, NSError *) = ^(NSURLResponse *response, NSData *data, NSError *error) {
+        NSDictionary *JSONresponse = [NSJSONSerialization JSONObjectWithData:data options:0 error:NULL];
+       // self.business = [self businessFromJSONResult:JSONresponse[@"result"]];
+    };
+    
+    if (!self.queue)
+        self.queue = [[NSOperationQueue alloc] init];
+    [NSURLConnection sendAsynchronousRequest:request queue:self.queue completionHandler:handler];
+
+}
+
 - (void)refreshBusinessAsynchronouslyWithID:(NSUInteger)ID
 {
     if (!(ID && self.username && self.currentLatitude && self.currentLongitude && self.UUID)) {
@@ -56,8 +100,8 @@
         return;
     }
 
-    NSString *address = [NSString stringWithFormat:@"http://allsortz.com/api/business/%lu?uname=%@&password=%@&lat=%f&lon=%f&deviceID=%@", (unsigned long)ID, self.username, self.password, self.currentLatitude, self.currentLongitude, self.UUID];
-    NSLog(@"Get details with query %@",address);
+    NSString *address = [NSString stringWithFormat:@"http://127.0.0.1:8000/api/business/%lu?uname=%@&password=%@&lat=%f&lon=%f&deviceID=%@", (unsigned long)ID, self.username, self.password, self.currentLatitude, self.currentLongitude, self.UUID];
+    NSLog(@"Rate businesstopic with address %@",address);
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:address]];
     void (^handler)(NSURLResponse *, NSData *, NSError *) = ^(NSURLResponse *response, NSData *data, NSError *error) {
         NSDictionary *JSONresponse = [NSJSONSerialization JSONObjectWithData:data options:0 error:NULL];
@@ -88,10 +132,13 @@
 
     business.recommendation = [result[@"ratingRecommendation"] floatValue];
         
+
     NSMutableArray *topics = [NSMutableArray arrayWithCapacity:[result[@"categories"] count]];
     
     NSDictionary *hinfo = result[@"health_info"];
     business.healthGrade = [hinfo valueForKey:@"health_grade"];
+    business.healthViolationText = [hinfo valueForKey:@"health_violation_text"];
+    
     
     
     NSMutableArray *types = [NSMutableArray arrayWithCapacity:[result[@"types"] count]];
@@ -116,7 +163,8 @@
         [topic setValuesForKeysWithDictionary:@{@"ID": [category valueForKeyPath:@"topic.parentID"],
                                                 @"name": [category valueForKeyPath:@"topic.parentName"],
                                                 @"rating": [category valueForKey:@"bustopicRating"],
-                                                @"summary": [category valueForKey:@"bustopicContent"]}];
+                                                @"summary": [category valueForKey:@"bustopicContent"],
+         @"bustopicID": [category valueForKey:@"bustopicID"]}];
         
         
         if ([[topic valueForKey:@"name"] isEqualToString:@"Main"])
@@ -227,9 +275,10 @@
             [url setTitle:self.business.website.path forState:UIControlStateNormal];
             if (!self.business.website.path || [self.business.website.path isEqualToString:@""] )
             {
-                [url setTitle:@"Edit" forState:UIControlStateNormal];
-                // add a transition to edit here
-                        
+                [url setTitle:@"Tell us" forState:UIControlStateNormal];
+                [url addTarget:self.viewController
+                            action:@selector(editTapped:)
+                  forControlEvents:(UIControlEvents)UIControlEventTouchDown];                           
             }
             else
             {
@@ -240,40 +289,22 @@
             UIButton *phone = (UIButton *)[cell.contentView viewWithTag:BUSINESSPHONE_TAG];
             if (!self.business.phone || [self.business.phone isEqualToString:@""])
             {
-                [phone setTitle:@"Nothing Yet" forState:UIControlStateNormal];
+                [phone setTitle:@"Tell us" forState:UIControlStateNormal];
+                [phone addTarget:self.viewController
+                        action:@selector(editTapped:)
+              forControlEvents:(UIControlEvents)UIControlEventTouchDown];
             }
             else
             {
                 [phone setTitle:self.business.phone forState:UIControlStateNormal];
             }
             
-            UIImageView *healthGrade = (UIImageView*)[cell.contentView viewWithTag:BUSINESSHEALTH_TAG];
-            NSString *imageName;
-            if ([self.business.healthGrade isEqualToString:@"A"])
-            {
-                imageName = @"NYCRestaurant_A.gif";
-            }
-            else if([self.business.healthGrade isEqualToString:@"B"])
-            {
-                imageName = @"NYCRestaurant_A.gif";
-            }
-            else if ([self.business.healthGrade isEqualToString:@"C"])
-            {
-                imageName = @"NYCRestaurant_C.gif";
+            UIButton *healthGradeButton = (UIButton*)[cell.contentView viewWithTag:BUSINESSHEALTH_TAG];
 
-            }
-            else if ([self.business.healthGrade isEqualToString:@"Z"])
-            {
-                imageName = @"NYCRestaurant_GP.gif";
-            }
-            else
-            {
-                imageName = @"healthy.png";
-            }
+            [healthGradeButton setImage:[self getImageForGrade:self.business.healthGrade] forState:UIControlStateNormal];
+            [healthGradeButton setBackgroundColor:[UIColor lightGrayColor]];
             
-            UIImage *img = [UIImage imageNamed:imageName];
-            healthGrade.image =img;
-            healthGrade.backgroundColor = [UIColor lightGrayColor];
+            
             UIProgressView* score = (UIProgressView*)[cell.contentView viewWithTag:BUSINESSSCORE_TAG];
             score.progress = self.business.recommendation;
             
@@ -306,6 +337,8 @@
             
             UISegmentedControl *rateSelector = (UISegmentedControl*)[cell.contentView viewWithTag:TOPICRATINGSEGMENTED_TAG];
             [rateSelector setSelectedSegmentIndex:1];
+            [cell.contentView addSubview:rateSelector];
+
             UIFont *font = [UIFont fontWithName:@"Gill Sans" size:12];
             NSDictionary *attributes = [NSDictionary dictionaryWithObject:font
                                                                    forKey:UITextAttributeFont];
@@ -315,7 +348,18 @@
             r.size.height = 25.0;
             [rateSelector setFrame:r];
             
-
+            if ([[topic valueForKey:@"rating"] intValue] == 0)
+            {
+                [rateSelector setSelectedSegmentIndex:0];
+            }
+            else if  ([[topic valueForKey:@"rating"] intValue] == 1)
+            {
+                [rateSelector setSelectedSegmentIndex:1];
+            }
+            else
+            {
+                 [rateSelector setSelectedSegmentIndex:0];
+            }
             
             UITapGestureRecognizer* singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleTap:)];
             singleTap.numberOfTapsRequired = 1;

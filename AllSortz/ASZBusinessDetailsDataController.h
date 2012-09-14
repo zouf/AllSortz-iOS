@@ -33,6 +33,8 @@ typedef enum ASZBusinessDetailsInfoRow : NSInteger {
 @property CGFloat currentLongitude;
 @property NSString *UUID;
 
+- (UIImage*)getImageForGrade:(NSString*)healthGrade;
 - (void)refreshBusinessAsynchronouslyWithID:(NSUInteger)ID;
+-(void)rateBusinessTopicAsynchronously:(NSUInteger)btID withRating:(NSInteger)rating;
 
 @end

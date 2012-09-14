@@ -27,6 +27,7 @@
 //- (IBAction)refreshTheMap:(id)sender;
 
 -(void)zoomToFitMapAnnotations:(MKMapView*)mapView;
+- (IBAction)goToMyLocation:(id)sender;
 
 @end
 
@@ -204,6 +205,22 @@
     [mapView setRegion:region animated:YES];
 }
 
+- (IBAction)goToMyLocation:(id)sender {
+    
+    
+    MKCoordinateRegion region;
+    if (!self.mv.userLocation.coordinate.latitude)
+        return;
+    region.center.latitude= self.mv.userLocation.coordinate.latitude;
+    region.center.longitude= self.mv.userLocation.coordinate.longitude;
+
+    region.span = self.mv.region.span;
+//    region = [self.mv regionThatFits:region];
+    [self.mv setRegion:region animated:YES];
+
+    
+}
+
 //this is the required method implementation for MKMapView annotations
 - (MKAnnotationView *) mapView:(MKMapView *)thisMapView
              viewForAnnotation:(ASMapPoint *)annotation
@@ -332,6 +349,7 @@
     // If the business list changes, reassign
     if ([keyPath isEqualToString:@"businessList"]) {
         [self loadMapElements];
+        [self zoomToFitMapAnnotations:self.mv];
     }
 
 }

@@ -25,6 +25,17 @@
 - (IBAction)editTapped:(id)sender {
     [self performSegueWithIdentifier:@"EditBusinessSegue" sender:self];
 }
+- (IBAction)busTopicRateTap:(id)sender forEvent:(UIEvent *)event {
+    UISegmentedControl*rateControl = (UISegmentedControl*)sender;
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:(UITableViewCell *)[[sender superview] superview]];
+    NSDictionary *topic = self.dataController.business.topics[indexPath.row];
+    NSLog(@"User gave %@ a %d\n",[topic valueForKey:@"name"], rateControl.selectedSegmentIndex);
+    NSInteger btID = [[topic valueForKey:@"bustopicID"] intValue];
+    
+    [self.dataController rateBusinessTopicAsynchronously:btID withRating:rateControl.selectedSegmentIndex];
+    
+    
+}
 
 #pragma mark - Storyboard segue
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -48,6 +59,18 @@
         
 
         
+    }
+    else if ([segue.identifier isEqualToString:@"HealthDetailSegueID"])
+    {
+        UIViewController *dvc = (UIViewController*)segue.destinationViewController;
+        UIImageView * healthImage = (UIImageView*)[dvc.view viewWithTag:2];
+        UITextView * detailText = (UITextView*)[dvc.view viewWithTag:1];
+        
+
+        [healthImage setImage:[self.dataController getImageForGrade:self.dataController.business.healthGrade]];
+        
+        [detailText setText:self.dataController.business.healthViolationText];
+
     }
 }
 
@@ -122,6 +145,10 @@
     //TODO implement
     return;
 }
+
+#pragma mark - Handle taps to rating
+
+
 
 #pragma mark - Table view delegate
 
