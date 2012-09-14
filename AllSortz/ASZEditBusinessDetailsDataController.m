@@ -11,6 +11,7 @@
 #import "ASZTopicDetailViewController.h"
 #import "ASZEditBusinessDetailsViewController.h"
 #import "ASBusiness.h"
+#import "ASURLEncoding.h"
 
 #define BUSINESS_NAME 200
 #define BUSINESS_STREET 201
@@ -44,21 +45,12 @@
         self.business = nil;
         return;
     }
-    
-    NSString *address = [NSString stringWithFormat:@"http://allsortz.com/api/business/%lu?uname=%@&password=%@&lat=%f&lon=%f&deviceID=%@", (unsigned long)ID, self.username, self.password, self.currentLatitude, self.currentLongitude, self.UUID];
-    NSLog(@"Get details with query %@",address);
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:address]];
-    void (^handler)(NSURLResponse *, NSData *, NSError *) = ^(NSURLResponse *response, NSData *data, NSError *error) {
-        NSDictionary *JSONresponse = [NSJSONSerialization JSONObjectWithData:data options:0 error:NULL];
-        self.business = [self businessFromJSONResult:JSONresponse[@"result"]];
-    };
-    
-    
+       
     NSString * typeAddress = [NSString stringWithFormat:@"http://allsortz.com/api/types/?uname=%@&password=%@&lat=%f&lon=%f&deviceID=%@",  self.username, self.password, self.currentLatitude, self.currentLongitude, self.UUID];
 
     NSURLRequest *typeRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:typeAddress]];
     void (^typeHandler)(NSURLResponse *, NSData *, NSError *) = ^(NSURLResponse *response, NSData *data, NSError *error) {
-        NSDictionary *JSONresponse = [NSJSONSerialization JSONObjectWithData:data options:0 error:NULL];
+        NSDictionary *JSONresponse = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:NULL];
         self.allTypes = [JSONresponse objectForKey:@"result"];
 
     };
@@ -66,11 +58,47 @@
 
     if (!self.queue)
         self.queue = [[NSOperationQueue alloc] init];
-    [NSURLConnection sendAsynchronousRequest:request queue:self.queue completionHandler:handler];
     [NSURLConnection sendAsynchronousRequest:typeRequest queue:self.queue completionHandler:typeHandler];
 
 }
+- (NSURLRequest *)postRequestWithAddress: (NSString *)address        // IN
+                                    data: (NSData *)data      // IN
+{
+    NSURL *url = [NSURL URLWithString:address];
+    NSMutableURLRequest *urlRequest =
+    [NSMutableURLRequest requestWithURL:url];
+    NSString *postLength = [NSString stringWithFormat:@"%d", [data length]];
+    [urlRequest setURL:[NSURL URLWithString:address]];
+    [urlRequest setHTTPMethod:@"POST"];
+    [urlRequest setValue:postLength forHTTPHeaderField:@"Content-Length"];
+    [urlRequest setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
+    [urlRequest setHTTPBody:data];
+    
+    return urlRequest;
+}
 
+- (void)editBusinessAsynchronouslyWithID:(NSUInteger)ID
+{
+    if (!(ID && self.username && self.currentLatitude && self.currentLongitude && self.UUID)) {
+        self.business = nil;
+        return;
+    }
+    
+    NSString *address = [NSString stringWithFormat:@"http://allsortz.com/api/business/edit/%lu/?uname=%@&password=%@&lat=%f&lon=%f&deviceID=%@", (unsigned long)ID, self.username, self.password, self.currentLatitude, self.currentLongitude, self.UUID];
+    NSString *str = [[self.business serializeToDictionaryWithTypes:self.allTypes] urlEncodedString];
+    NSData* data = [str dataUsingEncoding:NSUTF8StringEncoding];
+    NSURLRequest *request = [self postRequestWithAddress:address data:data];
+    NSLog(@"Get details with query %@\n\nPost Data %@",address,data);
+   
+    void (^handler)(NSURLResponse *, NSData *, NSError *) = ^(NSURLResponse *response, NSData *data, NSError *error) {
+    //    NSDictionary *JSONresponse = [NSJSONSerialization JSONObjectWithData:data  options:0 error:NULL];
+    //    self.business = [self businessFromJSONResult:JSONresponse[@"result"]];
+    };
+    
+    if (!self.queue)
+        self.queue = [[NSOperationQueue alloc] init];
+    [NSURLConnection sendAsynchronousRequest:request queue:self.queue completionHandler:handler];    
+}
 
 - (ASBusiness *)businessFromJSONResult:(NSDictionary *)result
 {
@@ -134,6 +162,7 @@
 
 #pragma mark - Table view data source
 
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
@@ -178,23 +207,21 @@
         
     }
     else if (indexPath.section == 1)
-    {
-
-      
-        
+    {        
         NSString *CellIdentifier = @"TypeCell";
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
         if (!self.allTypes)
             return cell;
-        NSLog(@"%d %d\n",[self.allTypes count], indexPath.row);
         UILabel *label =(UILabel *)[cell viewWithTag:TYPE_LABEL_VIEW];
         NSDictionary *dict = [self.allTypes objectAtIndex:indexPath.row];
         
         label.text = [dict objectForKey:@"typeName"];
         
+        
         UIImageView *imageView =(UIImageView*)[cell viewWithTag:TYPE_IMAGE_VIEW];
         imageView.image = [UIImage imageNamed: [[self.allTypes objectAtIndex:indexPath.row] objectForKey:@"typeIcon"]];
         imageView.backgroundColor = [UIColor lightGrayColor];
+        
         return cell;
  
 

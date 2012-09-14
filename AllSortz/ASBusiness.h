@@ -34,11 +34,14 @@
 @property (nonatomic) NSNumber *distance;
 
 @property (nonatomic) NSNumber *score;
+@property (nonatomic) NSNumber *avgRating;
+
 
 @property (nonatomic) NSArray *types;
 
 @property (nonatomic) NSArray *topics;
 
 - (id)initWithID:(NSUInteger)anID;
+- (NSDictionary *) serializeToDictionaryWithTypes:(NSArray*)allTypes;
 
 @end

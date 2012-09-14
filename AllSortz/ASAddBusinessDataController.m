@@ -83,7 +83,7 @@ static NSString * const FORM_FLE_INPUT = @"uploaded";
         // TODO: Some proper failure handling maybe
         return NO;
     }
-    NSLog(@"Running upload data\n");
+    NSLog(@"Running upload data with %@\n",address);
     self.receivedData = [NSMutableData data];
     
     return YES;

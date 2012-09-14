@@ -15,7 +15,7 @@
 
 @property ASBusiness *business;
 
-@property NSArray *allTypes;
+@property NSMutableArray *allTypes;
 
 
 @property NSString *username;
@@ -25,5 +25,6 @@
 @property NSString *UUID;
 
 - (void)refreshBusinessAsynchronouslyWithID:(NSUInteger)ID;
+- (void)editBusinessAsynchronouslyWithID:(NSUInteger)ID;
 
 @end

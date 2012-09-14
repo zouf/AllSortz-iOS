@@ -19,6 +19,7 @@
 
 #define CELL_WIDTH 224
 #define CELL_MARGIN 8
+#define DEFAULT_HEIGHT 52
 
 @implementation ASZBusinessDetailsViewController
 
@@ -177,9 +178,9 @@
 
             CGSize constraint = CGSizeMake(CELL_WIDTH - (CELL_MARGIN * 2), 20000.0f);
             
-            CGSize size = [text sizeWithFont:[UIFont fontWithName:@"Gill Sans" size:10] constrainedToSize:constraint lineBreakMode:UILineBreakModeWordWrap];
+            CGSize size = [text sizeWithFont:[UIFont fontWithName:@"GillSans-Light" size:12] constrainedToSize:constraint lineBreakMode:UILineBreakModeWordWrap];
             
-            CGFloat height = MAX(size.height, 44.0f);
+            CGFloat height = MAX(size.height, DEFAULT_HEIGHT);
             
             return height + (CELL_MARGIN * 2);
             break;

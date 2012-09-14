@@ -7,13 +7,14 @@
 //
 
 #import "ASZEditBusinessDetailsViewController.h"
-
+#import "ASBusiness.h"
 @interface ASZEditBusinessDetailsViewController ()
 
 @end
 
 @implementation ASZEditBusinessDetailsViewController
 - (IBAction)doneTapped:(id)sender {
+    [self.dataController editBusinessAsynchronouslyWithID:self.businessID];
     
 }
 - (IBAction)cancelTapped:(id)sender {
@@ -107,24 +108,48 @@
     {
         [self.tableView performSelectorOnMainThread:@selector(reloadData)
                                          withObject:nil
-                                      waitUntilDone:NO];
+                                      waitUntilDone:YES];
+        
+        int i = 0;
+
+
+        for (NSDictionary *dict in self.dataController.allTypes)
+        {
+            for (NSDictionary * d in self.dataController.business.types)
+            {               
+                if ([[d valueForKey:@"ID"] intValue] == [[dict valueForKey:@"typeID"] intValue])
+                {
+                    
+                    NSIndexPath *ip = [NSIndexPath indexPathForRow:i inSection:1] ;
+                    
+                    [self.tableView selectRowAtIndexPath:ip animated:YES scrollPosition:UITableViewScrollPositionNone];
+                    NSMutableArray* tp = (NSMutableArray*)self.dataController.allTypes[i];
+                    [tp setValue:@"true" forKey:@"selected"];
+                }
+                
+            }
+            i++;
+            
+        }
+        
+
+        
     }
 }
 
 #pragma mark - Table view delegate
 
 
-
-- (void)tableView:(UITableView *)tableViewdidSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return;
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSMutableArray* tp = (NSMutableArray*)self.dataController.allTypes[indexPath.row];
+    [tp setValue:@"true" forKey:@"selected"];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     switch (indexPath.section) {
         case 0:
-            return 300;
+            return 200;
             break;
         case 1:
             return 45;

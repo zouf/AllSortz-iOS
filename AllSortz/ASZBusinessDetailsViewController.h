@@ -14,7 +14,6 @@
 @property NSUInteger businessID;
 @property IBOutlet ASZBusinessDetailsDataController *dataController;
 
-
 - (IBAction)dialBusinessPhone;
 - (IBAction)goToURL:(id)sender;
 

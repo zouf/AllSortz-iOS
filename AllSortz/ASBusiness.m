@@ -48,6 +48,37 @@
     return nil;
 }
 
+- (NSDictionary *) serializeToDictionaryWithTypes:(NSArray*)allTypes
+{
+    
+    NSError * error;
+
+    NSMutableArray *typeIDs = [[NSMutableArray alloc]init];
+    for (NSDictionary*d in allTypes)
+    {
+        NSLog(@"%@\n",d);
+        if ([[d valueForKey:@"selected"] isEqualToString:@"true"])
+        {
+            [typeIDs addObject:[d valueForKey:@"typeID" ]];
+        }
+    }
+    NSData *jsonData =  [NSJSONSerialization dataWithJSONObject:typeIDs options:NSJSONWritingPrettyPrinted error:&error];
+    NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    
+    NSDictionary * dict= [NSDictionary dictionaryWithObjectsAndKeys:
+                          self.name, @"businessName",
+                          self.phone ,@"businessPhone",
+                          self.address ,@"businessAddress",
+                          self.website ,@"businessURL",
+                          self.city, @"businessCity",
+                          @"", @"photoURL",
+                          jsonString, @"selectedTypes",
+                          self.state ,@"businessState",nil];
+    
+    return dict;
+}
+
+
 
 #pragma mark - Custom setters
 
@@ -73,6 +104,7 @@ SIMPLE_SETTER(image, Image, UIImage *)
 SIMPLE_SETTER(imageID, ImageID, NSUInteger)
 
 SIMPLE_SETTER(score, Score, NSNumber *)
+SIMPLE_SETTER(avgRating, AvgRating, NSNumber *)
 
 
 SIMPLE_SETTER(types, Types, NSArray *)
