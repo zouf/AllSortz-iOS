@@ -8,9 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "ASZBusinessTopicDataController.h"
-
+#import "ASBusiness.h"
 @interface ASZBusinessTopicViewController : UITableViewController <UITextViewDelegate>
 @property NSUInteger businessTopicID;
+@property (nonatomic) NSString*  businessTopicName;
+@property (nonatomic,retain) ASBusiness*  business;
 
 @property IBOutlet ASZBusinessTopicDataController *dataController;
 @end

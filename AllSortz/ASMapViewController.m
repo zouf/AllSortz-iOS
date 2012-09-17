@@ -98,7 +98,8 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    
+    [self setTitle:@"Map"];
+
     
     //this should never be called. but, in case we get to a situation where there is no businessList, call update on the server
     if (!self.listingsTableDataController.businessList)
@@ -351,6 +352,7 @@
     // If the business list changes, reassign
     if ([keyPath isEqualToString:@"businessList"]) {
         [self loadMapElements];
+
        // [self zoomToFitMapAnnotations:self.mv];
     }
 

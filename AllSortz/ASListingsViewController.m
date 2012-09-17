@@ -101,6 +101,8 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    [self setTitle:@"Listings"];
+
     // Imitate default behavior of UITableViewController
 
     
@@ -366,6 +368,7 @@
     if ([keyPath isEqualToString:@"businessList"]) {
         id newDataSource = [change objectForKey:NSKeyValueChangeNewKey];
         self.tableView.dataSource = (newDataSource == [NSNull null] ? nil : newDataSource);
+        [self setTitle:@"Listings"];
         [self loadListElements];
     }
 }

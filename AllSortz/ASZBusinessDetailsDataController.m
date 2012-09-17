@@ -215,12 +215,16 @@
         id topic = topicsArray[indexPath.row];
         NSInteger topicID = [[topic valueForKey:@"bustopicID"] integerValue];
         
-        
+        NSLog(@"%@\n",topic);
         NSString *targetViewControllerIdentifier = nil;
         targetViewControllerIdentifier = @"BusinessTopicViewControllerID";
 
         ASZBusinessTopicViewController *vc = (ASZBusinessTopicViewController*)[self.viewController.storyboard instantiateViewControllerWithIdentifier:targetViewControllerIdentifier];
         
+        [vc setBusiness:self.business];
+        [vc setBusinessTopicName:[topic valueForKey:@"name"]];
+        NSLog(@"%@\n",vc.businessTopicName);
+        self.viewController.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:self.business.name style:UIBarButtonItemStylePlain target:nil action:nil] ;
         ASZBusinessTopicDataController *topicDetailsController = vc.dataController;
         ASZBusinessDetailsDataController *businessDetailsController = self;
         topicDetailsController.username = businessDetailsController.username;

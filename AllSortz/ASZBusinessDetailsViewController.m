@@ -94,6 +94,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
 
 }
 
@@ -144,6 +145,12 @@
             });
         } else {
             // Table view has to be refreshed on main thread
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.tableView reloadData];
+                
+                
+
+            });
             [self.tableView performSelectorOnMainThread:@selector(reloadData)
                                              withObject:nil
                                         waitUntilDone:NO];

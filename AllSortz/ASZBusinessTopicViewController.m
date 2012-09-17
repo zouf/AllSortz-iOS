@@ -12,10 +12,12 @@
 @interface ASZBusinessTopicViewController ()
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *barButton;
 - (IBAction)barButtonTapped:(id)sender;
+@property (weak, nonatomic) IBOutlet UILabel *pageName;
 
 @end
 
 @implementation ASZBusinessTopicViewController
+@synthesize pageName;
 @synthesize barButton;
 
 - (id)initWithStyle:(UITableViewStyle)style
@@ -44,10 +46,16 @@
  
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    NSLog(@"%@\n",self.businessTopicName);
+    [self.pageName setText:self.businessTopicName];
+    
+    
     UITapGestureRecognizer *gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyboard)];
     // For selecting cell.
     gestureRecognizer.cancelsTouchesInView = NO;
     [self.view addGestureRecognizer:gestureRecognizer];
+    
+    
 }
 
 - (void) hideKeyboard {
@@ -57,6 +65,7 @@
 - (void)viewDidUnload
 {
     [self setBarButton:nil];
+    [self setPageName:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -81,13 +90,7 @@
                        context:(void *)context
 {
     if ([keyPath isEqual:@"commentList"]) {
-        /*if ([self.dataController valueForKeyPath:@"review"] != nil) {
-         dispatch_async(dispatch_get_main_queue(), ^{
-         UIImageView *imageView = (UIImageView*)[self.tableView viewWithTag:1000];
-         imageView.image = [self.dataController valueForKeyPath:@"business.image"];
-         });
-         } else {*/
-        // Table view has to be refreshed on main thread
+
         [self.tableView performSelectorOnMainThread:@selector(reloadData)
                                          withObject:nil
                                       waitUntilDone:NO];
@@ -114,7 +117,7 @@
     {
         case 0:
         {
-            return 135;
+            return 145;
             break;
         }
         case 1:

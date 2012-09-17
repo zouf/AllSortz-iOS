@@ -14,6 +14,8 @@
 
 #import "ASURLEncoding.h"
 
+#import  <QuartzCore/QuartzCore.h>
+
 #define BUSTOPICCONTENT_TAG 200
 #define COMMENTAUTHOR_TAG 201
 #define COMMENTTEXT_TAG 202
@@ -74,7 +76,7 @@
     // need a list of topics (and maybe what topics are already assoc. with busines)
     // might include text you've already written
     
-    NSString *address = [NSString stringWithFormat:@"http://127.0.0.1:8000/api/review/edit/%lu/?uname=%@&password=%@&lat=%f&lon=%f&deviceID=%@", (unsigned long)btID, self.username, self.password, self.currentLatitude, self.currentLongitude, self.UUID];
+    NSString *address = [NSString stringWithFormat:@"http://allsortz.com/api/review/edit/%lu/?uname=%@&password=%@&lat=%f&lon=%f&deviceID=%@", (unsigned long)btID, self.username, self.password, self.currentLatitude, self.currentLongitude, self.UUID];
     NSLog(@"Get review base with query %@",address);
     NSString *str = [[self.commentList serializeBusTopicInfo] urlEncodedString];
     NSData* data = [str dataUsingEncoding:NSUTF8StringEncoding];
@@ -144,6 +146,10 @@
         {
            UITextView * tv = (UITextView*)[cell viewWithTag:BUSTOPICCONTENT_TAG];
             tv.text = self.commentList.busTopicInfo;
+            [tv.layer setBorderWidth:1];
+            [tv.layer setCornerRadius:8];
+            [tv.layer setBorderColor:[[UIColor grayColor] CGColor]];
+            [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
         }
             return cell;
         case 1:
@@ -154,6 +160,11 @@
             UILabel * authorLabel = (UILabel*)[cell viewWithTag:COMMENTAUTHOR_TAG];
             UILabel * dateLabel = (UILabel*)[cell viewWithTag:COMMENTDATE_TAG];
             UILabel * commentContent = (UILabel*)[cell viewWithTag:COMMENTTEXT_TAG];
+            /*[cell.contentView.layer setBorderWidth:1];
+            [cell.contentView.layer setCornerRadius:8];
+            [cell.contentView.layer setBorderColor:[[UIColor grayColor] CGColor]];
+            */
+            
             dateLabel.text =  [NSString stringWithFormat:@"%@", [comment valueForKeyPath:@"date"]];
             authorLabel.text = [NSString stringWithFormat:@"%@",[comment valueForKeyPath:@"creator.userName"]];
             commentContent.text = [NSString stringWithFormat:@"%@",[comment valueForKeyPath:@"content"]];
