@@ -104,7 +104,7 @@
 {
     UIImage *originalImage=[info objectForKey:UIImagePickerControllerOriginalImage];
     //Show OriginalImage size
-    NSLog(@"OriginalImage%@",image);
+    NSLog(@"Original Image%@",image);
     imageView.image=originalImage;
     saveImageButton.enabled=YES;
     [self dismissModalViewControllerAnimated:YES];

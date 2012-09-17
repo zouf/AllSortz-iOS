@@ -17,6 +17,8 @@
 
 #import "ASBusiness.h"
 
+#import "ASZReviewViewController.h"
+
 #define CELL_WIDTH 224
 #define CELL_MARGIN 8
 #define DEFAULT_HEIGHT 52
@@ -71,6 +73,19 @@
         [healthImage setImage:[self.dataController getImageForGrade:self.dataController.business.healthGrade]];
         
         [detailText setText:self.dataController.business.healthViolationText];
+
+    }
+    else if ([segue.identifier isEqualToString:@"BusinessReviewSegueID"])
+    {
+        ASZReviewViewController *rvc = (ASZReviewViewController*)segue.destinationViewController;
+        rvc.dataController.username = self.dataController.username;
+        rvc.dataController.password = self.dataController.password;
+        
+        rvc.dataController.UUID = self.dataController.UUID;
+        rvc.dataController.currentLatitude = self.dataController.currentLatitude;
+        rvc.dataController.currentLongitude = self.dataController.currentLongitude;
+        rvc.businessID  = self.businessID;//.currentLongitude;
+        rvc.businessName = self.dataController.business.name;
 
     }
 }
@@ -168,6 +183,9 @@
             break;
         case ASZBusinessDetailsInfoSection:
             return 22;
+        case ASZBusinessDetailsReviewButton:
+            return 45;
+            break;
         case ASZBusinessDetailsTopicSection:
         {
                         

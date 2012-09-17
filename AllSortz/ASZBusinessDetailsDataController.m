@@ -10,6 +10,8 @@
 #import "ASZTopicDetailViewController.h"
 #import "ASZBusinessDetailsViewController.h"
 #import "ASBusiness.h"
+#import "ASZBusinessTopicViewController.h"
+#import "ASZBusinessTopicDataController.h"
 
 #define BUSINESSIMAGEVIEW_TAG 1000
 #define BUSINESSNAMELABEL_TAG 1001
@@ -145,11 +147,6 @@
     for (NSDictionary *t in result[@"types"])
     {
         NSMutableDictionary *type = [NSMutableDictionary dictionary];
-        
-        NSLog(@"%@\n",t);
-        NSLog(@"%@\n", [t valueForKeyPath:@"type.typeID"]);
-        NSLog(@"%@\n", [t valueForKeyPath:@"type.typeName"]);
-        NSLog(@"%@\n", [t valueForKeyPath:@"type.typeIcon"]);
         [type setValue:[t valueForKeyPath:@"type.typeID"] forKey:@"ID"];
         [type setValue:[t valueForKeyPath:@"type.typeName"] forKey:@"name"];
         [type setValue:[t valueForKeyPath:@"type.typeIcon"] forKey:@"icon"];
@@ -160,7 +157,6 @@
     
     for (NSDictionary *category in result[@"categories"]) {
         NSMutableDictionary *topic = [NSMutableDictionary dictionary];
-        NSLog(@"%@\n",topic);
 
         [topic setValuesForKeysWithDictionary:@{@"ID": [category valueForKeyPath:@"topic.parentID"],
                                                 @"name": [category valueForKeyPath:@"topic.parentName"],
@@ -210,38 +206,29 @@
 {
     CGPoint currentTouchPosition = [tap locationInView:self.businessTableView];
     NSIndexPath *indexPath = [self.businessTableView indexPathForRowAtPoint: currentTouchPosition];
-    if (indexPath.section == 2)
+    if (indexPath.section == 3)
     {
         id bus  = self.business;
         id topics = [bus valueForKey:@"topics"];
         
         NSArray *topicsArray = (NSArray*)topics;
         id topic = topicsArray[indexPath.row];
-        NSInteger topicID = [[topic valueForKey:@"ID"] integerValue];
+        NSInteger topicID = [[topic valueForKey:@"bustopicID"] integerValue];
         
         
         NSString *targetViewControllerIdentifier = nil;
-        targetViewControllerIdentifier = @"TopicDetailViewControllerID";
+        targetViewControllerIdentifier = @"BusinessTopicViewControllerID";
 
-        ASZTopicDetailViewController *vc = (ASZTopicDetailViewController*)[self.viewController.storyboard instantiateViewControllerWithIdentifier:targetViewControllerIdentifier];
+        ASZBusinessTopicViewController *vc = (ASZBusinessTopicViewController*)[self.viewController.storyboard instantiateViewControllerWithIdentifier:targetViewControllerIdentifier];
         
-        
-        
-        ASZTopicDetailDataController *topicDetailsController = vc.dataController;
+        ASZBusinessTopicDataController *topicDetailsController = vc.dataController;
         ASZBusinessDetailsDataController *businessDetailsController = self;
         topicDetailsController.username = businessDetailsController.username;
         topicDetailsController.password = businessDetailsController.password;
         topicDetailsController.UUID = businessDetailsController.UUID;
         topicDetailsController.currentLatitude = businessDetailsController.currentLatitude;
         topicDetailsController.currentLongitude = businessDetailsController.currentLongitude;
-        
-        topicDetailsController.topic = [[ASZTopic alloc] initWithID:topicID];
-        topicDetailsController.topic.name = [topic valueForKey:@"name"];
-
-        topicDetailsController.topic.summary = [topic valueForKey:@"summary"];
-        topicDetailsController.topic.rating = [[topic valueForKey:@"rating"] floatValue];
-        
-        
+        [vc setBusinessTopicID:topicID];
         [self.viewController.navigationController  pushViewController:vc animated:YES];
         
     }
@@ -323,6 +310,13 @@
 
         }
             return cell;
+        case ASZBusinessDetailsReviewButton:
+            cell = [tableView dequeueReusableCellWithIdentifier:@"ReviewButtonCell"];
+        {
+            
+            
+        }
+            return cell;
         case ASZBusinessDetailsTopicSection:
             cell = [tableView dequeueReusableCellWithIdentifier:@"BusinessDetailsTopicCell"];
         {
@@ -366,7 +360,6 @@
             
             UILabel *avgRatingLabel = (UILabel*)[cell viewWithTag:TOPICAVGRATINGSLABEL_TAG];
             
-            NSLog(@"%@\n",[topic valueForKey:@"avgRating"]);
             avgRatingLabel.text = [NSString stringWithFormat:@"%@",[topic valueForKey:@"ratingAdjective"]  ];
             
             
@@ -385,7 +378,7 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 3;
+    return 4;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -397,6 +390,13 @@
         case ASZBusinessDetailsInfoSection:
             // TODO: Show info
             return 0;
+            break;
+        case ASZBusinessDetailsReviewButton:
+            if (self.business)
+                return 1;
+            return 0;
+            // TODO: Show info
+            return 1;
             break;
         case ASZBusinessDetailsTopicSection:
             return [self.business.topics count];

@@ -53,6 +53,10 @@
 		0A38F0C115FA45070050EA5E /* grey_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A38F0C015FA45060050EA5E /* grey_icon.png */; };
 		0A3DB66615D5AF970069637D /* ASIconDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A3DB66515D5AF970069637D /* ASIconDownloader.m */; };
 		0A3DB67515D5B8FC0069637D /* ASListing.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A3DB67415D5B8FC0069637D /* ASListing.m */; };
+		0A406342160539180028A57F /* ASZCommentList.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A406341160539180028A57F /* ASZCommentList.m */; };
+		0A4063451605397D0028A57F /* ASZReview.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A4063441605397D0028A57F /* ASZReview.m */; };
+		0A406348160541030028A57F /* ASZReviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A406347160541030028A57F /* ASZReviewViewController.m */; };
+		0A40634B1605411A0028A57F /* ASZReviewDataController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A40634A1605411A0028A57F /* ASZReviewDataController.m */; };
 		0A4A377B15F4F8100061001B /* libSocketRocket.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A4A377A15F4F8100061001B /* libSocketRocket.a */; };
 		0A7BAAC715DD483F00605B7D /* Placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A7BAAC615DD483F00605B7D /* Placeholder.png */; };
 		0A90C60415F4F0DA00BB427E /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A90C60315F4F0DA00BB427E /* libicucore.dylib */; };
@@ -77,6 +81,8 @@
 		0AE5C41A15F77A5E00BF110C /* NYCRestaurant_C.gif in Resources */ = {isa = PBXBuildFile; fileRef = 0AE5C41515F77A5E00BF110C /* NYCRestaurant_C.gif */; };
 		0AE5C41B15F77A5E00BF110C /* NYCRestaurant_closed.gif in Resources */ = {isa = PBXBuildFile; fileRef = 0AE5C41615F77A5E00BF110C /* NYCRestaurant_closed.gif */; };
 		0AE5C41C15F77A5E00BF110C /* NYCRestaurant_GP.gif in Resources */ = {isa = PBXBuildFile; fileRef = 0AE5C41715F77A5E00BF110C /* NYCRestaurant_GP.gif */; };
+		0AE6D8D9160653ED003FDC1C /* ASZBusinessTopicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AE6D8D8160653ED003FDC1C /* ASZBusinessTopicViewController.m */; };
+		0AE6D8DC16065402003FDC1C /* ASZBusinessTopicDataController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AE6D8DB16065402003FDC1C /* ASZBusinessTopicDataController.m */; };
 		0AFE1B6F15E6995000636B4D /* ASUserProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AFE1B6E15E6995000636B4D /* ASUserProfileViewController.m */; };
 		0AFE1B7415E6997C00636B4D /* ASUserProfileDataController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AFE1B7315E6997C00636B4D /* ASUserProfileDataController.m */; };
 		0AFE1B7715E6999C00636B4D /* ASUserProfile.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AFE1B7615E6999C00636B4D /* ASUserProfile.m */; };
@@ -239,6 +245,14 @@
 		0A3DB66515D5AF970069637D /* ASIconDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIconDownloader.m; sourceTree = "<group>"; };
 		0A3DB67315D5B8FC0069637D /* ASListing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASListing.h; sourceTree = "<group>"; };
 		0A3DB67415D5B8FC0069637D /* ASListing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASListing.m; sourceTree = "<group>"; };
+		0A406340160539180028A57F /* ASZCommentList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASZCommentList.h; sourceTree = "<group>"; };
+		0A406341160539180028A57F /* ASZCommentList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASZCommentList.m; sourceTree = "<group>"; };
+		0A4063431605397D0028A57F /* ASZReview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASZReview.h; sourceTree = "<group>"; };
+		0A4063441605397D0028A57F /* ASZReview.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASZReview.m; sourceTree = "<group>"; };
+		0A406346160541030028A57F /* ASZReviewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASZReviewViewController.h; sourceTree = "<group>"; };
+		0A406347160541030028A57F /* ASZReviewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASZReviewViewController.m; sourceTree = "<group>"; };
+		0A4063491605411A0028A57F /* ASZReviewDataController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASZReviewDataController.h; sourceTree = "<group>"; };
+		0A40634A1605411A0028A57F /* ASZReviewDataController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASZReviewDataController.m; sourceTree = "<group>"; };
 		0A4A377A15F4F8100061001B /* libSocketRocket.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSocketRocket.a; path = "Frameworks/PonyDebugger/ObjC/SocketRocket/build/Release-iphoneos/libSocketRocket.a"; sourceTree = "<group>"; };
 		0A7BAAC615DD483F00605B7D /* Placeholder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Placeholder.png; sourceTree = "<group>"; };
 		0A90C60315F4F0DA00BB427E /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
@@ -272,6 +286,10 @@
 		0AE5C41515F77A5E00BF110C /* NYCRestaurant_C.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = NYCRestaurant_C.gif; sourceTree = "<group>"; };
 		0AE5C41615F77A5E00BF110C /* NYCRestaurant_closed.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = NYCRestaurant_closed.gif; sourceTree = "<group>"; };
 		0AE5C41715F77A5E00BF110C /* NYCRestaurant_GP.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = NYCRestaurant_GP.gif; sourceTree = "<group>"; };
+		0AE6D8D7160653ED003FDC1C /* ASZBusinessTopicViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASZBusinessTopicViewController.h; sourceTree = "<group>"; };
+		0AE6D8D8160653ED003FDC1C /* ASZBusinessTopicViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASZBusinessTopicViewController.m; sourceTree = "<group>"; };
+		0AE6D8DA16065402003FDC1C /* ASZBusinessTopicDataController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASZBusinessTopicDataController.h; sourceTree = "<group>"; };
+		0AE6D8DB16065402003FDC1C /* ASZBusinessTopicDataController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASZBusinessTopicDataController.m; sourceTree = "<group>"; };
 		0AFE1B6D15E6995000636B4D /* ASUserProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASUserProfileViewController.h; sourceTree = "<group>"; };
 		0AFE1B6E15E6995000636B4D /* ASUserProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASUserProfileViewController.m; sourceTree = "<group>"; };
 		0AFE1B7215E6997C00636B4D /* ASUserProfileDataController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASUserProfileDataController.h; sourceTree = "<group>"; };
@@ -556,6 +574,15 @@
 			name = Edit;
 			sourceTree = "<group>";
 		};
+		0A40633F160530020028A57F /* Review */ = {
+			isa = PBXGroup;
+			children = (
+				0AE6D8DE160655D2003FDC1C /* CommentList */,
+				0AE6D8DD160655C7003FDC1C /* SubmitReview */,
+			);
+			name = Review;
+			sourceTree = "<group>";
+		};
 		0A4A377C15F4F8990061001B /* PonyDebugger */ = {
 			isa = PBXGroup;
 			children = (
@@ -609,6 +636,32 @@
 				0AAB66C815EFE50300F22011 /* ASProfilePictureViewController.m */,
 			);
 			name = Social;
+			sourceTree = "<group>";
+		};
+		0AE6D8DD160655C7003FDC1C /* SubmitReview */ = {
+			isa = PBXGroup;
+			children = (
+				0A4063431605397D0028A57F /* ASZReview.h */,
+				0A4063441605397D0028A57F /* ASZReview.m */,
+				0A406346160541030028A57F /* ASZReviewViewController.h */,
+				0A406347160541030028A57F /* ASZReviewViewController.m */,
+				0A4063491605411A0028A57F /* ASZReviewDataController.h */,
+				0A40634A1605411A0028A57F /* ASZReviewDataController.m */,
+			);
+			name = SubmitReview;
+			sourceTree = "<group>";
+		};
+		0AE6D8DE160655D2003FDC1C /* CommentList */ = {
+			isa = PBXGroup;
+			children = (
+				0A406340160539180028A57F /* ASZCommentList.h */,
+				0A406341160539180028A57F /* ASZCommentList.m */,
+				0AE6D8D7160653ED003FDC1C /* ASZBusinessTopicViewController.h */,
+				0AE6D8D8160653ED003FDC1C /* ASZBusinessTopicViewController.m */,
+				0AE6D8DA16065402003FDC1C /* ASZBusinessTopicDataController.h */,
+				0AE6D8DB16065402003FDC1C /* ASZBusinessTopicDataController.m */,
+			);
+			name = CommentList;
 			sourceTree = "<group>";
 		};
 		0AFE1B7115E6995C00636B4D /* Browse Topics */ = {
@@ -681,6 +734,7 @@
 		6C0CC23B15B7B1FC00F2F7B6 /* AllSortz */ = {
 			isa = PBXGroup;
 			children = (
+				0A40633F160530020028A57F /* Review */,
 				0AAB66BC15EFA4DD00F22011 /* Social */,
 				6C0CC24415B7B1FC00F2F7B6 /* ASAppDelegate.h */,
 				6C0CC24515B7B1FC00F2F7B6 /* ASAppDelegate.m */,
@@ -1058,6 +1112,12 @@
 				0A13E56B15F804EE00DD9A3F /* ASZEditBusinessDetailsDataController.m in Sources */,
 				0A13E56F15F8089800DD9A3F /* ASZEditBusinessDetailsViewController.m in Sources */,
 				0A37505615FBF29900DAB6F3 /* ASZBusinessListingSingleton.m in Sources */,
+				0A406342160539180028A57F /* ASZCommentList.m in Sources */,
+				0A4063451605397D0028A57F /* ASZReview.m in Sources */,
+				0A406348160541030028A57F /* ASZReviewViewController.m in Sources */,
+				0A40634B1605411A0028A57F /* ASZReviewDataController.m in Sources */,
+				0AE6D8D9160653ED003FDC1C /* ASZBusinessTopicViewController.m in Sources */,
+				0AE6D8DC16065402003FDC1C /* ASZBusinessTopicDataController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

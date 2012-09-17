@@ -56,7 +56,6 @@
     NSMutableArray *typeIDs = [[NSMutableArray alloc]init];
     for (NSDictionary*d in allTypes)
     {
-        NSLog(@"%@\n",d);
         if ([[d valueForKey:@"selected"] isEqualToString:@"true"])
         {
             [typeIDs addObject:[d valueForKey:@"typeID" ]];

@@ -103,7 +103,7 @@
     //this should never be called. but, in case we get to a situation where there is no businessList, call update on the server
     if (!self.listingsTableDataController.businessList)
     {
-        NSLog(@"Map view entered on latitude %f\n",self.mv.region.center.latitude);
+       // NSLog(@"Map view entered on latitude %f\n",self.mv.region.center.latitude);
         [self.listingsTableDataController setRect:self.mv.region];
         [self.listingsTableDataController setUpdateAList:NO];
         [self.listingsTableDataController updateData];
@@ -120,16 +120,18 @@
     [self.listingsTableDataController updateData];
 }
 
+
+#pragma mark - Load as scroll
 - (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated
 {
-    return;
     
-    /*NSLog(@"Map view entered on latitude %f\n",self.mv.region.center.latitude);
+    
+  //  NSLog(@"Map view entered on latitude %f\n",self.mv.region.center.latitude);
     
  
     
     MKCoordinateRegion region = self.mv.region;
-    CLLocationCoordinate2D location =  self.prevRegion.center;
+ //   CLLocationCoordinate2D location =  self.prevRegion.center;
     
     CLLocationCoordinate2D center   = region.center;
     CLLocationCoordinate2D northWestCorner, southEastCorner;
@@ -139,7 +141,7 @@
     southEastCorner.latitude  = center.latitude  + (region.span.latitudeDelta  / 2.0);
     southEastCorner.longitude = center.longitude + (region.span.longitudeDelta / 2.0);
     
-    if (
+  /*  if (
         location.latitude  >= northWestCorner.latitude &&
         location.latitude  <= southEastCorner.latitude &&
         
@@ -151,16 +153,16 @@
         NSLog(@"Center (%f, %f) span (%f, %f) user: (%f, %f)| IN!", region.center.latitude, region.center.longitude, region.span.latitudeDelta, region.span.longitudeDelta, location.latitude, location.longitude);
         self.prevRegion = self.mv.region;
         
-    }else {
+    }else {*/
         
         // User location (location) out of the region - NOT ok :-(
-        NSLog(@"Center (%f, %f) span (%f, %f) user: (%f, %f)| OUT!", region.center.latitude, region.center.longitude, region.span.latitudeDelta, region.span.longitudeDelta, location.latitude, location.longitude);
+        //NSLog(@"Center (%f, %f) span (%f, %f) user: (%f, %f)| OUT!", region.center.latitude, region.center.longitude, region.span.latitudeDelta, region.span.longitudeDelta, location.latitude, location.longitude);
         [self.listingsTableDataController setRect:self.mv.region];
         [self.listingsTableDataController setUpdateAList:NO];
         [self.listingsTableDataController updateData];
         self.prevRegion = self.mv.region;
-    }
-    */
+    //}
+    
 
 
 
@@ -330,11 +332,11 @@
     }
 
     // remove all annotations
-    NSMutableArray *toRemove = [NSMutableArray arrayWithCapacity:10];
+   /* NSMutableArray *toRemove = [NSMutableArray arrayWithCapacity:10];
     for (id annotation in self.mv.annotations)
         if (annotation != self.mv.userLocation)
             [toRemove addObject:annotation];
-    [self.mv removeAnnotations:toRemove];
+    [self.mv removeAnnotations:toRemove];*/
     
     //add annotations array to the mapView
     [self.mv addAnnotations:self.businessPoints];
@@ -349,7 +351,7 @@
     // If the business list changes, reassign
     if ([keyPath isEqualToString:@"businessList"]) {
         [self loadMapElements];
-        [self zoomToFitMapAnnotations:self.mv];
+       // [self zoomToFitMapAnnotations:self.mv];
     }
 
 }
@@ -387,7 +389,7 @@
     newQ.searchText =  searchBar.text;
     [self.listingsTableDataController setSearchQuery:newQ];
     
-    NSLog(@"region is at %f\n",self.mv.region.center.latitude);
+   // NSLog(@"region is at %f\n",self.mv.region.center.latitude);
     [self.listingsTableDataController setRect:self.mv.region];
     [self.listingsTableDataController setUpdateAList:NO];
     [self.listingsTableDataController updateWithQuery];

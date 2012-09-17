@@ -84,7 +84,7 @@
     // this is the first time we've seen this query (so, set pagination to 0)
     if (!self.searchQuery.goneToServer)
     {
-        self.businessList = nil;
+        //self.businessList = nil;
         self.searchQuery.goneToServer = YES;
     }
     
@@ -96,7 +96,7 @@
     }
     else
     {
-        self.businessList = nil;
+        //self.businessList = nil;
         CLLocationCoordinate2D center = self.rect.center;
         float maxx = center.latitude  + (self.rect.span.latitudeDelta  / 2.0);
         float maxy = center.longitude  + (self.rect.span.longitudeDelta  / 2.0);
@@ -174,7 +174,9 @@
                                                                             options:0
                                                                               error:NULL];
         
-        if (!self.businessList)
+        self.businessList = [[ASBusinessList alloc] initWithJSONObject:JSONresponse];
+
+       /* if (!self.businessList)
         {
             self.businessList = [[ASBusinessList alloc] initWithJSONObject:JSONresponse];
         }
@@ -189,7 +191,7 @@
             [newList setEntries:appendedList];
             self.businessList = newList;
         }
-        self.receivedData = nil;
+        self.receivedData = nil;*/
         [self.requestInProgress unlock];
         
     }
@@ -225,7 +227,7 @@
     else
     {
         //completely refresh the data
-        [self setBusinessList:nil];
+
         CLLocationCoordinate2D center = self.rect.center;
         float maxx = center.latitude  + (self.rect.span.latitudeDelta  / 2.0);
         float maxy = center.longitude  + (self.rect.span.longitudeDelta  / 2.0);

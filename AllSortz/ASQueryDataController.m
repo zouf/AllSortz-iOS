@@ -43,7 +43,6 @@
     NSURLConnection *connection = [NSURLConnection connectionWithRequest:request delegate:self];
     if (!connection) {
         // TODO: Some proper failure handling maybe
-        NSLog(@"Error in API!\n");
         return NO;
     }
     self.receivedData = [NSMutableData data];

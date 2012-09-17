@@ -53,14 +53,12 @@
                                   context:NULL];
 }
 
-- (void)viewDidUnload
+-(void)viewDidUnload
 {
     [super viewDidUnload];
-    self.addBusinessDataController = nil;
-
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
+    [self.addBusinessDataController removeObserver:self forKeyPath:@"business"];
 }
+
 
 - (void)viewWillAppear:(BOOL)animated
 {

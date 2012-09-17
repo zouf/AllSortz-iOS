@@ -329,6 +329,10 @@
     [self loadImagesForOnscreenRows];
 }
 
+
+#pragma mark - Dynamic load list
+/*
+
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     NSArray *visiblePaths = [self.tableView indexPathsForVisibleRows];
@@ -344,7 +348,7 @@
                         [self.listingsTableDataController updateData];
                     }
 }
-
+*/
 #pragma mark - Key-value observing
 
 -(void)loadListElements

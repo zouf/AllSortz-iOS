@@ -9,6 +9,7 @@
 typedef enum ASZBusinessDetailsSection : NSInteger {
     ASZBusinessDetailsHeaderSection,
     ASZBusinessDetailsInfoSection,
+    ASZBusinessDetailsReviewButton,
     ASZBusinessDetailsTopicSection
 } ASZBusinessDetailsSection;
 
