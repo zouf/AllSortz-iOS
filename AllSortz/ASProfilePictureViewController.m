@@ -60,7 +60,8 @@
 {
     UIImagePickerController *imagePickController=[[UIImagePickerController alloc]init];
     //You can use isSourceTypeAvailable to check
-    imagePickController.sourceType=UIImagePickerControllerSourceTypePhotoLibrary;
+    
+    imagePickController.sourceType=UIImagePickerControllerSourceTypeCamera;
     imagePickController.delegate=self;
     imagePickController.allowsEditing=NO;
     //imagePickController.showsCameraControls=YES;

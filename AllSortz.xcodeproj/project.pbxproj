@@ -57,13 +57,11 @@
 		0A4063451605397D0028A57F /* ASZReview.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A4063441605397D0028A57F /* ASZReview.m */; };
 		0A406348160541030028A57F /* ASZReviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A406347160541030028A57F /* ASZReviewViewController.m */; };
 		0A40634B1605411A0028A57F /* ASZReviewDataController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A40634A1605411A0028A57F /* ASZReviewDataController.m */; };
-		0A4A377B15F4F8100061001B /* libSocketRocket.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A4A377A15F4F8100061001B /* libSocketRocket.a */; };
 		0A7BAAC715DD483F00605B7D /* Placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A7BAAC615DD483F00605B7D /* Placeholder.png */; };
 		0A90C60415F4F0DA00BB427E /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A90C60315F4F0DA00BB427E /* libicucore.dylib */; };
 		0A90C60615F4F0E200BB427E /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A90C60515F4F0E200BB427E /* CFNetwork.framework */; };
 		0A90C60815F4F0EC00BB427E /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A90C60715F4F0EC00BB427E /* CoreData.framework */; };
 		0A90C60A15F4F0F300BB427E /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A90C60915F4F0F300BB427E /* Security.framework */; };
-		0A90CFD715F4F62900BB427E /* libPonyDebugger.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A90CFD615F4F49700BB427E /* libPonyDebugger.a */; };
 		0AA1045115F3CA420029EDD7 /* ASZTopicDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AA1045015F3CA420029EDD7 /* ASZTopicDetailViewController.m */; };
 		0AA1045415F3CA4E0029EDD7 /* ASZTopic.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AA1045315F3CA4E0029EDD7 /* ASZTopic.m */; };
 		0AA1045715F3CD7A0029EDD7 /* ASZTopicDetailDataController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AA1045615F3CD7A0029EDD7 /* ASZTopicDetailDataController.m */; };
@@ -83,6 +81,8 @@
 		0AE5C41C15F77A5E00BF110C /* NYCRestaurant_GP.gif in Resources */ = {isa = PBXBuildFile; fileRef = 0AE5C41715F77A5E00BF110C /* NYCRestaurant_GP.gif */; };
 		0AE6D8D9160653ED003FDC1C /* ASZBusinessTopicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AE6D8D8160653ED003FDC1C /* ASZBusinessTopicViewController.m */; };
 		0AE6D8DC16065402003FDC1C /* ASZBusinessTopicDataController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AE6D8DB16065402003FDC1C /* ASZBusinessTopicDataController.m */; };
+		0AEE0E82160A7396007BFF52 /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AEE0E80160A7396007BFF52 /* libTestFlight.a */; };
+		0AEE0E84160A7510007BFF52 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AEE0E83160A7510007BFF52 /* libz.dylib */; };
 		0AFE1B6F15E6995000636B4D /* ASUserProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AFE1B6E15E6995000636B4D /* ASUserProfileViewController.m */; };
 		0AFE1B7415E6997C00636B4D /* ASUserProfileDataController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AFE1B7315E6997C00636B4D /* ASUserProfileDataController.m */; };
 		0AFE1B7715E6999C00636B4D /* ASUserProfile.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AFE1B7615E6999C00636B4D /* ASUserProfile.m */; };
@@ -171,13 +171,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		0A90CFD515F4F49700BB427E /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 0A90CFCD15F4F49600BB427E /* PonyDebugger.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = F683ADAC14FC1B4C008EBBA7;
-			remoteInfo = PonyDebugger;
-		};
 		6C0CC26515B7B1FC00F2F7B6 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 6C0CC22815B7B1FC00F2F7B6 /* Project object */;
@@ -253,13 +246,11 @@
 		0A406347160541030028A57F /* ASZReviewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASZReviewViewController.m; sourceTree = "<group>"; };
 		0A4063491605411A0028A57F /* ASZReviewDataController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASZReviewDataController.h; sourceTree = "<group>"; };
 		0A40634A1605411A0028A57F /* ASZReviewDataController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASZReviewDataController.m; sourceTree = "<group>"; };
-		0A4A377A15F4F8100061001B /* libSocketRocket.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSocketRocket.a; path = "Frameworks/PonyDebugger/ObjC/SocketRocket/build/Release-iphoneos/libSocketRocket.a"; sourceTree = "<group>"; };
 		0A7BAAC615DD483F00605B7D /* Placeholder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Placeholder.png; sourceTree = "<group>"; };
 		0A90C60315F4F0DA00BB427E /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
 		0A90C60515F4F0E200BB427E /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		0A90C60715F4F0EC00BB427E /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		0A90C60915F4F0F300BB427E /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
-		0A90CFCD15F4F49600BB427E /* PonyDebugger.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PonyDebugger.xcodeproj; path = Frameworks/PonyDebugger/ObjC/PonyDebugger.xcodeproj; sourceTree = "<group>"; };
 		0AA1044F15F3CA420029EDD7 /* ASZTopicDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASZTopicDetailViewController.h; sourceTree = "<group>"; };
 		0AA1045015F3CA420029EDD7 /* ASZTopicDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASZTopicDetailViewController.m; sourceTree = "<group>"; };
 		0AA1045215F3CA4D0029EDD7 /* ASZTopic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASZTopic.h; sourceTree = "<group>"; };
@@ -290,6 +281,9 @@
 		0AE6D8D8160653ED003FDC1C /* ASZBusinessTopicViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASZBusinessTopicViewController.m; sourceTree = "<group>"; };
 		0AE6D8DA16065402003FDC1C /* ASZBusinessTopicDataController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASZBusinessTopicDataController.h; sourceTree = "<group>"; };
 		0AE6D8DB16065402003FDC1C /* ASZBusinessTopicDataController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASZBusinessTopicDataController.m; sourceTree = "<group>"; };
+		0AEE0E80160A7396007BFF52 /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTestFlight.a; sourceTree = "<group>"; };
+		0AEE0E81160A7396007BFF52 /* TestFlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TestFlight.h; path = ../TestFlight.h; sourceTree = "<group>"; };
+		0AEE0E83160A7510007BFF52 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		0AFE1B6D15E6995000636B4D /* ASUserProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASUserProfileViewController.h; sourceTree = "<group>"; };
 		0AFE1B6E15E6995000636B4D /* ASUserProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASUserProfileViewController.m; sourceTree = "<group>"; };
 		0AFE1B7215E6997C00636B4D /* ASUserProfileDataController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASUserProfileDataController.h; sourceTree = "<group>"; };
@@ -402,8 +396,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0A4A377B15F4F8100061001B /* libSocketRocket.a in Frameworks */,
-				0A90CFD715F4F62900BB427E /* libPonyDebugger.a in Frameworks */,
+				0AEE0E84160A7510007BFF52 /* libz.dylib in Frameworks */,
 				6C0CC23815B7B1FC00F2F7B6 /* Foundation.framework in Frameworks */,
 				0A90C60A15F4F0F300BB427E /* Security.framework in Frameworks */,
 				0A90C60815F4F0EC00BB427E /* CoreData.framework in Frameworks */,
@@ -413,6 +406,7 @@
 				6C0CC27915B7B9BE00F2F7B6 /* MapKit.framework in Frameworks */,
 				6C0CC23615B7B1FC00F2F7B6 /* UIKit.framework in Frameworks */,
 				6C0CC23A15B7B1FC00F2F7B6 /* CoreGraphics.framework in Frameworks */,
+				0AEE0E82160A7396007BFF52 /* libTestFlight.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -583,15 +577,6 @@
 			name = Review;
 			sourceTree = "<group>";
 		};
-		0A4A377C15F4F8990061001B /* PonyDebugger */ = {
-			isa = PBXGroup;
-			children = (
-				0A4A377A15F4F8100061001B /* libSocketRocket.a */,
-				0A90CFCD15F4F49600BB427E /* PonyDebugger.xcodeproj */,
-			);
-			name = PonyDebugger;
-			sourceTree = "<group>";
-		};
 		0A4A379615F6E4910061001B /* DOH */ = {
 			isa = PBXGroup;
 			children = (
@@ -602,14 +587,6 @@
 				0AE5C41715F77A5E00BF110C /* NYCRestaurant_GP.gif */,
 			);
 			name = DOH;
-			sourceTree = "<group>";
-		};
-		0A90CFCE15F4F49600BB427E /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				0A90CFD615F4F49700BB427E /* libPonyDebugger.a */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		0AA1045815F3CD840029EDD7 /* Topic Detail */ = {
@@ -698,13 +675,14 @@
 			isa = PBXGroup;
 			children = (
 				6C0CC23B15B7B1FC00F2F7B6 /* AllSortz */,
-				0A4A377C15F4F8990061001B /* PonyDebugger */,
 				6C0CC26715B7B1FC00F2F7B6 /* AllSortzTests */,
 				6C0CC23415B7B1FC00F2F7B6 /* Frameworks */,
 				6C0CC23215B7B1FC00F2F7B6 /* Products */,
 				0A90C60915F4F0F300BB427E /* Security.framework */,
 				0A90C60715F4F0EC00BB427E /* CoreData.framework */,
 				0A90C60515F4F0E200BB427E /* CFNetwork.framework */,
+				0AEE0E83160A7510007BFF52 /* libz.dylib */,
+				0AEE0E80160A7396007BFF52 /* libTestFlight.a */,
 				0A90C60315F4F0DA00BB427E /* libicucore.dylib */,
 				0AA6259615EED5F800C0BE8E /* CoreLocation.framework */,
 			);
@@ -734,6 +712,7 @@
 		6C0CC23B15B7B1FC00F2F7B6 /* AllSortz */ = {
 			isa = PBXGroup;
 			children = (
+				0AEE0E81160A7396007BFF52 /* TestFlight.h */,
 				0A40633F160530020028A57F /* Review */,
 				0AAB66BC15EFA4DD00F22011 /* Social */,
 				6C0CC24415B7B1FC00F2F7B6 /* ASAppDelegate.h */,
@@ -910,12 +889,6 @@
 			mainGroup = 6C0CC22615B7B1FC00F2F7B6;
 			productRefGroup = 6C0CC23215B7B1FC00F2F7B6 /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = 0A90CFCE15F4F49600BB427E /* Products */;
-					ProjectRef = 0A90CFCD15F4F49600BB427E /* PonyDebugger.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				6C0CC23015B7B1FC00F2F7B6 /* AllSortz */,
@@ -923,16 +896,6 @@
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		0A90CFD615F4F49700BB427E /* libPonyDebugger.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libPonyDebugger.a;
-			remoteRef = 0A90CFD515F4F49700BB427E /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		6C0CC22F15B7B1FC00F2F7B6 /* Resources */ = {
@@ -1235,11 +1198,19 @@
 		6C0CC27315B7B1FC00F2F7B6 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer: Matthew Zoufaly (R945WVEVM5)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "AllSortz/AllSortz-Prefix.pch";
 				HEADER_SEARCH_PATHS = "$(CONFIGURATION_BUILD_DIR)/usr/local/include/**";
 				INFOPLIST_FILE = "AllSortz/AllSortz-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/TestFlightSDK1.1\"",
+					"\"$(SRCROOT)\"",
+				);
+				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "8BA36853-0EF3-43A0-8483-8044BE0F0B87";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1247,10 +1218,18 @@
 		6C0CC27415B7B1FC00F2F7B6 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Distribution: AllSortz, Inc.";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "AllSortz/AllSortz-Prefix.pch";
 				INFOPLIST_FILE = "AllSortz/AllSortz-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/TestFlightSDK1.1\"",
+					"\"$(SRCROOT)\"",
+				);
+				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "FAE01797-163B-43AB-BDCD-525D32B1A22C";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
