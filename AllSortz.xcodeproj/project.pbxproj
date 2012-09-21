@@ -57,6 +57,8 @@
 		0A4063451605397D0028A57F /* ASZReview.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A4063441605397D0028A57F /* ASZReview.m */; };
 		0A406348160541030028A57F /* ASZReviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A406347160541030028A57F /* ASZReviewViewController.m */; };
 		0A40634B1605411A0028A57F /* ASZReviewDataController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A40634A1605411A0028A57F /* ASZReviewDataController.m */; };
+		0A78B413160BE69100148849 /* ASDefault@2x~iphone5.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A78B412160BE69100148849 /* ASDefault@2x~iphone5.png */; };
+		0A78B415160BE6A600148849 /* ASDefault-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A78B414160BE6A600148849 /* ASDefault-568h@2x.png */; };
 		0A7BAAC715DD483F00605B7D /* Placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A7BAAC615DD483F00605B7D /* Placeholder.png */; };
 		0A90C60415F4F0DA00BB427E /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A90C60315F4F0DA00BB427E /* libicucore.dylib */; };
 		0A90C60615F4F0E200BB427E /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A90C60515F4F0E200BB427E /* CFNetwork.framework */; };
@@ -246,6 +248,8 @@
 		0A406347160541030028A57F /* ASZReviewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASZReviewViewController.m; sourceTree = "<group>"; };
 		0A4063491605411A0028A57F /* ASZReviewDataController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASZReviewDataController.h; sourceTree = "<group>"; };
 		0A40634A1605411A0028A57F /* ASZReviewDataController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASZReviewDataController.m; sourceTree = "<group>"; };
+		0A78B412160BE69100148849 /* ASDefault@2x~iphone5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ASDefault@2x~iphone5.png"; path = "../../Sites/as2/images/ASDefault@2x~iphone5.png"; sourceTree = "<group>"; };
+		0A78B414160BE6A600148849 /* ASDefault-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ASDefault-568h@2x.png"; sourceTree = "<group>"; };
 		0A7BAAC615DD483F00605B7D /* Placeholder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Placeholder.png; sourceTree = "<group>"; };
 		0A90C60315F4F0DA00BB427E /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
 		0A90C60515F4F0E200BB427E /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
@@ -674,6 +678,7 @@
 		6C0CC22615B7B1FC00F2F7B6 = {
 			isa = PBXGroup;
 			children = (
+				0A78B414160BE6A600148849 /* ASDefault-568h@2x.png */,
 				6C0CC23B15B7B1FC00F2F7B6 /* AllSortz */,
 				6C0CC26715B7B1FC00F2F7B6 /* AllSortzTests */,
 				6C0CC23415B7B1FC00F2F7B6 /* Frameworks */,
@@ -820,6 +825,7 @@
 		6C3A152F15E54BC5006C9EC0 /* Launch Images */ = {
 			isa = PBXGroup;
 			children = (
+				0A78B412160BE69100148849 /* ASDefault@2x~iphone5.png */,
 				6C61B73515E580140041276B /* ASDefault~iphone.png */,
 				6C61B73415E580140041276B /* ASDefault@2x~iphone.png */,
 				6C61B73115E580140041276B /* ASDefault-Landscape~ipad.png */,
@@ -1005,6 +1011,8 @@
 				0AE5C41B15F77A5E00BF110C /* NYCRestaurant_closed.gif in Resources */,
 				0AE5C41C15F77A5E00BF110C /* NYCRestaurant_GP.gif in Resources */,
 				0A38F0C115FA45070050EA5E /* grey_icon.png in Resources */,
+				0A78B413160BE69100148849 /* ASDefault@2x~iphone5.png in Resources */,
+				0A78B415160BE6A600148849 /* ASDefault-568h@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
