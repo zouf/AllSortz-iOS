@@ -30,8 +30,8 @@
 
 // the main data model for our UITableView
 @property (nonatomic, retain) NSMutableArray *entries;
-
-
+@property(nonatomic,assign) BOOL newAddress;
+@property(nonatomic,retain) NSString* searchText;
 
 
 

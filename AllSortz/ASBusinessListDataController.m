@@ -92,7 +92,7 @@
     if (self.updateAList)
     {
         address = [NSString stringWithFormat:@"http://allsortz.com/api/businesses/?uname=%@&password=%@&lat=%f&lon=%f&deviceID=%@&bus_low=%d&bus_high=%d", [self.deviceInterface getStoredUname], [self.deviceInterface getStoredPassword],
-                   self.currentLocation.coordinate.latitude,self.currentLocation.coordinate.longitude,[self.deviceInterface getDeviceUIUD],self.businessList.entries.count,self.businessList.entries.count + NUM_RESULTS];
+                   self.currentLocation.coordinate.latitude,self.currentLocation.coordinate.longitude,[self.deviceInterface getDeviceUIUD],0,NUM_RESULTS];
     }
     else
     {
@@ -175,23 +175,8 @@
                                                                               error:NULL];
         
         self.businessList = [[ASBusinessList alloc] initWithJSONObject:JSONresponse];
+        
 
-       /* if (!self.businessList)
-        {
-            self.businessList = [[ASBusinessList alloc] initWithJSONObject:JSONresponse];
-        }
-        else
-        {
-            ASBusinessList *newList = [[ASBusinessList alloc] initWithJSONObject:JSONresponse];
-            NSMutableArray *appendedList = self.businessList.entries;
-            for (NSDictionary *dict in newList.entries)
-            {
-                [appendedList addObject:dict];
-            }
-            [newList setEntries:appendedList];
-            self.businessList = newList;
-        }
-        self.receivedData = nil;*/
         [self.requestInProgress unlock];
         
     }

@@ -79,6 +79,9 @@
     {
         ASZReviewViewController *rvc = (ASZReviewViewController*)segue.destinationViewController;
         rvc.dataController.username = self.dataController.username;
+        
+        assert(rvc.dataController.username);
+
         rvc.dataController.password = self.dataController.password;
         
         rvc.dataController.UUID = self.dataController.UUID;
@@ -94,6 +97,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+
     
 
 }

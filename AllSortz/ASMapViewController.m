@@ -19,6 +19,7 @@
 @interface ASMapViewController()
 @property (weak, nonatomic) IBOutlet MKMapView *mv;
 @property (weak, nonatomic) NSMutableArray *businessPoints;
+@property (weak, nonatomic) IBOutlet UIView *searchDisplayBar;
 
 @property(assign) MKCoordinateRegion prevRegion;
 
@@ -63,7 +64,7 @@
 	region.span = span;
 	self.mv.region = [self.mv regionThatFits:region];
     
-
+    
     // on initial load of this view controller, update from the server if there's no business list
     if (!self.listingsTableDataController.businessList)
     {
@@ -76,7 +77,7 @@
     else // business list comes from somewhere else
     {
         [self loadMapElements];
-        //[self zoomToFitMapAnnotations:self.mv];
+        [self zoomToFitMapAnnotations:self.mv];
     }
 
     UITapGestureRecognizer *gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyboard)];
@@ -100,7 +101,7 @@
     [super viewDidAppear:animated];
     [self setTitle:@"Map"];
 
-    
+
     //this should never be called. but, in case we get to a situation where there is no businessList, call update on the server
     if (!self.listingsTableDataController.businessList)
     {
@@ -117,6 +118,7 @@
 }
 - (IBAction)refreshTapped:(id)sender {
     [self.listingsTableDataController setRect:self.mv.region];
+    [self.listingsTableDataController setSearchQuery:nil];
     [self.listingsTableDataController setUpdateAList:NO];
     [self.listingsTableDataController updateData];
 }
@@ -297,17 +299,20 @@
     ASBusinessListDataController *listDataController = self.listingsTableDataController;
     detailsDataController.username = [listDataController.deviceInterface getStoredUname];
     detailsDataController.password = [listDataController.deviceInterface getStoredPassword];
+    
+    assert(detailsDataController.username);
     detailsDataController.UUID = [listDataController.deviceInterface getDeviceUIUD];
     detailsDataController.currentLatitude = listDataController.currentLocation.coordinate.latitude;
     detailsDataController.currentLongitude = listDataController.currentLocation.coordinate.longitude;
 
-    
+    [vc setHidesBottomBarWhenPushed:YES];
     [self.navigationController  pushViewController:vc animated:YES];
     [self.navigationController setNavigationBarHidden:NO];
     
 }
 - (void)viewDidUnload {
     [self setMv:nil];
+    [self setSearchDisplayBar:nil];
     [super viewDidUnload];
 }
 
@@ -317,6 +322,28 @@
 
 -(void)loadMapElements
 {
+    
+    UILabel *searchText = (UILabel*)[self.searchDisplayBar viewWithTag:1001];
+    searchText.hidden = NO;
+    searchText.text = self.listingsTableDataController.businessList.searchText;
+    if (self.listingsTableDataController.searchQuery)
+    {
+        UITapGestureRecognizer* singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(refreshTapped:)];
+        singleTap.numberOfTapsRequired = 1;
+        singleTap.numberOfTouchesRequired = 1;
+        singleTap.cancelsTouchesInView = NO;
+        [self.searchDisplayBar addGestureRecognizer:singleTap];
+        UILabel *action = (UILabel*)[self.searchDisplayBar viewWithTag:1002];
+        action.text = @"Tap to clear";
+        
+    }
+    else
+    {
+
+        UILabel *action = (UILabel*)[self.searchDisplayBar viewWithTag:1002];
+        action.text = @"";
+        
+    }
     // TODO: can we loadMapElements only if there's been a change to the business list?
     
     //create annotations and add to the busStopAnnotations array
@@ -333,11 +360,11 @@
     }
 
     // remove all annotations
-   /* NSMutableArray *toRemove = [NSMutableArray arrayWithCapacity:10];
+    NSMutableArray *toRemove = [NSMutableArray arrayWithCapacity:10];
     for (id annotation in self.mv.annotations)
         if (annotation != self.mv.userLocation)
             [toRemove addObject:annotation];
-    [self.mv removeAnnotations:toRemove];*/
+    [self.mv removeAnnotations:toRemove];
     
     //add annotations array to the mapView
     [self.mv addAnnotations:self.businessPoints];
@@ -352,8 +379,10 @@
     // If the business list changes, reassign
     if ([keyPath isEqualToString:@"businessList"]) {
         [self loadMapElements];
-
-       // [self zoomToFitMapAnnotations:self.mv];
+        if (self.listingsTableDataController.businessList.newAddress)
+        {
+            [self zoomToFitMapAnnotations:self.mv];
+        }
     }
 
 }

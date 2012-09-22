@@ -11,6 +11,9 @@
 
 
 #import "ASMapViewController.h"
+
+
+
 @implementation ASAppDelegate
 
 @synthesize window = _window;
@@ -21,6 +24,10 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     [TestFlight takeOff:@"5af67420b5ca952f5357339fec274517_NjM2MTg4MjAxMi0wOS0xOSAxNTo1Nzo1MS45ODAxOTU"];
+    self.mainTabNavController = (UITabBarController *)_window.rootViewController;
+    self.mainTabNavController.delegate = self;
+    [self.mainTabNavController setHidesBottomBarWhenPushed:YES];
+
     return YES;
 }
 							
@@ -51,6 +58,16 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
+- (void)tabBarController:(UITabBarController *)tabBarController
+ didSelectViewController:(UIViewController *)viewController {
+    NSLog(@"[%@ tabBarController:%@  didSelectViewController:%@]", [self class],
+          tabBarController, viewController);
+   // if (viewController == self.mainTabNavController)
+    {
+        NSLog(@"viewController == tab1NavController");
+        [viewController.navigationController popToRootViewControllerAnimated:NO];
+    }
+}
 
 
 @end

@@ -278,6 +278,7 @@
             }
             else
             {
+                [url removeTarget:self.viewController action:@selector(editTapped:) forControlEvents:(UIControlEvents)UIControlEventTouchDown];
                 [url setTitle:self.business.website.path forState:UIControlStateNormal];
    
             }
@@ -292,7 +293,9 @@
             }
             else
             {
+                [phone removeTarget:self.viewController action:@selector(editTapped:) forControlEvents:(UIControlEvents)UIControlEventTouchDown];
                 [phone setTitle:self.business.phone forState:UIControlStateNormal];
+
             }
             
             UIButton *healthGradeButton = (UIButton*)[cell.contentView viewWithTag:BUSINESSHEALTH_TAG];

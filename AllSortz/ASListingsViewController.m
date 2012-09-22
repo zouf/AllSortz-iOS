@@ -25,8 +25,8 @@
 @interface ASListingsViewController ()
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UIView *searchDisplayBar;
 
-@property (weak, nonatomic) IBOutlet UIView *overlayView;
 
 //- (IBAction)goToMap:(id)sender;
 
@@ -38,7 +38,6 @@
 
 #pragma mark - View controller
 
-@synthesize overlayView = _overlayView;
 
 - (void)viewDidLoad
 {
@@ -78,9 +77,9 @@
 
 - (void)viewDidUnload
 {
-    [self setOverlayView:nil];
     [self.listingsTableDataController removeObserver:self forKeyPath:@"businessList"];
 
+    [self setSearchDisplayBar:nil];
     [super viewDidUnload];
 }
 
@@ -100,11 +99,11 @@
 
 - (void)viewDidAppear:(BOOL)animated
 {
+    
     [super viewDidAppear:animated];
     [self setTitle:@"Listings"];
 
     // Imitate default behavior of UITableViewController
-
     
     [self.tableView flashScrollIndicators];
 }
@@ -355,6 +354,21 @@
 
 -(void)loadListElements
 {
+    
+    UILabel *searchText = (UILabel*)[self.searchDisplayBar viewWithTag:1001];
+    searchText.hidden = NO;
+    searchText.text = self.listingsTableDataController.businessList.searchText;
+    if (self.listingsTableDataController.searchQuery)
+    {
+        UILabel *action = (UILabel*)[self.searchDisplayBar viewWithTag:1002];
+        action.text = @"";
+    }
+    else
+    {
+        UILabel *action = (UILabel*)[self.searchDisplayBar viewWithTag:1002];
+        action.text = @"";
+    }
+    
     [self.imageDownloadsInProgress removeAllObjects];
     [self.tableView reloadData];
 }
@@ -370,6 +384,7 @@
         self.tableView.dataSource = (newDataSource == [NSNull null] ? nil : newDataSource);
         [self setTitle:@"Listings"];
         [self loadListElements];
+
     }
 }
 
@@ -393,7 +408,10 @@
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     id destinationViewController = segue.destinationViewController;
-
+    
+    UIViewController* vc = (UIViewController*)destinationViewController;
+    [vc setHidesBottomBarWhenPushed:YES];
+    
     if ([segue.identifier isEqualToString:@"NewSort"]) {
         UINavigationController *nv = destinationViewController;
         ASSortViewController *nsvc = (ASSortViewController *)nv.topViewController;
@@ -416,6 +434,8 @@
         ASZBusinessDetailsDataController *detailsDataController = detailsViewController.dataController;
         ASBusinessListDataController *listDataController = self.listingsTableDataController;
         detailsDataController.username = [listDataController.deviceInterface getStoredUname];
+        assert(detailsDataController.username);
+
         detailsDataController.password = [listDataController.deviceInterface getStoredPassword];
         detailsDataController.UUID = [listDataController.deviceInterface getDeviceUIUD];
         detailsDataController.currentLatitude = listDataController.currentLocation.coordinate.latitude;
@@ -424,12 +444,12 @@
 }
 
 
-
+/*
 - (IBAction)tapNext:(id)sender {
     [self.listingsTableDataController setUpdateAList:YES];
     [self.listingsTableDataController updateData];
 }
-
+*/
 
 
 /*

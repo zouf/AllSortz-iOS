@@ -60,6 +60,7 @@
 		0A78B413160BE69100148849 /* ASDefault@2x~iphone5.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A78B412160BE69100148849 /* ASDefault@2x~iphone5.png */; };
 		0A78B415160BE6A600148849 /* ASDefault-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A78B414160BE6A600148849 /* ASDefault-568h@2x.png */; };
 		0A7BAAC715DD483F00605B7D /* Placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A7BAAC615DD483F00605B7D /* Placeholder.png */; };
+		0A7EA196160E2DA300A74412 /* ASZTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A7EA195160E2DA300A74412 /* ASZTabBarViewController.m */; };
 		0A90C60415F4F0DA00BB427E /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A90C60315F4F0DA00BB427E /* libicucore.dylib */; };
 		0A90C60615F4F0E200BB427E /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A90C60515F4F0E200BB427E /* CFNetwork.framework */; };
 		0A90C60815F4F0EC00BB427E /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A90C60715F4F0EC00BB427E /* CoreData.framework */; };
@@ -251,6 +252,8 @@
 		0A78B412160BE69100148849 /* ASDefault@2x~iphone5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ASDefault@2x~iphone5.png"; path = "../../Sites/as2/images/ASDefault@2x~iphone5.png"; sourceTree = "<group>"; };
 		0A78B414160BE6A600148849 /* ASDefault-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ASDefault-568h@2x.png"; sourceTree = "<group>"; };
 		0A7BAAC615DD483F00605B7D /* Placeholder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Placeholder.png; sourceTree = "<group>"; };
+		0A7EA194160E2DA300A74412 /* ASZTabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASZTabBarViewController.h; sourceTree = "<group>"; };
+		0A7EA195160E2DA300A74412 /* ASZTabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASZTabBarViewController.m; sourceTree = "<group>"; };
 		0A90C60315F4F0DA00BB427E /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
 		0A90C60515F4F0E200BB427E /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		0A90C60715F4F0EC00BB427E /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -741,6 +744,8 @@
 				0AA6259415EED1AB00C0BE8E /* ASDeviceInterface.m */,
 				0A37505415FBF29700DAB6F3 /* ASZBusinessListingSingleton.h */,
 				0A37505515FBF29800DAB6F3 /* ASZBusinessListingSingleton.m */,
+				0A7EA194160E2DA300A74412 /* ASZTabBarViewController.h */,
+				0A7EA195160E2DA300A74412 /* ASZTabBarViewController.m */,
 			);
 			path = AllSortz;
 			sourceTree = "<group>";
@@ -1089,6 +1094,7 @@
 				0A40634B1605411A0028A57F /* ASZReviewDataController.m in Sources */,
 				0AE6D8D9160653ED003FDC1C /* ASZBusinessTopicViewController.m in Sources */,
 				0AE6D8DC16065402003FDC1C /* ASZBusinessTopicDataController.m in Sources */,
+				0A7EA196160E2DA300A74412 /* ASZTabBarViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

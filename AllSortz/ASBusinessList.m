@@ -29,7 +29,16 @@
     NSDictionary *serverBusList = [aJSONObject objectForKey:@"result"];
     _businesses = [serverBusList objectForKey:@"businesses"];
     _entries = [[NSMutableArray alloc]init];
+    if ([[aJSONObject valueForKey:@"requestType"]isEqualToString:@"new_address"])
+    {
+        self.newAddress = YES;
+    }
+    else
+    {
+        self.newAddress = NO;
+    }
     
+    self.searchText = [serverBusList valueForKey:@"searchString"];
     for(NSDictionary * dict in _businesses)
     {
         //NSString *businessName = [dict objectForKey:@"businesName"];  
