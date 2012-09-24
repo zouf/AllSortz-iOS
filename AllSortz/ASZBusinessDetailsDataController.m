@@ -8,7 +8,7 @@
 
 #import "ASZBusinessDetailsDataController.h"
 #import "ASZTopicDetailViewController.h"
-#import "ASZBusinessDetailsViewController.h"
+#import "ASZBusinessDetailsBaseViewController.h"
 #import "ASBusiness.h"
 #import "ASZBusinessTopicViewController.h"
 #import "ASZBusinessTopicDataController.h"
@@ -38,7 +38,8 @@
 
 @property NSOperationQueue *queue;  // Assume we only need one for now
 @property (weak, nonatomic) IBOutlet UITableView *businessTableView;
-@property (weak, nonatomic) IBOutlet ASZBusinessDetailsViewController *viewController;
+@property (weak, nonatomic) IBOutlet ASZBusinessDetailsBaseViewController *viewController;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *segmentedControl;
 
 - (ASBusiness *)businessFromJSONResult:(NSDictionary *)result;
 
@@ -50,6 +51,21 @@
 #pragma mark - Data download
 @synthesize businessTableView = _businessTableView;
 @synthesize viewController = _viewController;
+
+#pragma mark - update the view 
+-(void)updateView
+{
+    UILabel* businessName = (UILabel*)[self.viewController.mainView viewWithTag:BUSINESSNAMELABEL_TAG];
+    businessName.text = self.business.name;
+
+    
+    UILabel* score = (UILabel*)[self.viewController.mainView viewWithTag:BUSINESSSCORE_TAG];
+    score.text =[NSString stringWithFormat:@"Score for you: %0.2f",self.business.recommendation];
+    
+    UILabel *distance = (UILabel*)[self.viewController.mainView  viewWithTag:BUSINESSDIST_TAG];
+    distance.text = [NSString stringWithFormat:@"%0.2fmi.",[self.business.distance floatValue]];
+}
+
 
 
 -(UIImage*) getImageForGrade:(NSString *)healthGrade
@@ -210,7 +226,7 @@
 {
     CGPoint currentTouchPosition = [tap locationInView:self.businessTableView];
     NSIndexPath *indexPath = [self.businessTableView indexPathForRowAtPoint: currentTouchPosition];
-    if (indexPath.section == 3)
+    if (self.segmentedControl.selectedSegmentIndex == 0)
     {
         id bus  = self.business;
         id topics = [bus valueForKey:@"topics"];
@@ -247,8 +263,8 @@
 {
     UITableViewCell *cell = nil;
 
-    switch (indexPath.section) {
-        case ASZBusinessDetailsHeaderSection:
+    switch (self.segmentedControl.selectedSegmentIndex) {
+        case 1:
             cell = [tableView dequeueReusableCellWithIdentifier:@"BusinessDetailsHeaderCell"];
         {
             if (!self.business)
@@ -307,12 +323,7 @@
             [healthGradeButton setImage:[self getImageForGrade:self.business.healthGrade] forState:UIControlStateNormal];
             [healthGradeButton setBackgroundColor:[UIColor lightGrayColor]];
             
-            
-            UIProgressView* score = (UIProgressView*)[cell.contentView viewWithTag:BUSINESSSCORE_TAG];
-            score.progress = self.business.recommendation;
-            
-            UILabel *distance = (UILabel*)[cell.contentView viewWithTag:BUSINESSDIST_TAG];
-            distance.text = [NSString stringWithFormat:@"%0.2fmi.",[self.business.distance floatValue]];
+        
             
             UIButton *address = (UIButton*)[cell.contentView viewWithTag:BUSINESSADDRESS_TAG];
             address.titleLabel.lineBreakMode = UILineBreakModeWordWrap;
@@ -321,14 +332,14 @@
 
         }
             return cell;
-        case ASZBusinessDetailsReviewButton:
+        case 2:
             cell = [tableView dequeueReusableCellWithIdentifier:@"ReviewButtonCell"];
         {
             
             
         }
             return cell;
-        case ASZBusinessDetailsTopicSection:
+        case 0:
             cell = [tableView dequeueReusableCellWithIdentifier:@"BusinessDetailsTopicCell"];
         {
             id topic = self.business.topics[indexPath.row];
@@ -339,11 +350,7 @@
             UITextView *topicSummary = (UITextView *)[cell.contentView viewWithTag:TOPICTEXTVIEW_TAG];
             topicSummary.text = [topic valueForKey:@"summary"];
             
-           /* UIProgressView *ratingView = (UIProgressView*)[cell.contentView viewWithTag:TOPICRATINGVIEW_TAG];
-            ratingView.progress = [[topic valueForKey:@"rating"] floatValue];
-            
-            UISlider *sliderView = (UISlider*)[cell.contentView viewWithTag:TOPICRATINGSLIDER_TAG];
-            sliderView.value = [[topic valueForKey:@"rating"] floatValue];*/
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
             
             UISegmentedControl *rateSelector = (UISegmentedControl*)[cell.contentView viewWithTag:TOPICRATINGSEGMENTED_TAG];
             UIFont *font = [UIFont fontWithName:@"Gill Sans" size:12];
@@ -389,27 +396,19 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 4;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    switch (section) {
-        case ASZBusinessDetailsHeaderSection:
+    switch (self.segmentedControl.selectedSegmentIndex) {
+        case 1:
             return 1;
             break;
-        case ASZBusinessDetailsInfoSection:
-            // TODO: Show info
+        case 2:  //redeem
             return 0;
             break;
-        case ASZBusinessDetailsReviewButton:
-            if (self.business)
-                return 1;
-            return 0;
-            // TODO: Show info
-            return 1;
-            break;
-        case ASZBusinessDetailsTopicSection:
+        case 0:
             return [self.business.topics count];
             break;
         default:

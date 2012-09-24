@@ -14,7 +14,8 @@
 
 #import "ASZBusinessListingSingleton.h"
 
-#import "ASZBusinessDetailsViewController.h"
+
+#import "ASZBusinessDetailsBaseViewController.h"
 
 @interface ASMapViewController()
 @property (weak, nonatomic) IBOutlet MKMapView *mv;
@@ -289,8 +290,8 @@
 - (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control
 {
     ASMapPoint *mp = (ASMapPoint*)view.annotation;
-    NSString *targetViewControllerIdentifier = @"ShowBusinessDetails";
-    ASZBusinessDetailsViewController *vc = (ASZBusinessDetailsViewController*)[self.storyboard instantiateViewControllerWithIdentifier:targetViewControllerIdentifier];
+    NSString *targetViewControllerIdentifier = @"ShowBusinessDetails2";
+    ASZBusinessDetailsBaseViewController *vc = (ASZBusinessDetailsBaseViewController*)[self.storyboard instantiateViewControllerWithIdentifier:targetViewControllerIdentifier];
     [vc setBusinessID:mp.tag];
     
     

@@ -37,5 +37,5 @@ typedef enum ASZBusinessDetailsInfoRow : NSInteger {
 - (UIImage*)getImageForGrade:(NSString*)healthGrade;
 - (void)refreshBusinessAsynchronouslyWithID:(NSUInteger)ID;
 -(void)rateBusinessTopicAsynchronously:(NSUInteger)btID withRating:(NSInteger)rating;
-
+-(void)updateView;
 @end
