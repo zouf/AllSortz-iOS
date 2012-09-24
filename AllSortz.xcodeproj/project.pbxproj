@@ -77,6 +77,10 @@
 		0AAB66C415EFA4E800F22011 /* ASUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AAB66BF15EFA4E800F22011 /* ASUser.m */; };
 		0AAB66C515EFA4E800F22011 /* ASSocialDataController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AAB66C115EFA4E800F22011 /* ASSocialDataController.m */; };
 		0AAB66C915EFE50300F22011 /* ASProfilePictureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AAB66C815EFE50300F22011 /* ASProfilePictureViewController.m */; };
+		0AE55CC41610BB1E0041F8B8 /* vegan.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AE55CC11610BB1E0041F8B8 /* vegan.png */; };
+		0AE55CC51610BB1E0041F8B8 /* vegan@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AE55CC21610BB1E0041F8B8 /* vegan@2x.png */; };
+		0AE55CC61610BB1E0041F8B8 /* wings.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AE55CC31610BB1E0041F8B8 /* wings.png */; };
+		0AE55CC91610BB290041F8B8 /* wings@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AE55CC81610BB290041F8B8 /* wings@2x.png */; };
 		0AE5C41815F77A5E00BF110C /* NYCRestaurant_A.gif in Resources */ = {isa = PBXBuildFile; fileRef = 0AE5C41315F77A5E00BF110C /* NYCRestaurant_A.gif */; };
 		0AE5C41915F77A5E00BF110C /* NYCRestaurant_B.gif in Resources */ = {isa = PBXBuildFile; fileRef = 0AE5C41415F77A5E00BF110C /* NYCRestaurant_B.gif */; };
 		0AE5C41A15F77A5E00BF110C /* NYCRestaurant_C.gif in Resources */ = {isa = PBXBuildFile; fileRef = 0AE5C41515F77A5E00BF110C /* NYCRestaurant_C.gif */; };
@@ -279,6 +283,10 @@
 		0AAB66C115EFA4E800F22011 /* ASSocialDataController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASSocialDataController.m; sourceTree = "<group>"; };
 		0AAB66C715EFE50300F22011 /* ASProfilePictureViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASProfilePictureViewController.h; sourceTree = "<group>"; };
 		0AAB66C815EFE50300F22011 /* ASProfilePictureViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASProfilePictureViewController.m; sourceTree = "<group>"; };
+		0AE55CC11610BB1E0041F8B8 /* vegan.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vegan.png; sourceTree = "<group>"; };
+		0AE55CC21610BB1E0041F8B8 /* vegan@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "vegan@2x.png"; sourceTree = "<group>"; };
+		0AE55CC31610BB1E0041F8B8 /* wings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wings.png; sourceTree = "<group>"; };
+		0AE55CC81610BB290041F8B8 /* wings@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "wings@2x.png"; sourceTree = "<group>"; };
 		0AE5C41315F77A5E00BF110C /* NYCRestaurant_A.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = NYCRestaurant_A.gif; sourceTree = "<group>"; };
 		0AE5C41415F77A5E00BF110C /* NYCRestaurant_B.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = NYCRestaurant_B.gif; sourceTree = "<group>"; };
 		0AE5C41515F77A5E00BF110C /* NYCRestaurant_C.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = NYCRestaurant_C.gif; sourceTree = "<group>"; };
@@ -491,6 +499,10 @@
 		0A0ECA9815DD76E8007FD661 /* Type Icons */ = {
 			isa = PBXGroup;
 			children = (
+				0AE55CC81610BB290041F8B8 /* wings@2x.png */,
+				0AE55CC11610BB1E0041F8B8 /* vegan.png */,
+				0AE55CC21610BB1E0041F8B8 /* vegan@2x.png */,
+				0AE55CC31610BB1E0041F8B8 /* wings.png */,
 				6C9DE8F815E6C0CA0050BF14 /* accessible.png */,
 				0A0ECA9915DD76E8007FD661 /* accessible@2x.png */,
 				6C9DE8F915E6C0CC0050BF14 /* account.png */,
@@ -1018,6 +1030,10 @@
 				0A38F0C115FA45070050EA5E /* grey_icon.png in Resources */,
 				0A78B413160BE69100148849 /* ASDefault@2x~iphone5.png in Resources */,
 				0A78B415160BE6A600148849 /* ASDefault-568h@2x.png in Resources */,
+				0AE55CC41610BB1E0041F8B8 /* vegan.png in Resources */,
+				0AE55CC51610BB1E0041F8B8 /* vegan@2x.png in Resources */,
+				0AE55CC61610BB1E0041F8B8 /* wings.png in Resources */,
+				0AE55CC91610BB290041F8B8 /* wings@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
