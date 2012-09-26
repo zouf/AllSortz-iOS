@@ -35,7 +35,7 @@
     // need a list of topics (and maybe what topics are already assoc. with busines)
     // might include text you've already written
     
-    NSString *address = [NSString stringWithFormat:@"http://192.168.1.100/api/review/%lu/?uname=%@&password=%@&lat=%f&lon=%f&deviceID=%@", (unsigned long)ID, self.username, self.password, self.currentLatitude, self.currentLongitude, self.UUID];
+    NSString *address = [NSString stringWithFormat:@"http://allsortz.com/api/review/%lu/?uname=%@&password=%@&lat=%f&lon=%f&deviceID=%@", (unsigned long)ID, self.username, self.password, self.currentLatitude, self.currentLongitude, self.UUID];
     NSLog(@"Get review base with query %@",address);
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:address]];
     void (^handler)(NSURLResponse *, NSData *, NSError *) = ^(NSURLResponse *response, NSData *data, NSError *error) {
@@ -71,7 +71,7 @@
 
 - (void)submitReviewWithTopics:(NSArray*)topics;
 {
-    NSString *address = [NSString stringWithFormat:@"http://192.168.1.100/api/comment/add/%lu/?uname=%@&password=%@&lat=%f&lon=%f&deviceID=%@", (unsigned long)self.viewController.businessID, self.username, self.password, self.currentLatitude, self.currentLongitude, self.UUID];
+    NSString *address = [NSString stringWithFormat:@"http://allsortz.com/api/comment/add/%lu/?uname=%@&password=%@&lat=%f&lon=%f&deviceID=%@", (unsigned long)self.viewController.businessID, self.username, self.password, self.currentLatitude, self.currentLongitude, self.UUID];
     NSString *str = [[self.review serializeToDictionaryWithTopics:topics] urlEncodedString];
     NSData* data = [str dataUsingEncoding:NSUTF8StringEncoding];
     NSURLRequest *request = [self postRequestWithAddress:address data:data];

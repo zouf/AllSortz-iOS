@@ -46,7 +46,7 @@
         return;
     }
        
-    NSString * typeAddress = [NSString stringWithFormat:@"http://192.168.1.100/api/types/?uname=%@&password=%@&lat=%f&lon=%f&deviceID=%@",  self.username, self.password, self.currentLatitude, self.currentLongitude, self.UUID];
+    NSString * typeAddress = [NSString stringWithFormat:@"http://allsortz.com/api/types/?uname=%@&password=%@&lat=%f&lon=%f&deviceID=%@",  self.username, self.password, self.currentLatitude, self.currentLongitude, self.UUID];
 
     NSURLRequest *typeRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:typeAddress]];
     void (^typeHandler)(NSURLResponse *, NSData *, NSError *) = ^(NSURLResponse *response, NSData *data, NSError *error) {
@@ -84,7 +84,7 @@
         return;
     }
     
-    NSString *address = [NSString stringWithFormat:@"http://192.168.1.100/api/business/edit/%lu/?uname=%@&password=%@&lat=%f&lon=%f&deviceID=%@", (unsigned long)ID, self.username, self.password, self.currentLatitude, self.currentLongitude, self.UUID];
+    NSString *address = [NSString stringWithFormat:@"http://allsortz.com/api/business/edit/%lu/?uname=%@&password=%@&lat=%f&lon=%f&deviceID=%@", (unsigned long)ID, self.username, self.password, self.currentLatitude, self.currentLongitude, self.UUID];
     NSString *str = [[self.business serializeToDictionaryWithTypes:self.allTypes] urlEncodedString];
     NSData* data = [str dataUsingEncoding:NSUTF8StringEncoding];
     NSURLRequest *request = [self postRequestWithAddress:address data:data];

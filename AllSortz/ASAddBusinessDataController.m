@@ -35,7 +35,7 @@ static NSString * const FORM_FLE_INPUT = @"uploaded";
 - (BOOL)updateData
 {
     
-    NSString *address = [NSString stringWithFormat:@"http://192.168.1.100/api/types/?uname=%@&password=%@&deviceID=%@",  [self.deviceInterface getStoredUname], [self.deviceInterface getStoredPassword],[self.deviceInterface getDeviceUIUD]];
+    NSString *address = [NSString stringWithFormat:@"http://allsortz.com/api/types/?uname=%@&password=%@&deviceID=%@",  [self.deviceInterface getStoredUname], [self.deviceInterface getStoredPassword],[self.deviceInterface getDeviceUIUD]];
 
     NSURL *url = [NSURL URLWithString:address];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
@@ -71,7 +71,7 @@ static NSString * const FORM_FLE_INPUT = @"uploaded";
 
 - (BOOL)uploadData
 {
-    NSString *address = [NSString stringWithFormat:@"http://192.168.1.100/api/business/add/?uname=%@&password=%@&deviceID=%@",  [self.deviceInterface getStoredUname], [self.deviceInterface getStoredPassword],[self.deviceInterface getDeviceUIUD]];
+    NSString *address = [NSString stringWithFormat:@"http://allsortz.com/api/business/add/?uname=%@&password=%@&deviceID=%@",  [self.deviceInterface getStoredUname], [self.deviceInterface getStoredPassword],[self.deviceInterface getDeviceUIUD]];
 
     NSString *str = [[self.business serializeToDictionary] urlEncodedString];
     NSData* data = [str dataUsingEncoding:NSUTF8StringEncoding];

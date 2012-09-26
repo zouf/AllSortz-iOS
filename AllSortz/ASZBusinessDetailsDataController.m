@@ -12,6 +12,7 @@
 #import "ASBusiness.h"
 #import "ASZBusinessTopicViewController.h"
 #import "ASZBusinessTopicDataController.h"
+#import "ASZRateView.h"
 
 #define BUSINESSIMAGEVIEW_TAG 1000
 #define BUSINESSNAMELABEL_TAG 1001
@@ -32,7 +33,7 @@
 #define TOPICRATINGSLIDER_TAG 1014
 #define TOPICRATINGSEGMENTED_TAG 1015
 #define TOPICAVGRATINGSLABEL_TAG 1016
-
+#define STAR_VIEW 1020
 
 @interface ASZBusinessDetailsDataController ()
 
@@ -55,15 +56,34 @@
 #pragma mark - update the view 
 -(void)updateView
 {
-    UILabel* businessName = (UILabel*)[self.viewController.mainView viewWithTag:BUSINESSNAMELABEL_TAG];
-    businessName.text = self.business.name;
 
     
-    UILabel* score = (UILabel*)[self.viewController.mainView viewWithTag:BUSINESSSCORE_TAG];
-    score.text =[NSString stringWithFormat:@"Score for you: %0.2f",self.business.recommendation];
-    
+    //UILabel* score = (UILabel*)[self.viewController.mainView viewWithTag:BUSINESSSCORE_TAG];
+    //score.text =[NSString stringWithFormat:@"Score for you: %0.2f",
+    ASZRateView *rv = self.viewController.rateView;
     UILabel *distance = (UILabel*)[self.viewController.mainView  viewWithTag:BUSINESSDIST_TAG];
-    distance.text = [NSString stringWithFormat:@"%0.2fmi.",[self.business.distance floatValue]];
+    UILabel* businessName = (UILabel*)[self.viewController.mainView viewWithTag:BUSINESSNAMELABEL_TAG];
+
+    if (self.business)
+    {
+        [rv setHidden:NO];
+        [distance setHidden:NO];
+        [businessName setHidden:NO];
+        float rat = self.business.recommendation*5;
+        businessName.text = self.business.name;
+        distance.text = [NSString stringWithFormat:@"%0.2fmi.",[self.business.distance floatValue]];
+        [rv setRating:rat];
+
+    }
+    else{
+        [rv setHidden:YES];
+        [distance setHidden:YES];
+        [businessName setHidden:YES];
+    }
+
+    
+
+    
 }
 
 
@@ -97,7 +117,7 @@
 
 -(void)rateBusinessTopicAsynchronously:(NSUInteger)btID withRating:(NSInteger)rating
 {
-    NSString *address = [NSString stringWithFormat:@"http://192.168.1.100/api/business/topic/rate/%lu/?uname=%@&password=%@&lat=%f&lon=%f&deviceID=%@&rating=%d", (unsigned long)btID, self.username, self.password, self.currentLatitude, self.currentLongitude, self.UUID,rating];
+    NSString *address = [NSString stringWithFormat:@"http://allsortz.com/api/business/topic/rate/%lu/?uname=%@&password=%@&lat=%f&lon=%f&deviceID=%@&rating=%d", (unsigned long)btID, self.username, self.password, self.currentLatitude, self.currentLongitude, self.UUID,rating];
     NSLog(@"Get details with query %@",address);
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:address]];
     void (^handler)(NSURLResponse *, NSData *, NSError *) = ^(NSURLResponse *response, NSData *data, NSError *error) {
@@ -118,7 +138,7 @@
         return;
     }
 
-    NSString *address = [NSString stringWithFormat:@"http://192.168.1.100/api/business/%lu?uname=%@&password=%@&lat=%f&lon=%f&deviceID=%@", (unsigned long)ID, self.username, self.password, self.currentLatitude, self.currentLongitude, self.UUID];
+    NSString *address = [NSString stringWithFormat:@"http://allsortz.com/api/business/%lu?uname=%@&password=%@&lat=%f&lon=%f&deviceID=%@", (unsigned long)ID, self.username, self.password, self.currentLatitude, self.currentLongitude, self.UUID];
     NSLog(@"Rate businesstopic with address %@",address);
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:address]];
     void (^handler)(NSURLResponse *, NSData *, NSError *) = ^(NSURLResponse *response, NSData *data, NSError *error) {
@@ -226,8 +246,7 @@
 {
     CGPoint currentTouchPosition = [tap locationInView:self.businessTableView];
     NSIndexPath *indexPath = [self.businessTableView indexPathForRowAtPoint: currentTouchPosition];
-    if (self.segmentedControl.selectedSegmentIndex == 0)
-    {
+
         id bus  = self.business;
         id topics = [bus valueForKey:@"topics"];
         
@@ -235,7 +254,6 @@
         id topic = topicsArray[indexPath.row];
         NSInteger topicID = [[topic valueForKey:@"bustopicID"] integerValue];
         
-        NSLog(@"%@\n",topic);
         NSString *targetViewControllerIdentifier = nil;
         targetViewControllerIdentifier = @"BusinessTopicViewControllerID";
 
@@ -243,7 +261,6 @@
         
         [vc setBusiness:self.business];
         [vc setBusinessTopicName:[topic valueForKey:@"name"]];
-        NSLog(@"%@\n",vc.businessTopicName);
         self.viewController.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:self.business.name style:UIBarButtonItemStylePlain target:nil action:nil] ;
         ASZBusinessTopicDataController *topicDetailsController = vc.dataController;
         ASZBusinessDetailsDataController *businessDetailsController = self;
@@ -254,8 +271,7 @@
         topicDetailsController.currentLongitude = businessDetailsController.currentLongitude;
         [vc setBusinessTopicID:topicID];
         [self.viewController.navigationController  pushViewController:vc animated:YES];
-        
-    }
+
 }
 
 
@@ -267,16 +283,11 @@
         case 1:
             cell = [tableView dequeueReusableCellWithIdentifier:@"BusinessDetailsHeaderCell"];
         {
-            if (!self.business)
-                [cell setHidden:YES];
-            
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            
-            
-            UILabel *name = (UILabel *)[cell.contentView viewWithTag:BUSINESSNAMELABEL_TAG];
-            name.text = self.business.name;
-            
-            UITextView *types = (UITextView*)[cell.contentView viewWithTag:BUSINESSTYPES_TAG];
+            if (cell == nil) {
+                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"BusinessDetailsHeaderCell"];
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            }
             NSMutableString *typeArrayStr = [[NSMutableString alloc] initWithString:@""];
             
             for (NSDictionary *d in self.business.types)
@@ -284,84 +295,131 @@
                 [typeArrayStr appendString:[d valueForKey:@"name"]];
                 [typeArrayStr appendString:@"\n"];
             }
-            types.text = [NSString stringWithString:typeArrayStr];
             
-            
-            UIButton *url = (UIButton *)[cell.contentView viewWithTag:BUSINESSURL_TAG];
-            [url setTitle:self.business.website.path forState:UIControlStateNormal];
-            if (!self.business.website.path || [self.business.website.path isEqualToString:@""] )
-            {
-                [url setTitle:@"Tell us" forState:UIControlStateNormal];
-                [url addTarget:self.viewController
-                            action:@selector(editTapped:)
-                  forControlEvents:(UIControlEvents)UIControlEventTouchDown];                           
-            }
-            else
-            {
-                [url removeTarget:self.viewController action:@selector(editTapped:) forControlEvents:(UIControlEvents)UIControlEventTouchDown];
-                [url setTitle:self.business.website.path forState:UIControlStateNormal];
-   
-            }
-            
-            UIButton *phone = (UIButton *)[cell.contentView viewWithTag:BUSINESSPHONE_TAG];
-            if (!self.business.phone || [self.business.phone isEqualToString:@""])
-            {
-                [phone setTitle:@"Tell us" forState:UIControlStateNormal];
-                [phone addTarget:self.viewController
-                        action:@selector(editTapped:)
-              forControlEvents:(UIControlEvents)UIControlEventTouchDown];
-            }
-            else
-            {
-                [phone removeTarget:self.viewController action:@selector(editTapped:) forControlEvents:(UIControlEvents)UIControlEventTouchDown];
-                [phone setTitle:self.business.phone forState:UIControlStateNormal];
 
-            }
-            
-            UIButton *healthGradeButton = (UIButton*)[cell.contentView viewWithTag:BUSINESSHEALTH_TAG];
 
-            [healthGradeButton setImage:[self getImageForGrade:self.business.healthGrade] forState:UIControlStateNormal];
-            [healthGradeButton setBackgroundColor:[UIColor lightGrayColor]];
+            NSLog(@"%d\n",indexPath.row);
             
-        
             
-            UIButton *address = (UIButton*)[cell.contentView viewWithTag:BUSINESSADDRESS_TAG];
-            address.titleLabel.lineBreakMode = UILineBreakModeWordWrap;
-            address.titleLabel.textAlignment = UITextAlignmentCenter;
-            [address setTitle:[NSString stringWithFormat:@"%@\n%@, %@ %@\n",self.business.address,self.business.city,self.business.state,self.business.zipcode] forState:UIControlStateNormal];
+            switch(indexPath.section)
+            {
+                case 0:
+                    cell.textLabel.text = @"What it has";
+                    cell.detailTextLabel.text =typeArrayStr;
+                    break;
+                case 1:
+                    cell.textLabel.text = @"URL";
+                    cell.detailTextLabel.text = self.business.website.path;
+                    break;
+                case 2:
+                    cell.textLabel.text = @"Address";
+                    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@\n%@, %@ %@\n",self.business.address,self.business.city,self.business.state,self.business.zipcode];
+                    break;
+                case 3:
+                    cell.textLabel.text = @"Phone";
+                    cell.detailTextLabel.text = self.business.phone;
+                    break;
+                case 4:
+                    cell.textLabel.text = @"Health Grade";
+                    cell.imageView.image = [self getImageForGrade:self.business.healthGrade];
+                    cell.detailTextLabel.text = self.business.healthGrade;
+
+                    break;
+                default:
+                    cell.textLabel.text = @"Health Grade";
+                    cell.detailTextLabel.text = @"Yo";
+                    break;
+            }
+
+            
+            return cell;
 
         }
             return cell;
         case 2:
-            cell = [tableView dequeueReusableCellWithIdentifier:@"ReviewButtonCell"];
+            cell = [tableView dequeueReusableCellWithIdentifier:@"RedeemCell"];
         {
+            if (cell == nil) {
+                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"RedeemCell"];
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            }
             
+            cell.textLabel.text = @"Rewards and Deals";
             
         }
             return cell;
         case 0:
             cell = [tableView dequeueReusableCellWithIdentifier:@"BusinessDetailsTopicCell"];
         {
+            UITextView * topicSummary;
+            UILabel * topicName;
+            UISegmentedControl *rateSelector;
+            UILabel *avgRatingLabel;
+            if (cell == nil) {
+                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"BusinessDetailsTopicCell"];
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            
+                topicName = [[UILabel alloc]initWithFrame:CGRectMake(6,0,82.0,26.0)];
+                topicName.tag = TOPICNAMELABEL_TAG;
+                topicName.font = [UIFont fontWithName:@"Gill Sans"  size:14];
+                topicName.textAlignment = UITextAlignmentRight;
+                topicName.textColor = [UIColor darkGrayColor];
+                topicName.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
+                [cell.contentView addSubview:topicName];
+                
+                
+                
+              
+                topicSummary = [[UITextView alloc] initWithFrame:CGRectMake(100, 0, 215, 68)];
+                topicSummary.tag = TOPICTEXTVIEW_TAG;
+                topicSummary.font = [UIFont fontWithName:@"GillSans-Light"  size:10];
+                topicSummary.textAlignment = UITextAlignmentRight;
+                topicSummary.textColor = [UIColor darkGrayColor];
+                topicSummary.scrollEnabled = NO;
+                //topicSummary.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
+                [cell.contentView addSubview:topicSummary];
+                                       
+                UIFont *font = [UIFont fontWithName:@"Gill Sans" size:12];
+                NSArray *itemArray = [NSArray arrayWithObjects: @"Down", @"Up", nil];
+                rateSelector = [[UISegmentedControl alloc] initWithItems:itemArray];
+                rateSelector.tag = TOPICRATINGSEGMENTED_TAG;
+                rateSelector.frame = CGRectMake(11, 39, 72  , 25);
+                rateSelector.segmentedControlStyle = UISegmentedControlStyleBar;
+                rateSelector.selectedSegmentIndex = 1;
+
+                NSDictionary *attributes = [NSDictionary dictionaryWithObject:font
+                                                                       forKey:UITextAttributeFont];
+                [rateSelector setTitleTextAttributes:attributes
+                                                forState:UIControlStateNormal];
+          
+                
+                [cell.contentView addSubview:rateSelector];
+
+                avgRatingLabel = [[UILabel alloc]initWithFrame:CGRectMake(6,14,82.0,26.0)];
+                avgRatingLabel.tag = TOPICAVGRATINGSLABEL_TAG;
+                avgRatingLabel.font = [UIFont fontWithName:@"Gill Sans"  size:10];
+                avgRatingLabel.textAlignment = UITextAlignmentCenter;
+                avgRatingLabel.textColor = [UIColor darkGrayColor];
+                topicSummary.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
+                [cell.contentView addSubview:avgRatingLabel];
+                
+
+                
+            }
+            else
+            {
+                topicName = (UILabel*)[cell.contentView viewWithTag:TOPICNAMELABEL_TAG];
+                topicSummary = (UITextView*)[cell.contentView viewWithTag:TOPICTEXTVIEW_TAG];
+                rateSelector = (UISegmentedControl*)[cell.contentView viewWithTag:TOPICRATINGSEGMENTED_TAG];
+                avgRatingLabel = (UILabel*)[cell viewWithTag:TOPICAVGRATINGSLABEL_TAG];
+
+            }
             id topic = self.business.topics[indexPath.row];
-
-            UILabel *topicName = (UILabel *)[cell.contentView viewWithTag:TOPICNAMELABEL_TAG];
             topicName.text = [topic valueForKey:@"name"];
-
-            UITextView *topicSummary = (UITextView *)[cell.contentView viewWithTag:TOPICTEXTVIEW_TAG];
             topicSummary.text = [topic valueForKey:@"summary"];
-            
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            
-            UISegmentedControl *rateSelector = (UISegmentedControl*)[cell.contentView viewWithTag:TOPICRATINGSEGMENTED_TAG];
-            UIFont *font = [UIFont fontWithName:@"Gill Sans" size:12];
-            NSDictionary *attributes = [NSDictionary dictionaryWithObject:font
-                                                                   forKey:UITextAttributeFont];
-            [rateSelector setTitleTextAttributes:attributes
-                                            forState:UIControlStateNormal];
-            CGRect r = rateSelector.frame;
-            r.size.height = 25.0;
-            [rateSelector setFrame:r];
-            
+            NSLog(@"Yo %@\n", topic);
+
             if ([[topic valueForKey:@"rating"] intValue] == 0)
             {
                 [rateSelector setSelectedSegmentIndex:0];
@@ -374,13 +432,14 @@
             {
                  [rateSelector setSelectedSegmentIndex:0];
             }
-            
-            
-            UILabel *avgRatingLabel = (UILabel*)[cell viewWithTag:TOPICAVGRATINGSLABEL_TAG];
-            
             avgRatingLabel.text = [NSString stringWithFormat:@"%@",[topic valueForKey:@"ratingAdjective"]  ];
             
+            topicSummary.backgroundColor = [UIColor clearColor];
+            topicName.backgroundColor = [UIColor clearColor];
+            avgRatingLabel.backgroundColor = [UIColor clearColor];
+
             
+            [rateSelector addTarget:self.viewController action:@selector(busTopicRateTap:) forControlEvents:UIControlEventAllEvents];
             UITapGestureRecognizer* singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleTap:)];
             singleTap.numberOfTapsRequired = 1;
             singleTap.numberOfTouchesRequired = 1;
@@ -396,15 +455,29 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 1;
+    switch(self.segmentedControl.selectedSegmentIndex)
+    {
+        case 0:
+            return 1;
+            break;
+        case 1:
+            return 5;
+            break;
+        default:
+            return 1;
+            break;
+            
+    }
+    
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     switch (self.segmentedControl.selectedSegmentIndex) {
         case 1:
+        {
             return 1;
-            break;
+        }
         case 2:  //redeem
             return 0;
             break;

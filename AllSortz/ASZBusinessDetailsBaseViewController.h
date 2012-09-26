@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+@class ASZRateView;
 @class ASZBusinessDetailsDataController;
 
 
@@ -16,8 +17,8 @@
 @property IBOutlet ASZBusinessDetailsDataController *dataController;
 @property (strong, nonatomic) IBOutlet UIView *mainView;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segmentedController;
+@property (weak, nonatomic) IBOutlet ASZRateView *rateView;
 
-- (IBAction)dialBusinessPhone;
-- (IBAction)goToURL:(id)sender;
+
 
 @end

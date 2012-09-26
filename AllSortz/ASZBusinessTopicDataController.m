@@ -38,7 +38,7 @@
     // need a list of topics (and maybe what topics are already assoc. with busines)
     // might include text you've already written
     
-    NSString *address = [NSString stringWithFormat:@"http://192.168.1.100/api/comments/%lu/?uname=%@&password=%@&lat=%f&lon=%f&deviceID=%@", (unsigned long)btID, self.username, self.password, self.currentLatitude, self.currentLongitude, self.UUID];
+    NSString *address = [NSString stringWithFormat:@"http://allsortz.com/api/comments/%lu/?uname=%@&password=%@&lat=%f&lon=%f&deviceID=%@", (unsigned long)btID, self.username, self.password, self.currentLatitude, self.currentLongitude, self.UUID];
     NSLog(@"Get review base with query %@",address);
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:address]];
     void (^handler)(NSURLResponse *, NSData *, NSError *) = ^(NSURLResponse *response, NSData *data, NSError *error) {
@@ -76,7 +76,7 @@
     // need a list of topics (and maybe what topics are already assoc. with busines)
     // might include text you've already written
     
-    NSString *address = [NSString stringWithFormat:@"http://192.168.1.100/api/review/edit/%lu/?uname=%@&password=%@&lat=%f&lon=%f&deviceID=%@", (unsigned long)btID, self.username, self.password, self.currentLatitude, self.currentLongitude, self.UUID];
+    NSString *address = [NSString stringWithFormat:@"http://allsortz.com/api/review/edit/%lu/?uname=%@&password=%@&lat=%f&lon=%f&deviceID=%@", (unsigned long)btID, self.username, self.password, self.currentLatitude, self.currentLongitude, self.UUID];
     NSLog(@"Get review base with query %@",address);
     NSString *str = [[self.commentList serializeBusTopicInfo] urlEncodedString];
     NSData* data = [str dataUsingEncoding:NSUTF8StringEncoding];

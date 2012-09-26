@@ -13,7 +13,8 @@
 #import "ASZEditBusinessDetailsViewController.h"
 #import "ASZBusinessTopicDataController.h"
 #import "ASZBusinessTopicViewController.h"
-#define CELL_WIDTH 201
+#import "ASZRateView.h"
+#define CELL_WIDTH 215
 #define CELL_MARGIN 8
 #define DEFAULT_HEIGHT 52
 
@@ -24,7 +25,28 @@
 
 @implementation ASZBusinessDetailsBaseViewController
 - (IBAction)switchDetailTab:(id)sender {
+    UITableView *newView = nil;
+    if(self.segmentedController.selectedSegmentIndex == 0 || self.segmentedController.selectedSegmentIndex == 2 )
+    {
+        newView = [[UITableView alloc]initWithFrame:self.tableView.frame style:UITableViewStylePlain];
+        newView.delegate = self;
+        newView.dataSource = self.dataController;
+
+    }
+    if(self.segmentedController.selectedSegmentIndex==1)
+    {
+        newView = [[UITableView alloc]initWithFrame:self.tableView.frame style:UITableViewStyleGrouped];
+        newView.delegate = self;
+        newView.dataSource = self.dataController;
+        
+    }
+    UIView *superview = self.tableView.superview;
+    
+    [self.tableView removeFromSuperview];
+    [self setTableView:newView];
+    [superview addSubview:self.tableView];
     [self.tableView reloadData];
+    
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -39,7 +61,15 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.rateView.notSelectedImage = [UIImage imageNamed:@"empty-circle.png"];
+    self.rateView.halfSelectedImage = [UIImage imageNamed:@"half-circle.png"];
+    self.rateView.fullSelectedImage = [UIImage imageNamed:@"full-circle.png"];
+    self.rateView.editable = NO;
+    self.rateView.maxRating = 5;
+//    self.rateView.delegate = self;
     [self.dataController updateView];
+    
+    
 	// Do any additional setup after loading the view.
 }
 
@@ -53,7 +83,7 @@
 - (IBAction)editTapped:(id)sender {
     [self performSegueWithIdentifier:@"EditBusinessSegue" sender:self];
 }
-- (IBAction)busTopicRateTap:(id)sender forEvent:(UIEvent *)event {
+- (IBAction)busTopicRateTap:(id)sender{
     UISegmentedControl*rateControl = (UISegmentedControl*)sender;
     NSIndexPath *indexPath = [self.tableView indexPathForCell:(UITableViewCell *)[[sender superview] superview]];
     NSDictionary *topic = self.dataController.business.topics[indexPath.row];
@@ -169,6 +199,7 @@
     [self setTableView:nil];
     [self setMainView:nil];
     [self setSegmentedController:nil];
+    [self setRateView:nil];
     [super viewDidUnload];
 }
 
@@ -213,10 +244,10 @@
 {
     switch (self.segmentedController.selectedSegmentIndex) {
         case 1:
-            return 250;
+            return 65;
             break;
         case 2:
-            return 45;
+            return 65;
             break;
         case 0:
         {
