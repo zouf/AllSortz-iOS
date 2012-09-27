@@ -24,29 +24,51 @@
 @end
 
 @implementation ASZBusinessDetailsBaseViewController
+
+#pragma mark - Tab switching
 - (IBAction)switchDetailTab:(id)sender {
     UITableView *newView = nil;
-    if(self.segmentedController.selectedSegmentIndex == 0 || self.segmentedController.selectedSegmentIndex == 2 )
+    switch(self.segmentedController.selectedSegmentIndex)
     {
-        newView = [[UITableView alloc]initWithFrame:self.tableView.frame style:UITableViewStylePlain];
-        newView.delegate = self;
-        newView.dataSource = self.dataController;
-
-    }
-    if(self.segmentedController.selectedSegmentIndex==1)
-    {
-        newView = [[UITableView alloc]initWithFrame:self.tableView.frame style:UITableViewStyleGrouped];
-        newView.delegate = self;
-        newView.dataSource = self.dataController;
-        
+        case DISCUSSION_TAB:
+        {
+            newView = [[UITableView alloc]initWithFrame:self.tableView.frame style:UITableViewStylePlain];
+            newView.delegate = self;
+            newView.dataSource = self.dataController;
+            break;
+        }
+        case INFO_TAB:
+        {
+            newView = [[UITableView alloc]initWithFrame:self.tableView.frame style:UITableViewStyleGrouped];
+            newView.backgroundView = nil;
+            self.mainView.backgroundColor = [UIColor lightGrayColor];
+            newView.delegate = self;
+            newView.dataSource = self.dataController;
+            break;
+        }
+        case REDEEM_TAB:
+        {
+            newView = [[UITableView alloc]initWithFrame:self.tableView.frame style:UITableViewStylePlain];
+            newView.delegate = self;
+            newView.dataSource = self.dataController;
+            break;
+        }
+        case REVIEW_TAB:
+        {
+            newView = [[UITableView alloc]initWithFrame:self.tableView.frame style:UITableViewStylePlain];
+            newView.delegate = self;
+            newView.dataSource = self.dataController;
+            break;
+        }
+        default:
+            break;
+            
     }
     UIView *superview = self.tableView.superview;
-    
     [self.tableView removeFromSuperview];
     [self setTableView:newView];
     [superview addSubview:self.tableView];
     [self.tableView reloadData];
-    
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -58,16 +80,41 @@
     return self;
 }
 
-- (void)viewDidLoad
+-(void) updateViewElements
 {
-    [super viewDidLoad];
     self.rateView.notSelectedImage = [UIImage imageNamed:@"empty-circle.png"];
     self.rateView.halfSelectedImage = [UIImage imageNamed:@"half-circle.png"];
     self.rateView.fullSelectedImage = [UIImage imageNamed:@"full-circle.png"];
     self.rateView.editable = NO;
     self.rateView.maxRating = 5;
-//    self.rateView.delegate = self;
-    [self.dataController updateView];
+
+    ASZRateView *rv = self.rateView;
+    UILabel *distance = (UILabel*)[self.mainView  viewWithTag:BUSINESSDIST_TAG];
+    UILabel* businessName = (UILabel*)[self.mainView viewWithTag:BUSINESSNAMELABEL_TAG];
+    
+    if (self.dataController.business)
+    {
+        [rv setHidden:NO];
+        [distance setHidden:NO];
+        [businessName setHidden:NO];
+        float rat = self.dataController.business.recommendation*5;
+        businessName.text = self.dataController.business.name;
+        distance.text = [NSString stringWithFormat:@"%0.2fmi.",[self.dataController.business.distance floatValue]];
+        [rv setRating:rat];
+        
+    }
+    else{
+        [rv setHidden:YES];
+        [distance setHidden:YES];
+        [businessName setHidden:YES];
+    }
+
+}
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    [self updateViewElements];
     
     
 	// Do any additional setup after loading the view.
@@ -81,8 +128,51 @@
 
 #pragma mark - Actions on page
 - (IBAction)editTapped:(id)sender {
-    [self performSegueWithIdentifier:@"EditBusinessSegue" sender:self];
+    //create a view for editing. Has almost all of the same features as this view, but will allow for editing
+    NSString * targetViewControllerIdentifier = @"EditBusinessViewControllerID";
+    ASZEditBusinessDetailsViewController *detailsViewController =     (ASZEditBusinessDetailsViewController*)[self.storyboard instantiateViewControllerWithIdentifier:targetViewControllerIdentifier];
+    UINavigationController *navBar=[[UINavigationController alloc]initWithRootViewController:detailsViewController];
+
+    detailsViewController.dataController.business = self.dataController.business;
+    detailsViewController.dataController.username = self.dataController.username;
+    detailsViewController.dataController.password = self.dataController.password;
+    detailsViewController.dataController.UUID = self.dataController.UUID;
+    detailsViewController.dataController.currentLatitude = self.dataController.currentLatitude;
+    detailsViewController.dataController.currentLongitude = self.dataController.currentLongitude;
+    detailsViewController.businessID  = self.businessID;
+    
+    [self.navigationController presentModalViewController:navBar animated:YES];
 }
+
+- (IBAction)reviewTapped:(id)sender {
+    //create a view for editing. Has almost all of the same features as this view, but will allow for editing
+    NSString * targetViewControllerIdentifier = @"ReviewBusinessControllerID";
+
+    ASZEditBusinessDetailsViewController *detailsViewController =     (ASZEditBusinessDetailsViewController*)[self.storyboard instantiateViewControllerWithIdentifier:targetViewControllerIdentifier];
+    UINavigationController *navBar=[[UINavigationController alloc]initWithRootViewController:detailsViewController];
+    detailsViewController.dataController.username = self.dataController.username;
+    detailsViewController.dataController.password = self.dataController.password;
+    
+    detailsViewController.dataController.UUID = self.dataController.UUID;
+    detailsViewController.dataController.currentLatitude = self.dataController.currentLatitude;
+    detailsViewController.dataController.currentLongitude = self.dataController.currentLongitude;
+    detailsViewController.businessID  = self.businessID;
+    
+    [self.navigationController presentModalViewController:navBar animated:YES];
+}
+
+- (IBAction)reportProblem:(id)sender {
+
+
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Report a Problem"
+                                                    message:@"Here we'll allow you to report an error to us about the business"
+                                                   delegate:nil
+                                          cancelButtonTitle:@"OK"
+                                          otherButtonTitles:nil];
+    [alert show];
+}
+
+
 - (IBAction)busTopicRateTap:(id)sender{
     UISegmentedControl*rateControl = (UISegmentedControl*)sender;
     NSIndexPath *indexPath = [self.tableView indexPathForCell:(UITableViewCell *)[[sender superview] superview]];
@@ -98,24 +188,7 @@
 #pragma mark - Storyboard segue
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    id destinationViewController = segue.destinationViewController;
-    NSLog(@"%@\n",segue.identifier);
-    if ([segue.identifier isEqualToString:@"EditBusinessSegue"]) {
-        
-        //create a view for editing. Has almost all of the same features as this view, but will allow for editing
-        UINavigationController *nv = destinationViewController;
-        ASZEditBusinessDetailsViewController *detailsViewController = (ASZEditBusinessDetailsViewController *)nv.topViewController;
-        detailsViewController.dataController.business = self.dataController.business;
-        detailsViewController.dataController.username = self.dataController.username;
-        detailsViewController.dataController.password = self.dataController.password;
-        
-        detailsViewController.dataController.UUID = self.dataController.UUID;
-        detailsViewController.dataController.currentLatitude = self.dataController.currentLatitude;
-        detailsViewController.dataController.currentLongitude = self.dataController.currentLongitude;
-        detailsViewController.businessID  = self.businessID;        
-        
-    }
-    else if ([segue.identifier isEqualToString:@"HealthDetailSegueID"])
+    if ([segue.identifier isEqualToString:@"HealthDetailSegueID"])
     {
         UIViewController *dvc = (UIViewController*)segue.destinationViewController;
         UIImageView * healthImage = (UIImageView*)[dvc.view viewWithTag:2];
@@ -125,22 +198,6 @@
         [healthImage setImage:[self.dataController getImageForGrade:self.dataController.business.healthGrade]];
         
         [detailText setText:self.dataController.business.healthViolationText];
-        
-    }
-    else if ([segue.identifier isEqualToString:@"BusinessReviewSegueID"])
-    {
-        ASZReviewViewController *rvc = (ASZReviewViewController*)segue.destinationViewController;
-        rvc.dataController.username = self.dataController.username;
-        
-        assert(rvc.dataController.username);
-        
-        rvc.dataController.password = self.dataController.password;
-        
-        rvc.dataController.UUID = self.dataController.UUID;
-        rvc.dataController.currentLatitude = self.dataController.currentLatitude;
-        rvc.dataController.currentLongitude = self.dataController.currentLongitude;
-        rvc.businessID  = self.businessID;//.currentLongitude;
-        rvc.businessName = self.dataController.business.name;
         
     }
     else if ([segue.identifier isEqualToString:@"BusinessTopicDetailID"])
@@ -227,7 +284,7 @@
         } else {
             // Table view has to be refreshed on main thread
             dispatch_async(dispatch_get_main_queue(), ^{
-                [self.dataController updateView];
+                [self updateViewElements];
                 [self.tableView reloadData];
             });
         }
@@ -238,18 +295,151 @@
 
 
 #pragma mark - Table view delegate
+// specify the height of your footer section
+- (CGFloat)tableView:(UITableView *)tableView
+heightForFooterInSection:(NSInteger)section {
+    
+    switch(self.segmentedController.selectedSegmentIndex)
+    {
+        case INFO_TAB:
+        {
+            if (section == LAST_SECTION)
+                return 50;
+            return 0;
+        }
+        case REVIEW_TAB:
+        {
+            return 50;
+        }
+        default:
+            return 0;
+    }
+    
+}
 
+
+// custom view for footer. will be adjusted to default or specified footer height
+// Notice: this will work only for one section within the table view
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+    
+    
+    switch(self.segmentedController.selectedSegmentIndex)
+    {
+        case INFO_TAB:
+        {
+            if (section == LAST_SECTION)
+            {
+                //allocate the view if it doesn't exist yet
+                UIView * footerView  = [[UIView alloc] init];
+                
+                //we would like to show a gloosy red button, so get the image first
+                
+                [footerView setBackgroundColor:[UIColor clearColor]];
+                //create the button
+                UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+                
+                
+                //the button should be as big as a table view cell
+                [button setFrame:CGRectMake(10, 3, 100, 44)];
+                
+                //set title, font size and font color
+                [button setTitle:@"Edit" forState:UIControlStateNormal];
+                [button.titleLabel setFont:[UIFont fontWithName:@"Gill Sans" size:14]];
+                [button setTitleColor:[UIColor darkTextColor] forState:UIControlStateNormal];
+                
+                //set action of the button
+                [button addTarget:self action:@selector(editTapped:)
+                 forControlEvents:UIControlEventTouchUpInside];
+                
+                
+                
+                UIButton *reportProblem = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+                
+                
+                //the button should be as big as a table view cell
+                [reportProblem setFrame:CGRectMake(200, 3, 110, 44)];
+                
+                //set title, font size and font color
+                [reportProblem setTitle:@"Report a Problem" forState:UIControlStateNormal];
+                [reportProblem.titleLabel setFont:[UIFont fontWithName:@"Gill Sans" size:14]];
+                [reportProblem setTitleColor:[UIColor darkTextColor] forState:UIControlStateNormal];
+                
+                //set action of the button
+                [reportProblem addTarget:self action:@selector(reportProblem:)
+                       forControlEvents:UIControlEventTouchUpInside];
+                
+                
+                //add the button to the view
+                [footerView addSubview:reportProblem];
+                [footerView addSubview:button];
+                
+                [footerView setAlpha:0.5];
+                //return the view for the footer
+                return footerView;
+            }
+            return nil;
+        }
+        case REVIEW_TAB:
+        {
+            //allocate the view if it doesn't exist yet
+            UIView * footerView  = [[UIView alloc] init];
+            
+            //we would like to show a gloosy red button, so get the image first
+            
+            [footerView setBackgroundColor:[UIColor clearColor]];
+            UIButton *reviewButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+            
+            
+            //the button should be as big as a table view cell
+            [reviewButton setFrame:CGRectMake(120, 3, 100, 44)];
+            
+            //set title, font size and font color
+            [reviewButton setTitle:@"Review" forState:UIControlStateNormal];
+            [reviewButton.titleLabel setFont:[UIFont fontWithName:@"Gill Sans" size:14]];
+            [reviewButton setTitleColor:[UIColor darkTextColor] forState:UIControlStateNormal];
+            
+            
+            //set action of the button
+            [reviewButton addTarget:self action:@selector(reviewTapped:)
+                    forControlEvents:UIControlEventTouchUpInside];
+            
+            
+            //add the button to the view
+            [footerView addSubview:reviewButton];
+
+            
+            [footerView setAlpha:0.5];
+            //return the view for the footer
+            return footerView;
+
+        }
+            break;
+        default:
+            return nil;
+
+    }
+    
+}
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     switch (self.segmentedController.selectedSegmentIndex) {
-        case 1:
+        case REDEEM_TAB:
             return 65;
             break;
-        case 2:
-            return 65;
+        case INFO_TAB:
+            if(indexPath.section == 2)
+            {
+                //health icon
+                if (indexPath.row == 1)
+                {
+                    return 70;
+                }
+            }
+            
+            return 45;
             break;
-        case 0:
+        case DISCUSSION_TAB:
         {
             
             NSArray *topics =  self.dataController.business.topics;
@@ -264,6 +454,11 @@
             CGFloat height = MAX(size.height, DEFAULT_HEIGHT);
             
             return height + (CELL_MARGIN * 2);
+            break;
+        }
+        case REVIEW_TAB:
+        {
+            return 65;
             break;
         }
         default:

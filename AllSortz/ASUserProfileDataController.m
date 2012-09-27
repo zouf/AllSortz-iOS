@@ -31,10 +31,10 @@
     
     NSString * address;
     if (!parentTopicID)
-        address = [NSString stringWithFormat:@"http://allsortz.com/api/topics/?uname=%@&password=%@&deviceID=%@&parent=",
+        address = [NSString stringWithFormat:@"http://192.168.1.100/api/topics/?uname=%@&password=%@&deviceID=%@&parent=",
                    [self.deviceInterface getStoredUname], [self.deviceInterface getStoredPassword],[self.deviceInterface getDeviceUIUD]];
     else
-        address = [NSString stringWithFormat:@"http://allsortz.com/api/topics/?uname=%@&password=%@&deviceID=%@&parent=%d",
+        address = [NSString stringWithFormat:@"http://192.168.1.100/api/topics/?uname=%@&password=%@&deviceID=%@&parent=%d",
                    [self.deviceInterface getStoredUname], [self.deviceInterface getStoredPassword],[self.deviceInterface getDeviceUIUD],parentTopicID];
 
     NSLog(@"Get Topics Query: %@\n", address);
@@ -55,7 +55,7 @@
 - (BOOL)updateImportance:(NSInteger)topicID  importanceValue:(float)importance
 {
 
-    NSString * address = [NSString stringWithFormat:@"http://allsortz.com/api/topic/subscribe/%d/?importance=%f&uname=%@&password=%@&deviceID=%@&parent=",
+    NSString * address = [NSString stringWithFormat:@"http://192.168.1.100/api/topic/subscribe/%d/?importance=%f&uname=%@&password=%@&deviceID=%@&parent=",
                    topicID,importance, [self.deviceInterface getStoredUname], [self.deviceInterface getStoredPassword],[self.deviceInterface getDeviceUIUD]];
     NSURL *url = [NSURL URLWithString:address];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
@@ -99,7 +99,7 @@
 /*
 - (BOOL)sendImportance
 {
-    static NSString *address = @"http://allsortz.com/api/topics/importance/";
+    static NSString *address = @"http://192.168.1.100/api/topics/importance/";
     NSURL *url = [NSURL URLWithString:address];
     NSString *str = [[self.userProfile serializeToDictionary] urlEncodedString];
     NSData* data = [str dataUsingEncoding:NSUTF8StringEncoding];

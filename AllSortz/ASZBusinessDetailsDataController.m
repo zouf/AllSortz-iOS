@@ -14,33 +14,13 @@
 #import "ASZBusinessTopicDataController.h"
 #import "ASZRateView.h"
 
-#define BUSINESSIMAGEVIEW_TAG 1000
-#define BUSINESSNAMELABEL_TAG 1001
-#define BUSINESSHEALTH_TAG 1002
-#define BUSINESSTYPES_TAG 1003
-#define BUSINESSPHONE_TAG 1004
-#define BUSINESSURL_TAG 1005
-#define BUSINESSADDRESS_TAG 1006
-#define BUSINESSSCORE_TAG 1007
-#define BUSINESSDIST_TAG 1008
 
-
-
-
-#define TOPICNAMELABEL_TAG 1010
-#define TOPICTEXTVIEW_TAG 1012
-#define TOPICRATINGVIEW_TAG 1013
-#define TOPICRATINGSLIDER_TAG 1014
-#define TOPICRATINGSEGMENTED_TAG 1015
-#define TOPICAVGRATINGSLABEL_TAG 1016
-#define STAR_VIEW 1020
 
 @interface ASZBusinessDetailsDataController ()
 
 @property NSOperationQueue *queue;  // Assume we only need one for now
 @property (weak, nonatomic) IBOutlet UITableView *businessTableView;
 @property (weak, nonatomic) IBOutlet ASZBusinessDetailsBaseViewController *viewController;
-@property (weak, nonatomic) IBOutlet UISegmentedControl *segmentedControl;
 
 - (ASBusiness *)businessFromJSONResult:(NSDictionary *)result;
 
@@ -54,37 +34,6 @@
 @synthesize viewController = _viewController;
 
 #pragma mark - update the view 
--(void)updateView
-{
-
-    
-    //UILabel* score = (UILabel*)[self.viewController.mainView viewWithTag:BUSINESSSCORE_TAG];
-    //score.text =[NSString stringWithFormat:@"Score for you: %0.2f",
-    ASZRateView *rv = self.viewController.rateView;
-    UILabel *distance = (UILabel*)[self.viewController.mainView  viewWithTag:BUSINESSDIST_TAG];
-    UILabel* businessName = (UILabel*)[self.viewController.mainView viewWithTag:BUSINESSNAMELABEL_TAG];
-
-    if (self.business)
-    {
-        [rv setHidden:NO];
-        [distance setHidden:NO];
-        [businessName setHidden:NO];
-        float rat = self.business.recommendation*5;
-        businessName.text = self.business.name;
-        distance.text = [NSString stringWithFormat:@"%0.2fmi.",[self.business.distance floatValue]];
-        [rv setRating:rat];
-
-    }
-    else{
-        [rv setHidden:YES];
-        [distance setHidden:YES];
-        [businessName setHidden:YES];
-    }
-
-    
-
-    
-}
 
 
 
@@ -117,7 +66,7 @@
 
 -(void)rateBusinessTopicAsynchronously:(NSUInteger)btID withRating:(NSInteger)rating
 {
-    NSString *address = [NSString stringWithFormat:@"http://allsortz.com/api/business/topic/rate/%lu/?uname=%@&password=%@&lat=%f&lon=%f&deviceID=%@&rating=%d", (unsigned long)btID, self.username, self.password, self.currentLatitude, self.currentLongitude, self.UUID,rating];
+    NSString *address = [NSString stringWithFormat:@"http://192.168.1.100/api/business/topic/rate/%lu/?uname=%@&password=%@&lat=%f&lon=%f&deviceID=%@&rating=%d", (unsigned long)btID, self.username, self.password, self.currentLatitude, self.currentLongitude, self.UUID,rating];
     NSLog(@"Get details with query %@",address);
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:address]];
     void (^handler)(NSURLResponse *, NSData *, NSError *) = ^(NSURLResponse *response, NSData *data, NSError *error) {
@@ -138,7 +87,7 @@
         return;
     }
 
-    NSString *address = [NSString stringWithFormat:@"http://allsortz.com/api/business/%lu?uname=%@&password=%@&lat=%f&lon=%f&deviceID=%@", (unsigned long)ID, self.username, self.password, self.currentLatitude, self.currentLongitude, self.UUID];
+    NSString *address = [NSString stringWithFormat:@"http://192.168.1.100/api/business/%lu?uname=%@&password=%@&lat=%f&lon=%f&deviceID=%@", (unsigned long)ID, self.username, self.password, self.currentLatitude, self.currentLongitude, self.UUID];
     NSLog(@"Rate businesstopic with address %@",address);
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:address]];
     void (^handler)(NSURLResponse *, NSData *, NSError *) = ^(NSURLResponse *response, NSData *data, NSError *error) {
@@ -231,7 +180,7 @@
         void (^imageHandler)(NSURLResponse *, NSData *, NSError *) = ^(NSURLResponse *response, NSData *data, NSError *error) {
             business.image = [UIImage imageWithData:data];
         };
-            
+        
         if (!self.queue)
             self.queue = [[NSOperationQueue alloc] init];
         [NSURLConnection sendAsynchronousRequest:imageRequest queue:self.queue completionHandler:imageHandler];
@@ -274,13 +223,12 @@
 
 }
 
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = nil;
 
-    switch (self.segmentedControl.selectedSegmentIndex) {
-        case 1:
+    switch (self.viewController.segmentedController.selectedSegmentIndex) {
+        case INFO_TAB:
             cell = [tableView dequeueReusableCellWithIdentifier:@"BusinessDetailsHeaderCell"];
         {
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -297,37 +245,57 @@
             }
             
 
+            NSInteger row= indexPath.row;
+            cell.imageView.image = nil;
+            cell.textLabel.text = nil;
+            
+            
+            //override detail detailtextlabel behavior
+            [cell.detailTextLabel setFont:[UIFont fontWithName:@"Gill Sans" size:14]];
+            [cell.detailTextLabel setTextColor:[UIColor darkTextColor]];
+            [cell.detailTextLabel setTextAlignment:UITextAlignmentCenter];
 
-            NSLog(@"%d\n",indexPath.row);
-            
-            
             switch(indexPath.section)
             {
                 case 0:
-                    cell.textLabel.text = @"What it has";
-                    cell.detailTextLabel.text =typeArrayStr;
+                {
+                    if (row == 0)
+                    {
+                        cell.detailTextLabel.text = self.business.phone;
+                        [cell.detailTextLabel setTextAlignment:UITextAlignmentCenter];
+                        [cell.detailTextLabel setFont:[UIFont fontWithName:@"Gill Sans" size:18]];
+                    }
+                    else // row == 1
+                    {
+                        cell.detailTextLabel.text = self.business.website.path;
+                        [cell.detailTextLabel setTextAlignment:UITextAlignmentCenter];
+                        [cell.detailTextLabel setFont:[UIFont fontWithName:@"Gill Sans" size:18]];
+
+
+                    }
+                }
                     break;
                 case 1:
-                    cell.textLabel.text = @"URL";
-                    cell.detailTextLabel.text = self.business.website.path;
+                {
+                    cell.detailTextLabel.text =[NSString stringWithFormat:@"%@\n%@, %@ %@\n",self.business.address,self.business.city,self.business.state,self.business.zipcode];
+                }
                     break;
                 case 2:
-                    cell.textLabel.text = @"Address";
-                    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@\n%@, %@ %@\n",self.business.address,self.business.city,self.business.state,self.business.zipcode];
-                    break;
-                case 3:
-                    cell.textLabel.text = @"Phone";
-                    cell.detailTextLabel.text = self.business.phone;
-                    break;
-                case 4:
-                    cell.textLabel.text = @"Health Grade";
-                    cell.imageView.image = [self getImageForGrade:self.business.healthGrade];
-                    cell.detailTextLabel.text = self.business.healthGrade;
-
+                {
+                    
+                    if(row == 0)
+                    {
+                        cell.detailTextLabel.text = typeArrayStr;
+                    }
+                    else //row ==1
+                    {
+                        cell.detailTextLabel.text = self.business.healthGrade;
+                        cell.imageView.image = [self getImageForGrade:self.business.healthGrade];
+                    }
+                }
                     break;
                 default:
-                    cell.textLabel.text = @"Health Grade";
-                    cell.detailTextLabel.text = @"Yo";
+                    cell.textLabel.text = @"Blank info";
                     break;
             }
 
@@ -336,7 +304,7 @@
 
         }
             return cell;
-        case 2:
+        case REDEEM_TAB:
             cell = [tableView dequeueReusableCellWithIdentifier:@"RedeemCell"];
         {
             if (cell == nil) {
@@ -348,7 +316,7 @@
             
         }
             return cell;
-        case 0:
+        case DISCUSSION_TAB:
             cell = [tableView dequeueReusableCellWithIdentifier:@"BusinessDetailsTopicCell"];
         {
             UITextView * topicSummary;
@@ -404,8 +372,6 @@
                 topicSummary.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
                 [cell.contentView addSubview:avgRatingLabel];
                 
-
-                
             }
             else
             {
@@ -455,13 +421,19 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    switch(self.segmentedControl.selectedSegmentIndex)
+    switch(self.viewController.segmentedController.selectedSegmentIndex)
     {
-        case 0:
+        case DISCUSSION_TAB:
             return 1;
             break;
-        case 1:
-            return 5;
+        case REDEEM_TAB:
+            return 1;
+            break;
+        case REVIEW_TAB:
+            return 1;
+            break;
+        case INFO_TAB:
+            return NUM_INFO_SECTIONS;
             break;
         default:
             return 1;
@@ -473,16 +445,26 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    switch (self.segmentedControl.selectedSegmentIndex) {
-        case 1:
+    switch (self.viewController.segmentedController.selectedSegmentIndex) {
+        case INFO_TAB:
         {
-            return 1;
+            if (section == 0)
+                return 2;
+            if (section == 1)
+                return 1;
+            if (section == 2)
+                return 2;
+                
+            break;
         }
-        case 2:  //redeem
+        case REDEEM_TAB:  //redeem
             return 0;
             break;
-        case 0:
+        case DISCUSSION_TAB:
             return [self.business.topics count];
+            break;
+        case REVIEW_TAB:
+            return 0;
             break;
         default:
             return 0;

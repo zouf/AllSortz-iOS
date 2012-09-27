@@ -101,6 +101,13 @@
     [self.navigationController popViewControllerAnimated:YES];
     
 }
+#pragma mark - Remove the view
+
+
+- (IBAction)cancelTapped:(id)sender {
+    [self.navigationController dismissModalViewControllerAnimated:YES];
+}
+
 
 #pragma mark - Key-value observing
 
