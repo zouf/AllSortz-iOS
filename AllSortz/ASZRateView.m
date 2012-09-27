@@ -58,7 +58,6 @@
 }
 
 - (void)refresh {
-    NSLog(@"R here- %f\n",_rating);
     for(int i = 0; i < self.imageViews.count; ++i) {
         UIImageView *imageView = [self.imageViews objectAtIndex:i];
         if (self.rating >= i+1) {

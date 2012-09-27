@@ -14,9 +14,7 @@
 #import "ASZBusinessTopicDataController.h"
 #import "ASZBusinessTopicViewController.h"
 #import "ASZRateView.h"
-#define CELL_WIDTH 215
-#define CELL_MARGIN 8
-#define DEFAULT_HEIGHT 52
+
 
 @interface ASZBusinessDetailsBaseViewController ()
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -26,7 +24,9 @@
 @implementation ASZBusinessDetailsBaseViewController
 
 #pragma mark - Tab switching
-- (IBAction)switchDetailTab:(id)sender {
+
+-(void)createTableviewForTab
+{
     UITableView *newView = nil;
     switch(self.segmentedController.selectedSegmentIndex)
     {
@@ -69,6 +69,10 @@
     [self setTableView:newView];
     [superview addSubview:self.tableView];
     [self.tableView reloadData];
+}
+
+- (IBAction)switchDetailTab:(id)sender {
+    [self createTableviewForTab];
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -148,7 +152,7 @@
     //create a view for editing. Has almost all of the same features as this view, but will allow for editing
     NSString * targetViewControllerIdentifier = @"ReviewBusinessControllerID";
 
-    ASZEditBusinessDetailsViewController *detailsViewController =     (ASZEditBusinessDetailsViewController*)[self.storyboard instantiateViewControllerWithIdentifier:targetViewControllerIdentifier];
+    ASZReviewViewController *detailsViewController =     (ASZReviewViewController*)[self.storyboard instantiateViewControllerWithIdentifier:targetViewControllerIdentifier];
     UINavigationController *navBar=[[UINavigationController alloc]initWithRootViewController:detailsViewController];
     detailsViewController.dataController.username = self.dataController.username;
     detailsViewController.dataController.password = self.dataController.password;
@@ -180,9 +184,17 @@
     NSLog(@"User gave %@ a %d\n",[topic valueForKey:@"name"], rateControl.selectedSegmentIndex);
     NSInteger btID = [[topic valueForKey:@"bustopicID"] intValue];
     
-    [self.dataController rateBusinessTopicAsynchronously:btID withRating:rateControl.selectedSegmentIndex];
+    [self.dataController rateBusinessTopicAsynchronously:btID withRating:rateControl.selectedSegmentIndex];    
+}
+
+- (IBAction)commentRateTap:(id)sender{
+    UISegmentedControl*rateControl = (UISegmentedControl*)sender;
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:(UITableViewCell *)[[sender superview] superview]];
+    NSDictionary *comment = self.dataController.reviewList.comments[indexPath.row];
+    NSLog(@"User gave %@ a %d\n",[comment valueForKey:@"content"], rateControl.selectedSegmentIndex);
+    NSInteger cID = [[comment valueForKey:@"commentID"] intValue];
     
-    
+    [self.dataController rateCommentAsynchronously:cID withRating:rateControl.selectedSegmentIndex];
 }
 
 #pragma mark - Storyboard segue
@@ -244,13 +256,16 @@
                           forKeyPath:@"business.image"
                              options:NSKeyValueObservingOptionNew
                              context:NULL];
-    
+    [self.dataController addObserver:self
+                          forKeyPath:@"reviewList"
+                             options:NSKeyValueObservingOptionNew
+                             context:NULL];
+    [self.dataController getAllReviews:self.businessID];
     [self.dataController refreshBusinessAsynchronouslyWithID:self.businessID];
 }
 
 - (void)viewDidUnload {
-    [self.dataController removeObserver:self forKeyPath:@"business"];
-    [self.dataController removeObserver:self forKeyPath:@"business.image"];
+
     self.dataController = nil;
     
     [self setTableView:nil];
@@ -262,6 +277,8 @@
 
 - (void)viewDidDisappear:(BOOL)animated
 {
+
+    [self.dataController removeObserver:self forKeyPath:@"reviewList"];
     [self.dataController removeObserver:self forKeyPath:@"business"];
     [self.dataController removeObserver:self forKeyPath:@"business.image"];
     [super viewDidDisappear:animated];
@@ -289,6 +306,13 @@
             });
         }
         
+    }
+    else if ([keyPath isEqual:@"reviewList"])
+    {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self createTableviewForTab];
+
+        });
     }
 }
 
@@ -386,7 +410,7 @@ heightForFooterInSection:(NSInteger)section {
             
             //we would like to show a gloosy red button, so get the image first
             
-            [footerView setBackgroundColor:[UIColor clearColor]];
+            [footerView setBackgroundColor:[UIColor whiteColor]];
             UIButton *reviewButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
             
             
@@ -408,7 +432,7 @@ heightForFooterInSection:(NSInteger)section {
             [footerView addSubview:reviewButton];
 
             
-            [footerView setAlpha:0.5];
+            [footerView setAlpha:1];
             //return the view for the footer
             return footerView;
 
@@ -449,7 +473,7 @@ heightForFooterInSection:(NSInteger)section {
             
             CGSize constraint = CGSizeMake(CELL_WIDTH - (CELL_MARGIN * 2), 20000.0f);
             
-            CGSize size = [text sizeWithFont:[UIFont fontWithName:@"GillSans-Light" size:12] constrainedToSize:constraint lineBreakMode:UILineBreakModeWordWrap];
+            CGSize size = [text sizeWithFont:[UIFont fontWithName:@"GillSans-Light"  size:10] constrainedToSize:constraint lineBreakMode:UILineBreakModeWordWrap];
             
             CGFloat height = MAX(size.height, DEFAULT_HEIGHT);
             
@@ -458,7 +482,19 @@ heightForFooterInSection:(NSInteger)section {
         }
         case REVIEW_TAB:
         {
-            return 65;
+            
+            NSArray *reviews   =  self.dataController.reviewList.comments;
+            id review = reviews[indexPath.row];
+            
+            NSString * text = [review valueForKey:@"content"];
+            
+            CGSize constraint = CGSizeMake(COMMENT_WIDTH - (CELL_MARGIN * 2), 20000.0f);
+            
+            CGSize size = [text sizeWithFont:[UIFont fontWithName:@"GillSans-Light"  size:14] constrainedToSize:constraint lineBreakMode:UILineBreakModeWordWrap];
+            
+            CGFloat height = MAX(size.height, COMMENT_HEIGHT);
+            
+            return height + (CELL_MARGIN * 2);
             break;
         }
         default:

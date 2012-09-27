@@ -37,14 +37,13 @@
 
     
     //review from the main page
-    if (self.businessID)
+    if (self.businessID) //REVIEW
     {
         [self.dataController getReviewInfo:self.businessID];
     }
-    else if (self.bustopicID)
+    else if (self.bustopicID) //COMMENT
     {
-        NSLog(@"REVIEW!\n");
-        // comment on a businesstopic 
+        self.dataController.review = [[ASZReview alloc]initWithID:self.bustopicID];
     }
 
 
@@ -65,6 +64,7 @@
 
 - (void)viewDidUnload
 {
+    
     [super viewDidUnload];
     [self.dataController removeObserver:self forKeyPath:@"review"];
 
@@ -77,7 +77,8 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 - (IBAction)submitTapped:(id)sender {
-    
+    UITextView *tv = (UITextView*)[self.tableView viewWithTag:201];
+    [self.dataController.review setReviewText:tv.text];
     if (self.businessID)
     {
         NSMutableArray *topicIDs = [[NSMutableArray alloc]init];
@@ -89,16 +90,15 @@
                 [topicIDs addObject:[d valueForKey:@"ID"]];
             }
         }
-        UITextView *tv = (UITextView*)[self.tableView viewWithTag:201];
-        [self.dataController.review setReviewText:tv.text];
+
         [self.dataController submitReviewWithTopics:topicIDs];
     }
     else if (self.bustopicID)
     {
-        NSLog(@"SUBMIT A COMMENT!\n");
+       [self.dataController submitComment];
     }
 
-    [self.navigationController popViewControllerAnimated:YES];
+    [self.navigationController dismissModalViewControllerAnimated:YES];
     
 }
 #pragma mark - Remove the view

@@ -57,6 +57,14 @@ _ ## lower_name = lower_name; \
     return dict;
 }
 
+
+-(UITableViewCell*)getCommentCell
+{
+    UITableViewCell * cell = nil;
+    
+    
+    return cell;
+}
 #pragma mark - Custom setters
 //SIMPLE_SETTER(reviewText, ReviewText, NSString *)
 

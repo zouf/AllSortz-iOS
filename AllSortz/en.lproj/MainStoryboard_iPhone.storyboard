@@ -35,7 +35,7 @@
                         <rect key="frame" x="0.0" y="64" width="320" height="367"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Coming Soon. A new way to Socialize!" id="6TB-cb-1QW">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Coming Soon. A new way to Socialize!" id="6TB-cb-1QW">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="367"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -49,7 +49,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xUE-74-Rdg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="169" y="424"/>
+            <point key="canvasLocation" x="214" y="424"/>
         </scene>
         <!--Topic Browse View Controller-->
         <scene sceneID="7pr-wc-NO3">
@@ -424,7 +424,7 @@
                     </connections>
                 </customObject>
             </objects>
-            <point key="canvasLocation" x="825" y="-104"/>
+            <point key="canvasLocation" x="629" y="-90"/>
         </scene>
         <!--Navigation Controller - Redeem-->
         <scene sceneID="Cty-yM-9Zj">
@@ -830,6 +830,7 @@
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
+                                <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
                                 <connections>
                                     <segue destination="Gkl-sE-GoV" kind="push" id="2jT-rS-n4t"/>
                                 </connections>
@@ -931,7 +932,7 @@
                         <rect key="frame" x="0.0" y="64" width="320" height="367"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Coming Soon.  Understand where you spend you money. Compare your behavior against your friends and peers." id="gDs-Wp-fcT">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Coming Soon.  Understand where you spend you money. Compare your behavior against your friends and peers." id="gDs-Wp-fcT">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="367"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -990,7 +991,7 @@
             <objects>
                 <tableViewController storyboardIdentifier="BusinessTopicViewControllerID" id="oVC-qH-Tsy" customClass="ASZBusinessTopicViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="singleLineEtched" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="4Ei-80-2cK">
-                        <rect key="frame" x="0.0" y="20" width="320" height="460"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <view key="tableHeaderView" contentMode="scaleToFill" id="Byx-FU-4xt">
@@ -1077,6 +1078,7 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="barButton" destination="CWs-SB-d0i" id="tIi-f9-Gsh"/>
@@ -1092,40 +1094,30 @@
                     </connections>
                 </customObject>
             </objects>
-            <point key="canvasLocation" x="1370" y="93"/>
+            <point key="canvasLocation" x="1036" y="-90"/>
         </scene>
         <!--Review View Controller-->
         <scene sceneID="5Sg-wf-Oac">
             <objects>
                 <tableViewController storyboardIdentifier="ReviewBusinessControllerID" id="gzW-Wl-5Kg" customClass="ASZReviewViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="singleLineEtched" allowsMultipleSelection="YES" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="cID-CJ-rhp">
-                        <rect key="frame" x="0.0" y="20" width="320" height="460"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <containerView key="tableHeaderView" contentMode="scaleToFill" id="JFq-hB-vZQ">
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="147"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            <connections>
+                                <segue destination="2Ax-j7-5oq" kind="embed" id="jLs-Bv-lpP"/>
+                            </connections>
+                        </containerView>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ReviewText" rowHeight="174" id="di1-lQ-HkJ">
-                                <rect key="frame" x="0.0" y="46" width="320" height="175"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="10" y="1" width="300" height="173"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" tag="201" contentMode="scaleToFill" scrollEnabled="NO" id="gNF-3c-gID">
-                                            <rect key="frame" x="16" y="11" width="268" height="125"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            <fontDescription key="fontDescription" name="GillSans" family="Gill Sans" pointSize="14"/>
-                                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                        </textView>
-                                    </subviews>
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                </view>
-                            </tableViewCell>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="TopicCell" rowHeight="54" id="6od-Z8-fWU">
-                                <rect key="frame" x="0.0" y="221" width="320" height="55"/>
+                                <rect key="frame" x="0.0" y="183" width="320" height="56"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="10" y="0.0" width="300" height="53"/>
+                                    <rect key="frame" x="10" y="1" width="300" height="53"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="200" contentMode="left" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="sD9-Ji-euF">
@@ -1157,6 +1149,7 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
                         <outlet property="dataController" destination="5IU-Ob-j1s" id="3Zk-Ql-nnh"/>
                     </connections>
@@ -1169,7 +1162,7 @@
                     </connections>
                 </customObject>
             </objects>
-            <point key="canvasLocation" x="1471" y="-537"/>
+            <point key="canvasLocation" x="1419" y="-90"/>
         </scene>
         <!--Edit Business Details View Controller - Edit-->
         <scene sceneID="nwC-sw-QWs">
@@ -1332,6 +1325,30 @@
             </objects>
             <point key="canvasLocation" x="-201" y="-890"/>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="lFv-Ae-Jsc">
+            <objects>
+                <viewController id="2Ax-j7-5oq" sceneMemberID="viewController">
+                    <view key="view" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="Ka9-4k-rQn">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="147"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" tag="201" contentMode="scaleToFill" scrollEnabled="NO" id="XAs-UC-Wpc">
+                                <rect key="frame" x="14" y="14" width="298" height="120"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" name="GillSans" family="Gill Sans" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <toolbarItems/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wWC-yM-0zf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1443" y="516"/>
+        </scene>
     </scenes>
     <resources>
         <image name="Icon-1024.png" width="1024" height="1024"/>
@@ -1342,161 +1359,6 @@
         <image name="tab_map.png" width="30" height="30"/>
         <image name="tab_scan.png" width="30" height="30"/>
     </resources>
-    <classes>
-        <class className="ASAddBusinessDataController" superclassName="NSObject">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ASAddBusinessDataController.h"/>
-        </class>
-        <class className="ASAddBusinessViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ASAddBusinessViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="add:"/>
-                <relationship kind="action" name="cancel:"/>
-                <relationship kind="outlet" name="addBusinessDataController" candidateClass="ASAddBusinessDataController"/>
-                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
-            </relationships>
-        </class>
-        <class className="ASBusinessListDataController" superclassName="NSObject">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ASBusinessListDataController.h"/>
-        </class>
-        <class className="ASListingsViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ASListingsViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="listingsTableDataController" candidateClass="ASBusinessListDataController"/>
-                <relationship kind="outlet" name="mapViewController" candidateClass="ASMapViewController"/>
-                <relationship kind="outlet" name="searchDisplayBar" candidateClass="UIView"/>
-                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
-            </relationships>
-        </class>
-        <class className="ASMapViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ASMapViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="goToMyLocation:"/>
-                <relationship kind="action" name="refreshTapped:"/>
-                <relationship kind="outlet" name="listViewController" candidateClass="ASListingsViewController"/>
-                <relationship kind="outlet" name="listingsTableDataController" candidateClass="ASBusinessListDataController"/>
-                <relationship kind="outlet" name="mv" candidateClass="MKMapView"/>
-                <relationship kind="outlet" name="searchDisplayBar" candidateClass="UIView"/>
-            </relationships>
-        </class>
-        <class className="ASProfilePictureViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ASProfilePictureViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="saveImageAction:"/>
-                <relationship kind="action" name="showCameraAction:"/>
-                <relationship kind="action" name="updateTapped:"/>
-                <relationship kind="outlet" name="emailBox" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="image" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="imageView" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="nameBox" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="overlayView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="passwordBox" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="saveImageButton" candidateClass="UIBarButtonItem"/>
-                <relationship kind="outlet" name="socialDataController" candidateClass="ASSocialDataController"/>
-            </relationships>
-        </class>
-        <class className="ASQueryDataController" superclassName="NSObject">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ASQueryDataController.h"/>
-        </class>
-        <class className="ASSocialDataController" superclassName="NSObject">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ASSocialDataController.h"/>
-        </class>
-        <class className="ASSortViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ASSortViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="cancelTapped:"/>
-                <relationship kind="action" name="doneTapped:"/>
-                <relationship kind="outlet" name="queryDataController" candidateClass="ASQueryDataController"/>
-                <relationship kind="outlet" name="sortNameField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
-            </relationships>
-        </class>
-        <class className="ASTopicBrowseViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ASTopicBrowseViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
-                <relationship kind="outlet" name="userProfileDataController" candidateClass="ASUserProfileDataController"/>
-            </relationships>
-        </class>
-        <class className="ASUserProfileDataController" superclassName="NSObject">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ASUserProfileDataController.h"/>
-            <relationships>
-                <relationship kind="action" name="importanceSelected:"/>
-            </relationships>
-        </class>
-        <class className="ASZBusinessDetailsBaseViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ASZBusinessDetailsBaseViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="busTopicRateTap:"/>
-                <relationship kind="action" name="editTapped:"/>
-                <relationship kind="action" name="reviewTapped:"/>
-                <relationship kind="action" name="switchDetailTab:"/>
-                <relationship kind="outlet" name="dataController" candidateClass="ASZBusinessDetailsDataController"/>
-                <relationship kind="outlet" name="mainView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="rateView" candidateClass="ASZRateView"/>
-                <relationship kind="outlet" name="segmentedController" candidateClass="UISegmentedControl"/>
-                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
-            </relationships>
-        </class>
-        <class className="ASZBusinessDetailsDataController" superclassName="NSObject">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ASZBusinessDetailsDataController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="businessTableView" candidateClass="UITableView"/>
-                <relationship kind="outlet" name="viewController" candidateClass="ASZBusinessDetailsBaseViewController"/>
-            </relationships>
-        </class>
-        <class className="ASZBusinessTopicDataController" superclassName="NSObject">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ASZBusinessTopicDataController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="businessTopicTableView" candidateClass="UITableView"/>
-                <relationship kind="outlet" name="viewController" candidateClass="ASZBusinessTopicViewController"/>
-            </relationships>
-        </class>
-        <class className="ASZBusinessTopicViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ASZBusinessTopicViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="barButtonTapped:"/>
-                <relationship kind="outlet" name="barButton" candidateClass="UIBarButtonItem"/>
-                <relationship kind="outlet" name="dataController" candidateClass="ASZBusinessTopicDataController"/>
-                <relationship kind="outlet" name="pageName" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="ASZEditBusinessDetailsDataController" superclassName="NSObject">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ASZEditBusinessDetailsDataController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="businessTableView" candidateClass="UITableView"/>
-                <relationship kind="outlet" name="viewController" candidateClass="ASZEditBusinessDetailsViewController"/>
-            </relationships>
-        </class>
-        <class className="ASZEditBusinessDetailsViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ASZEditBusinessDetailsViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="cancelTapped:"/>
-                <relationship kind="action" name="doneTapped:"/>
-                <relationship kind="outlet" name="dataController" candidateClass="ASZEditBusinessDetailsDataController"/>
-            </relationships>
-        </class>
-        <class className="ASZRateView" superclassName="UIView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ASZRateView.h"/>
-        </class>
-        <class className="ASZReviewDataController" superclassName="NSObject">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ASZReviewDataController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="reviewTableView" candidateClass="UITableView"/>
-                <relationship kind="outlet" name="viewController" candidateClass="ASZReviewViewController"/>
-            </relationships>
-        </class>
-        <class className="ASZReviewViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ASZReviewViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="cancelTapped:"/>
-                <relationship kind="action" name="submitTapped:"/>
-                <relationship kind="outlet" name="dataController" candidateClass="ASZReviewDataController"/>
-            </relationships>
-        </class>
-        <class className="ASZTabBarViewController" superclassName="UITabBarController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ASZTabBarViewController.h"/>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

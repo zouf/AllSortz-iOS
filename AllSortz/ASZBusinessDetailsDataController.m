@@ -13,7 +13,7 @@
 #import "ASZBusinessTopicViewController.h"
 #import "ASZBusinessTopicDataController.h"
 #import "ASZRateView.h"
-
+#import "ASZCommentList.h"
 
 
 @interface ASZBusinessDetailsDataController ()
@@ -80,6 +80,22 @@
 
 }
 
+-(void)rateCommentAsynchronously:(NSUInteger)cID withRating:(NSInteger)rating
+{
+    NSString *address = [NSString stringWithFormat:@"http://192.168.1.100/api/comment/rate/%lu/?uname=%@&password=%@&lat=%f&lon=%f&deviceID=%@&rating=%d", (unsigned long)cID, self.username, self.password, self.currentLatitude, self.currentLongitude, self.UUID,rating];
+    NSLog(@"Rate a comment with query %@",address);
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:address]];
+    void (^handler)(NSURLResponse *, NSData *, NSError *) = ^(NSURLResponse *response, NSData *data, NSError *error) {
+        //NSDictionary *JSONresponse = [NSJSONSerialization JSONObjectWithData:data options:0 error:NULL];
+        // self.business = [self businessFromJSONResult:JSONresponse[@"result"]];
+    };
+    
+    if (!self.queue)
+        self.queue = [[NSOperationQueue alloc] init];
+    [NSURLConnection sendAsynchronousRequest:request queue:self.queue completionHandler:handler];
+    
+}
+
 - (void)refreshBusinessAsynchronouslyWithID:(NSUInteger)ID
 {
     if (!(ID && self.username && self.currentLatitude && self.currentLongitude && self.UUID)) {
@@ -98,6 +114,41 @@
     if (!self.queue)
         self.queue = [[NSOperationQueue alloc] init];
     [NSURLConnection sendAsynchronousRequest:request queue:self.queue completionHandler:handler];
+}
+
+- (ASZCommentList *)commentListFromJSONResult:(NSDictionary *)result
+{
+    ASZCommentList *reviewList = [[ASZCommentList alloc] initWithID:self.business.ID];
+    if (!reviewList)
+        return nil;
+    
+    
+    reviewList.comments = [NSArray arrayWithArray:result[@"reviews"]];
+    
+    return reviewList;
+    
+}
+
+- (void)getAllReviews:(NSUInteger)busID
+{
+    //get a base review for the business with ID
+    // need a list of topics (and maybe what topics are already assoc. with busines)
+    // might include text you've already written
+    
+    NSString *address = [NSString stringWithFormat:@"http://192.168.1.100/api/business/reviews/%lu/?uname=%@&password=%@&lat=%f&lon=%f&deviceID=%@", (unsigned long)busID, self.username, self.password, self.currentLatitude, self.currentLongitude, self.UUID];
+    NSLog(@"Get all the reviews for this business with query %@",address);
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:address]];
+    void (^handler)(NSURLResponse *, NSData *, NSError *) = ^(NSURLResponse *response, NSData *data, NSError *error) {
+        NSDictionary *JSONresponse = [NSJSONSerialization JSONObjectWithData:data options:0 error:NULL];
+        self.reviewList = [self commentListFromJSONResult:JSONresponse[@"result"]];
+        
+    };
+    
+    if (!self.queue)
+        self.queue = [[NSOperationQueue alloc] init];
+    [NSURLConnection sendAsynchronousRequest:request queue:self.queue completionHandler:handler];
+    
+    return;
 }
 
 - (ASBusiness *)businessFromJSONResult:(NSDictionary *)result
@@ -231,10 +282,13 @@
         case INFO_TAB:
             cell = [tableView dequeueReusableCellWithIdentifier:@"BusinessDetailsHeaderCell"];
         {
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
             if (cell == nil) {
                 cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"BusinessDetailsHeaderCell"];
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                //override detail detailtextlabel behavior
+                [cell.detailTextLabel setFont:[UIFont fontWithName:@"Gill Sans" size:14]];
+                [cell.detailTextLabel setTextColor:[UIColor darkTextColor]];
+                [cell.detailTextLabel setTextAlignment:UITextAlignmentCenter];
             }
             NSMutableString *typeArrayStr = [[NSMutableString alloc] initWithString:@""];
             
@@ -250,10 +304,7 @@
             cell.textLabel.text = nil;
             
             
-            //override detail detailtextlabel behavior
-            [cell.detailTextLabel setFont:[UIFont fontWithName:@"Gill Sans" size:14]];
-            [cell.detailTextLabel setTextColor:[UIColor darkTextColor]];
-            [cell.detailTextLabel setTextAlignment:UITextAlignmentCenter];
+
 
             switch(indexPath.section)
             {
@@ -262,14 +313,14 @@
                     if (row == 0)
                     {
                         cell.detailTextLabel.text = self.business.phone;
-                        [cell.detailTextLabel setTextAlignment:UITextAlignmentCenter];
-                        [cell.detailTextLabel setFont:[UIFont fontWithName:@"Gill Sans" size:18]];
+                        [cell.detailTextLabel setTextAlignment:UITextAlignmentRight];
+                        [cell.detailTextLabel setFont:[UIFont fontWithName:@"Gill Sans" size:14]];
                     }
                     else // row == 1
                     {
                         cell.detailTextLabel.text = self.business.website.path;
-                        [cell.detailTextLabel setTextAlignment:UITextAlignmentCenter];
-                        [cell.detailTextLabel setFont:[UIFont fontWithName:@"Gill Sans" size:18]];
+                        [cell.detailTextLabel setTextAlignment:UITextAlignmentRight];
+                        [cell.detailTextLabel setFont:[UIFont fontWithName:@"Gill Sans" size:14]];
 
 
                     }
@@ -339,13 +390,15 @@
                 
                 
               
-                topicSummary = [[UITextView alloc] initWithFrame:CGRectMake(100, 0, 215, 68)];
+                topicSummary = [[UITextView alloc] initWithFrame:CGRectMake(100, 0, CELL_WIDTH, 68)];
                 topicSummary.tag = TOPICTEXTVIEW_TAG;
                 topicSummary.font = [UIFont fontWithName:@"GillSans-Light"  size:10];
-                topicSummary.textAlignment = UITextAlignmentRight;
+                topicSummary.textAlignment = UITextAlignmentLeft;
                 topicSummary.textColor = [UIColor darkGrayColor];
                 topicSummary.scrollEnabled = NO;
-                //topicSummary.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
+                topicSummary.editable = NO;
+
+                topicSummary.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
                 [cell.contentView addSubview:topicSummary];
                                        
                 UIFont *font = [UIFont fontWithName:@"Gill Sans" size:12];
@@ -384,7 +437,6 @@
             id topic = self.business.topics[indexPath.row];
             topicName.text = [topic valueForKey:@"name"];
             topicSummary.text = [topic valueForKey:@"summary"];
-            NSLog(@"Yo %@\n", topic);
 
             if ([[topic valueForKey:@"rating"] intValue] == 0)
             {
@@ -411,9 +463,137 @@
             singleTap.numberOfTouchesRequired = 1;
             singleTap.cancelsTouchesInView = NO;
             [topicSummary addGestureRecognizer:singleTap];
-
-        }
             return cell;
+        }
+            break;
+        case REVIEW_TAB:
+            cell = [tableView dequeueReusableCellWithIdentifier:@"ReviewCell"];
+
+        {
+
+            UILabel * authorLabel;
+            UILabel * dateLabel ;
+            UITextView * commentContent;
+            UISegmentedControl * rateSelector;
+            UILabel * posRatingLabel;
+            UILabel * negRatingLabel;
+
+            if (cell == nil) {
+                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"ReviewCell"];
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                cell.accessoryType = UITableViewCellAccessoryNone;
+          
+                authorLabel = [[UILabel alloc]initWithFrame:CGRectMake(16,0,82.0,26)];
+                authorLabel.tag = COMMENTAUTHOR_TAG;
+                authorLabel.font = [UIFont fontWithName:@"GillSans-Bold"  size:10];
+                authorLabel.textAlignment = UITextAlignmentLeft;
+                authorLabel.textColor = [UIColor darkGrayColor];
+                authorLabel.backgroundColor = [UIColor clearColor];
+
+                authorLabel.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
+                [cell.contentView addSubview:authorLabel];
+                
+                
+                dateLabel = [[UILabel alloc]initWithFrame:CGRectMake(225,0,82.0,26)];
+                dateLabel.tag = COMMENTDATE_TAG;
+                dateLabel.font = [UIFont fontWithName:@"GillSans-Italic"  size:10];
+                dateLabel.textAlignment = UITextAlignmentRight;
+                dateLabel.textColor = [UIColor darkGrayColor];
+                dateLabel.backgroundColor = [UIColor clearColor];
+
+                dateLabel.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
+                [cell.contentView addSubview:dateLabel];
+                
+                
+                commentContent = [[UITextView alloc] initWithFrame:CGRectMake(100, 10, COMMENT_WIDTH, 75)];
+                commentContent.tag = COMMENTTEXT_TAG;
+                commentContent.font = [UIFont fontWithName:@"GillSans-Light"  size:14];
+                commentContent.textAlignment = UITextAlignmentLeft;
+                commentContent.textColor = [UIColor darkGrayColor];
+                commentContent.scrollEnabled = NO;
+                commentContent.editable = NO;
+                commentContent.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
+                commentContent.backgroundColor = [UIColor clearColor];
+
+                commentContent.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
+                [cell.contentView addSubview:commentContent];
+                
+                UIFont *font = [UIFont fontWithName:@"Gill Sans" size:12];
+                NSArray *itemArray = [NSArray arrayWithObjects: @"Down", @"Up", nil];
+                rateSelector = [[UISegmentedControl alloc] initWithItems:itemArray];
+                rateSelector.tag = COMMENTRATE_TAG;
+                rateSelector.frame = CGRectMake(11, 50, 72  , 25);
+                rateSelector.segmentedControlStyle = UISegmentedControlStyleBar;
+                rateSelector.backgroundColor = [UIColor clearColor];
+
+                rateSelector.selectedSegmentIndex = 1;
+                
+                NSDictionary *attributes = [NSDictionary dictionaryWithObject:font
+                                                                       forKey:UITextAttributeFont];
+                [rateSelector setTitleTextAttributes:attributes
+                                            forState:UIControlStateNormal];
+                
+                
+                [cell.contentView addSubview:rateSelector];
+                
+                posRatingLabel = [[UILabel alloc]initWithFrame:CGRectMake(30,15,10,26.0)];
+                posRatingLabel.tag = COMMENTPOSRATING_TAG;
+                posRatingLabel.font = [UIFont fontWithName:@"Gill Sans"  size:10];
+                posRatingLabel.textAlignment = UITextAlignmentCenter;
+                posRatingLabel.textColor = [UIColor greenColor];
+                posRatingLabel.backgroundColor = [UIColor clearColor];
+                [cell.contentView addSubview:posRatingLabel];
+                
+                negRatingLabel = [[UILabel alloc]initWithFrame:CGRectMake(20,15,10,26.0)];
+                negRatingLabel.tag = COMMENTNEGRATING_TAG;
+                negRatingLabel.font = [UIFont fontWithName:@"Gill Sans"  size:10];
+                negRatingLabel.textAlignment = UITextAlignmentCenter;
+                negRatingLabel.textColor = [UIColor redColor];
+                negRatingLabel.backgroundColor = [UIColor clearColor];
+                [cell.contentView addSubview:negRatingLabel];
+                
+            }
+            else
+            {
+                authorLabel = (UILabel*)[cell.contentView viewWithTag:COMMENTAUTHOR_TAG];
+                commentContent = (UITextView*)[cell.contentView viewWithTag:COMMENTTEXT_TAG];
+                rateSelector = (UISegmentedControl*)[cell.contentView viewWithTag:COMMENTRATE_TAG];
+                dateLabel = (UILabel*)[cell viewWithTag:COMMENTDATE_TAG];
+                posRatingLabel = (UILabel*)[cell viewWithTag:COMMENTPOSRATING_TAG];
+                negRatingLabel = (UILabel*)[cell viewWithTag:COMMENTNEGRATING_TAG];
+
+                
+            }
+            id review = [self.reviewList.comments objectAtIndex:indexPath.row];
+            dateLabel.text =  [NSString stringWithFormat:@"%@", [review valueForKeyPath:@"date"]];
+            authorLabel.text = [NSString stringWithFormat:@"%@",[review valueForKeyPath:@"creator.userName"]];
+            commentContent.text = [NSString stringWithFormat:@"%@",[review valueForKeyPath:@"content"]];
+            posRatingLabel.text = [NSString stringWithFormat:@"%@",[review valueForKeyPath:@"posRatings"]];
+            negRatingLabel.text = [NSString stringWithFormat:@"%@",[review valueForKeyPath:@"negRatings"]];
+            
+            if ([review objectForKey:@"thisUsers"])
+            {
+                if ([[review valueForKey:@"thisUsers"] intValue] == 0)
+                {
+                    [rateSelector setSelectedSegmentIndex:0];
+                }
+                else 
+                {
+                    [rateSelector setSelectedSegmentIndex:1];
+                }
+               
+            }
+            else
+            {
+                //TODO change to none
+                [rateSelector setSelected:NO];
+
+            }
+            [rateSelector addTarget:self.viewController action:@selector(commentRateTap:) forControlEvents:UIControlEventAllEvents];
+
+            return cell;
+        }
+            break;
         default:
             return cell;
     }
@@ -455,21 +635,28 @@
             if (section == 2)
                 return 2;
                 
-            break;
         }
+            break;
         case REDEEM_TAB:  //redeem
+        {
             return 0;
+        }
             break;
         case DISCUSSION_TAB:
+        {
             return [self.business.topics count];
+        }
             break;
         case REVIEW_TAB:
-            return 0;
+        {
+            return [self.reviewList.comments count];
+        }
             break;
         default:
             return 0;
             break;
     }
+    return 0;
 }
 
 @end

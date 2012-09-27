@@ -33,27 +33,7 @@
 {
     [super viewDidLoad];
     
-    [self.dataController addObserver:self
-                          forKeyPath:@"commentList"
-                             options:NSKeyValueObservingOptionNew
-                             context:NULL];
-    
-    
-    [self.dataController getCommentList:self.businessTopicID];
 
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
- 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    NSLog(@"%@\n",self.businessTopicName);
-    [self.pageName setText:self.businessTopicName];
-    
-    
-    UITapGestureRecognizer *gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyboard)];
-    // For selecting cell.
-    gestureRecognizer.cancelsTouchesInView = NO;
-    [self.view addGestureRecognizer:gestureRecognizer];
     
     
 }
@@ -67,15 +47,39 @@
     [self setBarButton:nil];
     [self setPageName:nil];
     [super viewDidUnload];
+
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
 }
+-(void)viewDidAppear:(BOOL)animated
+{
+    
+    [self.dataController addObserver:self
+                          forKeyPath:@"commentList"
+                             options:NSKeyValueObservingOptionNew
+                             context:NULL];
+    [self.dataController getCommentList:self.businessTopicID];
+    
+    // Uncomment the following line to preserve selection between presentations.
+    // self.clearsSelectionOnViewWillAppear = NO;
+    
+    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
+    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    [self.pageName setText:self.businessTopicName];
+    
+    
+    UITapGestureRecognizer *gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyboard)];
+    // For selecting cell.
+    gestureRecognizer.cancelsTouchesInView = NO;
+    [self.view addGestureRecognizer:gestureRecognizer];
 
+}
 
 -(void)viewDidDisappear:(BOOL)animated
 {
-    [super viewDidDisappear:animated];
     [self.dataController removeObserver:self forKeyPath:@"commentList"];
+
+    [super viewDidDisappear:animated];
 
 }
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -94,7 +98,7 @@
         [self.tableView performSelectorOnMainThread:@selector(reloadData)
                                          withObject:nil
                                       waitUntilDone:NO];
-        //}
+
         
     }
 }
@@ -167,9 +171,33 @@
     UITextView *tv = (UITextView*)[self.tableView viewWithTag:200];
 
     self.dataController.commentList.busTopicInfo = tv.text;
-    NSLog(@"%@\n",self.dataController.commentList.busTopicInfo);
-    [self.dataController submitModifiedBusTopicContent:self.businessTopicID];
-    [self hideKeyboard];
+    if(![self.barButton.title isEqualToString:@"Comment"])
+    {
+        [self.dataController submitModifiedBusTopicContent:self.businessTopicID];
+        [self hideKeyboard];
+    }
+    else
+    {
+        NSString * targetViewControllerIdentifier = @"ReviewBusinessControllerID";
+        
+        ASZReviewViewController *detailsViewController =     (ASZReviewViewController*)[self.storyboard instantiateViewControllerWithIdentifier:targetViewControllerIdentifier];
+        UINavigationController *navBar=[[UINavigationController alloc]initWithRootViewController:detailsViewController];
+        
+        
+        detailsViewController.dataController.username = self.dataController.username;
+        detailsViewController.dataController.password = self.dataController.password;
+        
+        detailsViewController.dataController.UUID = self.dataController.UUID;
+        detailsViewController.dataController.currentLatitude = self.dataController.currentLatitude;
+        detailsViewController.dataController.currentLongitude = self.dataController.currentLongitude;
+        detailsViewController.bustopicID  = self.businessTopicID;
+        
+        
+        //[self.view addSubview:navBar.view];
+        [self.navigationController presentModalViewController:navBar animated:YES];
+    }
+
+
 
 }
 @end

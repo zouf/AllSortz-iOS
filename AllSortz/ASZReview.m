@@ -48,23 +48,21 @@ _ ## lower_name = lower_name; \
     return nil;
 }
 
-- (NSDictionary *) serializeToDictionaryWithTopics:(NSArray*)topics
+
+
+- (NSDictionary *) serializeToDictionary
 {
     
-    NSError * error;
     
-
-    NSData *jsonData =  [NSJSONSerialization dataWithJSONObject:topics options:NSJSONWritingPrettyPrinted error:&error];
-    NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-    
-    NSDictionary * dict= [NSDictionary dictionaryWithObjectsAndKeys:
+        NSDictionary * dict= [NSDictionary dictionaryWithObjectsAndKeys:
                           [NSString stringWithFormat:@"%d",self.ID], @"businessID",
                           self.reviewText ,@"content",
-                          @"review", @"commentType",
-                          jsonString ,@"topicIDs",nil];
-        
+                          @"comment", @"commentType",nil];
+    
     return dict;
 }
+
+
 
 
 

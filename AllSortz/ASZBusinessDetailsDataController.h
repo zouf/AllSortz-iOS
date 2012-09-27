@@ -20,6 +20,7 @@ typedef enum ASZBusinessDetailsInfoRow : NSInteger {
     ASZBusinessDetailsPhoneRow,
     ASZBusinessDetailsWebsiteRow
 } ASZBusinessDetailsInfoRow;
+@class ASZCommentList;
 
 @class ASBusiness;
 
@@ -33,9 +34,13 @@ typedef enum ASZBusinessDetailsInfoRow : NSInteger {
 @property CGFloat currentLatitude;
 @property CGFloat currentLongitude;
 @property NSString *UUID;
+@property ASZCommentList *reviewList;
 
 - (UIImage*)getImageForGrade:(NSString*)healthGrade;
 - (void)refreshBusinessAsynchronouslyWithID:(NSUInteger)ID;
 -(void)rateBusinessTopicAsynchronously:(NSUInteger)btID withRating:(NSInteger)rating;
--(void)updateView;
+-(void)rateCommentAsynchronously:(NSUInteger)cID withRating:(NSInteger)rating;
+
+- (void)getAllReviews:(NSUInteger)busID;
+
 @end

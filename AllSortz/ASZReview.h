@@ -20,6 +20,6 @@
 
 
 - (id)initWithID:(NSUInteger)anID;
-- (NSDictionary *) serializeToDictionaryWithTopics:(NSArray*)topics;
+- (NSDictionary *) serializeToDictionary;
 
 @end

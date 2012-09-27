@@ -20,4 +20,6 @@
 
 - (void)getReviewInfo:(NSUInteger)ID;
 - (void)submitReviewWithTopics:(NSArray*)topics;
+- (void)submitComment;
+
 @end

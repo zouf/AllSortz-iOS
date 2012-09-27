@@ -34,7 +34,7 @@
 - (BOOL)updateData
 {
         
-    NSString *address = [NSString stringWithFormat:@"http://192.168.1.100/api/query/base/?uname=%@&password=%@&deviceID=%@",
+    NSString *address = [NSString stringWithFormat:@"http://allsortz.com/api/query/base/?uname=%@&password=%@&deviceID=%@",
         [self.deviceInterface getStoredUname], [self.deviceInterface getStoredPassword],[self.deviceInterface getDeviceUIUD]];
     NSURL *url = [NSURL URLWithString:address];
     

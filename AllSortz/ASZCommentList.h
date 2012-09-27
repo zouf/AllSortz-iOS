@@ -23,4 +23,6 @@
 - (NSDictionary *) serializeBusTopicInfo;
 
 
+-(UITableViewCell*)getCommentCell;
+
 @end

@@ -9,6 +9,7 @@
 #import "ASZReviewDataController.h"
 #import "ASZReviewViewController.h"
 #import "ASURLEncoding.h"
+#import "ASZReview.h"
 
 #define TOPICLABEL_TAG 200
 #define TEXTVIEW_TAG 201
@@ -35,7 +36,7 @@
     // need a list of topics (and maybe what topics are already assoc. with busines)
     // might include text you've already written
     
-    NSString *address = [NSString stringWithFormat:@"http://192.168.1.100/api/review/%lu/?uname=%@&password=%@&lat=%f&lon=%f&deviceID=%@", (unsigned long)ID, self.username, self.password, self.currentLatitude, self.currentLongitude, self.UUID];
+    NSString *address = [NSString stringWithFormat:@"http://allsortz.com/api/review/%lu/?uname=%@&password=%@&lat=%f&lon=%f&deviceID=%@", (unsigned long)ID, self.username, self.password, self.currentLatitude, self.currentLongitude, self.UUID];
     NSLog(@"Get review base with query %@",address);
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:address]];
     void (^handler)(NSURLResponse *, NSData *, NSError *) = ^(NSURLResponse *response, NSData *data, NSError *error) {
@@ -69,10 +70,28 @@
 
 
 
-- (void)submitReviewWithTopics:(NSArray*)topics;
+-(NSDictionary*)serializeReview:(NSArray*)topics
 {
-    NSString *address = [NSString stringWithFormat:@"http://192.168.1.100/api/comment/add/%lu/?uname=%@&password=%@&lat=%f&lon=%f&deviceID=%@", (unsigned long)self.viewController.businessID, self.username, self.password, self.currentLatitude, self.currentLongitude, self.UUID];
-    NSString *str = [[self.review serializeToDictionaryWithTopics:topics] urlEncodedString];
+    NSError * error;
+    
+    
+    NSData *jsonData =  [NSJSONSerialization dataWithJSONObject:topics options:NSJSONWritingPrettyPrinted error:&error];
+    NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    
+    NSDictionary * dict= [NSDictionary dictionaryWithObjectsAndKeys:
+                          [NSString stringWithFormat:@"%d",self.review.ID], @"businessID",
+                          self.review.reviewText ,@"content",
+                          @"review", @"commentType",
+                          jsonString ,@"topicIDs",nil];
+    
+    return dict;
+}
+
+- (void)submitReviewWithTopics:(NSArray*)topics 
+{
+    NSString *address = [NSString stringWithFormat:@"http://allsortz.com/api/comment/add/%lu/?uname=%@&password=%@&lat=%f&lon=%f&deviceID=%@", (unsigned long)self.viewController.businessID, self.username, self.password, self.currentLatitude, self.currentLongitude, self.UUID];
+
+    NSString * str = [[self serializeReview:topics] urlEncodedString];
     NSData* data = [str dataUsingEncoding:NSUTF8StringEncoding];
     NSURLRequest *request = [self postRequestWithAddress:address data:data];
     NSLog(@"Get details with query %@\n\nPost Data %@",address,str);
@@ -87,6 +106,27 @@
     [NSURLConnection sendAsynchronousRequest:request queue:self.queue completionHandler:handler];
 
 }
+
+- (void)submitComment
+{
+    NSString *address = [NSString stringWithFormat:@"http://allsortz.com/api/comment/add/%lu/?uname=%@&password=%@&lat=%f&lon=%f&deviceID=%@", (unsigned long)self.viewController.bustopicID, self.username, self.password, self.currentLatitude, self.currentLongitude, self.UUID];
+    NSString *str = [[self.review serializeToDictionary] urlEncodedString];
+    NSLog(@"%@\n",str);
+    NSData* data = [str dataUsingEncoding:NSUTF8StringEncoding];
+    NSURLRequest *request = [self postRequestWithAddress:address data:data];
+    NSLog(@"Submit a comment with query %@\n\nPost Data %@",address,str);
+    
+    void (^handler)(NSURLResponse *, NSData *, NSError *) = ^(NSURLResponse *response, NSData *data, NSError *error) {
+        //    NSDictionary *JSONresponse = [NSJSONSerialization JSONObjectWithData:data  options:0 error:NULL];
+        //    self.business = [self businessFromJSONResult:JSONresponse[@"result"]];
+    };
+    
+    if (!self.queue)
+        self.queue = [[NSOperationQueue alloc] init];
+    [NSURLConnection sendAsynchronousRequest:request queue:self.queue completionHandler:handler];
+    
+}
+
 
 - (ASZReview *)reviewFromJSONResult:(NSDictionary *)result
 {
@@ -134,14 +174,6 @@
     
     switch (indexPath.section) {
         case 0:
-            cell = [tableView dequeueReusableCellWithIdentifier:@"ReviewText"];
-        {
-            [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
-            //UITextView * reviewText = (UITextView*)[cell viewWithTag:TEXTVIEW_TAG];
-            //reviewText.text = [NSString stringWithFormat:@"What did you think of %@?\n",self.viewController.businessName];
-        }
-            return cell;
-        case 1:
             cell = [tableView dequeueReusableCellWithIdentifier:@"TopicCell"];
         {
             UILabel *topicName = (UILabel*)[cell viewWithTag:TOPICLABEL_TAG];
@@ -159,16 +191,13 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 1;
+    return 0;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     switch (section) {
         case 0:
-            return 1;
-            break;
-        case 1:
             // TODO: Show info
             return self.review.allTopics.count;
             break;
