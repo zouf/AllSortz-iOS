@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="2840" systemVersion="11G56" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="4">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="2840" systemVersion="12C54" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="4">
     <dependencies>
         <development version="4400" identifier="xcode"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1926"/>
@@ -271,7 +271,7 @@
                                 <rect key="frame" x="0.0" y="44" width="320" height="22"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="1001" contentMode="left" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="P9H-DH-khg">
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="1001" contentMode="left" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" id="P9H-DH-khg">
                                         <rect key="frame" x="16" y="4" width="210" height="16"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" name="GillSans-Italic" family="Gill Sans" pointSize="14"/>
@@ -1388,6 +1388,7 @@
             <source key="sourceIdentifier" type="project" relativePath="./Classes/ASMapViewController.h"/>
             <relationships>
                 <relationship kind="action" name="goToMyLocation:"/>
+                <relationship kind="action" name="refreshTapped:"/>
                 <relationship kind="outlet" name="listViewController" candidateClass="ASListingsViewController"/>
                 <relationship kind="outlet" name="listingsTableDataController" candidateClass="ASBusinessListDataController"/>
                 <relationship kind="outlet" name="mv" candidateClass="MKMapView"/>
@@ -1442,6 +1443,12 @@
         <class className="ASZBusinessDetailsBaseViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/ASZBusinessDetailsBaseViewController.h"/>
             <relationships>
+                <relationship kind="action" name="busTopicRateTap:"/>
+                <relationship kind="action" name="commentRateTap:"/>
+                <relationship kind="action" name="editTapped:"/>
+                <relationship kind="action" name="reportProblem:"/>
+                <relationship kind="action" name="reviewTapped:"/>
+                <relationship kind="action" name="switchDetailTab:"/>
                 <relationship kind="outlet" name="dataController" candidateClass="ASZBusinessDetailsDataController"/>
                 <relationship kind="outlet" name="mainView" candidateClass="UIView"/>
                 <relationship kind="outlet" name="rateView" candidateClass="ASZRateView"/>
@@ -1482,6 +1489,8 @@
         <class className="ASZEditBusinessDetailsViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/ASZEditBusinessDetailsViewController.h"/>
             <relationships>
+                <relationship kind="action" name="cancelTapped:"/>
+                <relationship kind="action" name="doneTapped:"/>
                 <relationship kind="outlet" name="dataController" candidateClass="ASZEditBusinessDetailsDataController"/>
             </relationships>
         </class>
@@ -1498,6 +1507,8 @@
         <class className="ASZReviewViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/ASZReviewViewController.h"/>
             <relationships>
+                <relationship kind="action" name="cancelTapped:"/>
+                <relationship kind="action" name="submitTapped:"/>
                 <relationship kind="outlet" name="dataController" candidateClass="ASZReviewDataController"/>
             </relationships>
         </class>

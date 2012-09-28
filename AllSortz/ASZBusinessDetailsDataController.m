@@ -66,7 +66,7 @@
 
 -(void)rateBusinessTopicAsynchronously:(NSUInteger)btID withRating:(NSInteger)rating
 {
-    NSString *address = [NSString stringWithFormat:@"http://192.168.1.100/api/business/topic/rate/%lu/?uname=%@&password=%@&lat=%f&lon=%f&deviceID=%@&rating=%d", (unsigned long)btID, self.username, self.password, self.currentLatitude, self.currentLongitude, self.UUID,rating];
+    NSString *address = [NSString stringWithFormat:@"http://allsortz.com/api/business/topic/rate/%lu/?uname=%@&password=%@&lat=%f&lon=%f&deviceID=%@&rating=%d", (unsigned long)btID, self.username, self.password, self.currentLatitude, self.currentLongitude, self.UUID,rating];
     NSLog(@"Get details with query %@",address);
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:address]];
     void (^handler)(NSURLResponse *, NSData *, NSError *) = ^(NSURLResponse *response, NSData *data, NSError *error) {
@@ -82,7 +82,7 @@
 
 -(void)rateCommentAsynchronously:(NSUInteger)cID withRating:(NSInteger)rating
 {
-    NSString *address = [NSString stringWithFormat:@"http://192.168.1.100/api/comment/rate/%lu/?uname=%@&password=%@&lat=%f&lon=%f&deviceID=%@&rating=%d", (unsigned long)cID, self.username, self.password, self.currentLatitude, self.currentLongitude, self.UUID,rating];
+    NSString *address = [NSString stringWithFormat:@"http://allsortz.com/api/comment/rate/%lu/?uname=%@&password=%@&lat=%f&lon=%f&deviceID=%@&rating=%d", (unsigned long)cID, self.username, self.password, self.currentLatitude, self.currentLongitude, self.UUID,rating];
     NSLog(@"Rate a comment with query %@",address);
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:address]];
     void (^handler)(NSURLResponse *, NSData *, NSError *) = ^(NSURLResponse *response, NSData *data, NSError *error) {
@@ -103,7 +103,7 @@
         return;
     }
 
-    NSString *address = [NSString stringWithFormat:@"http://192.168.1.100/api/business/%lu?uname=%@&password=%@&lat=%f&lon=%f&deviceID=%@", (unsigned long)ID, self.username, self.password, self.currentLatitude, self.currentLongitude, self.UUID];
+    NSString *address = [NSString stringWithFormat:@"http://allsortz.com/api/business/%lu?uname=%@&password=%@&lat=%f&lon=%f&deviceID=%@", (unsigned long)ID, self.username, self.password, self.currentLatitude, self.currentLongitude, self.UUID];
     NSLog(@"Rate businesstopic with address %@",address);
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:address]];
     void (^handler)(NSURLResponse *, NSData *, NSError *) = ^(NSURLResponse *response, NSData *data, NSError *error) {
@@ -135,7 +135,7 @@
     // need a list of topics (and maybe what topics are already assoc. with busines)
     // might include text you've already written
     
-    NSString *address = [NSString stringWithFormat:@"http://192.168.1.100/api/business/reviews/%lu/?uname=%@&password=%@&lat=%f&lon=%f&deviceID=%@", (unsigned long)busID, self.username, self.password, self.currentLatitude, self.currentLongitude, self.UUID];
+    NSString *address = [NSString stringWithFormat:@"http://allsortz.com/api/business/reviews/%lu/?uname=%@&password=%@&lat=%f&lon=%f&deviceID=%@", (unsigned long)busID, self.username, self.password, self.currentLatitude, self.currentLongitude, self.UUID];
     NSLog(@"Get all the reviews for this business with query %@",address);
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:address]];
     void (^handler)(NSURLResponse *, NSData *, NSError *) = ^(NSURLResponse *response, NSData *data, NSError *error) {
@@ -214,14 +214,15 @@
 
     
     // Sort topics into order they should be displayed
-    business.topics = [topics sortedArrayUsingComparator:^NSComparisonResult (id obj1, id obj2) {
+    business.topics = topics;
+    /*[topics sortedArrayUsingComparator:^NSComparisonResult (id obj1, id obj2) {
         NSString *name1 = [obj1 valueForKey:@"name"];
         NSString *name2 = [obj2 valueForKey:@"name"];
         if ([name1 isEqualToString:name2]) return NSOrderedSame;
         if ([name1 isEqualToString:@"Synopsis"]) return NSOrderedAscending;
         if ([name2 isEqualToString:@"Synopsis"]) return NSOrderedDescending;
         return [name1 localizedCompare:name2];
-    }];
+    }];*/
 
         
     // Fetch image asynchronously if the image has some content
