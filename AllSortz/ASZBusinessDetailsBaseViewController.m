@@ -145,7 +145,7 @@
     detailsViewController.dataController.currentLongitude = self.dataController.currentLongitude;
     detailsViewController.businessID  = self.businessID;
     
-    [self.navigationController presentModalViewController:navBar animated:YES];
+    [self.navigationController presentViewController:navBar animated:YES completion:nil];
 }
 
 - (IBAction)reviewTapped:(id)sender {
@@ -161,8 +161,8 @@
     detailsViewController.dataController.currentLatitude = self.dataController.currentLatitude;
     detailsViewController.dataController.currentLongitude = self.dataController.currentLongitude;
     detailsViewController.businessID  = self.businessID;
-    
-    [self.navigationController presentModalViewController:navBar animated:YES];
+
+    [self.navigationController presentViewController:navBar animated:YES completion:nil];
 }
 
 - (IBAction)reportProblem:(id)sender {
@@ -473,7 +473,7 @@ heightForFooterInSection:(NSInteger)section {
             
             CGSize constraint = CGSizeMake(CELL_WIDTH - (CELL_MARGIN * 2), 20000.0f);
             
-            CGSize size = [text sizeWithFont:[UIFont fontWithName:@"GillSans-Light"  size:10] constrainedToSize:constraint lineBreakMode:UILineBreakModeWordWrap];
+            CGSize size = [text sizeWithFont:[UIFont fontWithName:@"GillSans-Light"  size:10] constrainedToSize:constraint lineBreakMode:NSLineBreakByWordWrapping];
             
             CGFloat height = MAX(size.height, DEFAULT_HEIGHT);
             
@@ -490,7 +490,7 @@ heightForFooterInSection:(NSInteger)section {
             
             CGSize constraint = CGSizeMake(COMMENT_WIDTH - (CELL_MARGIN * 2), 20000.0f);
             
-            CGSize size = [text sizeWithFont:[UIFont fontWithName:@"GillSans-Light"  size:14] constrainedToSize:constraint lineBreakMode:UILineBreakModeWordWrap];
+            CGSize size = [text sizeWithFont:[UIFont fontWithName:@"GillSans-Light"  size:14] constrainedToSize:constraint lineBreakMode:NSLineBreakByWordWrapping];
             
             CGFloat height = MAX(size.height, COMMENT_HEIGHT);
             

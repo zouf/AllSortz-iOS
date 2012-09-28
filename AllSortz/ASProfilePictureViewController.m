@@ -66,7 +66,7 @@
     imagePickController.allowsEditing=NO;
     //imagePickController.showsCameraControls=YES;
     //This method inherit from UIView,show imagePicker with animation
-    [self presentModalViewController:imagePickController animated:YES];
+    [self presentViewController:imagePickController animated:YES completion:nil];
 }
 
 #pragma mark - When Tap Save Button
@@ -108,13 +108,13 @@
     NSLog(@"Original Image%@",image);
     imageView.image=originalImage;
     saveImageButton.enabled=YES;
-    [self dismissModalViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - When Tap Cancel
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
-    [picker dismissModalViewControllerAnimated:YES];
+    [picker dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - Release object

@@ -132,7 +132,7 @@
 	}
     label.text = sectionHeader;
     label.font = [UIFont boldSystemFontOfSize:16.0];
-    label.textAlignment=UITextAlignmentCenter;
+    label.textAlignment=NSTextAlignmentCenter;
 
     label.backgroundColor = [UIColor clearColor];
     return label;

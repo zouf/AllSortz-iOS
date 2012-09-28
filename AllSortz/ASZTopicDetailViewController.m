@@ -70,7 +70,7 @@
             
             CGSize constraint = CGSizeMake(CELL_WIDTH - (CELL_MARGIN * 2), 20000.0f);
             
-            CGSize size = [text sizeWithFont:[UIFont fontWithName:@"Gill Sans Light" size:14.0] constrainedToSize:constraint lineBreakMode:UILineBreakModeWordWrap];
+            CGSize size = [text sizeWithFont:[UIFont fontWithName:@"Gill Sans Light" size:14.0] constrainedToSize:constraint lineBreakMode:NSLineBreakByWordWrapping];
             
             CGFloat height = MAX(size.height, 44.0f);
             

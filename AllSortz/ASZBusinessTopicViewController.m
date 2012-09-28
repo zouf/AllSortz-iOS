@@ -194,7 +194,7 @@
         
         
         //[self.view addSubview:navBar.view];
-        [self.navigationController presentModalViewController:navBar animated:YES];
+        [self.navigationController presentViewController:navBar animated:YES completion:nil];
     }
 
 

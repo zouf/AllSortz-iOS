@@ -172,7 +172,7 @@
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:PlaceholderCellIdentifier];
         if (cell == nil)
 		{
-            cell.detailTextLabel.textAlignment = UITextAlignmentCenter;
+            cell.detailTextLabel.textAlignment = NSTextAlignmentCenter;
 			cell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
         
@@ -395,12 +395,12 @@
 {
 
     [self.listingsTableDataController updateData];
-    [self.navigationController dismissModalViewControllerAnimated:YES];
+    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
     
 }
 
 -(void)cancelASAddBusinessViewController:(ASAddBusinessViewController *)abvc{
-    [self.navigationController dismissModalViewControllerAnimated:YES];
+    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - Storyboard

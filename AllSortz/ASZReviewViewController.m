@@ -98,14 +98,13 @@
        [self.dataController submitComment];
     }
 
-    [self.navigationController dismissModalViewControllerAnimated:YES];
-    
+    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
 #pragma mark - Remove the view
 
 
 - (IBAction)cancelTapped:(id)sender {
-    [self.navigationController dismissModalViewControllerAnimated:YES];
+    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
 
 

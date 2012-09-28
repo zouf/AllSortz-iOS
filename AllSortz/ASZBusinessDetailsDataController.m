@@ -289,7 +289,7 @@
                 //override detail detailtextlabel behavior
                 [cell.detailTextLabel setFont:[UIFont fontWithName:@"Gill Sans" size:14]];
                 [cell.detailTextLabel setTextColor:[UIColor darkTextColor]];
-                [cell.detailTextLabel setTextAlignment:UITextAlignmentCenter];
+                [cell.detailTextLabel setTextAlignment:NSTextAlignmentCenter];
             }
             NSMutableString *typeArrayStr = [[NSMutableString alloc] initWithString:@""];
             
@@ -314,13 +314,13 @@
                     if (row == 0)
                     {
                         cell.detailTextLabel.text = self.business.phone;
-                        [cell.detailTextLabel setTextAlignment:UITextAlignmentRight];
+                        [cell.detailTextLabel setTextAlignment:NSTextAlignmentRight];
                         [cell.detailTextLabel setFont:[UIFont fontWithName:@"Gill Sans" size:14]];
                     }
                     else // row == 1
                     {
                         cell.detailTextLabel.text = self.business.website.path;
-                        [cell.detailTextLabel setTextAlignment:UITextAlignmentRight];
+                        [cell.detailTextLabel setTextAlignment:NSTextAlignmentRight];
                         [cell.detailTextLabel setFont:[UIFont fontWithName:@"Gill Sans" size:14]];
 
 
@@ -383,7 +383,7 @@
                 topicName = [[UILabel alloc]initWithFrame:CGRectMake(6,0,82.0,26.0)];
                 topicName.tag = TOPICNAMELABEL_TAG;
                 topicName.font = [UIFont fontWithName:@"Gill Sans"  size:14];
-                topicName.textAlignment = UITextAlignmentRight;
+                topicName.textAlignment = NSTextAlignmentRight;
                 topicName.textColor = [UIColor darkGrayColor];
                 topicName.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
                 [cell.contentView addSubview:topicName];
@@ -394,7 +394,7 @@
                 topicSummary = [[UITextView alloc] initWithFrame:CGRectMake(100, 0, CELL_WIDTH, 68)];
                 topicSummary.tag = TOPICTEXTVIEW_TAG;
                 topicSummary.font = [UIFont fontWithName:@"GillSans-Light"  size:10];
-                topicSummary.textAlignment = UITextAlignmentLeft;
+                topicSummary.textAlignment = NSTextAlignmentLeft;
                 topicSummary.textColor = [UIColor darkGrayColor];
                 topicSummary.scrollEnabled = NO;
                 topicSummary.editable = NO;
@@ -421,7 +421,7 @@
                 avgRatingLabel = [[UILabel alloc]initWithFrame:CGRectMake(6,14,82.0,26.0)];
                 avgRatingLabel.tag = TOPICAVGRATINGSLABEL_TAG;
                 avgRatingLabel.font = [UIFont fontWithName:@"Gill Sans"  size:10];
-                avgRatingLabel.textAlignment = UITextAlignmentCenter;
+                avgRatingLabel.textAlignment = NSTextAlignmentCenter;
                 avgRatingLabel.textColor = [UIColor darkGrayColor];
                 topicSummary.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
                 [cell.contentView addSubview:avgRatingLabel];
@@ -487,7 +487,7 @@
                 authorLabel = [[UILabel alloc]initWithFrame:CGRectMake(16,0,82.0,26)];
                 authorLabel.tag = COMMENTAUTHOR_TAG;
                 authorLabel.font = [UIFont fontWithName:@"GillSans-Bold"  size:10];
-                authorLabel.textAlignment = UITextAlignmentLeft;
+                authorLabel.textAlignment = NSTextAlignmentLeft;
                 authorLabel.textColor = [UIColor darkGrayColor];
                 authorLabel.backgroundColor = [UIColor clearColor];
 
@@ -498,7 +498,7 @@
                 dateLabel = [[UILabel alloc]initWithFrame:CGRectMake(225,0,82.0,26)];
                 dateLabel.tag = COMMENTDATE_TAG;
                 dateLabel.font = [UIFont fontWithName:@"GillSans-Italic"  size:10];
-                dateLabel.textAlignment = UITextAlignmentRight;
+                dateLabel.textAlignment = NSTextAlignmentRight;
                 dateLabel.textColor = [UIColor darkGrayColor];
                 dateLabel.backgroundColor = [UIColor clearColor];
 
@@ -509,7 +509,7 @@
                 commentContent = [[UITextView alloc] initWithFrame:CGRectMake(100, 10, COMMENT_WIDTH, 75)];
                 commentContent.tag = COMMENTTEXT_TAG;
                 commentContent.font = [UIFont fontWithName:@"GillSans-Light"  size:14];
-                commentContent.textAlignment = UITextAlignmentLeft;
+                commentContent.textAlignment = NSTextAlignmentLeft;
                 commentContent.textColor = [UIColor darkGrayColor];
                 commentContent.scrollEnabled = NO;
                 commentContent.editable = NO;
@@ -540,7 +540,7 @@
                 posRatingLabel = [[UILabel alloc]initWithFrame:CGRectMake(30,15,10,26.0)];
                 posRatingLabel.tag = COMMENTPOSRATING_TAG;
                 posRatingLabel.font = [UIFont fontWithName:@"Gill Sans"  size:10];
-                posRatingLabel.textAlignment = UITextAlignmentCenter;
+                posRatingLabel.textAlignment = NSTextAlignmentCenter;
                 posRatingLabel.textColor = [UIColor greenColor];
                 posRatingLabel.backgroundColor = [UIColor clearColor];
                 [cell.contentView addSubview:posRatingLabel];
@@ -548,7 +548,7 @@
                 negRatingLabel = [[UILabel alloc]initWithFrame:CGRectMake(20,15,10,26.0)];
                 negRatingLabel.tag = COMMENTNEGRATING_TAG;
                 negRatingLabel.font = [UIFont fontWithName:@"Gill Sans"  size:10];
-                negRatingLabel.textAlignment = UITextAlignmentCenter;
+                negRatingLabel.textAlignment = NSTextAlignmentCenter;
                 negRatingLabel.textColor = [UIColor redColor];
                 negRatingLabel.backgroundColor = [UIColor clearColor];
                 [cell.contentView addSubview:negRatingLabel];

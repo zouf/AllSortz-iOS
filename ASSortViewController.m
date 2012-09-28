@@ -171,7 +171,7 @@
 	}
     label.text = sectionHeader;
     label.font = [UIFont fontWithName:@"Gill Sans" size:18.0];
-    label.textAlignment=UITextAlignmentCenter;
+    label.textAlignment=NSTextAlignmentCenter;
     
     [label setBackgroundColor:[UIColor clearColor]];
     return label;
@@ -205,7 +205,7 @@
 
 #pragma mark - Actions
 -(IBAction)cancelTapped:(id)sender{ 
-    [self.navigationController dismissModalViewControllerAnimated:YES];
+    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
 
 -(IBAction)doneTapped:(id)sender{
@@ -251,7 +251,7 @@
     newQ.selectedTypes = lTypes;
     newQ.searchLocation = ((UITextField*)[self.tableView viewWithTag:LOCATION_TEXT_VIEW]).text;
     [self.delegate waitOnQueryResponse:newQ];
-    [self.navigationController dismissModalViewControllerAnimated:YES];
+    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
 
 
     
