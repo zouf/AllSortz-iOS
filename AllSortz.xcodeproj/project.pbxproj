@@ -1275,7 +1275,6 @@
 				INFOPLIST_FILE = "AllSortz/AllSortz-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/TestFlightSDK1.1\"",
 					"\"$(SRCROOT)\"",
 				);
 				OTHER_LDFLAGS = "";
@@ -1294,7 +1293,6 @@
 				INFOPLIST_FILE = "AllSortz/AllSortz-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/TestFlightSDK1.1\"",
 					"\"$(SRCROOT)\"",
 				);
 				OTHER_LDFLAGS = "";
