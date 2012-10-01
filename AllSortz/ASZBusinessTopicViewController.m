@@ -119,18 +119,42 @@
 {
     switch(indexPath.section)
     {
-        case 0:
+        case BUSTOPICCONTENT_SECTION:
         {
-            return 145;
+            NSString * text = self.dataController.commentList.busTopicInfo;
+                        
+            CGSize constraint = CGSizeMake(COMMENT_WIDTH - (CELL_MARGIN * 2), 20000.0f);
+            
+            CGSize size = [text sizeWithFont:[UIFont fontWithName:@"GillSans-Light"  size:14] constrainedToSize:constraint lineBreakMode:NSLineBreakByWordWrapping];
+            
+            CGFloat height = MAX(size.height, 145);
+            
+            return height + (CELL_MARGIN * 2);
+            break;
+
+        }
+        case COMMENTLIST_SECTION:
+        {
+            
+            NSArray *reviews   =  self.dataController.commentList.comments;
+            id review = reviews[indexPath.row];
+            
+            NSString * text = [review valueForKey:@"content"];
+            
+            CGSize constraint = CGSizeMake(COMMENT_WIDTH - (CELL_MARGIN * 2), 20000.0f);
+            
+            CGSize size = [text sizeWithFont:[UIFont fontWithName:@"GillSans-Light"  size:14] constrainedToSize:constraint lineBreakMode:NSLineBreakByWordWrapping];
+            
+            CGFloat height = MAX(size.height, COMMENT_HEIGHT);
+            
+            return height + (CELL_MARGIN * 2);
             break;
         }
-        case 1:
-            return 75;
-            break;
         default:
-            return 22;
+            return tableView.rowHeight;
             break;
     }
+
 }
 
 #pragma mark - Storyboard segue
@@ -167,6 +191,17 @@
 {
     self.barButton.title = @"Comment";
 }
+#pragma mark - Handle comment ratings
+- (IBAction)commentRateTap:(id)sender{
+    UISegmentedControl*rateControl = (UISegmentedControl*)sender;
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:(UITableViewCell *)[[sender superview] superview]];
+    NSDictionary *comment = self.dataController.commentList.comments[indexPath.row];
+    NSLog(@"User gave %@ a %d\n",[comment valueForKey:@"content"], rateControl.selectedSegmentIndex);
+    NSInteger cID = [[comment valueForKey:@"commentID"] intValue];
+    
+    [self.dataController rateCommentAsynchronously:cID withRating:rateControl.selectedSegmentIndex];
+}
+
 - (IBAction)barButtonTapped:(id)sender {
     UITextView *tv = (UITextView*)[self.tableView viewWithTag:200];
 

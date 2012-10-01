@@ -16,6 +16,8 @@
 #import "ASZCommentList.h"
 
 
+
+
 @interface ASZBusinessDetailsDataController ()
 
 @property NSOperationQueue *queue;  // Assume we only need one for now
@@ -83,7 +85,7 @@
 -(void)rateCommentAsynchronously:(NSUInteger)cID withRating:(NSInteger)rating
 {
     NSString *address = [NSString stringWithFormat:@"http://allsortz.com/api/comment/rate/%lu/?uname=%@&password=%@&lat=%f&lon=%f&deviceID=%@&rating=%d", (unsigned long)cID, self.username, self.password, self.currentLatitude, self.currentLongitude, self.UUID,rating];
-    NSLog(@"Rate a comment with query %@",address);
+    NSLog(@"Rate a comment from within the review tab with query %@",address);
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:address]];
     void (^handler)(NSURLResponse *, NSData *, NSError *) = ^(NSURLResponse *response, NSData *data, NSError *error) {
         //NSDictionary *JSONresponse = [NSJSONSerialization JSONObjectWithData:data options:0 error:NULL];

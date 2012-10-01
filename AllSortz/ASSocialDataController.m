@@ -71,8 +71,8 @@ BOOL updated;
         self.currentLocation.coordinate.latitude,self.currentLocation.coordinate.longitude,[self.deviceInterface getDeviceUIUD]];
     
     [self.deviceInterface storeUnamePassword:self.userProfile.userName :self.userProfile.userPassword];
+    NSLog(@"UPdate user with %@\n", address);
     
-
     NSString *str = [[self.userProfile serializeToDictionary] urlEncodedString];
     NSLog(@"POST STRING IS %@\n",str);
     NSData* data = [str dataUsingEncoding:NSUTF8StringEncoding];

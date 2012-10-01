@@ -16,10 +16,7 @@
 
 #import  <QuartzCore/QuartzCore.h>
 
-#define BUSTOPICCONTENT_TAG 200
-#define COMMENTAUTHOR_TAG 201
-#define COMMENTTEXT_TAG 202
-#define COMMENTDATE_TAG 203
+
 @interface ASZBusinessTopicDataController ()
 
 @property NSOperationQueue *queue;  // Assume we only need one for now
@@ -70,6 +67,20 @@
 }
 
 
+-(void)rateCommentAsynchronously:(NSUInteger)cID withRating:(NSInteger)rating
+{
+    NSString *address = [NSString stringWithFormat:@"http://allsortz.com/api/comment/rate/%lu/?uname=%@&password=%@&lat=%f&lon=%f&deviceID=%@&rating=%d", (unsigned long)cID, self.username, self.password, self.currentLatitude, self.currentLongitude, self.UUID,rating];
+    NSLog(@"Rate a comment from within the bustopic details page with query %@",address);
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:address]];
+    void (^handler)(NSURLResponse *, NSData *, NSError *) = ^(NSURLResponse *response, NSData *data, NSError *error) {
+
+    };
+    
+    if (!self.queue)
+        self.queue = [[NSOperationQueue alloc] init];
+    [NSURLConnection sendAsynchronousRequest:request queue:self.queue completionHandler:handler];
+    
+}
 - (void)submitModifiedBusTopicContent:(NSUInteger)btID
 {
     //get a base review for the business with ID
@@ -141,7 +152,7 @@
     UITableViewCell *cell = nil;
     
     switch (indexPath.section) {
-        case 0:
+        case BUSTOPICCONTENT_SECTION:
             cell = [tableView dequeueReusableCellWithIdentifier:@"BusTopicContentCell"];
         {
            UITextView * tv = (UITextView*)[cell viewWithTag:BUSTOPICCONTENT_TAG];
@@ -152,24 +163,130 @@
             [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
         }
             return cell;
-        case 1:
-            cell = [tableView dequeueReusableCellWithIdentifier:@"CommentCell"];
-        {
-            id comment = [self.commentList.comments objectAtIndex:indexPath.row];
-          //  NSLog(@"comment text is %@ author is %@  date is %@ \n", [comment valueForKeyPath:@"content"], [comment valueForKeyPath:@"creator.userName"], [comment valueForKeyPath:@"date"] );
-            UILabel * authorLabel = (UILabel*)[cell viewWithTag:COMMENTAUTHOR_TAG];
-            UILabel * dateLabel = (UILabel*)[cell viewWithTag:COMMENTDATE_TAG];
-            UILabel * commentContent = (UILabel*)[cell viewWithTag:COMMENTTEXT_TAG];
-            /*[cell.contentView.layer setBorderWidth:1];
-            [cell.contentView.layer setCornerRadius:8];
-            [cell.contentView.layer setBorderColor:[[UIColor grayColor] CGColor]];
-            */
+        case COMMENTLIST_SECTION:
             
-            dateLabel.text =  [NSString stringWithFormat:@"%@", [comment valueForKeyPath:@"date"]];
-            authorLabel.text = [NSString stringWithFormat:@"%@",[comment valueForKeyPath:@"creator.userName"]];
-            commentContent.text = [NSString stringWithFormat:@"%@",[comment valueForKeyPath:@"content"]];
-            [commentContent sizeToFit];
-        }
+        {
+            NSString *CellIdentifier = @"CommentCell";
+            UILabel * authorLabel;
+            UILabel * dateLabel ;
+            UITextView * commentContent;
+            UISegmentedControl * rateSelector;
+            UILabel * posRatingLabel;
+            UILabel * negRatingLabel;
+            
+            if (cell == nil) {
+                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                cell.accessoryType = UITableViewCellAccessoryNone;
+                
+                authorLabel = [[UILabel alloc]initWithFrame:CGRectMake(16,0,82.0,26)];
+                authorLabel.tag = COMMENTAUTHOR_TAG;
+                authorLabel.font = [UIFont fontWithName:@"GillSans-Bold"  size:10];
+                authorLabel.textAlignment = NSTextAlignmentLeft;
+                authorLabel.textColor = [UIColor darkGrayColor];
+                authorLabel.backgroundColor = [UIColor clearColor];
+                
+                authorLabel.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
+                [cell.contentView addSubview:authorLabel];
+                
+                
+                dateLabel = [[UILabel alloc]initWithFrame:CGRectMake(225,0,82.0,26)];
+                dateLabel.tag = COMMENTDATE_TAG;
+                dateLabel.font = [UIFont fontWithName:@"GillSans-Italic"  size:10];
+                dateLabel.textAlignment = NSTextAlignmentRight;
+                dateLabel.textColor = [UIColor darkGrayColor];
+                dateLabel.backgroundColor = [UIColor clearColor];
+                
+                dateLabel.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
+                [cell.contentView addSubview:dateLabel];
+                
+                
+                commentContent = [[UITextView alloc] initWithFrame:CGRectMake(100, 10, COMMENT_WIDTH, 75)];
+                commentContent.tag = COMMENTTEXT_TAG;
+                commentContent.font = [UIFont fontWithName:@"GillSans-Light"  size:14];
+                commentContent.textAlignment = NSTextAlignmentLeft;
+                commentContent.textColor = [UIColor darkGrayColor];
+                commentContent.scrollEnabled = NO;
+                commentContent.editable = NO;
+                commentContent.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
+                commentContent.backgroundColor = [UIColor clearColor];
+                
+                commentContent.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
+                [cell.contentView addSubview:commentContent];
+                
+                UIFont *font = [UIFont fontWithName:@"Gill Sans" size:12];
+                NSArray *itemArray = [NSArray arrayWithObjects: @"Down", @"Up", nil];
+                rateSelector = [[UISegmentedControl alloc] initWithItems:itemArray];
+                rateSelector.tag = COMMENTRATE_TAG;
+                rateSelector.frame = CGRectMake(11, 50, 72  , 25);
+                rateSelector.segmentedControlStyle = UISegmentedControlStyleBar;
+                rateSelector.backgroundColor = [UIColor clearColor];
+                
+                rateSelector.selectedSegmentIndex = 1;
+                
+                NSDictionary *attributes = [NSDictionary dictionaryWithObject:font
+                                                                       forKey:UITextAttributeFont];
+                [rateSelector setTitleTextAttributes:attributes
+                                            forState:UIControlStateNormal];
+                
+                
+                [cell.contentView addSubview:rateSelector];
+                
+                posRatingLabel = [[UILabel alloc]initWithFrame:CGRectMake(30,15,10,26.0)];
+                posRatingLabel.tag = COMMENTPOSRATING_TAG;
+                posRatingLabel.font = [UIFont fontWithName:@"Gill Sans"  size:10];
+                posRatingLabel.textAlignment = NSTextAlignmentCenter;
+                posRatingLabel.textColor = [UIColor greenColor];
+                posRatingLabel.backgroundColor = [UIColor clearColor];
+                [cell.contentView addSubview:posRatingLabel];
+                
+                negRatingLabel = [[UILabel alloc]initWithFrame:CGRectMake(20,15,10,26.0)];
+                negRatingLabel.tag = COMMENTNEGRATING_TAG;
+                negRatingLabel.font = [UIFont fontWithName:@"Gill Sans"  size:10];
+                negRatingLabel.textAlignment = NSTextAlignmentCenter;
+                negRatingLabel.textColor = [UIColor redColor];
+                negRatingLabel.backgroundColor = [UIColor clearColor];
+                [cell.contentView addSubview:negRatingLabel];
+                
+            }
+            else
+            {
+                authorLabel = (UILabel*)[cell.contentView viewWithTag:COMMENTAUTHOR_TAG];
+                commentContent = (UITextView*)[cell.contentView viewWithTag:COMMENTTEXT_TAG];
+                rateSelector = (UISegmentedControl*)[cell.contentView viewWithTag:COMMENTRATE_TAG];
+                dateLabel = (UILabel*)[cell viewWithTag:COMMENTDATE_TAG];
+                posRatingLabel = (UILabel*)[cell viewWithTag:COMMENTPOSRATING_TAG];
+                negRatingLabel = (UILabel*)[cell viewWithTag:COMMENTNEGRATING_TAG];
+                
+                
+            }
+            id review = [self.commentList.comments objectAtIndex:indexPath.row];
+            dateLabel.text =  [NSString stringWithFormat:@"%@", [review valueForKeyPath:@"date"]];
+            authorLabel.text = [NSString stringWithFormat:@"%@",[review valueForKeyPath:@"creator.userName"]];
+            commentContent.text = [NSString stringWithFormat:@"%@",[review valueForKeyPath:@"content"]];
+            posRatingLabel.text = [NSString stringWithFormat:@"%@",[review valueForKeyPath:@"posRatings"]];
+            negRatingLabel.text = [NSString stringWithFormat:@"%@",[review valueForKeyPath:@"negRatings"]];
+            
+            if ([review objectForKey:@"thisUsers"])
+            {
+                if ([[review valueForKey:@"thisUsers"] intValue] == 0)
+                {
+                    [rateSelector setSelectedSegmentIndex:0];
+                }
+                else
+                {
+                    [rateSelector setSelectedSegmentIndex:1];
+                }
+                
+            }
+            else
+            {
+                //TODO change to none
+                [rateSelector setSelected:NO];
+                
+            }
+            [rateSelector addTarget:self.viewController action:@selector(commentRateTap:) forControlEvents:UIControlEventAllEvents];
+    }
             return cell;
         default:
             return cell;

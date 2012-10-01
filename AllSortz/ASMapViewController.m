@@ -233,29 +233,29 @@
     if ((MKUserLocation*)annotation==self.mv.userLocation)
         return nil;
     static NSString *AnnotationViewID = @"annotationViewID";
-    MKPinAnnotationView *annotationView = (MKPinAnnotationView *)[thisMapView
-                                                                  dequeueReusableAnnotationViewWithIdentifier:AnnotationViewID];
-	if(annotationView == nil)
-	{
-		annotationView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:AnnotationViewID];
-        
-        
-	}
+    
+    MKAnnotationView *pinView = nil;
+
+    pinView = (MKAnnotationView *)[self.mv dequeueReusableAnnotationViewWithIdentifier:AnnotationViewID];
+    if ( pinView == nil )
+        pinView = [[MKAnnotationView alloc]
+                   initWithAnnotation:annotation reuseIdentifier:AnnotationViewID];
+    
+    //pinView.pinColor = MKPinAnnotationColorGreen;
+    pinView.canShowCallout = YES;
+    //pinView.animatesDrop = YES;
+    
+    UIImageView *imageView  = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"def-as-icon.png"]];
+    
+    [imageView setFrame:CGRectMake(0,0,20,20)];
+    [pinView addSubview:imageView];
+    
     UIButton *rightButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
-    annotationView.rightCalloutAccessoryView = rightButton;
-    //I choose to color all the annotations green, except for the one with tag == 4
-    if((annotation).score  >0.5)
-        annotationView.pinColor = MKPinAnnotationColorGreen;
-    else
-        annotationView.pinColor = MKPinAnnotationColorRed;
-    
-    annotationView.animatesDrop=FALSE;
-    
-    //tapping the pin produces a gray box which shows title and subtitle
-    annotationView.canShowCallout = YES;
-    
+    pinView.rightCalloutAccessoryView = rightButton;
+
+
     // Change this to rightCallout... to move the image to the right side
-    annotationView.annotation = annotation;
+    pinView.annotation = annotation;
         
    
     // Fetch image asynchronously
@@ -267,7 +267,7 @@
             annotation.business.businessPhoto = [UIImage imageWithData:data];
             UIImageView *myImageView = [[UIImageView alloc] initWithImage:annotation.business.businessPhoto];
             myImageView.frame = CGRectMake(0,0,31,31); // Change the size of the image to fit the callout
-            annotationView.leftCalloutAccessoryView = myImageView;
+            pinView.leftCalloutAccessoryView = myImageView;
 
         };
         if (!self.queue)
@@ -279,10 +279,10 @@
     {
         UIImageView *myImageView = [[UIImageView alloc] initWithImage:annotation.business.businessPhoto];
         myImageView.frame = CGRectMake(0,0,31,31); // Change the size of the image to fit the callout
-        annotationView.leftCalloutAccessoryView = myImageView;
+        pinView.leftCalloutAccessoryView = myImageView;
     }
 
-    return annotationView;
+    return pinView;
 }
 
 #pragma mark - Annotation Selection

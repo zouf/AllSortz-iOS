@@ -37,13 +37,7 @@
     [self.socialDataController.userProfile setUserPassword:passwordBox.text];
 
     [self.socialDataController updateUserData];
-    UIActivityIndicatorView *activityView=[[UIActivityIndicatorView alloc]     initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-    
-    activityView.center=self.overlayView.center;
-    
-    [activityView startAnimating];
-    
-    [self.overlayView addSubview:activityView];
+    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     

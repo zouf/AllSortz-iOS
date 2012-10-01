@@ -10,6 +10,13 @@
 #import "ASZCommentList.h"
 
 @interface ASZBusinessTopicDataController : NSObject <UITableViewDataSource>
+
+#define BUSTOPICCONTENT_TAG 200
+
+#define BUSTOPICCONTENT_SECTION 0
+#define COMMENTLIST_SECTION 1
+
+
 @property ASZCommentList *commentList;
 
 @property NSString *username;
@@ -20,4 +27,5 @@
 
 - (void)getCommentList:(NSUInteger)btID;
 - (void)submitModifiedBusTopicContent:(NSUInteger)btID;
+-(void)rateCommentAsynchronously:(NSUInteger)cID withRating:(NSInteger)rating;
 @end
