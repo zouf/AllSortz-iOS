@@ -66,8 +66,6 @@
 		0A7EF312161A1D56006B6363 /* test-small-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A7EF311161A1D56006B6363 /* test-small-icon.png */; };
 		0A7EF314161A2AC0006B6363 /* small-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A7EF313161A2AC0006B6363 /* small-icon.png */; };
 		0A90C60415F4F0DA00BB427E /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A90C60315F4F0DA00BB427E /* libicucore.dylib */; };
-		0A90C60615F4F0E200BB427E /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A90C60515F4F0E200BB427E /* CFNetwork.framework */; };
-		0A90C60A15F4F0F300BB427E /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A90C60915F4F0F300BB427E /* Security.framework */; };
 		0AA1045115F3CA420029EDD7 /* ASZTopicDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AA1045015F3CA420029EDD7 /* ASZTopicDetailViewController.m */; };
 		0AA1045415F3CA4E0029EDD7 /* ASZTopic.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AA1045315F3CA4E0029EDD7 /* ASZTopic.m */; };
 		0AA1045715F3CD7A0029EDD7 /* ASZTopicDetailDataController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AA1045615F3CD7A0029EDD7 /* ASZTopicDetailDataController.m */; };
@@ -268,8 +266,6 @@
 		0A7EF311161A1D56006B6363 /* test-small-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "test-small-icon.png"; sourceTree = "<group>"; };
 		0A7EF313161A2AC0006B6363 /* small-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "small-icon.png"; sourceTree = "<group>"; };
 		0A90C60315F4F0DA00BB427E /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
-		0A90C60515F4F0E200BB427E /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
-		0A90C60915F4F0F300BB427E /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		0AA1044F15F3CA420029EDD7 /* ASZTopicDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASZTopicDetailViewController.h; sourceTree = "<group>"; };
 		0AA1045015F3CA420029EDD7 /* ASZTopicDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASZTopicDetailViewController.m; sourceTree = "<group>"; };
 		0AA1045215F3CA4D0029EDD7 /* ASZTopic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASZTopic.h; sourceTree = "<group>"; };
@@ -425,8 +421,6 @@
 			files = (
 				0AEE0E84160A7510007BFF52 /* libz.dylib in Frameworks */,
 				6C0CC23815B7B1FC00F2F7B6 /* Foundation.framework in Frameworks */,
-				0A90C60A15F4F0F300BB427E /* Security.framework in Frameworks */,
-				0A90C60615F4F0E200BB427E /* CFNetwork.framework in Frameworks */,
 				0A90C60415F4F0DA00BB427E /* libicucore.dylib in Frameworks */,
 				0AA6259715EED5F900C0BE8E /* CoreLocation.framework in Frameworks */,
 				6C0CC27915B7B9BE00F2F7B6 /* MapKit.framework in Frameworks */,
@@ -731,13 +725,8 @@
 				6C0CC23B15B7B1FC00F2F7B6 /* AllSortz */,
 				6C0CC26715B7B1FC00F2F7B6 /* AllSortzTests */,
 				6C0CC23415B7B1FC00F2F7B6 /* Frameworks */,
+				6CBB7B2D161B458500619ED4 /* Libraries */,
 				6C0CC23215B7B1FC00F2F7B6 /* Products */,
-				0A90C60915F4F0F300BB427E /* Security.framework */,
-				0A90C60515F4F0E200BB427E /* CFNetwork.framework */,
-				0AEE0E83160A7510007BFF52 /* libz.dylib */,
-				0AEE0E80160A7396007BFF52 /* libTestFlight.a */,
-				0A90C60315F4F0DA00BB427E /* libicucore.dylib */,
-				0AA6259615EED5F800C0BE8E /* CoreLocation.framework */,
 			);
 			sourceTree = "<group>";
 		};
@@ -754,6 +743,7 @@
 			isa = PBXGroup;
 			children = (
 				6C0CC23915B7B1FC00F2F7B6 /* CoreGraphics.framework */,
+				0AA6259615EED5F800C0BE8E /* CoreLocation.framework */,
 				6C0CC23715B7B1FC00F2F7B6 /* Foundation.framework */,
 				6C0CC27815B7B9BE00F2F7B6 /* MapKit.framework */,
 				6C0CC26115B7B1FC00F2F7B6 /* SenTestingKit.framework */,
@@ -885,6 +875,16 @@
 				6C61B73515E580140041276B /* ASDefault~iphone.png */,
 			);
 			name = "Launch Images";
+			sourceTree = "<group>";
+		};
+		6CBB7B2D161B458500619ED4 /* Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				0A90C60315F4F0DA00BB427E /* libicucore.dylib */,
+				0AEE0E80160A7396007BFF52 /* libTestFlight.a */,
+				0AEE0E83160A7510007BFF52 /* libz.dylib */,
+			);
+			name = Libraries;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
