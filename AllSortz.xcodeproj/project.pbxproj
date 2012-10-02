@@ -65,7 +65,6 @@
 		0A7EF30E161A1CB3006B6363 /* half-circle.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A7EF30C161A1CB3006B6363 /* half-circle.png */; };
 		0A7EF312161A1D56006B6363 /* test-small-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A7EF311161A1D56006B6363 /* test-small-icon.png */; };
 		0A7EF314161A2AC0006B6363 /* small-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A7EF313161A2AC0006B6363 /* small-icon.png */; };
-		0A90C60415F4F0DA00BB427E /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A90C60315F4F0DA00BB427E /* libicucore.dylib */; };
 		0AA1045115F3CA420029EDD7 /* ASZTopicDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AA1045015F3CA420029EDD7 /* ASZTopicDetailViewController.m */; };
 		0AA1045415F3CA4E0029EDD7 /* ASZTopic.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AA1045315F3CA4E0029EDD7 /* ASZTopic.m */; };
 		0AA1045715F3CD7A0029EDD7 /* ASZTopicDetailDataController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AA1045615F3CD7A0029EDD7 /* ASZTopicDetailDataController.m */; };
@@ -265,7 +264,6 @@
 		0A7EF30C161A1CB3006B6363 /* half-circle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "half-circle.png"; sourceTree = "<group>"; };
 		0A7EF311161A1D56006B6363 /* test-small-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "test-small-icon.png"; sourceTree = "<group>"; };
 		0A7EF313161A2AC0006B6363 /* small-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "small-icon.png"; sourceTree = "<group>"; };
-		0A90C60315F4F0DA00BB427E /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
 		0AA1044F15F3CA420029EDD7 /* ASZTopicDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASZTopicDetailViewController.h; sourceTree = "<group>"; };
 		0AA1045015F3CA420029EDD7 /* ASZTopicDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASZTopicDetailViewController.m; sourceTree = "<group>"; };
 		0AA1045215F3CA4D0029EDD7 /* ASZTopic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASZTopic.h; sourceTree = "<group>"; };
@@ -419,14 +417,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0AEE0E84160A7510007BFF52 /* libz.dylib in Frameworks */,
-				6C0CC23815B7B1FC00F2F7B6 /* Foundation.framework in Frameworks */,
-				0A90C60415F4F0DA00BB427E /* libicucore.dylib in Frameworks */,
 				0AA6259715EED5F900C0BE8E /* CoreLocation.framework in Frameworks */,
+				6C0CC23A15B7B1FC00F2F7B6 /* CoreGraphics.framework in Frameworks */,
+				6C0CC23815B7B1FC00F2F7B6 /* Foundation.framework in Frameworks */,
 				6C0CC27915B7B9BE00F2F7B6 /* MapKit.framework in Frameworks */,
 				6C0CC23615B7B1FC00F2F7B6 /* UIKit.framework in Frameworks */,
-				6C0CC23A15B7B1FC00F2F7B6 /* CoreGraphics.framework in Frameworks */,
 				0AEE0E82160A7396007BFF52 /* libTestFlight.a in Frameworks */,
+				0AEE0E84160A7510007BFF52 /* libz.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -880,7 +877,6 @@
 		6CBB7B2D161B458500619ED4 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
-				0A90C60315F4F0DA00BB427E /* libicucore.dylib */,
 				0AEE0E80160A7396007BFF52 /* libTestFlight.a */,
 				0AEE0E83160A7510007BFF52 /* libz.dylib */,
 			);
