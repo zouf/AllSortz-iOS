@@ -352,7 +352,6 @@
 		6C21220015D45B08004ACD4C /* ASBusiness.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASBusiness.m; sourceTree = "<group>"; };
 		6C21220715D86DAE004ACD4C /* ASException.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ASException.h; sourceTree = "<group>"; };
 		6C21220915D86F27004ACD4C /* ASException.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASException.m; sourceTree = "<group>"; };
-		6C2516A615E145DC00475CB2 /* ASSubscripting.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ASSubscripting.h; sourceTree = "<group>"; };
 		6C3A150115E531F8006C9EC0 /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72.png"; sourceTree = "<group>"; };
 		6C3A150215E531F8006C9EC0 /* Icon-72@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72@2x.png"; sourceTree = "<group>"; };
 		6C3A150315E531F8006C9EC0 /* Icon-1024.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-1024.png"; sourceTree = "<group>"; };
@@ -758,7 +757,6 @@
 				0AA6259415EED1AB00C0BE8E /* ASDeviceInterface.m */,
 				6C21220715D86DAE004ACD4C /* ASException.h */,
 				6C21220915D86F27004ACD4C /* ASException.m */,
-				6C2516A615E145DC00475CB2 /* ASSubscripting.h */,
 				0AFF55A015E53B1A002E5085 /* ASURLEncoding.h */,
 				0AFF55A115E53B1A002E5085 /* ASURLEncoding.m */,
 				0A37505415FBF29700DAB6F3 /* ASZBusinessListingSingleton.h */,
