@@ -55,7 +55,16 @@
         listing.userRating = [[dict valueForKey:@"ratingForCurrentUser"] floatValue];
         listing.latitude =  [[dict valueForKey:@"latitude"] floatValue];
         listing.longitude =  [[dict valueForKey:@"longitude"] floatValue];
-
+        
+        if([dict objectForKey:@"starred"])
+        {
+            listing.starred = YES;
+        }
+        else
+        {
+            listing.starred = NO;
+        }
+            
         [_entries addObject:listing];
     }
     

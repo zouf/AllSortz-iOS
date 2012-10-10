@@ -282,7 +282,7 @@
             else
             {
                 //TODO change to none
-                [rateSelector setSelected:NO];
+                rateSelector.selectedSegmentIndex = -1;
                 
             }
             [rateSelector addTarget:self.viewController action:@selector(commentRateTap:) forControlEvents:UIControlEventAllEvents];

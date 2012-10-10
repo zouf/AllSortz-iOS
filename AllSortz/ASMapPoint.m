@@ -28,6 +28,8 @@
 		title = tl;
 		subtitle = s;
         tag = t;
+        
+        
 	}
 	return self;
     

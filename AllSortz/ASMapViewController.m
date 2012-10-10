@@ -1,4 +1,4 @@
-//
+///
 //  ASMapViewController.m
 //  AllSortz
 //
@@ -15,8 +15,10 @@
 #import "ASZBusinessListingSingleton.h"
 
 
-#import "ASZBusinessDetailsBaseViewController.h"
+#import "ASZCustomAnnotation.h"
 
+#import "ASZBusinessDetailsBaseViewController.h"
+#import "ASZRateView.h"
 @interface ASMapViewController()
 @property (weak, nonatomic) IBOutlet MKMapView *mv;
 @property (weak, nonatomic) NSMutableArray *businessPoints;
@@ -226,6 +228,8 @@
     
 }
 
+
+
 //this is the required method implementation for MKMapView annotations
 - (MKAnnotationView *) mapView:(MKMapView *)thisMapView
              viewForAnnotation:(ASMapPoint *)annotation
@@ -235,40 +239,60 @@
     static NSString *AnnotationViewID = @"annotationViewID";
     
     MKAnnotationView *pinView = nil;
-
-    pinView = (MKAnnotationView *)[self.mv dequeueReusableAnnotationViewWithIdentifier:AnnotationViewID];
-    if ( pinView == nil )
-        pinView = [[MKAnnotationView alloc]
+    ASZCustomAnnotation *cust = nil;
+    
+    //TODO figure out how to use the reuse identifier
+    //pinView = (MKAnnotationView *)[self.mv dequeueReusableAnnotationViewWithIdentifier:AnnotationViewID];
+    //if ( pinView == nil )
+    //{
+    pinView = [[MKAnnotationView alloc]
                    initWithAnnotation:annotation reuseIdentifier:AnnotationViewID];
     
     //pinView.pinColor = MKPinAnnotationColorGreen;
     pinView.canShowCallout = YES;
     //pinView.animatesDrop = YES;
+    cust = [[ASZCustomAnnotation alloc]init];
+    [pinView addSubview:cust];
+    [cust setBackgroundColor:[UIColor clearColor]];
+
+    //}
+    [cust setRecommendation:annotation.business.recommendation];
+    [cust setStarred:annotation.business.starred];
+    [cust setFrame:CGRectMake(-10,-10,25,25)];
     
-    UIImageView *imageView  = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"def-as-icon.png"]];
     
-    [imageView setFrame:CGRectMake(0,0,20,20)];
-    [pinView addSubview:imageView];
+    
+   /* ASZRateView *rateView = [[ASZRateView alloc] initWithFrame:CGRectMake(0,35,30,20)];
+    rateView.notSelectedImage = [UIImage imageNamed:@"empty-circle.png"];
+    rateView.halfSelectedImage = [UIImage imageNamed:@"half-circle.png"];
+    rateView.fullSelectedImage = [UIImage imageNamed:@"full-circle.png"];
+    rateView.editable = NO;
+    rateView.maxRating = 5;
+    [rateView setRating:annotation.business.recommendation*5];
+    UIView *leftCAV = [[UIView alloc] initWithFrame:CGRectMake(0,0,36,36)];
+     [leftCAV addSubview : myImageView];
+     [leftCAV addSubview : rateView];*/
     
     UIButton *rightButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
     pinView.rightCalloutAccessoryView = rightButton;
+    
+    
+    
 
-
+    
     // Change this to rightCallout... to move the image to the right side
     pinView.annotation = annotation;
-        
-   
-    // Fetch image asynchronously
     
+    
+    // Fetch image asynchronously
     if (!annotation.business.businessPhoto)
     {
         NSURLRequest *imageRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:annotation.business.imageURLString]];
         void (^imageHandler)(NSURLResponse *, NSData *, NSError *) = ^(NSURLResponse *response, NSData *data, NSError *error) {
             annotation.business.businessPhoto = [UIImage imageWithData:data];
             UIImageView *myImageView = [[UIImageView alloc] initWithImage:annotation.business.businessPhoto];
-            myImageView.frame = CGRectMake(0,0,31,31); // Change the size of the image to fit the callout
+            myImageView.frame = CGRectMake(0,0,34,34); // Change the size of the image to fit the callout
             pinView.leftCalloutAccessoryView = myImageView;
-
         };
         if (!self.queue)
             self.queue = [[NSOperationQueue alloc] init];
@@ -278,8 +302,12 @@
     else
     {
         UIImageView *myImageView = [[UIImageView alloc] initWithImage:annotation.business.businessPhoto];
-        myImageView.frame = CGRectMake(0,0,31,31); // Change the size of the image to fit the callout
+        myImageView.frame = CGRectMake(0,0,34,34); // Change the size of the image to fit the callout
         pinView.leftCalloutAccessoryView = myImageView;
+
+        
+        
+        
     }
 
     return pinView;
@@ -349,12 +377,18 @@
     //create annotations and add to the busStopAnnotations array
     NSMutableArray *myArray = [[NSMutableArray alloc] init];
     self.businessPoints = myArray;
+    
+    
+    
     for (ASListing *bus in self.listingsTableDataController.businessList.entries)
     {
         CLLocationCoordinate2D annotationCenter;
         annotationCenter.latitude = bus.latitude;
         annotationCenter.longitude = bus.longitude;
-        ASMapPoint *mp = [[ASMapPoint alloc] initWithCoordinate:annotationCenter withScore:bus.recommendation withTag:bus.ID withTitle:bus.businessName withSubtitle:[NSString stringWithFormat:@"Score %0.2f",   bus.recommendation]];
+        ASMapPoint *mp = [[ASMapPoint alloc] initWithCoordinate:annotationCenter withScore:bus.recommendation withTag:bus.ID withTitle:bus.businessName withSubtitle:[NSString stringWithFormat:@"Score %d",   (NSInteger)roundf(bus.recommendation*100)]];
+        
+  
+        
         mp.business = bus;
         [self.businessPoints addObject:mp];
     }
@@ -363,10 +397,15 @@
     NSMutableArray *toRemove = [NSMutableArray arrayWithCapacity:10];
     for (id annotation in self.mv.annotations)
         if (annotation != self.mv.userLocation)
+        {
+            
+            
             [toRemove addObject:annotation];
+        }
+    [self.mv removeAnnotations:toRemove];
+    //add annotations array to the mapView
     [self.mv removeAnnotations:toRemove];
     
-    //add annotations array to the mapView
     [self.mv addAnnotations:self.businessPoints];
     
 }

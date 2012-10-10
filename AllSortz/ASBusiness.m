@@ -91,6 +91,8 @@ SIMPLE_SETTER(name, Name, NSString *)
 SIMPLE_SETTER(phone, Phone, NSString *)
 SIMPLE_SETTER(recommendation, Recommendation, CGFloat)
 SIMPLE_SETTER(distance, Distance, NSNumber *)
+SIMPLE_SETTER(lat, Latitude, CGFloat)
+SIMPLE_SETTER(lng, Logitude, CGFloat)
 
 SIMPLE_SETTER(website, Website, NSURL *)
 

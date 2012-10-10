@@ -34,6 +34,7 @@
         {
             newView = [[UITableView alloc]initWithFrame:self.tableView.frame style:UITableViewStylePlain];
             newView.delegate = self;
+            [newView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
             newView.dataSource = self.dataController;
             break;
         }
@@ -41,7 +42,8 @@
         {
             newView = [[UITableView alloc]initWithFrame:self.tableView.frame style:UITableViewStyleGrouped];
             newView.backgroundView = nil;
-            self.mainView.backgroundColor = [UIColor lightGrayColor];
+            self.mainView.backgroundColor = [UIColor scrollViewTexturedBackgroundColor];
+            //: CGRectMake(];
             newView.delegate = self;
             newView.dataSource = self.dataController;
             break;
@@ -68,6 +70,7 @@
     [self.tableView removeFromSuperview];
     [self setTableView:newView];
     [superview addSubview:self.tableView];
+    self.mapView = [[MKMapView alloc] init];
     [self.tableView reloadData];
 }
 
@@ -92,6 +95,7 @@
     self.rateView.editable = NO;
     self.rateView.maxRating = 5;
 
+    
     ASZRateView *rv = self.rateView;
     UILabel *distance = (UILabel*)[self.mainView  viewWithTag:BUSINESSDIST_TAG];
     UILabel* businessName = (UILabel*)[self.mainView viewWithTag:BUSINESSNAMELABEL_TAG];
@@ -302,7 +306,8 @@
             // Table view has to be refreshed on main thread
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self updateViewElements];
-                [self.tableView reloadData];
+                [self createTableviewForTab];
+                //[self.tableView reloadData];
             });
         }
         
@@ -452,7 +457,18 @@ heightForFooterInSection:(NSInteger)section {
             return 65;
             break;
         case INFO_TAB:
-            if(indexPath.section == 2)
+            if (indexPath.section == 0)  //phone and website
+            {
+                return 35;
+            }
+            if(indexPath.section == 1) // address and map section
+            {
+                if(indexPath.row == ADDRESS_ROW)
+                    return 50;
+                else //MAP_ROW
+                    return MAP_HEIGHT;
+            }
+            if(indexPath.section == 2) // health and type section
             {
                 //health icon
                 if (indexPath.row == 1)
@@ -460,8 +476,7 @@ heightForFooterInSection:(NSInteger)section {
                     return 70;
                 }
             }
-            
-            return 45;
+            return 35;
             break;
         case DISCUSSION_TAB:
         {
@@ -504,6 +519,84 @@ heightForFooterInSection:(NSInteger)section {
 }
 
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (self.segmentedController.selectedSegmentIndex == INFO_TAB)
+    {
+        switch(indexPath.section)
+        {
+            case ADDRESS_MAP_SECTION:
+            {
+                
+                CLLocationCoordinate2D mapCenter;
+                mapCenter.latitude = self.dataController.business.lat;
+                mapCenter.longitude = self.dataController.business.lng;
 
+
+                //mkmapitem available (ios6)
+                Class itemClass = [MKMapItem class];
+                if (itemClass && [itemClass respondsToSelector:@selector(openMapsWithItems:launchOptions:)])
+                {
+                    MKPlacemark* place = [[MKPlacemark alloc] initWithCoordinate:mapCenter addressDictionary: nil];
+                    MKMapItem* destination = [[MKMapItem alloc] initWithPlacemark: place];
+                    destination.name =self.dataController.business.name;
+                    NSArray* items = [[NSArray alloc] initWithObjects: destination, nil];
+                    NSDictionary* options = [[NSDictionary alloc] initWithObjectsAndKeys:
+                                             MKLaunchOptionsDirectionsModeDriving,
+                                             MKLaunchOptionsDirectionsModeKey, nil];
+                    [MKMapItem openMapsWithItems: items launchOptions: options];
+                    
+                }
+                else
+                {
+                    CLLocationCoordinate2D currentLocation = self.mapView.userLocation.location.coordinate;
+                    // this uses an address for the destination.  can use lat/long, too with %f,%f format
+                    NSString* address = [NSString stringWithFormat:@"%@ %@, %@ %@",self.dataController.business.address,self.dataController.business.city, self.dataController.business.state, self.dataController.business.zipcode];
+                    NSString* url = [NSString stringWithFormat: @"http://maps.google.com/maps?saddr=%f,%f&daddr=%@",
+                                     currentLocation.latitude, currentLocation.longitude,
+                                     [address stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+                    [[UIApplication sharedApplication] openURL: [NSURL URLWithString: url]];
+
+                }
+                
+
+                break;
+            }
+            case PHONE_WEBSITE_SECTION:
+            {
+                
+
+                if (indexPath.row == WEBSITE_ROW)
+                {
+                    NSURL *url =[NSURL URLWithString:[NSString stringWithFormat:@"http://%@",self.dataController.business.website.path]];
+
+                    [[UIApplication sharedApplication]openURL:url];
+    
+                    
+                }
+                else
+                {
+                    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"tel://%@", self.dataController.business.phone]];
+                    if([[UIApplication sharedApplication] canOpenURL:url])
+                    {
+                        [[UIApplication sharedApplication] openURL:url];
+
+                    }
+                    else
+                    {
+                        NSLog(@"Could not place a call on your device.\n");
+                    }
+                }
+                break;
+            }
+            default:
+            {
+                break;
+            }
+        }
+    }
+    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+    return;
+}
 
 @end

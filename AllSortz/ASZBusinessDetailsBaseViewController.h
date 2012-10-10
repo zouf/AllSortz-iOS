@@ -7,15 +7,34 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <MapKit/MapKit.h>
 
+//tab info
 #define DISCUSSION_TAB 0
 #define INFO_TAB 1
 #define REDEEM_TAB 2
 #define REVIEW_TAB 3
 
 
+//Row definitions
+#define PHONE_ROW 0
+#define WEBSITE_ROW 1
+#define ADDRESS_ROW 0
+#define MAP_ROW 1
+
+
+//Heights
+#define MAP_HEIGHT 100
+#define PHONE_WEBSITE_HEIGHT 35
+#define TYPE_HEIGHT 45
+
+//Section info
 #define NUM_INFO_SECTIONS 3
 #define LAST_SECTION 2
+#define PHONE_WEBSITE_SECTION 0
+#define ADDRESS_MAP_SECTION 1
+#define TYPE_SECTION 2
+
 
 #define BUSINESSIMAGEVIEW_TAG 1000
 #define BUSINESSNAMELABEL_TAG 1001
@@ -51,7 +70,7 @@
 @property (strong, nonatomic) IBOutlet UIView *mainView;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segmentedController;
 @property (weak, nonatomic) IBOutlet ASZRateView *rateView;
-
+@property(weak,nonatomic) MKMapView* mapView;
 
 
 @end

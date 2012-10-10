@@ -17,6 +17,7 @@
 @property (nonatomic) NSArray *businessTypes;
 @property (nonatomic) float latitude;
 @property (nonatomic) float longitude;
+@property (nonatomic) BOOL starred;
 
 @property (readonly) NSUInteger ID;
 @property (nonatomic) NSString *imageURLString;

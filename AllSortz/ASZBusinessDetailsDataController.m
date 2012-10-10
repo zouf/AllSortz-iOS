@@ -1,4 +1,4 @@
-//
+///
 //  ASZBusinessDetailsDataController.m
 //  AllSortz
 //
@@ -15,7 +15,8 @@
 #import "ASZRateView.h"
 #import "ASZCommentList.h"
 
-
+#import <UIKit/UIKit.h>
+#import "ASMapPoint.h"
 
 
 @interface ASZBusinessDetailsDataController ()
@@ -170,6 +171,10 @@
     business.phone = result[@"businessPhone"];
     business.website = [NSURL URLWithString:result[@"businessURL"]];
 
+    
+    business.lat = [result[@"latitude"] floatValue];
+    business.lng = [result[@"longitude"] floatValue];
+
     business.recommendation = [result[@"ratingRecommendation"] floatValue];
         
 
@@ -277,78 +282,205 @@
 
 }
 
+
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = nil;
-
     switch (self.viewController.segmentedController.selectedSegmentIndex) {
         case INFO_TAB:
-            cell = [tableView dequeueReusableCellWithIdentifier:@"BusinessDetailsHeaderCell"];
         {
-            if (cell == nil) {
-                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"BusinessDetailsHeaderCell"];
-                cell.selectionStyle = UITableViewCellSelectionStyleNone;
-                //override detail detailtextlabel behavior
-                [cell.detailTextLabel setFont:[UIFont fontWithName:@"Gill Sans" size:14]];
-                [cell.detailTextLabel setTextColor:[UIColor darkTextColor]];
-                [cell.detailTextLabel setTextAlignment:NSTextAlignmentCenter];
-            }
             NSMutableString *typeArrayStr = [[NSMutableString alloc] initWithString:@""];
-            
             for (NSDictionary *d in self.business.types)
             {
                 [typeArrayStr appendString:[d valueForKey:@"name"]];
                 [typeArrayStr appendString:@"\n"];
             }
-            
-
             NSInteger row= indexPath.row;
-            cell.imageView.image = nil;
-            cell.textLabel.text = nil;
-            
-            
-
-
             switch(indexPath.section)
             {
-                case 0:
+                case PHONE_WEBSITE_SECTION:
                 {
-                    if (row == 0)
+                    if (row == PHONE_ROW)
                     {
-                        cell.detailTextLabel.text = self.business.phone;
-                        [cell.detailTextLabel setTextAlignment:NSTextAlignmentRight];
-                        [cell.detailTextLabel setFont:[UIFont fontWithName:@"Gill Sans" size:14]];
+                        cell = [tableView dequeueReusableCellWithIdentifier:@"PhoneCell"];
+                        if (cell == nil) {
+                            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"PhoneCell"];
+                            cell.selectionStyle = UITableViewCellSelectionStyleGray;
+                        }
+                        
+                        cell.imageView.image =nil;
+                        cell.detailTextLabel.text = nil;
+                        cell.textLabel.text = nil;
+                        UILabel *phoneLabel = [[UILabel alloc] initWithFrame:CGRectMake(0,0,cell.frame.size.width,PHONE_WEBSITE_HEIGHT)];
+                        [phoneLabel setTextAlignment:NSTextAlignmentCenter];
+                        [phoneLabel setFont:[UIFont fontWithName:@"GillSans-Light" size:14]];
+                        [phoneLabel setText:self.business.phone];
+                        [phoneLabel setBackgroundColor:[UIColor clearColor]];
+                        
+                        /*
+                        UITapGestureRecognizer* singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self.viewController action:@selector(callBusinessTap:)];
+                        singleTap.numberOfTapsRequired = 1;
+                        singleTap.numberOfTouchesRequired = 1;
+                        singleTap.cancelsTouchesInView = NO;
+                        [cell.contentView  addGestureRecognizer:singleTap];*/
+   
+                        [cell.contentView addSubview:phoneLabel];
                     }
                     else // row == 1
                     {
-                        cell.detailTextLabel.text = self.business.website.path;
-                        [cell.detailTextLabel setTextAlignment:NSTextAlignmentRight];
-                        [cell.detailTextLabel setFont:[UIFont fontWithName:@"Gill Sans" size:14]];
-
-
+                        cell = [tableView dequeueReusableCellWithIdentifier:@"WebsiteCell"];
+                        if (cell == nil) {
+                            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"WebsiteCell"];
+                            cell.selectionStyle = UITableViewCellSelectionStyleGray;
+                        }
+                        
+                        cell.imageView.image =nil;
+                        cell.detailTextLabel.text = nil;
+                        cell.textLabel.text = nil;
+                        UILabel *websiteLabel = [[UILabel alloc] initWithFrame:CGRectMake(0,0,cell.frame.size.width-20,PHONE_WEBSITE_HEIGHT)];
+                        [websiteLabel setTextAlignment:NSTextAlignmentCenter];
+                        [websiteLabel setFont:[UIFont fontWithName:@"GillSans-Light" size:14]];
+                        [websiteLabel setText:self.business.website.path];
+                        [websiteLabel setBackgroundColor:[UIColor clearColor]];
+                        [cell.contentView addSubview:websiteLabel];
+                        
+                        /*
+                        UITapGestureRecognizer* singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self.viewController action:@selector(goToWebsiteTap:)];
+                        singleTap.numberOfTapsRequired = 1;
+                        singleTap.numberOfTouchesRequired = 1;
+                        singleTap.cancelsTouchesInView = NO;
+                        [cell.contentView  addGestureRecognizer:singleTap];
+                        */
+                        
                     }
+                    
                 }
                     break;
-                case 1:
-                {
-                    cell.detailTextLabel.text =[NSString stringWithFormat:@"%@\n%@, %@ %@\n",self.business.address,self.business.city,self.business.state,self.business.zipcode];
-                }
-                    break;
-                case 2:
+                case ADDRESS_MAP_SECTION:
                 {
                     
-                    if(row == 0)
+                    if (row == ADDRESS_ROW)
                     {
-                        cell.detailTextLabel.text = typeArrayStr;
+                        cell = [tableView dequeueReusableCellWithIdentifier:@"AddressCell"];
+                        if (cell == nil) {
+                            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"AddressCell"];
+                            cell.selectionStyle = UITableViewCellSelectionStyleGray;
+
+                            //override detail detailtextlabel behavior
+                            [cell.detailTextLabel setFont:[UIFont fontWithName:@"Gill Sans" size:14]];
+                            
+                            [cell.detailTextLabel setTextColor:[UIColor darkTextColor]];
+                            [cell.detailTextLabel setTextAlignment:NSTextAlignmentCenter];
+                            
+                            cell.imageView.image = nil;
+                            cell.textLabel.text = nil;
+                            
+                            
+                            
+                            UILabel *smallAddressComponent = [[UILabel alloc]initWithFrame:CGRectMake(25,25,250,20)];
+                            [smallAddressComponent setFont:[UIFont fontWithName:@"Gill Sans" size:10]];
+                            [smallAddressComponent setTextColor:[UIColor darkTextColor]];
+                            [smallAddressComponent setTextAlignment:NSTextAlignmentCenter];
+                            [smallAddressComponent setBackgroundColor:[UIColor clearColor]];
+                            
+                            UILabel *largeAddressComponent = [[UILabel alloc]initWithFrame:CGRectMake(25,5,250,25)];
+                            [largeAddressComponent setFont:[UIFont fontWithName:@"Gill Sans" size:14]];
+                            [largeAddressComponent setTextColor:[UIColor darkTextColor]];
+                            [largeAddressComponent setTextAlignment:NSTextAlignmentCenter];
+                            [largeAddressComponent setBackgroundColor:[UIColor clearColor]];
+                            
+                            [smallAddressComponent setText:[NSString stringWithFormat:@"%@, %@ %@\n", self.business.city, self.business.state, self.business.zipcode]];
+                            
+                            [largeAddressComponent setText:[NSString stringWithFormat:@"%@\n", self.business.address]];
+                            [cell addSubview:largeAddressComponent];
+                            [cell addSubview:smallAddressComponent];
+                            
+                            /*
+                            UITapGestureRecognizer* singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self.viewController action:@selector(getDirectionsToTap:)];
+                            singleTap.numberOfTapsRequired = 1;
+                            singleTap.numberOfTouchesRequired = 1;
+                            singleTap.cancelsTouchesInView = NO;
+                            [cell.contentView  addGestureRecognizer:singleTap];*/
+                        }
+                        
                     }
-                    else //row ==1
+                    else if(row==MAP_ROW)
                     {
-                        cell.detailTextLabel.text = self.business.healthGrade;
-                        cell.imageView.image = [self getImageForGrade:self.business.healthGrade];
+                        cell = [tableView dequeueReusableCellWithIdentifier:@"MapCell"];
+                        if (cell == nil) {
+                            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"MapCell"];
+                            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                            //override detail detailtextlabel behavior
+                            [cell.detailTextLabel setFont:[UIFont fontWithName:@"Gill Sans" size:14]];
+                            [cell.detailTextLabel setTextColor:[UIColor darkTextColor]];
+                            [cell.detailTextLabel setTextAlignment:NSTextAlignmentCenter];
+                     
+                            cell.imageView.image = nil;
+                            cell.textLabel.text = nil;
+                    
+                            self.viewController.mapView.center = CGPointMake(self.business.lat,self.business.lng);
+                            MKCoordinateRegion region2 = self.viewController.mapView.region;
+                            region2.center = CLLocationCoordinate2DMake(self.business.lat, self.business.lng);
+                            region2.span.longitudeDelta=0.01;
+                            region2.span.latitudeDelta=0.01;
+                            self.viewController.mapView.region = region2;
+                            
+                            [self.viewController.mapView setScrollEnabled:NO];
+                            
+                            
+                            
+                            [self.viewController.mapView setFrame:CGRectMake(10, 5, cell.frame.size.width-20 ,MAP_HEIGHT-15)];
+                            
+                            CLLocationCoordinate2D annotationCoord;
+                            annotationCoord.latitude =self.business.lat;
+                            annotationCoord.longitude = self.business.lng;                        
+                            MKPointAnnotation *annotationPoint = [[MKPointAnnotation alloc] init];
+                            annotationPoint.coordinate = annotationCoord;
+                            annotationPoint.title = self.business.name;
+                            [self.viewController.mapView addAnnotation:annotationPoint];
+                            [cell addSubview:self.viewController.mapView];
+                        }
+                    }
+                    else
+                    {
+                        assert(@"Incorrect number of rows");
                     }
                 }
                     break;
+                case TYPE_SECTION:
+                {
+                    cell = [tableView dequeueReusableCellWithIdentifier:@"BusinessTypeInfo"];
+                    if (cell == nil) {
+                        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"BusinessTypeInfo"];
+                        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                        //override detail detailtextlabel behavior
+                        [cell.detailTextLabel setFont:[UIFont fontWithName:@"Gill Sans" size:14]];
+                        [cell.detailTextLabel setTextColor:[UIColor darkTextColor]];
+                        [cell.detailTextLabel setTextAlignment:NSTextAlignmentCenter];
+                    
+                        cell.imageView.image = nil;
+                        cell.textLabel.text = nil;
+                        if(row == 0)
+                        {
+                            cell.detailTextLabel.text = typeArrayStr;
+                        }
+                    }
+                }
+                    break;
+                    
                 default:
+                    cell = [tableView dequeueReusableCellWithIdentifier:@"DefaultCell"];
+                    if (cell == nil) {
+                        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"DefaultCell"];
+                        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                        //override detail detailtextlabel behavior
+                        [cell.detailTextLabel setFont:[UIFont fontWithName:@"Gill Sans" size:14]];
+                        [cell.detailTextLabel setTextColor:[UIColor darkTextColor]];
+                        [cell.detailTextLabel setTextAlignment:NSTextAlignmentCenter];
+                    }
+                    cell.imageView.image = nil;
+                    cell.textLabel.text = nil;
                     cell.textLabel.text = @"Blank info";
                     break;
             }
@@ -382,18 +514,31 @@
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
                 cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             
-                topicName = [[UILabel alloc]initWithFrame:CGRectMake(6,0,82.0,26.0)];
+                CGFloat textSummaryBeginX = 100;
+                CGFloat lineX = 14.0;
+                CGFloat buffer = 4;
+                CGFloat rateSelectorX = lineX + buffer;
+                CGFloat adjectiveLabelX = lineX + buffer;
+                
+                
+                
+                
+                topicName = [[UILabel alloc]initWithFrame:CGRectMake(-14,15,80,16)];
                 topicName.tag = TOPICNAMELABEL_TAG;
-                topicName.font = [UIFont fontWithName:@"Gill Sans"  size:14];
-                topicName.textAlignment = NSTextAlignmentRight;
-                topicName.textColor = [UIColor darkGrayColor];
+                topicName.font = [UIFont fontWithName:@"Gill Sans"  size:12];
+                topicName.textAlignment = NSTextAlignmentLeft;
+                topicName.textColor = [UIColor lightGrayColor];
                 topicName.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
+                topicName.transform = CGAffineTransformMakeRotation(270 * M_PI / 180.0);
                 [cell.contentView addSubview:topicName];
                 
+                UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(lineX, 0, 1, 80)];
+                [lineView setBackgroundColor:[UIColor lightGrayColor]];
+                [cell.contentView addSubview:lineView];
+
                 
                 
-              
-                topicSummary = [[UITextView alloc] initWithFrame:CGRectMake(100, 0, CELL_WIDTH, 68)];
+                topicSummary = [[UITextView alloc] initWithFrame:CGRectMake(textSummaryBeginX, 0, CELL_WIDTH, 68)];
                 topicSummary.tag = TOPICTEXTVIEW_TAG;
                 topicSummary.font = [UIFont fontWithName:@"GillSans-Light"  size:10];
                 topicSummary.textAlignment = NSTextAlignmentLeft;
@@ -404,11 +549,11 @@
                 topicSummary.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
                 [cell.contentView addSubview:topicSummary];
                                        
-                UIFont *font = [UIFont fontWithName:@"Gill Sans" size:12];
+                UIFont *font = [UIFont fontWithName:@"Gill Sans" size:10];
                 NSArray *itemArray = [NSArray arrayWithObjects: @"Down", @"Up", nil];
                 rateSelector = [[UISegmentedControl alloc] initWithItems:itemArray];
                 rateSelector.tag = TOPICRATINGSEGMENTED_TAG;
-                rateSelector.frame = CGRectMake(11, 39, 72  , 25);
+                rateSelector.frame = CGRectMake(rateSelectorX, 35, 60,20);
                 rateSelector.segmentedControlStyle = UISegmentedControlStyleBar;
                 rateSelector.selectedSegmentIndex = 1;
 
@@ -420,10 +565,10 @@
                 
                 [cell.contentView addSubview:rateSelector];
 
-                avgRatingLabel = [[UILabel alloc]initWithFrame:CGRectMake(6,14,82.0,26.0)];
+                avgRatingLabel = [[UILabel alloc]initWithFrame:CGRectMake(adjectiveLabelX,0,textSummaryBeginX-adjectiveLabelX-buffer,26.0)];
                 avgRatingLabel.tag = TOPICAVGRATINGSLABEL_TAG;
-                avgRatingLabel.font = [UIFont fontWithName:@"Gill Sans"  size:10];
-                avgRatingLabel.textAlignment = NSTextAlignmentCenter;
+                avgRatingLabel.font = [UIFont fontWithName:@"Gill Sans"  size:12];
+                avgRatingLabel.textAlignment = NSTextAlignmentLeft;
                 avgRatingLabel.textColor = [UIColor darkGrayColor];
                 topicSummary.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
                 [cell.contentView addSubview:avgRatingLabel];
@@ -440,7 +585,8 @@
             id topic = self.business.topics[indexPath.row];
             topicName.text = [topic valueForKey:@"name"];
             topicSummary.text = [topic valueForKey:@"summary"];
-
+            
+            NSLog(@"Rating is %@\n", [topic valueForKey:@"rating"]);
             if ([[topic valueForKey:@"rating"] intValue] == 0)
             {
                 [rateSelector setSelectedSegmentIndex:0];
@@ -451,7 +597,7 @@
             }
             else
             {
-                 [rateSelector setSelectedSegmentIndex:0];
+                rateSelector.selectedSegmentIndex = -1;
             }
             avgRatingLabel.text = [NSString stringWithFormat:@"%@",[topic valueForKey:@"ratingAdjective"]  ];
             
@@ -633,10 +779,10 @@
         {
             if (section == 0)
                 return 2;
-            if (section == 1)
-                return 1;
-            if (section == 2)
+            if (section == 1) //map and addr info
                 return 2;
+            if (section == 2) //type info
+                return 1;
                 
         }
             break;

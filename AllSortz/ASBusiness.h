@@ -30,6 +30,10 @@
 
 //The personalize score for the business
 @property (nonatomic) CGFloat recommendation;
+//The lat lng
+@property (nonatomic) CGFloat lat;
+@property (nonatomic) CGFloat lng;
+
 
 //the business' website
 @property (nonatomic) NSURL *website;

@@ -16,6 +16,11 @@
 #import "ASListingsViewController.h"
 #import "ASMapAnnotation.h"
 
+
+#define NUM_MERCHANTS_STARRED 3
+
+
+
 @interface ASMapViewController : UIViewController <MKMapViewDelegate>
 
 
