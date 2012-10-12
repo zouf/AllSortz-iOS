@@ -17,7 +17,6 @@
 
 
 @interface ASZBusinessDetailsBaseViewController ()
-@property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @end
 
@@ -93,7 +92,7 @@
     self.rateView.halfSelectedImage = [UIImage imageNamed:@"half-circle.png"];
     self.rateView.fullSelectedImage = [UIImage imageNamed:@"full-circle.png"];
     self.rateView.editable = NO;
-    self.rateView.maxRating = 5;
+    self.rateView.maxRating = MAX_RATING;
 
     
     ASZRateView *rv = self.rateView;
@@ -105,7 +104,7 @@
         [rv setHidden:NO];
         [distance setHidden:NO];
         [businessName setHidden:NO];
-        float rat = self.dataController.business.recommendation*5;
+        float rat = self.dataController.business.recommendation*MAX_RATING;
         businessName.text = self.dataController.business.name;
         distance.text = [NSString stringWithFormat:@"%0.2fmi.",[self.dataController.business.distance floatValue]];
         [rv setRating:rat];
@@ -181,14 +180,62 @@
 }
 
 
-- (IBAction)busTopicRateTap:(id)sender{
-    UISegmentedControl*rateControl = (UISegmentedControl*)sender;
-    NSIndexPath *indexPath = [self.tableView indexPathForCell:(UITableViewCell *)[[sender superview] superview]];
-    NSDictionary *topic = self.dataController.business.topics[indexPath.row];
-    NSLog(@"User gave %@ a %d\n",[topic valueForKey:@"name"], rateControl.selectedSegmentIndex);
+- (IBAction)busTopicNegRateTap:(id)sender{
+    UITableViewCell *cell = (UITableViewCell *)[[sender superview] superview];
+
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+    NSMutableDictionary *topic = self.dataController.business.topics[indexPath.row];
+    NSLog(@"User gave %@ a %d\n",[topic valueForKey:@"name"], 0);
     NSInteger btID = [[topic valueForKey:@"bustopicID"] intValue];
+    CGFloat curRating = [[topic valueForKey:@"rating"] floatValue];
+    CGFloat incremenet =1/(MAX_RATING*2);
     
-    [self.dataController rateBusinessTopicAsynchronously:btID withRating:rateControl.selectedSegmentIndex];    
+    
+    CGFloat newRating= curRating - incremenet;
+
+    ASZRateView *rv1 = (ASZRateView*)[cell.contentView viewWithTag:TOPICUSER_RATING];
+    if (newRating < 0)
+        newRating = 0;
+    if (newRating > 1)
+        newRating = 1;
+    [rv1 setRating:curRating*MAX_RATING];
+    
+    [topic setObject:[NSNumber numberWithFloat:newRating] forKey:@"rating"];
+    
+    NSLog(@"%@New Topic\n",topic);
+
+    [self.dataController rateBusinessTopicAsynchronously:btID withRating:newRating];
+}
+
+- (IBAction)busTopicPosRateTap:(id)sender{
+    UITableViewCell *cell = (UITableViewCell *)[[sender superview] superview];
+
+      NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+    
+    NSMutableDictionary *topic = self.dataController.business.topics[indexPath.row];
+    NSLog(@"Positive rating gave %@ a %d\n",[topic valueForKey:@"name"], 1);
+    NSInteger btID = [[topic valueForKey:@"bustopicID"] intValue];
+    NSLog(@"%@\n",topic);
+    CGFloat curRating = [[topic valueForKey:@"rating"] floatValue];
+    
+    CGFloat incremenet =1/(MAX_RATING*2);
+    
+    
+    CGFloat newRating= curRating + incremenet;
+
+    
+    
+    ASZRateView *rv1 = (ASZRateView*)[cell.contentView viewWithTag:TOPICUSER_RATING];
+    if (newRating < 0)
+        newRating = 0;
+    if (newRating > 1)
+        newRating = 1;
+    [rv1 setRating:curRating*MAX_RATING];
+    
+    [topic setObject:[NSNumber numberWithFloat:newRating] forKey:@"rating"];
+    
+    NSLog(@"%@New Topic\n",topic);
+    [self.dataController rateBusinessTopicAsynchronously:btID withRating:newRating];
 }
 
 - (IBAction)commentRateTap:(id)sender{

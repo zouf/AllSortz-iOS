@@ -55,9 +55,16 @@
 #define TOPICRATINGSLIDER_TAG 1014
 #define TOPICRATINGSEGMENTED_TAG 1015
 #define TOPICAVGRATINGSLABEL_TAG 1016
+#define TOPICUPBUTTON_TAG 1017
+#define TOPICDOWNBUTTON_TAG 1018
+
+#define TOPICUSER_RATING 1019
+#define TOPICAVG_RATING 1020
+
+
 #define STAR_VIEW 1020
 
-
+#define MAX_RATING 4.0
 
 @class ASZRateView;
 @class ASZBusinessDetailsDataController;
@@ -70,6 +77,8 @@
 @property (strong, nonatomic) IBOutlet UIView *mainView;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segmentedController;
 @property (weak, nonatomic) IBOutlet ASZRateView *rateView;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+
 @property(weak,nonatomic) MKMapView* mapView;
 
 

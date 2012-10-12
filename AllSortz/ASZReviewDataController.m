@@ -151,6 +151,7 @@
         // Sort topics into order they should be displayed
     
     
+    /*
     review.allTopics = (NSMutableArray*)[allTopics sortedArrayUsingComparator:^NSComparisonResult (id obj1, id obj2) {
         NSString *name1 = [obj1 valueForKey:@"name"];
         NSString *name2 = [obj2 valueForKey:@"name"];
@@ -158,7 +159,7 @@
         if ([name1 isEqualToString:@"Synopsis"]) return NSOrderedAscending;
         if ([name2 isEqualToString:@"Synopsis"]) return NSOrderedDescending;
         return [name1 localizedCompare:name2];
-    }];
+    }];*/
     
 
     return review;

@@ -67,9 +67,9 @@
     return [UIImage imageNamed:imageName];
 }
 
--(void)rateBusinessTopicAsynchronously:(NSUInteger)btID withRating:(NSInteger)rating
+-(void)rateBusinessTopicAsynchronously:(NSUInteger)btID withRating:(CGFloat)rating
 {
-    NSString *address = [NSString stringWithFormat:@"http://allsortz.com/api/business/topic/rate/%lu/?uname=%@&password=%@&lat=%f&lon=%f&deviceID=%@&rating=%d", (unsigned long)btID, self.username, self.password, self.currentLatitude, self.currentLongitude, self.UUID,rating];
+    NSString *address = [NSString stringWithFormat:@"http://allsortz.com/api/business/topic/rate/%lu/?uname=%@&password=%@&lat=%f&lon=%f&deviceID=%@&rating=%.2f", (unsigned long)btID, self.username, self.password, self.currentLatitude, self.currentLongitude, self.UUID,rating];
     NSLog(@"Get details with query %@",address);
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:address]];
     void (^handler)(NSURLResponse *, NSData *, NSError *) = ^(NSURLResponse *response, NSData *data, NSError *error) {
@@ -203,35 +203,27 @@
 
         [topic setValuesForKeysWithDictionary:@{@"ID": [category valueForKeyPath:@"topic.parentID"],
                                                 @"name": [category valueForKeyPath:@"topic.parentName"],
-                                                @"rating": [category valueForKey:@"bustopicRating"],
+         @"rating":[NSNumber numberWithFloat:[[category valueForKey:@"bustopicRating"] floatValue]],
                                                 @"summary": [category valueForKey:@"bustopicContent"],
-         @"avgRating" : [category valueForKey:@"bustopicAvgRating"],
+         @"avgRating":[NSNumber numberWithFloat:[[category valueForKey:@"bustopicAvgRating"] floatValue]],
          @"ratingAdjective" : [ category valueForKey:@"bustopicRatingAdjective"],
          @"bustopicID": [category valueForKey:@"bustopicID"]}];
         
         
-        
+        //TODO should be on server, not client
         if ([[topic valueForKey:@"name"] isEqualToString:@"Main"])
         {
-            [topic setValue:@"Synopsis" forKeyPath:@"name"];
+            [topic setValue:@"Overall" forKeyPath:@"name"];
         }
         // Don't want a mutable dictionary in there
-        [topics addObject:[NSDictionary dictionaryWithDictionary:topic]];
+        [topics addObject:topic];
     }
 
     
     // Sort topics into order they should be displayed
     business.topics = topics;
-    /*[topics sortedArrayUsingComparator:^NSComparisonResult (id obj1, id obj2) {
-        NSString *name1 = [obj1 valueForKey:@"name"];
-        NSString *name2 = [obj2 valueForKey:@"name"];
-        if ([name1 isEqualToString:name2]) return NSOrderedSame;
-        if ([name1 isEqualToString:@"Synopsis"]) return NSOrderedAscending;
-        if ([name2 isEqualToString:@"Synopsis"]) return NSOrderedDescending;
-        return [name1 localizedCompare:name2];
-    }];*/
 
-        
+
     // Fetch image asynchronously if the image has some content
     if (![result[@"photoLargeURL"] isEqualToString:@"https://s3.amazonaws.com/allsortz/icon.png"])
     {
@@ -252,8 +244,9 @@
 
 - (void)singleTap:(UITapGestureRecognizer *)tap
 {
-    CGPoint currentTouchPosition = [tap locationInView:self.businessTableView];
-    NSIndexPath *indexPath = [self.businessTableView indexPathForRowAtPoint: currentTouchPosition];
+    
+    CGPoint currentTouchPosition = [tap locationInView:self.viewController.tableView ];
+    NSIndexPath *indexPath = [self.viewController.tableView indexPathForRowAtPoint: currentTouchPosition];
 
         id bus  = self.business;
         id topics = [bus valueForKey:@"topics"];
@@ -507,37 +500,112 @@
         {
             UITextView * topicSummary;
             UILabel * topicName;
-            UISegmentedControl *rateSelector;
+            //UISegmentedControl *rateSelector;
             UILabel *avgRatingLabel;
+
+            UIButton *upButton;
+            UIButton *downButton;
+            ASZRateView *rv1;
+            ASZRateView *rv2;
+
             if (cell == nil) {
                 cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"BusinessDetailsTopicCell"];
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
                 cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             
                 CGFloat textSummaryBeginX = 100;
-                CGFloat lineX = 14.0;
+                CGFloat lineX_1 = 28.0;
+                
+
                 CGFloat buffer = 4;
-                CGFloat rateSelectorX = lineX + buffer;
-                CGFloat adjectiveLabelX = lineX + buffer;
+                CGFloat rateSelectorX = lineX_1 + buffer;
                 
                 
+                CGFloat offset_right = 45;
+                CGFloat kLabelWidth = 64; //EFFECTS THE LAYOUT. HARD TO GET RIGHT.
+                CGFloat kLabelY = 26; //EFFECTS THE LAYOUT. HARD TO GET RIGHT.
+                CGFloat kLabelHeight = 16; //EFFECTS THE LAYOUT. HARD TO GET RIGHT.
+                CGFloat kLabel0X = -24 + offset_right; //EFFECTS THE LAYOUT. HARD TO GET RIGHT.
+                CGFloat kLabel1X =-10 + offset_right; //EFFECTS THE LAYOUT. HARD TO GET RIGHT.
+
+                
+                CGFloat kArroyHeight = 12;
+                CGFloat kArroyWidth  = 12;
+                CGFloat kArrow0Y = 10;
+                CGFloat kArrow1Y = kArrow0Y + kArroyHeight +5;
+                CGFloat kArrowX = 10;
+                
+                CGFloat kRatingHeight = 10;
+                CGFloat kRatingWidth  = 30;
+                CGFloat kRatingY = 18;
+                CGFloat kRating0X = 0;
+                CGFloat kRating1X = 8;
+                
+                upButton = [UIButton buttonWithType:UIButtonTypeCustom];
+                upButton.userInteractionEnabled = YES;
+                upButton.tag = TOPICUPBUTTON_TAG;
+                [upButton setImage:[UIImage imageNamed:@"upvote-export.png"] forState:UIControlStateNormal];
+                [upButton setFrame:CGRectMake(kArrowX, kArrow0Y, kArroyWidth,kArroyHeight)];
+                [cell.contentView addSubview:upButton];
+                
+                downButton = [UIButton buttonWithType:UIButtonTypeCustom];
+                downButton.userInteractionEnabled = YES;
+                downButton.tag = TOPICDOWNBUTTON_TAG;
+                [downButton setImage:[UIImage imageNamed:@"downvote-export.png"] forState:UIControlStateNormal];
+                [downButton setFrame:CGRectMake(kArrowX, kArrow1Y, kArroyWidth,kArroyHeight)];
+                [cell.contentView addSubview:downButton];
                 
                 
-                topicName = [[UILabel alloc]initWithFrame:CGRectMake(-14,15,80,16)];
+                // 
+                avgRatingLabel = [[UILabel alloc]initWithFrame:CGRectMake(kLabel0X,kLabelY,kLabelWidth,kLabelHeight)];
+                avgRatingLabel.tag = TOPICAVGRATINGSLABEL_TAG;
+                avgRatingLabel.font = [UIFont fontWithName:@"Gill Sans"  size:10];
+                avgRatingLabel.textAlignment = NSTextAlignmentRight;
+                avgRatingLabel.textColor = [UIColor darkGrayColor];
+                avgRatingLabel.transform = CGAffineTransformMakeRotation(270 * M_PI / 180.0);
+
+                [cell.contentView addSubview:avgRatingLabel];
+                
+                topicName = [[UILabel alloc]initWithFrame:CGRectMake(kLabel1X,kLabelY,kLabelWidth,kLabelHeight)];
                 topicName.tag = TOPICNAMELABEL_TAG;
-                topicName.font = [UIFont fontWithName:@"Gill Sans"  size:12];
-                topicName.textAlignment = NSTextAlignmentLeft;
+                topicName.font = [UIFont fontWithName:@"Gill Sans"  size:10];
+                topicName.textAlignment = NSTextAlignmentRight;
                 topicName.textColor = [UIColor lightGrayColor];
-                topicName.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
                 topicName.transform = CGAffineTransformMakeRotation(270 * M_PI / 180.0);
                 [cell.contentView addSubview:topicName];
                 
-                UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(lineX, 0, 1, 80)];
-                [lineView setBackgroundColor:[UIColor lightGrayColor]];
-                [cell.contentView addSubview:lineView];
+                UIView *lineView0 = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kLabelHeight*2+offset_right+300, 1)];
+                [lineView0 setBackgroundColor:[UIColor lightGrayColor]];
+                [cell.contentView addSubview:lineView0];
+                
+                
+                
+                /*UIView *lineView1 = [[UIView alloc] initWithFrame:CGRectMake(0, kLabelWidth, kLabelHeight*2+offset_right, 1)];
+                [lineView1 setBackgroundColor:[UIColor lightGrayColor]];
+                [cell.contentView addSubview:lineView1];
+                */
+                rv1 =  [[ASZRateView alloc]initWithFrame:CGRectMake(kRating0X,kRatingY,kRatingWidth,kRatingHeight)];
+                rv1.notSelectedImage = [UIImage imageNamed:@"empty-circle.png"];                
+                rv1.halfSelectedImage = [UIImage imageNamed:@"half-circle.png"];
+                rv1.fullSelectedImage = [UIImage imageNamed:@"full-circle.png"];
+                rv1.editable = NO;
+                rv1.maxRating = 4;
+                rv1.transform = CGAffineTransformMakeRotation(270 * M_PI / 180.0);
+                rv1.tag = TOPICAVG_RATING;
+                
+                
+                rv2 =  [[ASZRateView alloc]initWithFrame:CGRectMake(kRating1X,kRatingY,kRatingWidth,kRatingHeight)];
+                rv2.notSelectedImage = [UIImage imageNamed:@"empty-circle.png"];
+                rv2.halfSelectedImage = [UIImage imageNamed:@"half-circle.png"];
+                rv2.fullSelectedImage = [UIImage imageNamed:@"full-circle.png"];
+                rv2.editable = NO;
+                rv2.maxRating = 4;
+                rv2.transform = CGAffineTransformMakeRotation(270 * M_PI / 180.0);
+                rv2.tag = TOPICUSER_RATING;
+                
+                [cell.contentView addSubview:rv1];
+                [cell.contentView addSubview:rv2];
 
-                
-                
                 topicSummary = [[UITextView alloc] initWithFrame:CGRectMake(textSummaryBeginX, 0, CELL_WIDTH, 68)];
                 topicSummary.tag = TOPICTEXTVIEW_TAG;
                 topicSummary.font = [UIFont fontWithName:@"GillSans-Light"  size:10];
@@ -545,40 +613,27 @@
                 topicSummary.textColor = [UIColor darkGrayColor];
                 topicSummary.scrollEnabled = NO;
                 topicSummary.editable = NO;
+                topicSummary.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
 
                 topicSummary.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
                 [cell.contentView addSubview:topicSummary];
-                                       
-                UIFont *font = [UIFont fontWithName:@"Gill Sans" size:10];
-                NSArray *itemArray = [NSArray arrayWithObjects: @"Down", @"Up", nil];
-                rateSelector = [[UISegmentedControl alloc] initWithItems:itemArray];
-                rateSelector.tag = TOPICRATINGSEGMENTED_TAG;
-                rateSelector.frame = CGRectMake(rateSelectorX, 35, 60,20);
-                rateSelector.segmentedControlStyle = UISegmentedControlStyleBar;
-                rateSelector.selectedSegmentIndex = 1;
+                                                      
+                [cell.contentView addSubview:upButton];
+                [cell.contentView addSubview:downButton];
 
-                NSDictionary *attributes = [NSDictionary dictionaryWithObject:font
-                                                                       forKey:UITextAttributeFont];
-                [rateSelector setTitleTextAttributes:attributes
-                                                forState:UIControlStateNormal];
-          
-                
-                [cell.contentView addSubview:rateSelector];
 
-                avgRatingLabel = [[UILabel alloc]initWithFrame:CGRectMake(adjectiveLabelX,0,textSummaryBeginX-adjectiveLabelX-buffer,26.0)];
-                avgRatingLabel.tag = TOPICAVGRATINGSLABEL_TAG;
-                avgRatingLabel.font = [UIFont fontWithName:@"Gill Sans"  size:12];
-                avgRatingLabel.textAlignment = NSTextAlignmentLeft;
-                avgRatingLabel.textColor = [UIColor darkGrayColor];
-                topicSummary.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
-                [cell.contentView addSubview:avgRatingLabel];
                 
             }
             else
             {
                 topicName = (UILabel*)[cell.contentView viewWithTag:TOPICNAMELABEL_TAG];
                 topicSummary = (UITextView*)[cell.contentView viewWithTag:TOPICTEXTVIEW_TAG];
-                rateSelector = (UISegmentedControl*)[cell.contentView viewWithTag:TOPICRATINGSEGMENTED_TAG];
+                upButton = (UIButton*)[cell.contentView viewWithTag:TOPICUPBUTTON_TAG];
+                downButton = (UIButton*)[cell.contentView viewWithTag:TOPICDOWNBUTTON_TAG];
+                rv1 = (ASZRateView*)[cell.contentView viewWithTag:TOPICAVG_RATING];
+                rv2 = (ASZRateView*)[cell.contentView viewWithTag:TOPICUSER_RATING];
+
+                
                 avgRatingLabel = (UILabel*)[cell viewWithTag:TOPICAVGRATINGSLABEL_TAG];
 
             }
@@ -586,10 +641,15 @@
             topicName.text = [topic valueForKey:@"name"];
             topicSummary.text = [topic valueForKey:@"summary"];
             
+            NSLog(@"TOPIC %@\n",topic);
+            NSLog(@"RATING %f\n", [[topic valueForKey:@"avgRating"] floatValue]*4);
+            [rv1 setRating:[[topic valueForKey:@"avgRating"] floatValue]*MAX_RATING];
+            [rv2 setRating:[[topic valueForKey:@"rating"] floatValue]*MAX_RATING];
+            /*
             NSLog(@"Rating is %@\n", [topic valueForKey:@"rating"]);
             if ([[topic valueForKey:@"rating"] intValue] == 0)
             {
-                [rateSelector setSelectedSegmentIndex:0];
+                [upButton setSelectedSegmentIndex:0];
             }
             else if  ([[topic valueForKey:@"rating"] intValue] == 1)
             {
@@ -598,19 +658,22 @@
             else
             {
                 rateSelector.selectedSegmentIndex = -1;
-            }
+            }*/
             avgRatingLabel.text = [NSString stringWithFormat:@"%@",[topic valueForKey:@"ratingAdjective"]  ];
             
             topicSummary.backgroundColor = [UIColor clearColor];
             topicName.backgroundColor = [UIColor clearColor];
-            avgRatingLabel.backgroundColor = [UIColor clearColor];
+            [avgRatingLabel setBackgroundColor:[UIColor clearColor]];
 
             
-            [rateSelector addTarget:self.viewController action:@selector(busTopicRateTap:) forControlEvents:UIControlEventAllEvents];
+            [upButton addTarget:self.viewController action:@selector(busTopicPosRateTap:) forControlEvents:UIControlEventAllEvents];
+            [downButton addTarget:self.viewController action:@selector(busTopicNegRateTap:) forControlEvents:UIControlEventAllEvents];
+
             UITapGestureRecognizer* singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleTap:)];
             singleTap.numberOfTapsRequired = 1;
             singleTap.numberOfTouchesRequired = 1;
             singleTap.cancelsTouchesInView = NO;
+            
             [topicSummary addGestureRecognizer:singleTap];
             return cell;
         }

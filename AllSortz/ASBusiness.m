@@ -104,6 +104,6 @@ SIMPLE_SETTER(imageID, ImageID, NSUInteger)
 
 SIMPLE_SETTER(types, Types, NSArray *)
 
-SIMPLE_SETTER(topics, Topics, NSArray *)
+SIMPLE_SETTER(topics, Topics, NSMutableArray *)
 
 @end

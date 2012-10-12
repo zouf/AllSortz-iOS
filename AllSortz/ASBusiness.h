@@ -54,7 +54,7 @@
 @property (nonatomic) NSArray *types;
 
 //array of toipcs associated with the business
-@property (nonatomic) NSArray *topics;
+@property (nonatomic) NSMutableArray *topics;
 
 - (id)initWithID:(NSUInteger)anID;
 - (NSDictionary *) serializeToDictionaryWithTypes:(NSArray*)allTypes;

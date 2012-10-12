@@ -157,9 +157,9 @@
         {
            UITextView * tv = (UITextView*)[cell viewWithTag:BUSTOPICCONTENT_TAG];
             tv.text = self.commentList.busTopicInfo;
-            [tv.layer setBorderWidth:1];
-            [tv.layer setCornerRadius:8];
-            [tv.layer setBorderColor:[[UIColor grayColor] CGColor]];
+           // [tv.layer setBorderWidth:1];
+           // [tv.layer setCornerRadius:8];
+           // [tv.layer setBorderColor:[[UIColor grayColor] CGColor]];
             [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
         }
             return cell;
