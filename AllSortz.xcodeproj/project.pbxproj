@@ -100,7 +100,7 @@
 		0A4995511627090B0053D61C /* ASZBusinessTopicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AE6D8D8160653ED003FDC1C /* ASZBusinessTopicViewController.m */; };
 		0A4995521627090B0053D61C /* ASZBusinessTopicDataController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AE6D8DB16065402003FDC1C /* ASZBusinessTopicDataController.m */; };
 		0A4995531627090B0053D61C /* ASZTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A7EA195160E2DA300A74412 /* ASZTabBarViewController.m */; };
-		0A4995541627090B0053D61C /* ASZBusinessDetailsBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AE55CCB1610E59F0041F8B8 /* ASZBusinessDetailsBaseViewController.m */; };
+		0A4995541627090B0053D61C /* detak.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AE55CCB1610E59F0041F8B8 /* detak.m */; };
 		0A4995551627090B0053D61C /* ASZViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ABBCCF21611F0AA003F44BE /* ASZViewController.m */; };
 		0A4995561627090B0053D61C /* ASZRateView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ABBCCF61611F0DC003F44BE /* ASZRateView.m */; };
 		0A4995571627090B0053D61C /* ASZCustomAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A34E95F1624C5C400544F5A /* ASZCustomAnnotation.m */; };
@@ -254,7 +254,7 @@
 		0AE55CC51610BB1E0041F8B8 /* vegan@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AE55CC21610BB1E0041F8B8 /* vegan@2x.png */; };
 		0AE55CC61610BB1E0041F8B8 /* wings.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AE55CC31610BB1E0041F8B8 /* wings.png */; };
 		0AE55CC91610BB290041F8B8 /* wings@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AE55CC81610BB290041F8B8 /* wings@2x.png */; };
-		0AE55CCC1610E59F0041F8B8 /* ASZBusinessDetailsBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AE55CCB1610E59F0041F8B8 /* ASZBusinessDetailsBaseViewController.m */; };
+		0AE55CCC1610E59F0041F8B8 /* detak.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AE55CCB1610E59F0041F8B8 /* detak.m */; };
 		0AE5C41815F77A5E00BF110C /* NYCRestaurant_A.gif in Resources */ = {isa = PBXBuildFile; fileRef = 0AE5C41315F77A5E00BF110C /* NYCRestaurant_A.gif */; };
 		0AE5C41915F77A5E00BF110C /* NYCRestaurant_B.gif in Resources */ = {isa = PBXBuildFile; fileRef = 0AE5C41415F77A5E00BF110C /* NYCRestaurant_B.gif */; };
 		0AE5C41A15F77A5E00BF110C /* NYCRestaurant_C.gif in Resources */ = {isa = PBXBuildFile; fileRef = 0AE5C41515F77A5E00BF110C /* NYCRestaurant_C.gif */; };
@@ -262,6 +262,8 @@
 		0AE5C41C15F77A5E00BF110C /* NYCRestaurant_GP.gif in Resources */ = {isa = PBXBuildFile; fileRef = 0AE5C41715F77A5E00BF110C /* NYCRestaurant_GP.gif */; };
 		0AE6D8D9160653ED003FDC1C /* ASZBusinessTopicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AE6D8D8160653ED003FDC1C /* ASZBusinessTopicViewController.m */; };
 		0AE6D8DC16065402003FDC1C /* ASZBusinessTopicDataController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AE6D8DB16065402003FDC1C /* ASZBusinessTopicDataController.m */; };
+		0AECED421628C88E005D9E69 /* ASZCommentNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AECED411628C88E005D9E69 /* ASZCommentNode.m */; };
+		0AECED451628CC94005D9E69 /* ASZCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AECED441628CC94005D9E69 /* ASZCommentCell.m */; };
 		0AEE0E82160A7396007BFF52 /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AEE0E80160A7396007BFF52 /* libTestFlight.a */; };
 		0AEE0E84160A7510007BFF52 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AEE0E83160A7510007BFF52 /* libz.dylib */; };
 		0AFE1B6F15E6995000636B4D /* ASUserProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AFE1B6E15E6995000636B4D /* ASUserProfileViewController.m */; };
@@ -473,7 +475,7 @@
 		0AE55CC31610BB1E0041F8B8 /* wings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wings.png; sourceTree = "<group>"; };
 		0AE55CC81610BB290041F8B8 /* wings@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "wings@2x.png"; sourceTree = "<group>"; };
 		0AE55CCA1610E59F0041F8B8 /* ASZBusinessDetailsBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASZBusinessDetailsBaseViewController.h; sourceTree = "<group>"; };
-		0AE55CCB1610E59F0041F8B8 /* ASZBusinessDetailsBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASZBusinessDetailsBaseViewController.m; sourceTree = "<group>"; };
+		0AE55CCB1610E59F0041F8B8 /* detak.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = detak.m; sourceTree = "<group>"; };
 		0AE5C41315F77A5E00BF110C /* NYCRestaurant_A.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = NYCRestaurant_A.gif; sourceTree = "<group>"; };
 		0AE5C41415F77A5E00BF110C /* NYCRestaurant_B.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = NYCRestaurant_B.gif; sourceTree = "<group>"; };
 		0AE5C41515F77A5E00BF110C /* NYCRestaurant_C.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = NYCRestaurant_C.gif; sourceTree = "<group>"; };
@@ -483,6 +485,10 @@
 		0AE6D8D8160653ED003FDC1C /* ASZBusinessTopicViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASZBusinessTopicViewController.m; sourceTree = "<group>"; };
 		0AE6D8DA16065402003FDC1C /* ASZBusinessTopicDataController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASZBusinessTopicDataController.h; sourceTree = "<group>"; };
 		0AE6D8DB16065402003FDC1C /* ASZBusinessTopicDataController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASZBusinessTopicDataController.m; sourceTree = "<group>"; };
+		0AECED401628C88E005D9E69 /* ASZCommentNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASZCommentNode.h; sourceTree = "<group>"; };
+		0AECED411628C88E005D9E69 /* ASZCommentNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASZCommentNode.m; sourceTree = "<group>"; };
+		0AECED431628CC94005D9E69 /* ASZCommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASZCommentCell.h; sourceTree = "<group>"; };
+		0AECED441628CC94005D9E69 /* ASZCommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASZCommentCell.m; sourceTree = "<group>"; };
 		0AEE0E80160A7396007BFF52 /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTestFlight.a; sourceTree = "<group>"; };
 		0AEE0E81160A7396007BFF52 /* TestFlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TestFlight.h; path = ../TestFlight.h; sourceTree = "<group>"; };
 		0AEE0E83160A7510007BFF52 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
@@ -783,13 +789,13 @@
 			name = Edit;
 			sourceTree = "<group>";
 		};
-		0A40633F160530020028A57F /* Review */ = {
+		0A40633F160530020028A57F /* Business Topics and Reviews */ = {
 			isa = PBXGroup;
 			children = (
 				0AE6D8DE160655D2003FDC1C /* CommentList */,
 				0AE6D8DD160655C7003FDC1C /* SubmitReview */,
 			);
-			name = Review;
+			name = "Business Topics and Reviews";
 			sourceTree = "<group>";
 		};
 		0A4A379615F6E4910061001B /* DOH */ = {
@@ -867,12 +873,16 @@
 		0AE6D8DE160655D2003FDC1C /* CommentList */ = {
 			isa = PBXGroup;
 			children = (
+				0AECED401628C88E005D9E69 /* ASZCommentNode.h */,
+				0AECED411628C88E005D9E69 /* ASZCommentNode.m */,
 				0A406340160539180028A57F /* ASZCommentList.h */,
 				0A406341160539180028A57F /* ASZCommentList.m */,
 				0AE6D8D7160653ED003FDC1C /* ASZBusinessTopicViewController.h */,
 				0AE6D8D8160653ED003FDC1C /* ASZBusinessTopicViewController.m */,
 				0AE6D8DA16065402003FDC1C /* ASZBusinessTopicDataController.h */,
 				0AE6D8DB16065402003FDC1C /* ASZBusinessTopicDataController.m */,
+				0AECED431628CC94005D9E69 /* ASZCommentCell.h */,
+				0AECED441628CC94005D9E69 /* ASZCommentCell.m */,
 			);
 			name = CommentList;
 			sourceTree = "<group>";
@@ -972,7 +982,7 @@
 				6C0CC24715B7B1FC00F2F7B6 /* MainStoryboard_iPhone.storyboard */,
 				0A04240015D9AD99008143F0 /* Map View */,
 				0A0423FE15D9AD5D008143F0 /* Query Panel */,
-				0A40633F160530020028A57F /* Review */,
+				0A40633F160530020028A57F /* Business Topics and Reviews */,
 				0AAB66BC15EFA4DD00F22011 /* Social */,
 				6C0CC23C15B7B1FC00F2F7B6 /* Supporting Files */,
 				0AEE0E81160A7396007BFF52 /* TestFlight.h */,
@@ -1022,7 +1032,7 @@
 				6C0379F615EEAC8A0010FC28 /* ASZBusinessDetailsDataController.h */,
 				0AE55CCA1610E59F0041F8B8 /* ASZBusinessDetailsBaseViewController.h */,
 				6C0379F715EEAC8A0010FC28 /* ASZBusinessDetailsDataController.m */,
-				0AE55CCB1610E59F0041F8B8 /* ASZBusinessDetailsBaseViewController.m */,
+				0AE55CCB1610E59F0041F8B8 /* detak.m */,
 			);
 			name = "Business Details";
 			sourceTree = "<group>";
@@ -1485,7 +1495,7 @@
 				0A4995511627090B0053D61C /* ASZBusinessTopicViewController.m in Sources */,
 				0A4995521627090B0053D61C /* ASZBusinessTopicDataController.m in Sources */,
 				0A4995531627090B0053D61C /* ASZTabBarViewController.m in Sources */,
-				0A4995541627090B0053D61C /* ASZBusinessDetailsBaseViewController.m in Sources */,
+				0A4995541627090B0053D61C /* detak.m in Sources */,
 				0A4995551627090B0053D61C /* ASZViewController.m in Sources */,
 				0A4995561627090B0053D61C /* ASZRateView.m in Sources */,
 				0A4995571627090B0053D61C /* ASZCustomAnnotation.m in Sources */,
@@ -1538,10 +1548,12 @@
 				0AE6D8D9160653ED003FDC1C /* ASZBusinessTopicViewController.m in Sources */,
 				0AE6D8DC16065402003FDC1C /* ASZBusinessTopicDataController.m in Sources */,
 				0A7EA196160E2DA300A74412 /* ASZTabBarViewController.m in Sources */,
-				0AE55CCC1610E59F0041F8B8 /* ASZBusinessDetailsBaseViewController.m in Sources */,
+				0AE55CCC1610E59F0041F8B8 /* detak.m in Sources */,
 				0ABBCCF31611F0AB003F44BE /* ASZViewController.m in Sources */,
 				0ABBCCF71611F0DC003F44BE /* ASZRateView.m in Sources */,
 				0A34E9601624C5C400544F5A /* ASZCustomAnnotation.m in Sources */,
+				0AECED421628C88E005D9E69 /* ASZCommentNode.m in Sources */,
+				0AECED451628CC94005D9E69 /* ASZCommentCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

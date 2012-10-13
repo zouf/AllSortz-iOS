@@ -10,6 +10,7 @@
 
 #import "ASZReviewViewController.h"
 @interface ASZBusinessTopicViewController ()
+
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *barButton;
 - (IBAction)barButtonTapped:(id)sender;
 @property (weak, nonatomic) IBOutlet UILabel *pageName;
@@ -32,10 +33,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-
-    
-    
+    self.treeNode = [[ASZCommentNode alloc]initWithContent:@"root"];
+    ASZCommentNode *node2 = [[ASZCommentNode alloc] initWithContent:@"1 Level Down Child"];    
+    [self.treeNode addChild:node2];
+    ASZCommentNode *node3 = [[ASZCommentNode alloc] initWithContent:@"2 Levels Down Child"];
+    [node2 addChild:node3];
 }
 
 - (void) hideKeyboard {
@@ -106,13 +108,11 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     */
+    ASZCommentNode *node = [[self.treeNode flattenElements] objectAtIndex:indexPath.row + 1];
+    if (node.children.count == 0) return;
+    
+    node.inclusive = !node.inclusive;
+    [tableView reloadData];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath

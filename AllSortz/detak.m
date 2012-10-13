@@ -188,22 +188,21 @@
     NSLog(@"User gave %@ a %d\n",[topic valueForKey:@"name"], 0);
     NSInteger btID = [[topic valueForKey:@"bustopicID"] intValue];
     CGFloat curRating = [[topic valueForKey:@"rating"] floatValue];
-    CGFloat incremenet =1/(MAX_RATING*2);
-    
-    
-    CGFloat newRating= curRating - incremenet;
 
-    ASZRateView *rv1 = (ASZRateView*)[cell.contentView viewWithTag:TOPICUSER_RATING];
+    NSLog(@"IN NEG VOTE: TOPIC IS %@\n",topic);
+    NSLog(@"floorf(curRating*MAX_RATING) is %0.2f\n",floorf(curRating*MAX_RATING));
+    CGFloat newRating= floorf(curRating*MAX_RATING) - 1;
     if (newRating < 0)
         newRating = 0;
-    if (newRating > 1)
-        newRating = 1;
-    [rv1 setRating:curRating*MAX_RATING];
+    if (newRating > MAX_RATING)
+        newRating = MAX_RATING;
+    newRating = newRating / MAX_RATING;
+    
+    ASZRateView *rv1 = (ASZRateView*)[cell.contentView viewWithTag:TOPICUSER_RATING];
+    [rv1 setRating:newRating*MAX_RATING];
     
     [topic setObject:[NSNumber numberWithFloat:newRating] forKey:@"rating"];
-    
-    NSLog(@"%@New Topic\n",topic);
-
+    NSLog(@"New rating is %f\n", newRating);
     [self.dataController rateBusinessTopicAsynchronously:btID withRating:newRating];
 }
 
@@ -217,24 +216,20 @@
     NSInteger btID = [[topic valueForKey:@"bustopicID"] intValue];
     NSLog(@"%@\n",topic);
     CGFloat curRating = [[topic valueForKey:@"rating"] floatValue];
-    
-    CGFloat incremenet =1/(MAX_RATING*2);
-    
-    
-    CGFloat newRating= curRating + incremenet;
+    NSLog(@"IN POS VOTE: TOPIC IS %@\n",topic);
 
-    
-    
-    ASZRateView *rv1 = (ASZRateView*)[cell.contentView viewWithTag:TOPICUSER_RATING];
+    CGFloat newRating= floorf(curRating*MAX_RATING) + 1;
     if (newRating < 0)
         newRating = 0;
-    if (newRating > 1)
-        newRating = 1;
-    [rv1 setRating:curRating*MAX_RATING];
+    if (newRating > MAX_RATING)
+        newRating = MAX_RATING;
+    newRating = newRating / MAX_RATING;
+    
+    ASZRateView *rv1 = (ASZRateView*)[cell.contentView viewWithTag:TOPICUSER_RATING];
+    [rv1 setRating:newRating*MAX_RATING];
     
     [topic setObject:[NSNumber numberWithFloat:newRating] forKey:@"rating"];
-    
-    NSLog(@"%@New Topic\n",topic);
+    NSLog(@"New rating is %f\n", newRating);
     [self.dataController rateBusinessTopicAsynchronously:btID withRating:newRating];
 }
 

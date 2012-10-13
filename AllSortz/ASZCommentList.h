@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "ASZCommentNode.h"
 //comment elements for all of the comments
 
 #define COMMENTPOSRATING_TAG 1024
@@ -17,8 +18,8 @@
 #define COMMENTRATE_TAG 1029
 
 
-#define CELL_WIDTH 225
-#define CELL_MARGIN 8
+#define CELL_WIDTH 235
+#define CELL_MARGIN 4
 #define DEFAULT_HEIGHT 52
 #define COMMENT_WIDTH 215
 #define COMMENT_HEIGHT 65
@@ -28,7 +29,7 @@
 
 
 @property (readonly) NSUInteger ID;
-@property (nonatomic) NSArray *comments;
+@property (nonatomic) NSMutableArray *comments;
 @property (nonatomic) NSString  *busTopicInfo;
 
 

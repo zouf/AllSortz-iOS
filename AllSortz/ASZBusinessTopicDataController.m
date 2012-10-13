@@ -139,7 +139,7 @@
             return 1;   //the actual bustopiccontent
             break;
         case 1:
-            return self.commentList.comments.count;
+            return [self.viewController.treeNode descendantCount];
             break;
         default:
             return 0;//self.businessTopicTableView.rowHeight;
@@ -149,20 +149,20 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = nil;
+    UITableViewCell *cell2 = nil;
     
     switch (indexPath.section) {
         case BUSTOPICCONTENT_SECTION:
-            cell = [tableView dequeueReusableCellWithIdentifier:@"BusTopicContentCell"];
+            cell2 = [tableView dequeueReusableCellWithIdentifier:@"BusTopicContentCell"];
         {
-           UITextView * tv = (UITextView*)[cell viewWithTag:BUSTOPICCONTENT_TAG];
+           UITextView * tv = (UITextView*)[cell2 viewWithTag:BUSTOPICCONTENT_TAG];
             tv.text = self.commentList.busTopicInfo;
            // [tv.layer setBorderWidth:1];
            // [tv.layer setCornerRadius:8];
            // [tv.layer setBorderColor:[[UIColor grayColor] CGColor]];
-            [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+            [cell2 setSelectionStyle:UITableViewCellSelectionStyleNone];
         }
-            return cell;
+            return cell2;
         case COMMENTLIST_SECTION:
             
         {
@@ -173,9 +173,18 @@
             UISegmentedControl * rateSelector;
             UILabel * posRatingLabel;
             UILabel * negRatingLabel;
-            
+            ASZCommentCell * cell = nil;
+            //[tableView dequeueReusableCellWithIdentifier:@"CommentCell"];
+            ASZCommentNode *node = [[self.viewController.treeNode flattenElements] objectAtIndex:indexPath.row + 1];
+
             if (cell == nil) {
-                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+                
+                cell = [[ASZCommentCell alloc] initWithStyle:UITableViewCellStyleDefault
+                                                             reuseIdentifier:CellIdentifier
+                                                                       level:[node levelDepth] - 1
+                                                                    expanded:node.inclusive];
+                
+                NSLog(@"NODE IS %@\n",node);
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
                 cell.accessoryType = UITableViewCellAccessoryNone;
                 
@@ -263,7 +272,9 @@
             id review = [self.commentList.comments objectAtIndex:indexPath.row];
             dateLabel.text =  [NSString stringWithFormat:@"%@", [review valueForKeyPath:@"date"]];
             authorLabel.text = [NSString stringWithFormat:@"%@",[review valueForKeyPath:@"creator.userName"]];
-            commentContent.text = [NSString stringWithFormat:@"%@",[review valueForKeyPath:@"content"]];
+            //commentContent.text = [NSString stringWithFormat:@"%@",[review valueForKeyPath:@"content"]];
+            commentContent.text = node.content;
+
             posRatingLabel.text = [NSString stringWithFormat:@"%@",[review valueForKeyPath:@"posRatings"]];
             negRatingLabel.text = [NSString stringWithFormat:@"%@",[review valueForKeyPath:@"negRatings"]];
             
@@ -286,10 +297,11 @@
                 
             }
             [rateSelector addTarget:self.viewController action:@selector(commentRateTap:) forControlEvents:UIControlEventAllEvents];
-    }
             return cell;
+
+        }
         default:
-            return cell;
+            return nil;
 
     }
 }

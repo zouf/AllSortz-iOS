@@ -513,7 +513,7 @@
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
                 cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             
-                CGFloat textSummaryBeginX = 100;
+                CGFloat textSummaryBeginX = 85;
                 CGFloat lineX_1 = 28.0;
                 
 
@@ -521,7 +521,7 @@
                 CGFloat rateSelectorX = lineX_1 + buffer;
                 
                 
-                CGFloat offset_right = 45;
+                CGFloat offset_right = 35;
                 CGFloat kLabelWidth = 64; //EFFECTS THE LAYOUT. HARD TO GET RIGHT.
                 CGFloat kLabelY = 26; //EFFECTS THE LAYOUT. HARD TO GET RIGHT.
                 CGFloat kLabelHeight = 16; //EFFECTS THE LAYOUT. HARD TO GET RIGHT.
@@ -531,15 +531,15 @@
                 
                 CGFloat kArroyHeight = 12;
                 CGFloat kArroyWidth  = 12;
-                CGFloat kArrow0Y = 10;
+                CGFloat kArrow0Y = 5;
                 CGFloat kArrow1Y = kArrow0Y + kArroyHeight +5;
-                CGFloat kArrowX = 10;
+                CGFloat kArrowX = 2;
                 
                 CGFloat kRatingHeight = 10;
                 CGFloat kRatingWidth  = 30;
                 CGFloat kRatingY = 18;
-                CGFloat kRating0X = 0;
-                CGFloat kRating1X = 8;
+                CGFloat kRating0X = -5;
+                CGFloat kRating1X = kRating0X+8;
                 
                 upButton = [UIButton buttonWithType:UIButtonTypeCustom];
                 upButton.userInteractionEnabled = YES;
@@ -574,7 +574,7 @@
                 topicName.transform = CGAffineTransformMakeRotation(270 * M_PI / 180.0);
                 [cell.contentView addSubview:topicName];
                 
-                UIView *lineView0 = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kLabelHeight*2+offset_right+300, 1)];
+                UIView *lineView0 = [[UIView alloc] initWithFrame:CGRectMake(0, 0, textSummaryBeginX-15, 1)];
                 [lineView0 setBackgroundColor:[UIColor lightGrayColor]];
                 [cell.contentView addSubview:lineView0];
                 
@@ -610,12 +610,14 @@
                 topicSummary.tag = TOPICTEXTVIEW_TAG;
                 topicSummary.font = [UIFont fontWithName:@"GillSans-Light"  size:10];
                 topicSummary.textAlignment = NSTextAlignmentLeft;
+            
                 topicSummary.textColor = [UIColor darkGrayColor];
                 topicSummary.scrollEnabled = NO;
                 topicSummary.editable = NO;
-                topicSummary.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
+                topicSummary.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleBottomMargin;
+                topicSummary.contentInset = UIEdgeInsetsMake(-5, 0, 0, 0);
 
-                topicSummary.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
+             //   topicSummary.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
                 [cell.contentView addSubview:topicSummary];
                                                       
                 [cell.contentView addSubview:upButton];
@@ -666,8 +668,8 @@
             [avgRatingLabel setBackgroundColor:[UIColor clearColor]];
 
             
-            [upButton addTarget:self.viewController action:@selector(busTopicPosRateTap:) forControlEvents:UIControlEventAllEvents];
-            [downButton addTarget:self.viewController action:@selector(busTopicNegRateTap:) forControlEvents:UIControlEventAllEvents];
+            [upButton addTarget:self.viewController action:@selector(busTopicPosRateTap:) forControlEvents:UIControlEventTouchUpInside];
+            [downButton addTarget:self.viewController action:@selector(busTopicNegRateTap:) forControlEvents:UIControlEventTouchUpInside];
 
             UITapGestureRecognizer* singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleTap:)];
             singleTap.numberOfTapsRequired = 1;

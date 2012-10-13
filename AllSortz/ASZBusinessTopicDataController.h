@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "ASZCommentList.h"
+#import "ASZCommentCell.h"
 
 @interface ASZBusinessTopicDataController : NSObject <UITableViewDataSource>
 
@@ -18,7 +19,6 @@
 
 
 @property ASZCommentList *commentList;
-
 @property NSString *username;
 @property NSString *password;
 @property CGFloat currentLatitude;

@@ -9,9 +9,20 @@
 #import <UIKit/UIKit.h>
 #import "ASZTopicDetailDataController.h"
 
-@interface ASZTopicDetailViewController : UITableViewController
+
+
+@interface ASZTopicDetailViewController : UITableViewController <UITableViewDelegate>
+
+
 
 @property NSUInteger topicID;
 @property IBOutlet ASZTopicDetailDataController *dataController;
+ @property (nonatomic) int openSection;
+@end
 
+@class FamilyCauseSection;
+
+@protocol FamilyCauseSectionDelegate
+@optional
+- (void)clickedSection:(FamilyCauseSection*)familyCauseSection;
 @end

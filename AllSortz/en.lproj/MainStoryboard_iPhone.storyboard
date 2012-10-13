@@ -343,10 +343,10 @@
                                 <rect key="frame" x="-3" y="91" width="327" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <segments>
-                                    <segment title="Discussion"/>
+                                    <segment title="My View"/>
                                     <segment title="Info"/>
-                                    <segment title="Redeem"/>
-                                    <segment title="Review"/>
+                                    <segment title="Transact"/>
+                                    <segment title="Discuss"/>
                                 </segments>
                                 <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
@@ -425,11 +425,11 @@
             </objects>
             <point key="canvasLocation" x="629" y="-90"/>
         </scene>
-        <!--Navigation Controller - Redeem-->
+        <!--Navigation Controller - Transact-->
         <scene sceneID="Cty-yM-9Zj">
             <objects>
                 <navigationController definesPresentationContext="YES" id="rcy-Q3-2Kk" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Redeem" image="tab_account.png" id="hVb-Ko-iU7"/>
+                    <tabBarItem key="tabBarItem" title="Transact" image="barcode.png" id="hVb-Ko-iU7"/>
                     <navigationBar key="navigationBar" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="feG-CZ-qzv">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -966,11 +966,11 @@
             </objects>
             <point key="canvasLocation" x="-211" y="1040"/>
         </scene>
-        <!--Navigation Controller - Socialize-->
+        <!--Navigation Controller - Transact-->
         <scene sceneID="vse-HR-hgC">
             <objects>
                 <navigationController id="ODN-hD-8P9" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Socialize" image="latenight.png" id="WgS-Yo-3GE"/>
+                    <tabBarItem key="tabBarItem" title="Transact" image="latenight.png" id="WgS-Yo-3GE"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="hNQ-ZS-3U6">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -1350,10 +1350,10 @@
     <resources>
         <image name="Icon-1024.png" width="1024" height="1024"/>
         <image name="Placeholder.png" width="360" height="360"/>
+        <image name="barcode.png" width="30" height="30"/>
         <image name="default-detail-background.png" width="320" height="120"/>
         <image name="latenight.png" width="30" height="30"/>
         <image name="pie.png" width="30" height="30"/>
-        <image name="tab_account.png" width="30" height="30"/>
         <image name="tab_map.png" width="30" height="30"/>
         <image name="tab_scan.png" width="30" height="30"/>
     </resources>
@@ -1386,7 +1386,6 @@
             <source key="sourceIdentifier" type="project" relativePath="./Classes/ASMapViewController.h"/>
             <relationships>
                 <relationship kind="action" name="goToMyLocation:"/>
-                <relationship kind="action" name="refreshTapped:"/>
                 <relationship kind="outlet" name="listViewController" candidateClass="ASListingsViewController"/>
                 <relationship kind="outlet" name="listingsTableDataController" candidateClass="ASBusinessListDataController"/>
                 <relationship kind="outlet" name="mv" candidateClass="MKMapView"/>
@@ -1488,8 +1487,6 @@
         <class className="ASZEditBusinessDetailsViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/ASZEditBusinessDetailsViewController.h"/>
             <relationships>
-                <relationship kind="action" name="cancelTapped:"/>
-                <relationship kind="action" name="doneTapped:"/>
                 <relationship kind="outlet" name="dataController" candidateClass="ASZEditBusinessDetailsDataController"/>
             </relationships>
         </class>
@@ -1506,6 +1503,8 @@
         <class className="ASZReviewViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/ASZReviewViewController.h"/>
             <relationships>
+                <relationship kind="action" name="cancelTapped:"/>
+                <relationship kind="action" name="submitTapped:"/>
                 <relationship kind="outlet" name="dataController" candidateClass="ASZReviewDataController"/>
             </relationships>
         </class>

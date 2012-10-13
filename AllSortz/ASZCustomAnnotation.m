@@ -124,7 +124,7 @@
     }
     else
     {
-        UILabel *recommendationLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, RADIUS*2, RADIUS*2)];
+        UILabel *recommendationLabel = [[UILabel alloc]initWithFrame:CGRectMake(1,1, RADIUS*2, RADIUS*2)];
         [recommendationLabel setText:textContent];
         [recommendationLabel setFont:[UIFont fontWithName:@"Gill Sans"  size:8]];
         [recommendationLabel setTextAlignment:NSTextAlignmentCenter];
