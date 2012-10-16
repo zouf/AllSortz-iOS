@@ -549,7 +549,7 @@ heightForFooterInSection:(NSInteger)section {
             
             CGSize size = [text sizeWithFont:[UIFont fontWithName:@"GillSans-Light"  size:14] constrainedToSize:constraint lineBreakMode:NSLineBreakByWordWrapping];
             
-            CGFloat height = MAX(size.height, COMMENT_HEIGHT);
+            CGFloat height = MAX(size.height, DEFAULT_HEIGHT);
             
             return height + (CELL_MARGIN * 2);
             break;

@@ -104,12 +104,17 @@
                                 CGPointMake(RADIUS, RADIUS), GRADIENT_POINT_1,
                                 CGPointMake(RADIUS, RADIUS), GRADIENT_POINT_2,
                                 kCGGradientDrawsBeforeStartLocation | kCGGradientDrawsAfterEndLocation);
+    
     CGContextRestoreGState(context);
+    CFBridgingRelease((__bridge CFTypeRef)(gradient3Colors));
+
+    CGGradientRelease(gradient3);
+    CGColorSpaceRelease(colorSpace);
+    
     
     [[UIColor blackColor] setStroke];
     aPath.lineWidth = 0.5;
     [aPath stroke];
-    
     
     //// Text Drawing
     if (self.starred)
@@ -139,8 +144,7 @@
     
     
     //// Cleanup
-    CGGradientRelease(gradient3);
-    CGColorSpaceRelease(colorSpace);
+
     
 
 }

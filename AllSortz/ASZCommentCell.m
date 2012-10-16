@@ -7,13 +7,8 @@
 //
 
 #import "ASZCommentCell.h"
+#import "ASZCommentList.h"
 
-#define IMG_HEIGHT_WIDTH 20
-#define CELL_HEIGHT 44
-#define SCREEN_WIDTH 320
-#define LEVEL_INDENT 32
-#define YOFFSET 12
-#define XOFFSET 6
 
 
 
@@ -29,32 +24,35 @@
 
 @implementation ASZCommentCell
 
-@synthesize valueLabel, arrowImage;
+@synthesize  arrowImage, height;
 @synthesize level, expanded;
 
 - (id)initWithStyle:(UITableViewCellStyle)style
     reuseIdentifier:(NSString *)reuseIdentifier
               level:(NSUInteger)_level
-           expanded:(BOOL)_expanded {
+           expanded:(BOOL)_expanded
+             height:(CGFloat)cellHeight;
+    {
     
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         self.level = _level;
         self.expanded = _expanded;
-        
+        self.height = cellHeight;
         UIView *content = self.contentView;
+
         
-        self.valueLabel =
-        [self newLabelWithPrimaryColor:[UIColor blackColor]
-                         selectedColor:[UIColor whiteColor]
-                              fontSize:20.0 bold:YES];
-        self.valueLabel.textAlignment = UITextAlignmentLeft;
-        [content addSubview:self.valueLabel];
-        
-        self.arrowImage =
-        [[UIImageView alloc] initWithImage:
-         [UIImage imageNamed:self.expanded ?
-          @"upvote-export.png" : @"downvote-export.png"]];
+        if (self.expanded)
+        {
+            self.arrowImage = [[UIImageView alloc] initWithImage: [UIImage imageNamed:@"arrow-down.png"]];
+        }
+        else
+        {
+            self.arrowImage = [[UIImageView alloc] initWithImage: [UIImage imageNamed:@"arrow-up.png"]];
+
+
+        }
+
         [content addSubview:self.arrowImage];
         
     }
@@ -62,29 +60,57 @@
 }
 
 
+#pragma mark - Get Cell Heights
 
+-(CGFloat)getCommentWidth: (ASZCommentCell*)cell
+{
+    CGFloat ret =  SCREEN_WIDTH - (XOFFSET+ cell.level * LEVEL_INDENT);
+    return ret;
+}
+
+-(CGFloat)getCommentHeight: (ASZCommentCell*)cell
+{
+    return cell.height;
+    
+}
+
+-(CGFloat)getCommentX: (ASZCommentCell*)cell
+{
+    CGRect contentRect = self.contentView.bounds;
+    CGFloat boundsX = contentRect.origin.x;
+
+    return XOFFSET + (boundsX + cell.level) * LEVEL_INDENT;
+}
 
 #pragma mark -
 #pragma mark Other overrides
 
 - (void)layoutSubviews {
     [super layoutSubviews];
-    CGRect contentRect = self.contentView.bounds;
+    
+    CGFloat kHeight = self.height;
     
     if (!self.editing) {
         
         // get the X pixel spot
-        CGFloat boundsX = contentRect.origin.x;
         CGRect frame;
         
-        frame = CGRectMake((boundsX + self.level + 1) * LEVEL_INDENT,
+        frame = CGRectMake([self getCommentX:self],
                            0,
-                           SCREEN_WIDTH - (self.level * LEVEL_INDENT),
-                           CELL_HEIGHT);
-        self.valueLabel.frame = frame;
+                           [self getCommentWidth:self],
+                           [self getCommentHeight:self]);
+        self.contentView.frame = frame;
+        
+        for(int i = 0; i <= self.level; i++)
+        {
+            UIView * lineView = [[UIView alloc]initWithFrame:CGRectMake(-i*LEVEL_INDENT,0,1,kHeight)];
+            [lineView setBackgroundColor:[UIColor lightGrayColor]];
+            [self.contentView addSubview:lineView];
+        }
+        
         
         CGRect imgFrame;
-        imgFrame = CGRectMake(((boundsX + self.level + 1) * LEVEL_INDENT) - (IMG_HEIGHT_WIDTH + XOFFSET),
+        imgFrame = CGRectMake(XOFFSET,
                               YOFFSET,
                               IMG_HEIGHT_WIDTH,
                               IMG_HEIGHT_WIDTH);

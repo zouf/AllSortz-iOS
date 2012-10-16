@@ -132,18 +132,19 @@
         case COMMENTLIST_SECTION:
         {
             
-            NSArray *reviews   =  self.dataController.commentList.comments;
-            id review = reviews[indexPath.row];
             
-            NSString * text = [review valueForKey:@"content"];
+            NSArray *reviews   =  [self.dataController.commentList.treeRoot flattenElements] ;
+            ASZCommentNode * node = reviews[indexPath.row + 1];
+            
+            NSString * text = node.content;
             
             CGSize constraint = CGSizeMake(COMMENT_WIDTH - (CELL_MARGIN * 2), 20000.0f);
             
             CGSize size = [text sizeWithFont:[UIFont fontWithName:@"GillSans-Light"  size:14] constrainedToSize:constraint lineBreakMode:NSLineBreakByWordWrapping];
             
-            CGFloat height = MAX(size.height, COMMENT_HEIGHT);
+            CGFloat height = MAX(size.height + START_POSITION, DEFAULT_HEIGHT);
             
-            return height + (CELL_MARGIN * 2);
+            return height + (CELL_MARGIN * 2) ;
             break;
         }
         default:
@@ -188,14 +189,21 @@
     self.barButton.title = @"Comment";
 }
 #pragma mark - Handle comment ratings
-- (IBAction)commentRateTap:(id)sender{
-    UISegmentedControl*rateControl = (UISegmentedControl*)sender;
+- (IBAction)commentPosRateTap:(id)sender{
     NSIndexPath *indexPath = [self.tableView indexPathForCell:(UITableViewCell *)[[sender superview] superview]];
-    NSDictionary *comment = self.dataController.commentList.comments[indexPath.row];
-    NSLog(@"User gave %@ a %d\n",[comment valueForKey:@"content"], rateControl.selectedSegmentIndex);
-    NSInteger cID = [[comment valueForKey:@"commentID"] intValue];
+    ASZCommentNode *node = [self.dataController.commentList.treeRoot flattenElements][indexPath.row + 1];
+    NSInteger cID = node.commentID;
     
-    [self.dataController rateCommentAsynchronously:cID withRating:rateControl.selectedSegmentIndex];
+    [self.dataController rateCommentAsynchronously:cID withRating:1];
+}
+
+
+- (IBAction)commentNegRateTap:(id)sender{
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:(UITableViewCell *)[[sender superview] superview]];
+    ASZCommentNode *node = [self.dataController.commentList.treeRoot flattenElements][indexPath.row + 1];
+    NSInteger cID = node.commentID;
+    
+    [self.dataController rateCommentAsynchronously:cID withRating:0];
 }
 
 

@@ -514,12 +514,8 @@
                 cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             
                 CGFloat textSummaryBeginX = 85;
-                CGFloat lineX_1 = 28.0;
-                
-
-                CGFloat buffer = 4;
-                CGFloat rateSelectorX = lineX_1 + buffer;
-                
+        
+                CGFloat buffer = 5;
                 
                 CGFloat offset_right = 35;
                 CGFloat kLabelWidth = 64; //EFFECTS THE LAYOUT. HARD TO GET RIGHT.
@@ -531,14 +527,14 @@
                 
                 CGFloat kArroyHeight = 12;
                 CGFloat kArroyWidth  = 12;
-                CGFloat kArrow0Y = 5;
-                CGFloat kArrow1Y = kArrow0Y + kArroyHeight +5;
+                CGFloat kArrow0Y = buffer;
+                CGFloat kArrow1Y = kArrow0Y + kArroyHeight +buffer;
                 CGFloat kArrowX = 2;
                 
                 CGFloat kRatingHeight = 10;
                 CGFloat kRatingWidth  = 30;
                 CGFloat kRatingY = 18;
-                CGFloat kRating0X = -5;
+                CGFloat kRating0X = -buffer;
                 CGFloat kRating1X = kRating0X+8;
                 
                 upButton = [UIButton buttonWithType:UIButtonTypeCustom];
