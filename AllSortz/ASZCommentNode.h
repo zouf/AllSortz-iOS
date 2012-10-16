@@ -16,7 +16,7 @@
     NSString *content;
     
     
-    BOOL isIncluded;
+
     
     BOOL inclusive;
 
@@ -35,7 +35,6 @@
 @property (nonatomic, retain) NSMutableArray *children;
 @property (nonatomic) int index;
 @property (nonatomic, retain) NSString *content;
-@property (nonatomic, assign) BOOL isIncluded;
 @property (nonatomic) BOOL inclusive;
 
 @property (nonatomic, assign) NSInteger posRatings;

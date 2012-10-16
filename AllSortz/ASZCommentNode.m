@@ -11,7 +11,7 @@
 @implementation ASZCommentNode
 
 @synthesize parent, children;
-@synthesize index, content, negRatings, commentID,date, creator, posRatings,  isIncluded, flattenedTreeCache;
+@synthesize index, content, negRatings, commentID,date, creator, posRatings, flattenedTreeCache;
 @synthesize inclusive;
 
 #pragma mark -
@@ -56,7 +56,7 @@
 }
 
 - (NSArray *)flattenElements {
-	return [self flattenElementsWithCacheRefresh:NO];
+	return [self flattenElementsWithCacheRefresh:YES];
 }
 
 - (NSArray *)flattenElementsWithCacheRefresh:(BOOL)invalidate {
@@ -74,6 +74,10 @@
 				[allElements addObjectsFromArray:[child flattenElementsWithCacheRefresh:invalidate]];
 			}
 		}
+        else
+        {
+            NSLog(@"%@ Not inclusive\n",self);
+        }
         
 		flattenedTreeCache = [[NSArray alloc] initWithArray:allElements];
 	}

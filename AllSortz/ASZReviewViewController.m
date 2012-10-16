@@ -43,7 +43,7 @@
     }
     else if (self.bustopicID) //COMMENT
     {
-        self.dataController.review = [[ASZReview alloc]initWithID:self.bustopicID];
+        self.dataController.review = [[ASZReview alloc]initWithID:self.bustopicID :self.replyToID];
     }
 
 

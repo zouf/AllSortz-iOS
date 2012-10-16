@@ -13,6 +13,7 @@
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *barButton;
 - (IBAction)barButtonTapped:(id)sender;
+- (IBAction)replyToComment:(id)sender;
 @property (weak, nonatomic) IBOutlet UILabel *pageName;
 
 @end
@@ -33,11 +34,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.treeNode = [[ASZCommentNode alloc]initWithContent:@"root"];
-    ASZCommentNode *node2 = [[ASZCommentNode alloc] initWithContent:@"1 Level Down Child"];    
-    [self.treeNode addChild:node2];
-    ASZCommentNode *node3 = [[ASZCommentNode alloc] initWithContent:@"2 Levels Down Child"];
-    [node2 addChild:node3];
 }
 
 - (void) hideKeyboard {
@@ -108,7 +104,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    ASZCommentNode *node = [[self.treeNode flattenElements] objectAtIndex:indexPath.row + 1];
+    ASZCommentNode *node = [[self.dataController.commentList.treeRoot flattenElements] objectAtIndex:indexPath.row + 1];
     if (node.children.count == 0) return;
     
     node.inclusive = !node.inclusive;
@@ -202,6 +198,43 @@
     [self.dataController rateCommentAsynchronously:cID withRating:rateControl.selectedSegmentIndex];
 }
 
+
+- (IBAction)replyToComment:(id)sender {
+
+    NSString * targetViewControllerIdentifier = @"ReviewBusinessControllerID";
+    
+    UITableViewCell *cell = (UITableViewCell *)[[sender superview] superview];
+    
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+    
+    ASZCommentNode *node = [[self.dataController.commentList.treeRoot flattenElements] objectAtIndex:indexPath.row + 1];
+
+    
+    
+    ASZReviewViewController *detailsViewController =     (ASZReviewViewController*)[self.storyboard instantiateViewControllerWithIdentifier:targetViewControllerIdentifier];
+    UINavigationController *navBar=[[UINavigationController alloc]initWithRootViewController:detailsViewController];
+    
+    
+    
+    detailsViewController.dataController.username = self.dataController.username;
+    detailsViewController.dataController.password = self.dataController.password;
+    
+    detailsViewController.dataController.UUID = self.dataController.UUID;
+    detailsViewController.dataController.currentLatitude = self.dataController.currentLatitude;
+    detailsViewController.dataController.currentLongitude = self.dataController.currentLongitude;
+    detailsViewController.bustopicID  = self.businessTopicID;
+    detailsViewController.replyToID  =  node.commentID; //;
+
+    
+    //[self.view addSubview:navBar.view];
+    [self.navigationController presentViewController:navBar animated:YES completion:nil];
+
+
+
+    
+}
+
+
 - (IBAction)barButtonTapped:(id)sender {
     UITextView *tv = (UITextView*)[self.tableView viewWithTag:200];
 
@@ -226,7 +259,7 @@
         detailsViewController.dataController.currentLatitude = self.dataController.currentLatitude;
         detailsViewController.dataController.currentLongitude = self.dataController.currentLongitude;
         detailsViewController.bustopicID  = self.businessTopicID;
-        
+        detailsViewController.replyToID = -1;
         
         //[self.view addSubview:navBar.view];
         [self.navigationController presentViewController:navBar animated:YES completion:nil];

@@ -15,7 +15,6 @@
 @property NSUInteger businessTopicID;
 @property (nonatomic) NSString*  businessTopicName;
 @property (nonatomic,retain) ASBusiness*  business;
-@property (nonatomic, retain) ASZCommentNode *treeNode;
 
 @property IBOutlet ASZBusinessTopicDataController *dataController;
 @end

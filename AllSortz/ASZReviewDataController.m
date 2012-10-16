@@ -130,7 +130,7 @@
 
 - (ASZReview *)reviewFromJSONResult:(NSDictionary *)result
 {
-    ASZReview *review = [[ASZReview alloc] initWithID:[result[@"businessID"] unsignedIntegerValue]];
+    ASZReview *review = [[ASZReview alloc] initWithID:[result[@"businessID"] unsignedIntegerValue] :-1];
     if (!review)
         return nil;
         

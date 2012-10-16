@@ -106,14 +106,36 @@
     return;
 }
 
+-(ASZCommentNode*)createTree:(id)review
+{
+    ASZCommentNode * n = [[ASZCommentNode alloc]initWithContent:[NSString stringWithFormat:@"%@",[review valueForKeyPath:@"content"]]];
+    n.date =   [NSString stringWithFormat:@"%@", [review valueForKeyPath:@"date"]];
+    n.posRatings = [[review valueForKeyPath:@"posRatings"]intValue];
+    n.negRatings = [[review valueForKeyPath:@"negRatings"]intValue];
+    n.creator = [NSString stringWithFormat:@"%@",[review valueForKeyPath:@"creator.userName"]];
+    n.commentID = [[review valueForKeyPath:@"commentID"]intValue];
+    for(NSDictionary* d in [review valueForKeyPath:@"children"])
+    {
+        id child = d;
+        ASZCommentNode * c = [self createTree:child];
+        [n addChild:c];
+    }
+    return n;
+}
+
 - (ASZCommentList *)commentListFromJSONResult:(NSDictionary *)result
 {
     ASZCommentList *commentList = [[ASZCommentList alloc] initWithID:[[result valueForKeyPath:@"busTopicInfo.bustopicID"] unsignedIntegerValue]];
     if (!commentList)
         return nil;
     
-   
-    commentList.comments = [NSArray arrayWithArray:result[@"comments"]];
+    commentList.treeRoot = [[ASZCommentNode alloc]initWithContent:@"Root Node!"];
+    for( NSDictionary *review in result[@"comments"])
+    {
+        ASZCommentNode *root = [self createTree:review];
+        [commentList.treeRoot addChild:root];
+    }
+   // commentList.comments = [NSArray arrayWithArray:result[@"comments"]];
     
     commentList.busTopicInfo = [result valueForKeyPath:@"busTopicInfo.bustopicContent"];
     return commentList;
@@ -139,7 +161,7 @@
             return 1;   //the actual bustopiccontent
             break;
         case 1:
-            return [self.viewController.treeNode descendantCount];
+            return [self.commentList.treeRoot descendantCount];
             break;
         default:
             return 0;//self.businessTopicTableView.rowHeight;
@@ -173,16 +195,20 @@
             UISegmentedControl * rateSelector;
             UILabel * posRatingLabel;
             UILabel * negRatingLabel;
+            
+            UIButton *replyButton;
             ASZCommentCell * cell = nil;
             //[tableView dequeueReusableCellWithIdentifier:@"CommentCell"];
-            ASZCommentNode *node = [[self.viewController.treeNode flattenElements] objectAtIndex:indexPath.row + 1];
+            ASZCommentNode *node = [[self.commentList.treeRoot flattenElements] objectAtIndex:indexPath.row + 1];
+            cell = [[ASZCommentCell alloc] initWithStyle:UITableViewCellStyleDefault
+                                         reuseIdentifier:CellIdentifier
+                                                   level:[node levelDepth] - 1
+                                                expanded:node.inclusive];
 
-            if (cell == nil) {
+           // if (cell == nil)
+            {
                 
-                cell = [[ASZCommentCell alloc] initWithStyle:UITableViewCellStyleDefault
-                                                             reuseIdentifier:CellIdentifier
-                                                                       level:[node levelDepth] - 1
-                                                                    expanded:node.inclusive];
+
                 
                 NSLog(@"NODE IS %@\n",node);
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -257,8 +283,15 @@
                 negRatingLabel.backgroundColor = [UIColor clearColor];
                 [cell.contentView addSubview:negRatingLabel];
                 
+                replyButton = [[UIButton alloc] initWithFrame:CGRectMake(200,10,25,25)];
+                [replyButton setTitle:@"Reply" forState:UIControlStateNormal];
+                [replyButton.titleLabel setFont:[UIFont fontWithName:@"Gill Sans" size:14]];
+                [replyButton setTitleColor:[UIColor darkTextColor] forState:UIControlStateNormal];
+                [replyButton setTag:REPLYLABEL_TAG];
+                [cell.contentView addSubview:replyButton];
+                
             }
-            else
+      //      else
             {
                 authorLabel = (UILabel*)[cell.contentView viewWithTag:COMMENTAUTHOR_TAG];
                 commentContent = (UITextView*)[cell.contentView viewWithTag:COMMENTTEXT_TAG];
@@ -266,19 +299,22 @@
                 dateLabel = (UILabel*)[cell viewWithTag:COMMENTDATE_TAG];
                 posRatingLabel = (UILabel*)[cell viewWithTag:COMMENTPOSRATING_TAG];
                 negRatingLabel = (UILabel*)[cell viewWithTag:COMMENTNEGRATING_TAG];
+                replyButton = (UIButton*)[cell viewWithTag:REPLYLABEL_TAG];
                 
                 
             }
-            id review = [self.commentList.comments objectAtIndex:indexPath.row];
-            dateLabel.text =  [NSString stringWithFormat:@"%@", [review valueForKeyPath:@"date"]];
-            authorLabel.text = [NSString stringWithFormat:@"%@",[review valueForKeyPath:@"creator.userName"]];
-            //commentContent.text = [NSString stringWithFormat:@"%@",[review valueForKeyPath:@"content"]];
-            commentContent.text = node.content;
+           // id review = [self.commentList.comments objectAtIndex:indexPath.row];
+            dateLabel.text =  node.date; // [NSString stringWithFormat:@"%@", [review valueForKeyPath:@"date"]];
+            authorLabel.text = node.creator; //[NSString stringWithFormat:@"%@",[review valueForKeyPath:@"creator.userName"]];
+            commentContent.text =  node.content; //[NSString stringWithFormat:@"%@",[review valueForKeyPath:@"content"]];
 
-            posRatingLabel.text = [NSString stringWithFormat:@"%@",[review valueForKeyPath:@"posRatings"]];
-            negRatingLabel.text = [NSString stringWithFormat:@"%@",[review valueForKeyPath:@"negRatings"]];
+            posRatingLabel.text = [NSString stringWithFormat:@"%d",node.posRatings];
+            negRatingLabel.text = [NSString stringWithFormat:@"%d",node.negRatings];
             
-            if ([review objectForKey:@"thisUsers"])
+            
+            [replyButton addTarget:self.viewController action:@selector(replyToComment:) forControlEvents:UIControlEventTouchUpInside];
+            
+          /*  if ([review objectForKey:@"thisUsers"])
             {
                 if ([[review valueForKey:@"thisUsers"] intValue] == 0)
                 {
@@ -296,7 +332,8 @@
                 rateSelector.selectedSegmentIndex = -1;
                 
             }
-            [rateSelector addTarget:self.viewController action:@selector(commentRateTap:) forControlEvents:UIControlEventAllEvents];
+            [rateSelector addTarget:self.viewController action:@selector(commentRateTap:) forControlEvents:UIControlEventAllEvents];*/
+            
             return cell;
 
         }

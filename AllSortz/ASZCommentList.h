@@ -16,7 +16,7 @@
 #define COMMENTAUTHOR_TAG 1027
 #define COMMENTTEXT_TAG 1028
 #define COMMENTRATE_TAG 1029
-
+#define REPLYLABEL_TAG 1030
 
 #define CELL_WIDTH 235
 #define CELL_MARGIN 4
@@ -31,6 +31,7 @@
 @property (readonly) NSUInteger ID;
 @property (nonatomic) NSMutableArray *comments;
 @property (nonatomic) NSString  *busTopicInfo;
+@property (nonatomic, retain) ASZCommentNode *treeRoot;
 
 
 

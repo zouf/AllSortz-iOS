@@ -100,7 +100,7 @@
 		0A4995511627090B0053D61C /* ASZBusinessTopicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AE6D8D8160653ED003FDC1C /* ASZBusinessTopicViewController.m */; };
 		0A4995521627090B0053D61C /* ASZBusinessTopicDataController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AE6D8DB16065402003FDC1C /* ASZBusinessTopicDataController.m */; };
 		0A4995531627090B0053D61C /* ASZTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A7EA195160E2DA300A74412 /* ASZTabBarViewController.m */; };
-		0A4995541627090B0053D61C /* detak.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AE55CCB1610E59F0041F8B8 /* detak.m */; };
+		0A4995541627090B0053D61C /* ASZBusinessDetailsBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AE55CCB1610E59F0041F8B8 /* ASZBusinessDetailsBaseViewController.m */; };
 		0A4995551627090B0053D61C /* ASZViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ABBCCF21611F0AA003F44BE /* ASZViewController.m */; };
 		0A4995561627090B0053D61C /* ASZRateView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ABBCCF61611F0DC003F44BE /* ASZRateView.m */; };
 		0A4995571627090B0053D61C /* ASZCustomAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A34E95F1624C5C400544F5A /* ASZCustomAnnotation.m */; };
@@ -254,7 +254,7 @@
 		0AE55CC51610BB1E0041F8B8 /* vegan@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AE55CC21610BB1E0041F8B8 /* vegan@2x.png */; };
 		0AE55CC61610BB1E0041F8B8 /* wings.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AE55CC31610BB1E0041F8B8 /* wings.png */; };
 		0AE55CC91610BB290041F8B8 /* wings@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AE55CC81610BB290041F8B8 /* wings@2x.png */; };
-		0AE55CCC1610E59F0041F8B8 /* detak.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AE55CCB1610E59F0041F8B8 /* detak.m */; };
+		0AE55CCC1610E59F0041F8B8 /* ASZBusinessDetailsBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AE55CCB1610E59F0041F8B8 /* ASZBusinessDetailsBaseViewController.m */; };
 		0AE5C41815F77A5E00BF110C /* NYCRestaurant_A.gif in Resources */ = {isa = PBXBuildFile; fileRef = 0AE5C41315F77A5E00BF110C /* NYCRestaurant_A.gif */; };
 		0AE5C41915F77A5E00BF110C /* NYCRestaurant_B.gif in Resources */ = {isa = PBXBuildFile; fileRef = 0AE5C41415F77A5E00BF110C /* NYCRestaurant_B.gif */; };
 		0AE5C41A15F77A5E00BF110C /* NYCRestaurant_C.gif in Resources */ = {isa = PBXBuildFile; fileRef = 0AE5C41515F77A5E00BF110C /* NYCRestaurant_C.gif */; };
@@ -475,7 +475,7 @@
 		0AE55CC31610BB1E0041F8B8 /* wings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wings.png; sourceTree = "<group>"; };
 		0AE55CC81610BB290041F8B8 /* wings@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "wings@2x.png"; sourceTree = "<group>"; };
 		0AE55CCA1610E59F0041F8B8 /* ASZBusinessDetailsBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASZBusinessDetailsBaseViewController.h; sourceTree = "<group>"; };
-		0AE55CCB1610E59F0041F8B8 /* detak.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = detak.m; sourceTree = "<group>"; };
+		0AE55CCB1610E59F0041F8B8 /* ASZBusinessDetailsBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASZBusinessDetailsBaseViewController.m; sourceTree = "<group>"; };
 		0AE5C41315F77A5E00BF110C /* NYCRestaurant_A.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = NYCRestaurant_A.gif; sourceTree = "<group>"; };
 		0AE5C41415F77A5E00BF110C /* NYCRestaurant_B.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = NYCRestaurant_B.gif; sourceTree = "<group>"; };
 		0AE5C41515F77A5E00BF110C /* NYCRestaurant_C.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = NYCRestaurant_C.gif; sourceTree = "<group>"; };
@@ -1032,7 +1032,7 @@
 				6C0379F615EEAC8A0010FC28 /* ASZBusinessDetailsDataController.h */,
 				0AE55CCA1610E59F0041F8B8 /* ASZBusinessDetailsBaseViewController.h */,
 				6C0379F715EEAC8A0010FC28 /* ASZBusinessDetailsDataController.m */,
-				0AE55CCB1610E59F0041F8B8 /* detak.m */,
+				0AE55CCB1610E59F0041F8B8 /* ASZBusinessDetailsBaseViewController.m */,
 			);
 			name = "Business Details";
 			sourceTree = "<group>";
@@ -1495,7 +1495,7 @@
 				0A4995511627090B0053D61C /* ASZBusinessTopicViewController.m in Sources */,
 				0A4995521627090B0053D61C /* ASZBusinessTopicDataController.m in Sources */,
 				0A4995531627090B0053D61C /* ASZTabBarViewController.m in Sources */,
-				0A4995541627090B0053D61C /* detak.m in Sources */,
+				0A4995541627090B0053D61C /* ASZBusinessDetailsBaseViewController.m in Sources */,
 				0A4995551627090B0053D61C /* ASZViewController.m in Sources */,
 				0A4995561627090B0053D61C /* ASZRateView.m in Sources */,
 				0A4995571627090B0053D61C /* ASZCustomAnnotation.m in Sources */,
@@ -1548,7 +1548,7 @@
 				0AE6D8D9160653ED003FDC1C /* ASZBusinessTopicViewController.m in Sources */,
 				0AE6D8DC16065402003FDC1C /* ASZBusinessTopicDataController.m in Sources */,
 				0A7EA196160E2DA300A74412 /* ASZTabBarViewController.m in Sources */,
-				0AE55CCC1610E59F0041F8B8 /* detak.m in Sources */,
+				0AE55CCC1610E59F0041F8B8 /* ASZBusinessDetailsBaseViewController.m in Sources */,
 				0ABBCCF31611F0AB003F44BE /* ASZViewController.m in Sources */,
 				0ABBCCF71611F0DC003F44BE /* ASZRateView.m in Sources */,
 				0A34E9601624C5C400544F5A /* ASZCustomAnnotation.m in Sources */,

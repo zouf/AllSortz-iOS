@@ -12,7 +12,8 @@
 @interface ASZReviewViewController : UITableViewController <UITableViewDelegate>
 
 @property NSUInteger businessID;
-@property NSUInteger bustopicID;
+@property NSInteger bustopicID;
+@property NSInteger replyToID;
 
 @property NSString * businessName;
 

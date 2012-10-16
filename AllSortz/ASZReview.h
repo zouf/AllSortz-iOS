@@ -12,6 +12,7 @@
 
 @property (readonly) NSUInteger ID;
 
+@property (nonatomic, assign) NSInteger replyToID;
 
 @property (nonatomic) NSString *reviewText;
 @property (nonatomic) NSMutableArray *selectedTopics;
@@ -19,7 +20,7 @@
 
 
 
-- (id)initWithID:(NSUInteger)anID;
+- (id)initWithID:(NSUInteger)anID :(NSInteger)replyTo;
 - (NSDictionary *) serializeToDictionary;
 
 @end

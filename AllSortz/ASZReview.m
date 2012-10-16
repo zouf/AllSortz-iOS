@@ -33,12 +33,13 @@ _ ## lower_name = lower_name; \
 @implementation ASZReview
 
 
-- (id)initWithID:(NSUInteger)anID
+- (id)initWithID:(NSUInteger)anID :(NSInteger)replyTo
 {
     if (!(self = [super init]) || anID == 0)
         return nil;
     // TODO: Maintain unique instances of businesses
     _ID = anID;
+    _replyToID = replyTo;
     return self;
 }
 
@@ -57,7 +58,8 @@ _ ## lower_name = lower_name; \
         NSDictionary * dict= [NSDictionary dictionaryWithObjectsAndKeys:
                           [NSString stringWithFormat:@"%d",self.ID], @"businessID",
                           self.reviewText ,@"content",
-                          @"comment", @"commentType",nil];
+                          @"comment", @"commentType",
+                          [NSString stringWithFormat:@"%d",self.replyToID], @"replyToID", nil];
     
     return dict;
 }
