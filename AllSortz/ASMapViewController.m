@@ -385,7 +385,27 @@
         CLLocationCoordinate2D annotationCenter;
         annotationCenter.latitude = bus.latitude;
         annotationCenter.longitude = bus.longitude;
-        ASMapPoint *mp = [[ASMapPoint alloc] initWithCoordinate:annotationCenter withScore:bus.recommendation withTag:bus.ID withTitle:bus.businessName withSubtitle:[NSString stringWithFormat:@"Score %d",   (NSInteger)roundf(bus.recommendation*100)]];
+        NSString *scoreText;
+        if (bus.recommendation > .75)
+        {
+            scoreText = @"4 of 4 Stars!";
+        }
+        else if(bus.recommendation > .5)
+        {
+            scoreText = @"3 of 4 Stars";
+
+        }
+        else if (bus.recommendation > .25)
+        {
+            scoreText = @"2 of 4 Stars";
+
+        }
+        else
+        {
+            scoreText = @"1 of 4 Stars";
+
+        }
+        ASMapPoint *mp = [[ASMapPoint alloc] initWithCoordinate:annotationCenter withScore:bus.recommendation withTag:bus.ID withTitle:bus.businessName withSubtitle:scoreText];
         
   
         

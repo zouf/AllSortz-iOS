@@ -24,7 +24,7 @@
 
 @implementation ASZCommentCell
 
-@synthesize  arrowImage, height;
+@synthesize  arrowImage, height,node;
 @synthesize level, expanded;
 
 - (id)initWithStyle:(UITableViewCellStyle)style
@@ -101,12 +101,15 @@
                            [self getCommentHeight:self]);
         self.contentView.frame = frame;
         
+        
+        /* line view
+         
         for(int i = 0; i <= self.level; i++)
         {
             UIView * lineView = [[UIView alloc]initWithFrame:CGRectMake(-i*LEVEL_INDENT,0,1,kHeight)];
             [lineView setBackgroundColor:[UIColor lightGrayColor]];
             [self.contentView addSubview:lineView];
-        }
+        }*/
         
         
         CGRect imgFrame;
@@ -117,6 +120,10 @@
         self.arrowImage.frame = imgFrame;
     }
 }
+
+
+
+
 
 #pragma mark -
 #pragma mark Private category

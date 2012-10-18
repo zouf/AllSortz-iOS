@@ -204,6 +204,9 @@
     [topic setObject:[NSNumber numberWithFloat:newRating] forKey:@"rating"];
     NSLog(@"New rating is %f\n", newRating);
     [self.dataController rateBusinessTopicAsynchronously:btID withRating:newRating];
+    [self.tableView beginUpdates];
+    [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath, nil] withRowAnimation:UITableViewRowAnimationNone];
+    [self.tableView endUpdates];
 }
 
 - (IBAction)busTopicPosRateTap:(id)sender{
@@ -231,6 +234,9 @@
     [topic setObject:[NSNumber numberWithFloat:newRating] forKey:@"rating"];
     NSLog(@"New rating is %f\n", newRating);
     [self.dataController rateBusinessTopicAsynchronously:btID withRating:newRating];
+    [self.tableView beginUpdates];
+    [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath, nil] withRowAnimation:UITableViewRowAnimationNone];
+    [self.tableView endUpdates];
 }
 
 - (IBAction)commentRateTap:(id)sender{
@@ -560,6 +566,33 @@ heightForFooterInSection:(NSInteger)section {
     }
 }
 
+-(void)callBusTap:(id)sender
+{
+
+    UIDevice *device = [UIDevice currentDevice];
+    if ([[device model] isEqualToString:@"iPhone"] ) {
+        NSString * phoneString = [NSString stringWithFormat:@"tel://%@",self.dataController.business.phone];
+        //NSString *phoneString = @"tel://8004664411";
+        NSLog(@"Phone string is %@\n",phoneString);
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:phoneString]];
+    } else {
+        UIAlertView *Notpermitted=[[UIAlertView alloc] initWithTitle:@"Alert" message:@"Your device doesn't support this feature." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [Notpermitted show];
+    }
+   
+}
+
+
+-(void)busWebsiteTap:(id)sender
+{
+
+    NSURL *url =[NSURL URLWithString:[NSString stringWithFormat:@"http://%@",self.dataController.business.website.path]];
+    
+    [[UIApplication sharedApplication]openURL:url];
+    
+    
+
+}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {

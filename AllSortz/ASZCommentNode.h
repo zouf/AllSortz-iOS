@@ -16,7 +16,7 @@
     NSString *content;
     
     
-
+    BOOL replyTo; 
     
     BOOL inclusive;
 
@@ -36,6 +36,7 @@
 @property (nonatomic) int index;
 @property (nonatomic, retain) NSString *content;
 @property (nonatomic) BOOL inclusive;
+@property (nonatomic) BOOL replyTo;
 
 @property (nonatomic, assign) NSInteger posRatings;
 @property (nonatomic, assign) NSInteger negRatings;
@@ -53,6 +54,8 @@
 - (NSArray *)flattenElementsWithCacheRefresh:(BOOL)invalidate;
 - (BOOL)isRoot;
 - (BOOL)hasChildren;
+
+- (NSDictionary *) serializeToDictionary:(NSString*)commentContent;
 
 
 @end

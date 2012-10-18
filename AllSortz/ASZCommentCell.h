@@ -16,12 +16,13 @@
 #define SCREEN_WIDTH 320
 #define LEVEL_INDENT 16
 #define YOFFSET 4
-#define XOFFSET 4
+#define XOFFSET 0
 
 
 @interface ASZCommentCell : UITableViewCell {
     CGFloat height;
     UIImageView *arrowImage;
+    ASZCommentNode * node;
     
     int level;
     BOOL expanded;
@@ -30,6 +31,7 @@
 @property (nonatomic, retain) UIImageView *arrowImage;
 @property (nonatomic) int level;
 @property (nonatomic) BOOL expanded;
+@property(nonatomic,retain)ASZCommentNode* node;
 @property (nonatomic) CGFloat height;
 
 -(CGFloat)getCommentWidth: (ASZCommentCell*)cell;
@@ -37,6 +39,8 @@
 -(CGFloat)getCommentHeight: (ASZCommentCell*)cell;
 
 -(CGFloat)getCommentX: (ASZCommentCell*)cell;
+
+
 
 - (id)initWithStyle:(UITableViewCellStyle)style
     reuseIdentifier:(NSString *)reuseIdentifier

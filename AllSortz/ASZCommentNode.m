@@ -12,7 +12,7 @@
 
 @synthesize parent, children;
 @synthesize index, content, negRatings, commentID,date, creator, posRatings, flattenedTreeCache;
-@synthesize inclusive;
+@synthesize inclusive, replyTo;
 
 #pragma mark -
 #pragma mark Initializers
@@ -22,6 +22,7 @@
 	if (self) {
 		content = _content;
 		inclusive = YES;
+        replyTo = NO;
 	}
     
 	return self;
@@ -69,14 +70,16 @@
 		NSMutableArray *allElements = [[NSMutableArray alloc] initWithCapacity:[self descendantCount]] ;
 		[allElements addObject:self];
         
-		if (inclusive) {
+		if (inclusive)
+        {
 			for (ASZCommentNode *child in self.children) {
-				[allElements addObjectsFromArray:[child flattenElementsWithCacheRefresh:invalidate]];
+                [allElements addObjectsFromArray:[child flattenElementsWithCacheRefresh:invalidate]];
 			}
 		}
         else
         {
-            NSLog(@"%@ Not inclusive\n",self);
+            
+            NSLog(@"%@ not included",[self description]);
         }
         
 		flattenedTreeCache = [[NSArray alloc] initWithArray:allElements];
@@ -107,4 +110,21 @@
 - (BOOL)hasChildren {
 	return (self.children.count > 0);
 }
+
+
+
+- (NSDictionary *) serializeToDictionary:(NSString*)commentContent
+{
+    
+    
+    NSDictionary * dict= [NSDictionary dictionaryWithObjectsAndKeys:
+                          commentContent ,@"content",
+                          @"comment", @"commentType",
+                          [NSString stringWithFormat:@"%d",self.commentID], @"replyToID", nil];
+    
+    return dict;
+}
+
+
+
 @end

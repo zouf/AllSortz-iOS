@@ -102,13 +102,33 @@
 }
 #pragma mark - Table view delegate
 
+-(void)selectANode:(ASZCommentNode*)node
+{
+    for (ASZCommentNode *n in node.children)
+    {
+        n.inclusive = node.inclusive;
+        [self selectANode:n];
+    }
+}
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    ASZCommentNode *node = [[self.dataController.commentList.treeRoot flattenElements] objectAtIndex:indexPath.row + 1];
-    if (node.children.count == 0) return;
-    
+    ASZCommentNode *node = [[self.dataController.commentList.treeRoot flattenElements] objectAtIndex:indexPath.row + 1];    
     node.inclusive = !node.inclusive;
+    [self selectANode:node];
+
     [tableView reloadData];
+}
+-(UIView*)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+{
+    if (section == COMMENTLIST_SECTION)
+    {
+        UIView *backView = [[UIView alloc] initWithFrame:CGRectZero] ;
+        return backView;
+    }
+    
+    // TODO REPORT AN ERROR / FLAG
+    return nil;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -135,17 +155,30 @@
             
             NSArray *reviews   =  [self.dataController.commentList.treeRoot flattenElements] ;
             ASZCommentNode * node = reviews[indexPath.row + 1];
-            
-            NSString * text = node.content;
-            
-            CGSize constraint = CGSizeMake(COMMENT_WIDTH - (CELL_MARGIN * 2), 20000.0f);
-            
-            CGSize size = [text sizeWithFont:[UIFont fontWithName:@"GillSans-Light"  size:14] constrainedToSize:constraint lineBreakMode:NSLineBreakByWordWrapping];
-            
-            CGFloat height = MAX(size.height + START_POSITION, DEFAULT_HEIGHT);
-            
-            return height + (CELL_MARGIN * 2) ;
-            break;
+            if (node.inclusive)
+            {
+                
+                NSString * text = node.content;
+                
+                CGSize constraint = CGSizeMake(COMMENT_WIDTH - (CELL_MARGIN * 2), 20000.0f);
+                
+                CGSize size = [text sizeWithFont:[UIFont fontWithName:@"GillSans-Light"  size:14] constrainedToSize:constraint lineBreakMode:NSLineBreakByWordWrapping];
+                
+                CGFloat height = MAX(size.height + START_POSITION, DEFAULT_HEIGHT);
+                
+                //add some room if you're going to comment
+                if(node.replyTo)
+                {
+                    height += 75;
+                }
+                return height + (CELL_MARGIN * 2) ;
+ 
+            }
+            else
+            {
+                return COLLAPSED_HEIGHT;
+            }
+                break;
         }
         default:
             return tableView.rowHeight;
@@ -206,41 +239,37 @@
     [self.dataController rateCommentAsynchronously:cID withRating:0];
 }
 
-
-- (IBAction)replyToComment:(id)sender {
-
-    NSString * targetViewControllerIdentifier = @"ReviewBusinessControllerID";
-    
+// When the user taps reply, this opens the box
+- (IBAction)replyToComment:(id)sender {   
     UITableViewCell *cell = (UITableViewCell *)[[sender superview] superview];
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+
+    ASZCommentNode *node = [[self.dataController.commentList.treeRoot flattenElements] objectAtIndex:indexPath.row + 1];
     
+    node.replyTo = !node.replyTo;
+    
+    [self.tableView reloadData];
+    return;
+}
+
+
+- (IBAction)submitComment:(id)sender {
+    //note i added the submit and textview as subviews of the cell itself, not the subview
+    UITableViewCell *cell = (UITableViewCell *)[sender superview];
     NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
     
+    UITextView *tv = (UITextView*)[cell viewWithTag:REPLYBOX_TAG];
+    
     ASZCommentNode *node = [[self.dataController.commentList.treeRoot flattenElements] objectAtIndex:indexPath.row + 1];
-
     
+    [self.dataController submitComment:node :tv.text];
+    node.replyTo = NO;
+    [self.tableView reloadData];
     
-    ASZReviewViewController *detailsViewController =     (ASZReviewViewController*)[self.storyboard instantiateViewControllerWithIdentifier:targetViewControllerIdentifier];
-    UINavigationController *navBar=[[UINavigationController alloc]initWithRootViewController:detailsViewController];
-    
-    
-    
-    detailsViewController.dataController.username = self.dataController.username;
-    detailsViewController.dataController.password = self.dataController.password;
-    
-    detailsViewController.dataController.UUID = self.dataController.UUID;
-    detailsViewController.dataController.currentLatitude = self.dataController.currentLatitude;
-    detailsViewController.dataController.currentLongitude = self.dataController.currentLongitude;
-    detailsViewController.bustopicID  = self.businessTopicID;
-    detailsViewController.replyToID  =  node.commentID; //;
-
-    
-    //[self.view addSubview:navBar.view];
-    [self.navigationController presentViewController:navBar animated:YES completion:nil];
-
-
-
-    
+    return;
 }
+
+
 
 
 - (IBAction)barButtonTapped:(id)sender {

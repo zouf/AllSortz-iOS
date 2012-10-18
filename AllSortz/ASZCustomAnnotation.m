@@ -11,9 +11,9 @@
 #import "ASZConstants.h"
 #import <UIKit/UIKit.h>
 
-#define RADIUS 8
-#define GRADIENT_POINT_1 5
-#define GRADIENT_POINT_2 10
+#define RADIUS 10
+#define GRADIENT_POINT_1 6
+#define GRADIENT_POINT_2 11
 @implementation ASZCustomAnnotation
 
 - (id)initWithFrame:(CGRect)frame
@@ -37,9 +37,7 @@
     //UIColor* myLightRed = [UIColor colorWithRed:1 green: .922 blue: .616 alpha: 1];
     UIColor* myDarkRed = [UIColor colorWithRed: 1 green: .8 blue: 0 alpha: 1];
     
-    // UIColor* myLightBlue = UIColorFromRGB(0x07fa93);
-    // UIColor* myDarkBlue = UIColorFromRGB(0x1c3752);
-    
+
     
     //// Gradient Declarations
     NSArray* gradient3Colors = nil;
@@ -82,10 +80,7 @@
         aPath = [UIBezierPath bezierPathWithOvalInRect: CGRectMake(0.5, 0.5, RADIUS*2, RADIUS*2)];
     }
     
-    CGFloat gradient3Locations[] = {0, 1};
-    
-    
-    
+    CGFloat gradient3Locations[] = {0, 1};    
     
     //// Abstracted Graphic Attributes
     NSString* textContent = [NSString stringWithFormat:@"%d\n",(NSInteger)roundf(self.recommendation*100)];
@@ -119,7 +114,7 @@
     //// Text Drawing
     if (self.starred)
     {
-        UILabel *recommendationLabel = [[UILabel alloc]initWithFrame:CGRectMake(5, 5, RADIUS*2, RADIUS*2)];
+        UILabel *recommendationLabel = [[UILabel alloc]initWithFrame:CGRectMake(3, 3, RADIUS*2, RADIUS*2)];
         [recommendationLabel setText:textContent];
         [recommendationLabel setFont:[UIFont fontWithName:@"Gill Sans"  size:7]];
         [recommendationLabel setTextAlignment:NSTextAlignmentCenter];

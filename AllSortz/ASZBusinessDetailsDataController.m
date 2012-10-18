@@ -296,31 +296,52 @@
                 {
                     if (row == PHONE_ROW)
                     {
+                        UIButton * phoneButton;
+                        UIButton * webButton;
                         cell = [tableView dequeueReusableCellWithIdentifier:@"PhoneCell"];
-                        if (cell == nil) {
-                            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"PhoneCell"];
-                            cell.selectionStyle = UITableViewCellSelectionStyleGray;
-                        }
+                       
+                        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"PhoneCell"];
+                        cell.selectionStyle = UITableViewCellSelectionStyleGray;
+                        phoneButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+                        webButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+
+                        [cell.contentView setBackgroundColor:[UIColor clearColor]];
+                        
+                        
+                        [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+                        //cell.userInteractionEnabled = NO;
                         
                         cell.imageView.image =nil;
                         cell.detailTextLabel.text = nil;
                         cell.textLabel.text = nil;
-                        UILabel *phoneLabel = [[UILabel alloc] initWithFrame:CGRectMake(0,0,cell.frame.size.width,PHONE_WEBSITE_HEIGHT)];
-                        [phoneLabel setTextAlignment:NSTextAlignmentCenter];
-                        [phoneLabel setFont:[UIFont fontWithName:@"GillSans-Light" size:14]];
-                        [phoneLabel setText:self.business.phone];
-                        [phoneLabel setBackgroundColor:[UIColor clearColor]];
                         
-                        /*
-                        UITapGestureRecognizer* singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self.viewController action:@selector(callBusinessTap:)];
-                        singleTap.numberOfTapsRequired = 1;
-                        singleTap.numberOfTouchesRequired = 1;
-                        singleTap.cancelsTouchesInView = NO;
-                        [cell.contentView  addGestureRecognizer:singleTap];*/
-   
-                        [cell.contentView addSubview:phoneLabel];
+                        UIView *backView = [[UIView alloc] initWithFrame:CGRectZero] ;
+                        backView.backgroundColor = [UIColor clearColor];
+                        cell.backgroundView = backView;
+                        
+                        phoneButton.userInteractionEnabled = YES;
+                        [phoneButton setFrame:CGRectMake(180, 0, 110,PHONE_WEBSITE_HEIGHT)];
+                        [phoneButton.titleLabel setFont:[UIFont fontWithName:@"Gill Sans" size:14]];
+                        [phoneButton setTitleColor:[UIColor darkTextColor] forState:UIControlStateNormal];
+                        [phoneButton setTitle:self.business.phone forState:UIControlStateNormal];
+                        [phoneButton addTarget:self.viewController action:@selector(callBusTap:) forControlEvents:UIControlEventTouchUpInside];
+
+                        [cell.contentView addSubview:phoneButton];
+                        
+                        
+                        webButton.userInteractionEnabled = YES;
+                        [webButton setFrame:CGRectMake(10, 3, 100, PHONE_WEBSITE_HEIGHT)];
+                        [webButton.titleLabel setFont:[UIFont fontWithName:@"Gill Sans" size:14]];
+                        [webButton setTitleColor:[UIColor darkTextColor] forState:UIControlStateNormal];
+                        [webButton setTitle:self.business.website.path forState:UIControlStateNormal];
+                        [webButton addTarget:self.viewController action:@selector(busWebsiteTap:) forControlEvents:UIControlEventTouchUpInside];
+                        
+                        [cell.contentView addSubview:webButton];
+                        
+                        
+                        
                     }
-                    else // row == 1
+                 /*   else // row == 1
                     {
                         cell = [tableView dequeueReusableCellWithIdentifier:@"WebsiteCell"];
                         if (cell == nil) {
@@ -338,15 +359,9 @@
                         [websiteLabel setBackgroundColor:[UIColor clearColor]];
                         [cell.contentView addSubview:websiteLabel];
                         
-                        /*
-                        UITapGestureRecognizer* singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self.viewController action:@selector(goToWebsiteTap:)];
-                        singleTap.numberOfTapsRequired = 1;
-                        singleTap.numberOfTouchesRequired = 1;
-                        singleTap.cancelsTouchesInView = NO;
-                        [cell.contentView  addGestureRecognizer:singleTap];
-                        */
-                        
-                    }
+                       
+                    
+                    }*/
                     
                 }
                     break;
@@ -505,8 +520,8 @@
 
             UIButton *upButton;
             UIButton *downButton;
-            ASZRateView *rv1;
-            ASZRateView *rv2;
+            ASZRateView *calcRating;
+            ASZRateView *userRating;
 
             if (cell == nil) {
                 cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"BusinessDetailsTopicCell"];
@@ -515,7 +530,6 @@
             
                 CGFloat textSummaryBeginX = 85;
         
-                CGFloat buffer = 5;
                 
                 CGFloat offset_right = 35;
                 CGFloat kLabelWidth = 64; //EFFECTS THE LAYOUT. HARD TO GET RIGHT.
@@ -525,29 +539,31 @@
                 CGFloat kLabel1X =-10 + offset_right; //EFFECTS THE LAYOUT. HARD TO GET RIGHT.
 
                 
-                CGFloat kArroyHeight = 12;
-                CGFloat kArroyWidth  = 12;
-                CGFloat kArrow0Y = buffer;
-                CGFloat kArrow1Y = kArrow0Y + kArroyHeight +buffer;
+                CGFloat kArroyHeight = 20;
+                CGFloat kArroyWidth  = 16;
+                CGFloat kArrow0Y = 2;
+                CGFloat kArrow1Y = kArrow0Y + kArroyHeight + 4;
                 CGFloat kArrowX = 2;
                 
                 CGFloat kRatingHeight = 10;
                 CGFloat kRatingWidth  = 30;
-                CGFloat kRatingY = 18;
-                CGFloat kRating0X = -buffer;
+                CGFloat kRatingY = 25;
+                CGFloat kRating0X = 0;
                 CGFloat kRating1X = kRating0X+8;
                 
                 upButton = [UIButton buttonWithType:UIButtonTypeCustom];
                 upButton.userInteractionEnabled = YES;
                 upButton.tag = TOPICUPBUTTON_TAG;
-                [upButton setImage:[UIImage imageNamed:@"upvote-export.png"] forState:UIControlStateNormal];
+                [upButton setImage:[UIImage imageNamed:@"up-arrow.png"] forState:UIControlStateNormal];
                 [upButton setFrame:CGRectMake(kArrowX, kArrow0Y, kArroyWidth,kArroyHeight)];
+                //upButton.transform = CGAffineTransformMakeRotation(180 * M_PI / 180.0);
+
                 [cell.contentView addSubview:upButton];
                 
                 downButton = [UIButton buttonWithType:UIButtonTypeCustom];
                 downButton.userInteractionEnabled = YES;
                 downButton.tag = TOPICDOWNBUTTON_TAG;
-                [downButton setImage:[UIImage imageNamed:@"downvote-export.png"] forState:UIControlStateNormal];
+                [downButton setImage:[UIImage imageNamed:@"down-arrow.png"] forState:UIControlStateNormal];
                 [downButton setFrame:CGRectMake(kArrowX, kArrow1Y, kArroyWidth,kArroyHeight)];
                 [cell.contentView addSubview:downButton];
                 
@@ -580,27 +596,29 @@
                 [lineView1 setBackgroundColor:[UIColor lightGrayColor]];
                 [cell.contentView addSubview:lineView1];
                 */
-                rv1 =  [[ASZRateView alloc]initWithFrame:CGRectMake(kRating0X,kRatingY,kRatingWidth,kRatingHeight)];
-                rv1.notSelectedImage = [UIImage imageNamed:@"empty-circle.png"];                
-                rv1.halfSelectedImage = [UIImage imageNamed:@"half-circle.png"];
-                rv1.fullSelectedImage = [UIImage imageNamed:@"full-circle.png"];
-                rv1.editable = NO;
-                rv1.maxRating = 4;
-                rv1.transform = CGAffineTransformMakeRotation(270 * M_PI / 180.0);
-                rv1.tag = TOPICAVG_RATING;
+                calcRating =  [[ASZRateView alloc]initWithFrame:CGRectMake(kRating0X,kRatingY,kRatingWidth,kRatingHeight)];
+  
+                
+                calcRating.notSelectedImage = [UIImage imageNamed:@"user-empty.png"];
+                calcRating.halfSelectedImage = [UIImage imageNamed:@"calc-half.png"];
+                calcRating.fullSelectedImage = [UIImage imageNamed:@"calc-full.png"];
+                calcRating.editable = NO;
+                calcRating.maxRating = 4;
+                calcRating.transform = CGAffineTransformMakeRotation(270 * M_PI / 180.0);
+                calcRating.tag = TOPICAVG_RATING;
                 
                 
-                rv2 =  [[ASZRateView alloc]initWithFrame:CGRectMake(kRating1X,kRatingY,kRatingWidth,kRatingHeight)];
-                rv2.notSelectedImage = [UIImage imageNamed:@"empty-circle.png"];
-                rv2.halfSelectedImage = [UIImage imageNamed:@"half-circle.png"];
-                rv2.fullSelectedImage = [UIImage imageNamed:@"full-circle.png"];
-                rv2.editable = NO;
-                rv2.maxRating = 4;
-                rv2.transform = CGAffineTransformMakeRotation(270 * M_PI / 180.0);
-                rv2.tag = TOPICUSER_RATING;
+                userRating =  [[ASZRateView alloc]initWithFrame:CGRectMake(kRating1X,kRatingY,kRatingWidth,kRatingHeight)];
+                userRating.notSelectedImage = [UIImage imageNamed:@"user-empty.png"];
+                userRating.halfSelectedImage = [UIImage imageNamed:@"user-half.png"];
+                userRating.fullSelectedImage = [UIImage imageNamed:@"user-full.png"];
+                userRating.editable = NO;
+                userRating.maxRating = 4;
+                userRating.transform = CGAffineTransformMakeRotation(270 * M_PI / 180.0);
+                userRating.tag = TOPICUSER_RATING;
                 
-                [cell.contentView addSubview:rv1];
-                [cell.contentView addSubview:rv2];
+                //[cell.contentView addSubview:calcRating];
+                //[cell.contentView addSubview:userRating];
 
                 topicSummary = [[UITextView alloc] initWithFrame:CGRectMake(textSummaryBeginX, 0, CELL_WIDTH, 68)];
                 topicSummary.tag = TOPICTEXTVIEW_TAG;
@@ -628,8 +646,8 @@
                 topicSummary = (UITextView*)[cell.contentView viewWithTag:TOPICTEXTVIEW_TAG];
                 upButton = (UIButton*)[cell.contentView viewWithTag:TOPICUPBUTTON_TAG];
                 downButton = (UIButton*)[cell.contentView viewWithTag:TOPICDOWNBUTTON_TAG];
-                rv1 = (ASZRateView*)[cell.contentView viewWithTag:TOPICAVG_RATING];
-                rv2 = (ASZRateView*)[cell.contentView viewWithTag:TOPICUSER_RATING];
+                calcRating = (ASZRateView*)[cell.contentView viewWithTag:TOPICAVG_RATING];
+                userRating = (ASZRateView*)[cell.contentView viewWithTag:TOPICUSER_RATING];
 
                 
                 avgRatingLabel = (UILabel*)[cell viewWithTag:TOPICAVGRATINGSLABEL_TAG];
@@ -641,8 +659,29 @@
             
             NSLog(@"TOPIC %@\n",topic);
             NSLog(@"RATING %f\n", [[topic valueForKey:@"avgRating"] floatValue]*4);
-            [rv1 setRating:[[topic valueForKey:@"avgRating"] floatValue]*MAX_RATING];
-            [rv2 setRating:[[topic valueForKey:@"rating"] floatValue]*MAX_RATING];
+            
+            CGFloat calcReal = [[topic valueForKey:@"avgRating"] floatValue]*MAX_RATING*2;
+            calcReal = roundf(calcReal);
+            
+            CGFloat userReal = [[topic valueForKey:@"rating"] floatValue];
+            userReal = userReal * MAX_RATING;
+            
+            UIColor* myDarkBlue = [UIColor colorWithRed: 0  green: .298 blue: .5963 alpha: 1];
+            UIColor* myDarkRed = [UIColor colorWithRed: .596 green: 0 blue: 0 alpha: 1];
+            for(int i = 0; i < calcReal/2; i++)
+            {
+                UIView * newView = [[UIView alloc] initWithFrame:CGRectMake(20,30 - 7*i,5,5)];
+                [newView setBackgroundColor:myDarkBlue];
+                [cell addSubview:newView];
+            }
+            for(int i = 0; i < userReal; i++)
+            {
+                UIView * newView = [[UIView alloc] initWithFrame:CGRectMake(28,30 - 7*i,5,5)];
+                [newView setBackgroundColor:myDarkRed];
+                [cell addSubview:newView];
+            }
+           // [calcRating setRating:calcReal/2];
+           // [userRating setRating:[[topic valueForKey:@"rating"] floatValue]*MAX_RATING];
             /*
             NSLog(@"Rating is %@\n", [topic valueForKey:@"rating"]);
             if ([[topic valueForKey:@"rating"] intValue] == 0)
@@ -835,11 +874,15 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    if (self.business == nil)
+    {
+        return 0;
+    }
     switch (self.viewController.segmentedController.selectedSegmentIndex) {
         case INFO_TAB:
         {
             if (section == 0)
-                return 2;
+                return 1;
             if (section == 1) //map and addr info
                 return 2;
             if (section == 2) //type info
