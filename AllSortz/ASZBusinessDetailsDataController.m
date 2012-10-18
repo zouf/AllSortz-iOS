@@ -14,6 +14,7 @@
 #import "ASZBusinessTopicDataController.h"
 #import "ASZRateView.h"
 #import "ASZCommentList.h"
+#import "ASZNewRateView.h"
 
 #import <UIKit/UIKit.h>
 #import "ASMapPoint.h"
@@ -320,7 +321,7 @@
                         cell.backgroundView = backView;
                         
                         phoneButton.userInteractionEnabled = YES;
-                        [phoneButton setFrame:CGRectMake(180, 0, 110,PHONE_WEBSITE_HEIGHT)];
+                        [phoneButton setFrame:CGRectMake(cell.frame.size.width-110, 0, 110,PHONE_WEBSITE_HEIGHT)];
                         [phoneButton.titleLabel setFont:[UIFont fontWithName:@"Gill Sans" size:14]];
                         [phoneButton setTitleColor:[UIColor darkTextColor] forState:UIControlStateNormal];
                         [phoneButton setTitle:self.business.phone forState:UIControlStateNormal];
@@ -330,7 +331,7 @@
                         
                         
                         webButton.userInteractionEnabled = YES;
-                        [webButton setFrame:CGRectMake(10, 3, 100, PHONE_WEBSITE_HEIGHT)];
+                        [webButton setFrame:CGRectMake(0, 3, 100, PHONE_WEBSITE_HEIGHT)];
                         [webButton.titleLabel setFont:[UIFont fontWithName:@"Gill Sans" size:14]];
                         [webButton setTitleColor:[UIColor darkTextColor] forState:UIControlStateNormal];
                         [webButton setTitle:self.business.website.path forState:UIControlStateNormal];
@@ -341,28 +342,7 @@
                         
                         
                     }
-                 /*   else // row == 1
-                    {
-                        cell = [tableView dequeueReusableCellWithIdentifier:@"WebsiteCell"];
-                        if (cell == nil) {
-                            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"WebsiteCell"];
-                            cell.selectionStyle = UITableViewCellSelectionStyleGray;
-                        }
-                        
-                        cell.imageView.image =nil;
-                        cell.detailTextLabel.text = nil;
-                        cell.textLabel.text = nil;
-                        UILabel *websiteLabel = [[UILabel alloc] initWithFrame:CGRectMake(0,0,cell.frame.size.width-20,PHONE_WEBSITE_HEIGHT)];
-                        [websiteLabel setTextAlignment:NSTextAlignmentCenter];
-                        [websiteLabel setFont:[UIFont fontWithName:@"GillSans-Light" size:14]];
-                        [websiteLabel setText:self.business.website.path];
-                        [websiteLabel setBackgroundColor:[UIColor clearColor]];
-                        [cell.contentView addSubview:websiteLabel];
-                        
-                       
-                    
-                    }*/
-                    
+                                    
                 }
                     break;
                 case ADDRESS_MAP_SECTION:
@@ -520,9 +500,7 @@
 
             UIButton *upButton;
             UIButton *downButton;
-            ASZRateView *calcRating;
-            ASZRateView *userRating;
-
+            ASZNewRateView *ratingView;
             if (cell == nil) {
                 cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"BusinessDetailsTopicCell"];
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -539,17 +517,24 @@
                 CGFloat kLabel1X =-10 + offset_right; //EFFECTS THE LAYOUT. HARD TO GET RIGHT.
 
                 
-                CGFloat kArroyHeight = 20;
+                CGFloat kArroyHeight = 25;
                 CGFloat kArroyWidth  = 16;
                 CGFloat kArrow0Y = 2;
-                CGFloat kArrow1Y = kArrow0Y + kArroyHeight + 4;
+                CGFloat kArrow1Y = kArrow0Y + kArroyHeight + 10;
                 CGFloat kArrowX = 2;
-                
+
+                /*
                 CGFloat kRatingHeight = 10;
                 CGFloat kRatingWidth  = 30;
                 CGFloat kRatingY = 25;
                 CGFloat kRating0X = 0;
-                CGFloat kRating1X = kRating0X+8;
+                CGFloat kRating1X = kRating0X+8;*/
+                
+                //for the rating view
+                CGFloat kRatingViewHeight = 45;
+                CGFloat kRatingViewX = 20;
+                CGFloat kRatingViewY = 0;
+                CGFloat kRatingViewWidth = 10;
                 
                 upButton = [UIButton buttonWithType:UIButtonTypeCustom];
                 upButton.userInteractionEnabled = YES;
@@ -596,7 +581,7 @@
                 [lineView1 setBackgroundColor:[UIColor lightGrayColor]];
                 [cell.contentView addSubview:lineView1];
                 */
-                calcRating =  [[ASZRateView alloc]initWithFrame:CGRectMake(kRating0X,kRatingY,kRatingWidth,kRatingHeight)];
+              /*  calcRating =  [[ASZRateView alloc]initWithFrame:CGRectMake(kRating0X,kRatingY,kRatingWidth,kRatingHeight)];
   
                 
                 calcRating.notSelectedImage = [UIImage imageNamed:@"user-empty.png"];
@@ -616,6 +601,11 @@
                 userRating.maxRating = 4;
                 userRating.transform = CGAffineTransformMakeRotation(270 * M_PI / 180.0);
                 userRating.tag = TOPICUSER_RATING;
+                */
+                
+                ratingView = [[ASZNewRateView alloc]initWithFrame:CGRectMake(kRatingViewX,kRatingViewY,kRatingViewWidth,kRatingViewHeight)];
+                ratingView.tag = TOPICRATING_TAG;
+                [cell.contentView addSubview:ratingView];
                 
                 //[cell.contentView addSubview:calcRating];
                 //[cell.contentView addSubview:userRating];
@@ -646,9 +636,10 @@
                 topicSummary = (UITextView*)[cell.contentView viewWithTag:TOPICTEXTVIEW_TAG];
                 upButton = (UIButton*)[cell.contentView viewWithTag:TOPICUPBUTTON_TAG];
                 downButton = (UIButton*)[cell.contentView viewWithTag:TOPICDOWNBUTTON_TAG];
-                calcRating = (ASZRateView*)[cell.contentView viewWithTag:TOPICAVG_RATING];
-                userRating = (ASZRateView*)[cell.contentView viewWithTag:TOPICUSER_RATING];
-
+          //      calcRating = (ASZRateView*)[cell.contentView viewWithTag:TOPICAVG_RATING];
+           //     userRating = (ASZRateView*)[cell.contentView viewWithTag:TOPICUSER_RATING];
+                
+                ratingView = (ASZNewRateView*)[cell.contentView viewWithTag:TOPICRATING_TAG];
                 
                 avgRatingLabel = (UILabel*)[cell viewWithTag:TOPICAVGRATINGSLABEL_TAG];
 
@@ -658,45 +649,31 @@
             topicSummary.text = [topic valueForKey:@"summary"];
             
             NSLog(@"TOPIC %@\n",topic);
-            NSLog(@"RATING %f\n", [[topic valueForKey:@"avgRating"] floatValue]*4);
             
-            CGFloat calcReal = [[topic valueForKey:@"avgRating"] floatValue]*MAX_RATING*2;
-            calcReal = roundf(calcReal);
-            
-            CGFloat userReal = [[topic valueForKey:@"rating"] floatValue];
-            userReal = userReal * MAX_RATING;
+            UIColor *selectedColor = nil;
             
             UIColor* myDarkBlue = [UIColor colorWithRed: 0  green: .298 blue: .5963 alpha: 1];
             UIColor* myDarkRed = [UIColor colorWithRed: .596 green: 0 blue: 0 alpha: 1];
-            for(int i = 0; i < calcReal/2; i++)
+
+            CGFloat rating;
+
+            rating = [[topic valueForKey:@"rating"] floatValue];
+            if (rating < 0)
             {
-                UIView * newView = [[UIView alloc] initWithFrame:CGRectMake(20,30 - 7*i,5,5)];
-                [newView setBackgroundColor:myDarkBlue];
-                [cell addSubview:newView];
-            }
-            for(int i = 0; i < userReal; i++)
-            {
-                UIView * newView = [[UIView alloc] initWithFrame:CGRectMake(28,30 - 7*i,5,5)];
-                [newView setBackgroundColor:myDarkRed];
-                [cell addSubview:newView];
-            }
-           // [calcRating setRating:calcReal/2];
-           // [userRating setRating:[[topic valueForKey:@"rating"] floatValue]*MAX_RATING];
-            /*
-            NSLog(@"Rating is %@\n", [topic valueForKey:@"rating"]);
-            if ([[topic valueForKey:@"rating"] intValue] == 0)
-            {
-                [upButton setSelectedSegmentIndex:0];
-            }
-            else if  ([[topic valueForKey:@"rating"] intValue] == 1)
-            {
-                [rateSelector setSelectedSegmentIndex:1];
+                selectedColor = myDarkRed;
+                rating = [[topic valueForKey:@"avgRating"] floatValue];
             }
             else
             {
-                rateSelector.selectedSegmentIndex = -1;
-            }*/
-            avgRatingLabel.text = [NSString stringWithFormat:@"%@",[topic valueForKey:@"ratingAdjective"]  ];
+                selectedColor = myDarkBlue;
+            }
+      
+
+            NSInteger intRating = roundf(rating * MAX_RATING);
+            
+            [ratingView refresh:selectedColor :intRating];
+
+            avgRatingLabel.text = [NSString stringWithFormat:@"%@",[topic valueForKey:@"ratingAdjective"] ];
             
             topicSummary.backgroundColor = [UIColor clearColor];
             topicName.backgroundColor = [UIColor clearColor];

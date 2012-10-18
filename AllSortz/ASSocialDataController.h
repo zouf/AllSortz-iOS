@@ -15,6 +15,8 @@
 @property (strong, readonly) ASUser *userProfile;
 
 - (BOOL)updateData;
+-(BOOL)uploadProfilePic:(UIImage *)imageToPost;
+
 - (BOOL)updateUserData;
 
 

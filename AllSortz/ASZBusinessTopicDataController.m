@@ -280,20 +280,20 @@
             UIColor* myDarkBlue = [UIColor colorWithRed: 0  green: .298 blue: .5963 alpha: 1];
             UIColor* myDarkRed = [UIColor colorWithRed: .596 green: 0 blue: 0 alpha: 1];
 
-                
+                /*
             posRatingLabel = [[UILabel alloc]initWithFrame:CGRectMake(kRatingX,kRatingY,kRatingWidth,kRatingHeight)];
             posRatingLabel.tag = COMMENTPOSRATING_TAG;
             posRatingLabel.font = [UIFont fontWithName:@"Gill Sans"  size:10];
             posRatingLabel.textAlignment = NSTextAlignmentCenter;
             posRatingLabel.textColor =  myDarkBlue;
             posRatingLabel.backgroundColor = [UIColor clearColor];
-            [cell.contentView addSubview:posRatingLabel];
+            [cell.contentView addSubview:posRatingLabel];*/
             
             negRatingLabel = [[UILabel alloc]initWithFrame:CGRectMake(kRatingX+kRatingWidth,kRatingY,kRatingWidth,kRatingHeight)];
             negRatingLabel.tag = COMMENTNEGRATING_TAG;
             negRatingLabel.font = [UIFont fontWithName:@"Gill Sans"  size:10];
             negRatingLabel.textAlignment = NSTextAlignmentCenter;
-            negRatingLabel.textColor = myDarkRed;
+            negRatingLabel.textColor = myDarkBlue;
             negRatingLabel.backgroundColor = [UIColor clearColor];
             [cell.contentView addSubview:negRatingLabel];
             
@@ -432,15 +432,6 @@
                 [replyButton setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
                 [replyButton setTag:REPLYLABEL_TAG];
                 [cell.contentView addSubview:replyButton];
-                
-                /*        authorLabel = (UILabel*)[cell.contentView viewWithTag:COMMENTAUTHOR_TAG];
-                    commentContent = (UITextView*)[cell.contentView viewWithTag:COMMENTTEXT_TAG];
-                   // rateSelector = (UISegmentedControl*)[cell.contentView viewWithTag:COMMENTRATE_TAG];
-                    dateLabel = (UILabel*)[cell.contentView viewWithTag:COMMENTDATE_TAG];
-                    posRatingLabel = (UILabel*)[cell.contentView viewWithTag:COMMENTPOSRATING_TAG];
-                    negRatingLabel = (UILabel*)[cell.contentView viewWithTag:COMMENTNEGRATING_TAG];
-                    replyButton = (UIButton*)[cell.contentView viewWithTag:REPLYLABEL_TAG];
-              */      
 
 
                 commentContent.text =  node.content;            

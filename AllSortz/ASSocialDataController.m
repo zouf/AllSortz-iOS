@@ -11,6 +11,7 @@
 @interface ASSocialDataController ()
 
 @property (strong, readwrite) ASUser *userProfile;
+@property NSOperationQueue *queue;  // Assume we only need one for now
 
 @property (strong) NSMutableData *receivedData;
 @property(strong, atomic) CLLocation * currentLocation;
@@ -62,11 +63,86 @@ BOOL updated;
     
 }
 
-- (BOOL)updateUserData
+-(BOOL)uploadProfilePic:(UIImage *)imageToPost
 {
     
+    NSString *address = [NSString stringWithFormat:@"http://allsortz.com/api/user/update/picture/?uname=%@&password=%@&lat=%f&lon=%f&deviceID=%@",  [self.deviceInterface getStoredUname], [self.deviceInterface getStoredPassword],
+                         self.currentLocation.coordinate.latitude,self.currentLocation.coordinate.longitude,[self.deviceInterface getDeviceUIUD]];
+
     
     
+    // Dictionary that holds post parameters. You can set your post parameters that your server accepts or programmed to accept.
+    NSMutableDictionary* _params = [[NSMutableDictionary alloc] init];
+    
+    
+    // the boundary string : a random string, that will not repeat in post data, to separate post data fields.
+    NSString *BoundaryConstant = @"----------V2ymHFg03ehbqgZCaKO6jy";
+    
+    // string constant for the post parameter 'file'. My server uses this name: `file`. Your's may differ
+    NSString* FileParamConstant = @"file ";
+    
+    // the server url to which the image (or the media) is uploaded. Use your server url here
+    NSURL* requestURL = [NSURL URLWithString:address];
+    
+    
+    // create request
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
+    [request setCachePolicy:NSURLRequestReloadIgnoringLocalCacheData];
+    [request setHTTPShouldHandleCookies:NO];
+    [request setTimeoutInterval:30];
+    [request setHTTPMethod:@"POST"];
+    
+    // set Content-Type in HTTP header
+    NSString *contentType = [NSString stringWithFormat:@"multipart/form-data; boundary=%@", BoundaryConstant];
+    [request setValue:contentType forHTTPHeaderField: @"Content-Type"];
+    
+    // post body
+    NSMutableData *body = [NSMutableData data];
+    
+    // add params (all params are strings)
+    for (NSString *param in _params) {
+        [body appendData:[[NSString stringWithFormat:@"--%@\r\n", BoundaryConstant] dataUsingEncoding:NSUTF8StringEncoding]];
+        [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"%@\"\r\n\r\n", param] dataUsingEncoding:NSUTF8StringEncoding]];
+        [body appendData:[[NSString stringWithFormat:@"%@\r\n", [_params objectForKey:param]] dataUsingEncoding:NSUTF8StringEncoding]];
+    }
+    
+    // add image data
+    NSData *imageData = UIImageJPEGRepresentation(imageToPost, 1.0);
+    if (imageData) {
+        [body appendData:[[NSString stringWithFormat:@"--%@\r\n", BoundaryConstant] dataUsingEncoding:NSUTF8StringEncoding]];
+        [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"%@\"; filename=\"image.jpg\"\r\n", FileParamConstant] dataUsingEncoding:NSUTF8StringEncoding]];
+        [body appendData:[@"Content-Type: image/jpeg\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
+        [body appendData:imageData];
+        [body appendData:[[NSString stringWithFormat:@"\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];
+    }
+    
+    [body appendData:[[NSString stringWithFormat:@"--%@--\r\n", BoundaryConstant] dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    // setting the body of the post to the reqeust
+    [request setHTTPBody:body];
+    
+    // set the content-length
+    NSString *postLength = [NSString stringWithFormat:@"%d", [body length]];
+    [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
+    
+    // set URL
+    [request setURL:requestURL];
+    
+    void (^handler)(NSURLResponse *, NSData *, NSError *) = ^(NSURLResponse *response, NSData *data, NSError *error) {
+        //NSDictionary *JSONresponse = [NSJSONSerialization JSONObjectWithData:data options:0 error:NULL];
+        // self.business = [self businessFromJSONResult:JSONresponse[@"result"]];
+    };
+    if (!self.queue)
+        self.queue = [[NSOperationQueue alloc] init];
+    [NSURLConnection sendAsynchronousRequest:request queue:self.queue completionHandler:handler];
+
+    
+    return YES;
+}
+
+- (BOOL)updateUserData
+{
+
     NSString *address = [NSString stringWithFormat:@"http://allsortz.com/api/user/update/?uname=%@&password=%@&lat=%f&lon=%f&deviceID=%@",  [self.deviceInterface getStoredUname], [self.deviceInterface getStoredPassword],
         self.currentLocation.coordinate.latitude,self.currentLocation.coordinate.longitude,[self.deviceInterface getDeviceUIUD]];
     

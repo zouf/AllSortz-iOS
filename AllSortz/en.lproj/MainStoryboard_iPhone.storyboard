@@ -169,16 +169,6 @@
                                     <outlet property="delegate" destination="B3y-jJ-sif" id="ZaB-8k-S1a"/>
                                 </connections>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" tag="801" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" minimumFontSize="17" id="zTo-Dd-5rl">
-                                <rect key="frame" x="20" y="59" width="292" height="31"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="GillSans" family="Gill Sans" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                                <connections>
-                                    <action selector="touchOutside:" destination="B3y-jJ-sif" eventType="touchUpOutside" id="UO2-0Z-UGn"/>
-                                    <outlet property="delegate" destination="B3y-jJ-sif" id="OCH-Ju-urI"/>
-                                </connections>
-                            </textField>
                             <textField opaque="NO" clipsSubviews="YES" tag="802" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" minimumFontSize="17" id="nIQ-6x-ekQ">
                                 <rect key="frame" x="20" y="98" width="292" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -213,6 +203,16 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
+                            <textField opaque="NO" clipsSubviews="YES" tag="801" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" minimumFontSize="17" id="zTo-Dd-5rl">
+                                <rect key="frame" x="20" y="59" width="292" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="GillSans" family="Gill Sans" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <action selector="touchOutside:" destination="B3y-jJ-sif" eventType="touchUpOutside" id="UO2-0Z-UGn"/>
+                                    <outlet property="delegate" destination="B3y-jJ-sif" id="OCH-Ju-urI"/>
+                                </connections>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <connections>
@@ -334,11 +334,6 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="120"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <view tag="1020" contentMode="scaleToFill" id="Oxq-cG-yJb" customClass="ASZRateView">
-                                <rect key="frame" x="15" y="36" width="76" height="15"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                            </view>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="X79-Pl-dK5">
                                 <rect key="frame" x="-3" y="91" width="327" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -410,7 +405,6 @@
                     <connections>
                         <outlet property="dataController" destination="NQI-ra-nEi" id="FIb-qS-Xi1"/>
                         <outlet property="mainView" destination="htt-Qj-7hW" id="fyT-qU-5z5"/>
-                        <outlet property="rateView" destination="Oxq-cG-yJb" id="OTT-tp-ifV"/>
                         <outlet property="segmentedController" destination="X79-Pl-dK5" id="3Zn-Nc-DW4"/>
                         <outlet property="tableView" destination="Ofz-My-OOY" id="Uvq-CG-hhA"/>
                     </connections>

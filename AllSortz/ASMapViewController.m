@@ -18,7 +18,6 @@
 #import "ASZCustomAnnotation.h"
 
 #import "ASZBusinessDetailsBaseViewController.h"
-#import "ASZRateView.h"
 @interface ASMapViewController()
 @property (weak, nonatomic) IBOutlet MKMapView *mv;
 @property (weak, nonatomic) NSMutableArray *businessPoints;

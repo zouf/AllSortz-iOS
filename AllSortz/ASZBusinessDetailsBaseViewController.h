@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
 
+
 //tab info
 #define DISCUSSION_TAB 0
 #define INFO_TAB 1
@@ -60,15 +61,14 @@
 
 #define TOPICUSER_RATING 1019
 #define TOPICAVG_RATING 1020
-
+#define TOPICRATING_TAG 1021
 
 #define STAR_VIEW 1020
 
 #define MAX_RATING 4.0
 
-@class ASZRateView;
 @class ASZBusinessDetailsDataController;
-
+@class ASZNewRateView;
 
 @interface ASZBusinessDetailsBaseViewController : UIViewController <UITableViewDelegate>
 @property NSUInteger businessID;
@@ -76,7 +76,7 @@
 @property IBOutlet ASZBusinessDetailsDataController *dataController;
 @property (strong, nonatomic) IBOutlet UIView *mainView;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segmentedController;
-@property (weak, nonatomic) IBOutlet ASZRateView *rateView;
+@property (strong, nonatomic) IBOutlet ASZNewRateView *customRateView;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @property(weak,nonatomic) MKMapView* mapView;

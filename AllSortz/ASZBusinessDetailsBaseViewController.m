@@ -13,15 +13,14 @@
 #import "ASZEditBusinessDetailsViewController.h"
 #import "ASZBusinessTopicDataController.h"
 #import "ASZBusinessTopicViewController.h"
-#import "ASZRateView.h"
-
+#import "ASZNewRateView.h"
+#import "ASZStarAnnotation.h"
 
 @interface ASZBusinessDetailsBaseViewController ()
 
 @end
 
 @implementation ASZBusinessDetailsBaseViewController
-
 #pragma mark - Tab switching
 
 -(void)createTableviewForTab
@@ -88,30 +87,30 @@
 
 -(void) updateViewElements
 {
-    self.rateView.notSelectedImage = [UIImage imageNamed:@"empty-circle.png"];
-    self.rateView.halfSelectedImage = [UIImage imageNamed:@"half-circle.png"];
-    self.rateView.fullSelectedImage = [UIImage imageNamed:@"full-circle.png"];
-    self.rateView.editable = NO;
-    self.rateView.maxRating = MAX_RATING;
 
-    
-    ASZRateView *rv = self.rateView;
+    if(!self.customRateView)
+    {
+        self.customRateView = [[ASZNewRateView alloc]initWithFrame:CGRectMake(10,40,30,150)];
+
+        [self.mainView addSubview:self.customRateView];
+    }
     UILabel *distance = (UILabel*)[self.mainView  viewWithTag:BUSINESSDIST_TAG];
     UILabel* businessName = (UILabel*)[self.mainView viewWithTag:BUSINESSNAMELABEL_TAG];
     
     if (self.dataController.business)
     {
-        [rv setHidden:NO];
+        UIColor* starYellow = [UIColor colorWithRed: 1 green: .8 blue: 0 alpha: 1];
+
+        [self.customRateView setVertical:NO];
         [distance setHidden:NO];
         [businessName setHidden:NO];
         float rat = self.dataController.business.recommendation*MAX_RATING;
         businessName.text = self.dataController.business.name;
         distance.text = [NSString stringWithFormat:@"%0.2fmi.",[self.dataController.business.distance floatValue]];
-        [rv setRating:rat];
+        [self.customRateView refresh:starYellow :rat];
         
     }
     else{
-        [rv setHidden:YES];
         [distance setHidden:YES];
         [businessName setHidden:YES];
     }
@@ -187,7 +186,15 @@
     NSMutableDictionary *topic = self.dataController.business.topics[indexPath.row];
     NSLog(@"User gave %@ a %d\n",[topic valueForKey:@"name"], 0);
     NSInteger btID = [[topic valueForKey:@"bustopicID"] intValue];
+    
+    
     CGFloat curRating = [[topic valueForKey:@"rating"] floatValue];
+    
+    if(curRating < 0)
+    {
+        curRating = [[topic valueForKey:@"avgRating"] floatValue];
+        
+    }
 
     NSLog(@"IN NEG VOTE: TOPIC IS %@\n",topic);
     NSLog(@"floorf(curRating*MAX_RATING) is %0.2f\n",floorf(curRating*MAX_RATING));
@@ -198,8 +205,7 @@
         newRating = MAX_RATING;
     newRating = newRating / MAX_RATING;
     
-    ASZRateView *rv1 = (ASZRateView*)[cell.contentView viewWithTag:TOPICUSER_RATING];
-    [rv1 setRating:newRating*MAX_RATING];
+
     
     [topic setObject:[NSNumber numberWithFloat:newRating] forKey:@"rating"];
     NSLog(@"New rating is %f\n", newRating);
@@ -218,7 +224,14 @@
     NSLog(@"Positive rating gave %@ a %d\n",[topic valueForKey:@"name"], 1);
     NSInteger btID = [[topic valueForKey:@"bustopicID"] intValue];
     NSLog(@"%@\n",topic);
+    
     CGFloat curRating = [[topic valueForKey:@"rating"] floatValue];
+    
+    if(curRating < 0)
+    {
+        curRating = [[topic valueForKey:@"avgRating"] floatValue];
+
+    }
     NSLog(@"IN POS VOTE: TOPIC IS %@\n",topic);
 
     CGFloat newRating= floorf(curRating*MAX_RATING) + 1;
@@ -228,8 +241,7 @@
         newRating = MAX_RATING;
     newRating = newRating / MAX_RATING;
     
-    ASZRateView *rv1 = (ASZRateView*)[cell.contentView viewWithTag:TOPICUSER_RATING];
-    [rv1 setRating:newRating*MAX_RATING];
+
     
     [topic setObject:[NSNumber numberWithFloat:newRating] forKey:@"rating"];
     NSLog(@"New rating is %f\n", newRating);
@@ -323,7 +335,8 @@
     [self setTableView:nil];
     [self setMainView:nil];
     [self setSegmentedController:nil];
-    [self setRateView:nil];
+    [self setCustomRateView:nil];
+    [self setCustomRateView:nil];
     [super viewDidUnload];
 }
 

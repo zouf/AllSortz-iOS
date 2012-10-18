@@ -35,7 +35,7 @@
     [self.socialDataController.userProfile setUserEmail:emailBox.text];
     [self.socialDataController.userProfile setUserName:nameBox.text];
     [self.socialDataController.userProfile setUserPassword:passwordBox.text];
-
+    [self.socialDataController uploadProfilePic:self.imageView.image];
     [self.socialDataController updateUserData];
     [self.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
