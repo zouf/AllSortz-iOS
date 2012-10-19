@@ -14,5 +14,5 @@
 
 @property(assign,nonatomic) CGFloat recommendation;
 @property(assign,nonatomic) Boolean starred;
-
+- (id)initWithFrame:(CGRect)frame rec:(CGFloat)_recommendation;
 @end

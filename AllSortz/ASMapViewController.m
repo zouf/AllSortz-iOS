@@ -250,14 +250,13 @@
     //pinView.pinColor = MKPinAnnotationColorGreen;
     pinView.canShowCallout = YES;
     //pinView.animatesDrop = YES;
-    cust = [[ASZCustomAnnotation alloc]init];
+    cust = [[ASZCustomAnnotation alloc]initWithFrame:CGRectMake(-10,-10,25,25) rec:annotation.business.recommendation];
+    [cust setStarred:annotation.business.starred];
+
     [pinView addSubview:cust];
     [cust setBackgroundColor:[UIColor clearColor]];
 
     //}
-    [cust setRecommendation:annotation.business.recommendation];
-    [cust setStarred:annotation.business.starred];
-    [cust setFrame:CGRectMake(-10,-10,25,25)];
     
     
     

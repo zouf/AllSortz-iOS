@@ -96,9 +96,8 @@
         [self.tableView performSelectorOnMainThread:@selector(reloadData)
                                          withObject:nil
                                       waitUntilDone:NO];
-
-        
     }
+
 }
 #pragma mark - Table view delegate
 
@@ -225,18 +224,15 @@
 - (IBAction)commentPosRateTap:(id)sender{
     NSIndexPath *indexPath = [self.tableView indexPathForCell:(UITableViewCell *)[[sender superview] superview]];
     ASZCommentNode *node = [self.dataController.commentList.treeRoot flattenElements][indexPath.row + 1];
-    NSInteger cID = node.commentID;
-    
-    [self.dataController rateCommentAsynchronously:cID withRating:1];
+    [self.dataController rateCommentAsynchronously:node withRating:1 withIndex:indexPath];
 }
 
 
 - (IBAction)commentNegRateTap:(id)sender{
     NSIndexPath *indexPath = [self.tableView indexPathForCell:(UITableViewCell *)[[sender superview] superview]];
     ASZCommentNode *node = [self.dataController.commentList.treeRoot flattenElements][indexPath.row + 1];
-    NSInteger cID = node.commentID;
-    
-    [self.dataController rateCommentAsynchronously:cID withRating:0];
+    [self.dataController rateCommentAsynchronously:node withRating:0 withIndex:indexPath];
+
 }
 
 // When the user taps reply, this opens the box
@@ -263,9 +259,7 @@
     ASZCommentNode *node = [[self.dataController.commentList.treeRoot flattenElements] objectAtIndex:indexPath.row + 1];
     
     [self.dataController submitComment:node :tv.text];
-    node.replyTo = NO;
-    [self.tableView reloadData];
-    
+
     return;
 }
 

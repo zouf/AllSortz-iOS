@@ -61,6 +61,18 @@
     NSLog(@"Submit a comment with query %@\n\nPost Data %@",address,str);
     
     void (^handler)(NSURLResponse *, NSData *, NSError *) = ^(NSURLResponse *response, NSData *data, NSError *error) {
+        NSDictionary *JSONresponse = [NSJSONSerialization JSONObjectWithData:data options:0 error:NULL];
+
+        ASZCommentNode *newComment =  [self commentFromJSONResult:JSONresponse[@"result"]];
+        [comment addChild:newComment];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            comment.replyTo = NO;
+            [self.viewController.tableView reloadData];
+            
+            
+        });
+
         
     };
     
@@ -89,12 +101,26 @@
 }
 
 
--(void)rateCommentAsynchronously:(NSUInteger)cID withRating:(NSInteger)rating
+
+
+-(void)rateCommentAsynchronously:(ASZCommentNode*)node withRating:(NSInteger)rating withIndex:(NSIndexPath*)indPath
 {
-    NSString *address = [NSString stringWithFormat:@"http://allsortz.com/api/comment/rate/%lu/?uname=%@&password=%@&lat=%f&lon=%f&deviceID=%@&rating=%d", (unsigned long)cID, self.username, self.password, self.currentLatitude, self.currentLongitude, self.UUID,rating];
+    NSString *address = [NSString stringWithFormat:@"http://allsortz.com/api/comment/rate/%lu/?uname=%@&password=%@&lat=%f&lon=%f&deviceID=%@&rating=%d", (unsigned long)node.commentID, self.username, self.password, self.currentLatitude, self.currentLongitude, self.UUID,rating];
     NSLog(@"Rate a comment from within the bustopic details page with query %@",address);
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:address]];
     void (^handler)(NSURLResponse *, NSData *, NSError *) = ^(NSURLResponse *response, NSData *data, NSError *error) {
+        NSDictionary *JSONresponse = [NSJSONSerialization JSONObjectWithData:data options:0 error:NULL];
+     
+        ASZCommentNode *comment =  [self commentFromJSONResult:JSONresponse[@"result"]];
+        
+
+       
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.commentList.treeRoot  updateTree:self.commentList.treeRoot newComment:comment];
+            [self.viewController.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+
+        });
 
     };
     
@@ -144,6 +170,16 @@
     }
     return n;
 }
+
+- (ASZCommentNode *)commentFromJSONResult:(NSDictionary *)result
+{
+    NSDictionary *review = result;
+    ASZCommentNode* n = [self createTree:review];
+    return n;
+    
+}
+
+
 
 - (ASZCommentList *)commentListFromJSONResult:(NSDictionary *)result
 {
@@ -278,16 +314,16 @@
             [cell.contentView addSubview:authorLabel];
             
             UIColor* myDarkBlue = [UIColor colorWithRed: 0  green: .298 blue: .5963 alpha: 1];
-            UIColor* myDarkRed = [UIColor colorWithRed: .596 green: 0 blue: 0 alpha: 1];
+            //UIColor* myDarkRed = [UIColor colorWithRed: .596 green: 0 blue: 0 alpha: 1];
 
-                /*
+            
             posRatingLabel = [[UILabel alloc]initWithFrame:CGRectMake(kRatingX,kRatingY,kRatingWidth,kRatingHeight)];
             posRatingLabel.tag = COMMENTPOSRATING_TAG;
             posRatingLabel.font = [UIFont fontWithName:@"Gill Sans"  size:10];
             posRatingLabel.textAlignment = NSTextAlignmentCenter;
             posRatingLabel.textColor =  myDarkBlue;
             posRatingLabel.backgroundColor = [UIColor clearColor];
-            [cell.contentView addSubview:posRatingLabel];*/
+            [cell.contentView addSubview:posRatingLabel];
             
             negRatingLabel = [[UILabel alloc]initWithFrame:CGRectMake(kRatingX+kRatingWidth,kRatingY,kRatingWidth,kRatingHeight)];
             negRatingLabel.tag = COMMENTNEGRATING_TAG;

@@ -15,7 +15,7 @@
 #define SPACE_PER_BLOCK 14
 #define SIZE 50
 
-
+#define MAX_RATING 4
 
 @implementation ASZNewRateView
 @synthesize vertical;
@@ -26,14 +26,24 @@
     if (self) {
         self.views = [[NSMutableArray alloc]init];
         self.vertical = YES;
+        self.max_rating = MAX_RATING;
         
     }
     return self;
 }
 
 
--(void)refresh:(UIColor*)color :(NSInteger)numSelected 
+-(void)refresh:(UIColor*)color rating:(NSInteger)rating
 {
+    if(rating < 1)
+    {
+        rating = 1;
+    }
+    else if(rating > MAX_RATING)
+    {
+        rating = MAX_RATING;
+    }
+    
     
     for(UIView *v in self.views)
     {
@@ -41,7 +51,7 @@
     }
     
     
-    for(int i = 0; i < numSelected; i++)
+    for(int i = 0; i < rating; i++)
     {
         ASZStarAnnotation * newView;
         if(self.vertical)

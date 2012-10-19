@@ -107,7 +107,7 @@
         float rat = self.dataController.business.recommendation*MAX_RATING;
         businessName.text = self.dataController.business.name;
         distance.text = [NSString stringWithFormat:@"%0.2fmi.",[self.dataController.business.distance floatValue]];
-        [self.customRateView refresh:starYellow :rat];
+        [self.customRateView refresh:starYellow rating:rat];
         
     }
     else{
@@ -258,7 +258,7 @@
     NSLog(@"User gave %@ a %d\n",[comment valueForKey:@"content"], rateControl.selectedSegmentIndex);
     NSInteger cID = [[comment valueForKey:@"commentID"] intValue];
     
-    [self.dataController rateCommentAsynchronously:cID withRating:rateControl.selectedSegmentIndex];
+    [self.dataController rateCommentAsynchronously:cID withRating:rateControl.selectedSegmentIndex ];
 }
 
 #pragma mark - Storyboard segue

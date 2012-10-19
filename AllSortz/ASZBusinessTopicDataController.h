@@ -27,6 +27,6 @@
 
 - (void)getCommentList:(NSUInteger)btID;
 - (void)submitModifiedBusTopicContent:(NSUInteger)btID;
--(void)rateCommentAsynchronously:(NSUInteger)cID withRating:(NSInteger)rating;
+-(void)rateCommentAsynchronously:(ASZCommentNode*)node withRating:(NSInteger)rating withIndex:(NSIndexPath*)indPath;
 - (void)submitComment:(ASZCommentNode*)comment :(NSString*)content;
 @end

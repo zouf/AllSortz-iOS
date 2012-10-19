@@ -14,6 +14,27 @@
 @synthesize index, content, negRatings, commentID,date, creator, posRatings, flattenedTreeCache;
 @synthesize inclusive, replyTo;
 
+
+#pragma mark - Custom methods
+
+-(void)updateTree:(ASZCommentNode*)tree newComment:(ASZCommentNode*)newComment
+{
+    NSInteger sz = [[tree flattenElements] count];
+    for(int i = 0; i < sz; i++)
+    {
+        ASZCommentNode * n = [[tree flattenElements] objectAtIndex:i];
+        if(n.commentID == newComment.commentID)
+        {
+            n.posRatings = newComment.posRatings;
+            n.negRatings = newComment.negRatings;
+            n.content = newComment.content;
+            n.creator = newComment.creator;
+            n.date = newComment.date;
+            
+        }
+    }
+    
+}
 #pragma mark -
 #pragma mark Initializers
 

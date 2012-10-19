@@ -11,7 +11,7 @@
 @interface ASZNewRateView : UIView
 
 @property (nonatomic,assign) BOOL  vertical;
-@property (nonatomic,assign) NSInteger  numberOfStars;
+@property (nonatomic,assign) NSInteger  max_rating;
 @property (nonatomic,retain) NSMutableArray * views;
--(void)refresh:(UIColor*)color :(NSInteger)numSelected;
+-(void)refresh:(UIColor*)color rating:(NSInteger)rating;
 @end

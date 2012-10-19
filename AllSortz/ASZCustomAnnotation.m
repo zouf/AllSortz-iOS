@@ -12,15 +12,21 @@
 #import <UIKit/UIKit.h>
 
 #define RADIUS 10
-#define GRADIENT_POINT_1 6
-#define GRADIENT_POINT_2 11
+
+//the lightness ends at distance GRADIENT_POINT_1 from center
+#define GRADIENT_POINT_1 2
+
+//the darkness fully begins at distance GRADIENT_POINT_2 from center
+#define GRADIENT_POINT_2 10
 @implementation ASZCustomAnnotation
 
-- (id)initWithFrame:(CGRect)frame
+- (id)initWithFrame:(CGRect)frame rec:(CGFloat)thisRec
 {
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
+        self.starred = NO;
+        self.recommendation = thisRec;
     }
     return self;
 }
@@ -31,8 +37,29 @@
 - (void)drawRect:(CGRect)rect
 {
     
-    UIColor* myLightBlue = [UIColor colorWithRed: 0.498 green: 0.663 blue: .827 alpha: 1];
-    UIColor* myDarkBlue = [UIColor colorWithRed: 0.11 green: .216 blue: .322 alpha: 1];
+    UIColor* myLightBlue = nil;
+    
+    UIColor* myDarkBlue = nil;
+    
+    
+   // myLightBlue = [UIColor colorWithRed: 0.498 green: 0.663 blue: .827 alpha: 1];
+    //myDarkBlue=  [UIColor colorWithRed: 0.11 green: .216 blue: .322 alpha: 1];
+
+    CGFloat colorScale = self.recommendation + .25;
+    if(colorScale < .25)
+        colorScale = .25;
+    
+    if(colorScale > 1)
+        colorScale = 1;
+    
+        
+    
+    
+    myDarkBlue=  [UIColor colorWithRed:colorScale green: colorScale blue: 0 alpha: 1];
+
+    myLightBlue = myDarkBlue;//[UIColor colorWithRed: 0.498 green: 0.663 blue: .827 alpha: 1];
+   
+    
     
     //UIColor* myLightRed = [UIColor colorWithRed:1 green: .922 blue: .616 alpha: 1];
     UIColor* myDarkRed = [UIColor colorWithRed: 1 green: .8 blue: 0 alpha: 1];

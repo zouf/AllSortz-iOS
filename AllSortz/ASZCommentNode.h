@@ -45,6 +45,9 @@
 @property (nonatomic, retain) NSString *date;
 @property (nonatomic, retain) NSArray *flattenedTreeCache;
 
+-(void)updateTree:(ASZCommentNode*)tree newComment:(ASZCommentNode*)newComment;
+
+
 - (id)initWithContent:(NSString *)_content;
 
 - (void)addChild:(ASZCommentNode *)newChild;

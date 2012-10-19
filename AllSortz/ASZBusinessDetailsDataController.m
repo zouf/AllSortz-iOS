@@ -670,9 +670,8 @@
       
 
             NSInteger intRating = roundf(rating * MAX_RATING);
+            [ratingView refresh:selectedColor rating:intRating];
             
-            [ratingView refresh:selectedColor :intRating];
-
             avgRatingLabel.text = [NSString stringWithFormat:@"%@",[topic valueForKey:@"ratingAdjective"] ];
             
             topicSummary.backgroundColor = [UIColor clearColor];
