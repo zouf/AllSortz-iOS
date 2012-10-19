@@ -321,7 +321,7 @@
                         cell.backgroundView = backView;
                         
                         phoneButton.userInteractionEnabled = YES;
-                        [phoneButton setFrame:CGRectMake(cell.frame.size.width-110, 0, 110,PHONE_WEBSITE_HEIGHT)];
+                        [phoneButton setFrame:CGRectMake(cell.contentView.frame.size.width-130, 0, 110,PHONE_WEBSITE_HEIGHT)];
                         [phoneButton.titleLabel setFont:[UIFont fontWithName:@"Gill Sans" size:14]];
                         [phoneButton setTitleColor:[UIColor darkTextColor] forState:UIControlStateNormal];
                         [phoneButton setTitle:self.business.phone forState:UIControlStateNormal];
