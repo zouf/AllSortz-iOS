@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ASUserProfileDataController.h"
+#import "ASTopicBrowseDataController.h"
 #define TOPIC_TEXT 900
 #define TOPIC_WEIGHT 901
 @interface ASTopicBrowseViewController : UIViewController

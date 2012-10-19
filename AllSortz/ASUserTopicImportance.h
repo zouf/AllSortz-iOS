@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface ASUserProfile : NSObject <UITableViewDataSource>
+@interface ASUserTopicImportance : NSObject <UITableViewDataSource>
 
 @property(atomic, retain) NSMutableArray *topics;
 @property(nonatomic, retain) NSMutableDictionary *tree;

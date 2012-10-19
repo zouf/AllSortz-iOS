@@ -6,9 +6,9 @@
 //  Copyright (c) 2012 AllSortz, Inc. All rights reserved.
 //
 
-#import "ASUserProfile.h"
+#import "ASUserTopicImportance.h"
 
-@implementation ASUserProfile
+@implementation ASUserTopicImportance
 
 - (id)initWithJSONObject:(NSDictionary *)aJSONObject
 {

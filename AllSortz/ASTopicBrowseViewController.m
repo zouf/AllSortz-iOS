@@ -9,7 +9,7 @@
 #import "ASTopicBrowseViewController.h"
 
 @interface ASTopicBrowseViewController ()
-@property (strong, nonatomic) IBOutlet ASUserProfileDataController *userProfileDataController;
+@property (strong, nonatomic) IBOutlet ASTopicBrowseDataController *userProfileDataController;
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 
 @end

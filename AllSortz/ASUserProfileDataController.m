@@ -1,46 +1,55 @@
 //
-//  ASUserProfileDataController.m
+//  ASSocialDataController.m
 //  AllSortz
 //
-//  Created by Matthew Zoufaly on 8/23/12.
+//  Created by Matthew Zoufaly on 8/30/12.
 //  Copyright (c) 2012 AllSortz, Inc. All rights reserved.
 //
 
 #import "ASUserProfileDataController.h"
-@interface ASUserProfileDataController()
+#import "ASURLEncoding.h"
+@interface ASUserProfileDataController ()
 
-@property (strong, readwrite) ASUserProfile *userProfile;
+@property (strong, readwrite) ASUser *userProfile;
+@property NSOperationQueue *queue;  // Assume we only need one for now
+
 @property (strong) NSMutableData *receivedData;
+@property(strong, atomic) CLLocation * currentLocation;
 @property (strong, nonatomic) ASDeviceInterface *deviceInterface;
-
 
 @end
 
 @implementation ASUserProfileDataController
 
+
+NSLock *lock;
+BOOL updated;
 - (id)init {
     self = [super init];
     if (self) {
+        lock = [[NSLock alloc]init];
+        updated = NO;
+        
         self.deviceInterface = [[ASDeviceInterface alloc] init];
+        [self.deviceInterface.locationManager startUpdatingLocation];
+        self.deviceInterface.delegate = self;
+        
+        
     }
     return self;
 }
 
-- (BOOL)updateData:(NSInteger)parentTopicID;
+- (BOOL)updateData
 {
-    
-    NSString * address;
-    if (!parentTopicID)
-        address = [NSString stringWithFormat:@"http://allsortz.com/api/topics/?uname=%@&password=%@&deviceID=%@&parent=",
-                   [self.deviceInterface getStoredUname], [self.deviceInterface getStoredPassword],[self.deviceInterface getDeviceUIUD]];
-    else
-        address = [NSString stringWithFormat:@"http://allsortz.com/api/topics/?uname=%@&password=%@&deviceID=%@&parent=%d",
-                   [self.deviceInterface getStoredUname], [self.deviceInterface getStoredPassword],[self.deviceInterface getDeviceUIUD],parentTopicID];
 
-    NSLog(@"Get Topics Query: %@\n", address);
+    
+    NSString *address = [NSString stringWithFormat:@"http://allsortz.com/api/user/?uname=%@&password=%@&lat=%f&lon=%f&deviceID=%@",  [self.deviceInterface getStoredUname], [self.deviceInterface getStoredPassword],
+        self.currentLocation.coordinate.latitude,self.currentLocation.coordinate.longitude,[self.deviceInterface getDeviceUIUD]];
+    
+
+    NSLog(@"Get user profile data with %@\n",address);
     NSURL *url = [NSURL URLWithString:address];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
-    
     
     NSURLConnection *connection = [NSURLConnection connectionWithRequest:request delegate:self];
     if (!connection) {
@@ -50,35 +59,114 @@
     self.receivedData = [NSMutableData data];
     
     return YES;
+    
+    
 }
 
-- (BOOL)updateImportance:(NSInteger)topicID  importanceValue:(float)importance
+-(BOOL)uploadProfilePic:(UIImage *)imageToPost
+{
+    
+    NSString *address = [NSString stringWithFormat:@"http://allsortz.com/api/user/update/picture/?uname=%@&password=%@&lat=%f&lon=%f&deviceID=%@",  [self.deviceInterface getStoredUname], [self.deviceInterface getStoredPassword],
+                         self.currentLocation.coordinate.latitude,self.currentLocation.coordinate.longitude,[self.deviceInterface getDeviceUIUD]];
+
+    
+    
+    // Dictionary that holds post parameters. You can set your post parameters that your server accepts or programmed to accept.
+    NSMutableDictionary* _params = [[NSMutableDictionary alloc] init];
+    
+    
+    // the boundary string : a random string, that will not repeat in post data, to separate post data fields.
+    NSString *BoundaryConstant = @"----------V2ymHFg03ehbqgZCaKO6jy";
+    
+    // string constant for the post parameter 'file'. My server uses this name: `file`. Your's may differ
+    NSString* FileParamConstant = @"file ";
+    
+    // the server url to which the image (or the media) is uploaded. Use your server url here
+    NSURL* requestURL = [NSURL URLWithString:address];
+    
+    
+    // create request
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
+    [request setCachePolicy:NSURLRequestReloadIgnoringLocalCacheData];
+    [request setHTTPShouldHandleCookies:NO];
+    [request setTimeoutInterval:30];
+    [request setHTTPMethod:@"POST"];
+    
+    // set Content-Type in HTTP header
+    NSString *contentType = [NSString stringWithFormat:@"multipart/form-data; boundary=%@", BoundaryConstant];
+    [request setValue:contentType forHTTPHeaderField: @"Content-Type"];
+    
+    // post body
+    NSMutableData *body = [NSMutableData data];
+    
+    // add params (all params are strings)
+    for (NSString *param in _params) {
+        [body appendData:[[NSString stringWithFormat:@"--%@\r\n", BoundaryConstant] dataUsingEncoding:NSUTF8StringEncoding]];
+        [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"%@\"\r\n\r\n", param] dataUsingEncoding:NSUTF8StringEncoding]];
+        [body appendData:[[NSString stringWithFormat:@"%@\r\n", [_params objectForKey:param]] dataUsingEncoding:NSUTF8StringEncoding]];
+    }
+    
+    // add image data
+    NSData *imageData = UIImageJPEGRepresentation(imageToPost, 1.0);
+    if (imageData) {
+        [body appendData:[[NSString stringWithFormat:@"--%@\r\n", BoundaryConstant] dataUsingEncoding:NSUTF8StringEncoding]];
+        [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"%@\"; filename=\"image.jpg\"\r\n", FileParamConstant] dataUsingEncoding:NSUTF8StringEncoding]];
+        [body appendData:[@"Content-Type: image/jpeg\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
+        [body appendData:imageData];
+        [body appendData:[[NSString stringWithFormat:@"\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];
+    }
+    
+    [body appendData:[[NSString stringWithFormat:@"--%@--\r\n", BoundaryConstant] dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    // setting the body of the post to the reqeust
+    [request setHTTPBody:body];
+    
+    // set the content-length
+    NSString *postLength = [NSString stringWithFormat:@"%d", [body length]];
+    [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
+    
+    // set URL
+    [request setURL:requestURL];
+    
+    void (^handler)(NSURLResponse *, NSData *, NSError *) = ^(NSURLResponse *response, NSData *data, NSError *error) {
+        //NSDictionary *JSONresponse = [NSJSONSerialization JSONObjectWithData:data options:0 error:NULL];
+        // self.business = [self businessFromJSONResult:JSONresponse[@"result"]];
+    };
+    if (!self.queue)
+        self.queue = [[NSOperationQueue alloc] init];
+    [NSURLConnection sendAsynchronousRequest:request queue:self.queue completionHandler:handler];
+
+    
+    return YES;
+}
+
+- (BOOL)updateUserData
 {
 
-    NSString * address = [NSString stringWithFormat:@"http://allsortz.com/api/topic/subscribe/%d/?importance=%f&uname=%@&password=%@&deviceID=%@&parent=",
-                   topicID,importance, [self.deviceInterface getStoredUname], [self.deviceInterface getStoredPassword],[self.deviceInterface getDeviceUIUD]];
-    NSURL *url = [NSURL URLWithString:address];
-    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    NSString *address = [NSString stringWithFormat:@"http://allsortz.com/api/user/update/?uname=%@&password=%@&lat=%f&lon=%f&deviceID=%@",  [self.deviceInterface getStoredUname], [self.deviceInterface getStoredPassword],
+        self.currentLocation.coordinate.latitude,self.currentLocation.coordinate.longitude,[self.deviceInterface getDeviceUIUD]];
     
-    NSLog(@"Query to update importance %@\n", address);
+    [self.deviceInterface storeUnamePassword:self.userProfile.userName :self.userProfile.userPassword];
+    NSLog(@"UPdate user with %@\n", address);
+    
+    NSString *str = [[self.userProfile serializeToDictionary] urlEncodedString];
+    NSLog(@"POST STRING IS %@\n",str);
+    NSData* data = [str dataUsingEncoding:NSUTF8StringEncoding];
+    NSURLRequest *request = [self postRequestWithAddress:address data:data];
+    
+    
     
     NSURLConnection *connection = [NSURLConnection connectionWithRequest:request delegate:self];
     if (!connection) {
         // TODO: Some proper failure handling maybe
         return NO;
     }
+    NSLog(@"Running update data in user profile\n");
     self.receivedData = [NSMutableData data];
     
     return YES;
 }
 
-- (IBAction)importanceSelected:(id)sender {
-}
-
-- (void)updateWithArray:(NSMutableArray*)newTopics
-{
-    self.userProfile = [[ASUserProfile alloc] initWithArray:newTopics];
-}
 
 - (NSURLRequest *)postRequestWithAddress: (NSString *)address        // IN
                                     data: (NSData *)data      // IN
@@ -94,26 +182,7 @@
     [urlRequest setHTTPBody:data];
     
     return urlRequest;
-}   
-
-/*
-- (BOOL)sendImportance
-{
-    static NSString *address = @"http://allsortz.com/api/topics/importance/";
-    NSURL *url = [NSURL URLWithString:address];
-    NSString *str = [[self.userProfile serializeToDictionary] urlEncodedString];
-    NSData* data = [str dataUsingEncoding:NSUTF8StringEncoding];
-    NSURLRequest *request = [self postRequestWithAddress:address data:data];
-    
-    NSURLConnection *connection = [NSURLConnection connectionWithRequest:request delegate:self];
-    if (!connection) {
-        // TODO: Some proper failure handling maybe
-        return NO;
-    }
-    self.receivedData = [NSMutableData data];
-    
-    return YES;
-}*/
+}
 
 
 #pragma mark - Connection data delegate
@@ -143,21 +212,25 @@
                                                                         options:0
                                          
                                                                           error:NULL];
-    NSString *success = [JSONresponse valueForKey:@"success"];
-    NSString *requestType = [JSONresponse valueForKey:@"requestType"];
-
-    if (success == @"false")
-    {
-        return;
-    }
-    if ([requestType isEqualToString:@"topic"])
-    {
-        self.userProfile = [[ASUserProfile alloc] initWithJSONObject:JSONresponse];
-        self.receivedData = nil;
-    }
     
+    self.userProfile = [[ASUser alloc] initWithJSONObject:JSONresponse];
+    self.receivedData = nil;
 
+    
 }
+
+#pragma mark - Receive Location info
+- (void)locationUpdate:(CLLocation *)location
+{
+    self.currentLocation = [location copy];
+}
+
+- (void)locationError:(NSError *)error
+{
+    
+}
+
+
 
 
 
