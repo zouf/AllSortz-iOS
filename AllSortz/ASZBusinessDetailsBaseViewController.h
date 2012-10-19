@@ -67,6 +67,7 @@
 
 #define MAX_RATING 4.0
 
+
 @class ASZBusinessDetailsDataController;
 @class ASZNewRateView;
 

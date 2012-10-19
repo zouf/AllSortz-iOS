@@ -24,7 +24,7 @@
 
 @implementation ASZCommentCell
 
-@synthesize  arrowImage, height,node;
+@synthesize  arrow, height,node;
 @synthesize level, expanded;
 
 - (id)initWithStyle:(UITableViewCellStyle)style
@@ -42,18 +42,20 @@
         UIView *content = self.contentView;
 
         
-        if (self.expanded)
+        if (!self.expanded)
         {
-            self.arrowImage = [[UIImageView alloc] initWithImage: [UIImage imageNamed:@"arrow-down.png"]];
+            self.arrow = [[ASZTriangleAnnotation alloc]initWithFrame:CGRectMake(0,0,10,10) withColor:[UIColor blackColor]];
+
         }
         else
         {
-            self.arrowImage = [[UIImageView alloc] initWithImage: [UIImage imageNamed:@"arrow-up.png"]];
-
+            self.arrow = [[ASZTriangleAnnotation alloc]initWithFrame:CGRectMake(0,0,20,20) withColor:[UIColor lightGrayColor]];
+            self.arrow.transform = CGAffineTransformMakeRotation(90 * M_PI / 180.0);
 
         }
+        
 
-        [content addSubview:self.arrowImage];
+        [content addSubview:self.arrow];
         
     }
     return self;
@@ -117,7 +119,7 @@
                               YOFFSET,
                               IMG_HEIGHT_WIDTH,
                               IMG_HEIGHT_WIDTH);
-        self.arrowImage.frame = imgFrame;
+        self.arrow.frame = imgFrame;
     }
 }
 

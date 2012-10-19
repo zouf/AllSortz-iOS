@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
 #import "ASZCommentNode.h"
-
+#import "ASZTriangleAnnotation.h"
 
 #define IMG_HEIGHT_WIDTH 8
 #define CELL_HEIGHT 60
@@ -18,17 +18,18 @@
 #define YOFFSET 4
 #define XOFFSET 0
 
+@class ASZTriangleAnnotation;
 
 @interface ASZCommentCell : UITableViewCell {
     CGFloat height;
-    UIImageView *arrowImage;
+    ASZTriangleAnnotation *arrow;
     ASZCommentNode * node;
     
     int level;
     BOOL expanded;
 }
 
-@property (nonatomic, retain) UIImageView *arrowImage;
+@property (nonatomic, retain) ASZTriangleAnnotation *arrow;
 @property (nonatomic) int level;
 @property (nonatomic) BOOL expanded;
 @property(nonatomic,retain)ASZCommentNode* node;
