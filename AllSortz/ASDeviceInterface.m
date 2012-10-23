@@ -40,11 +40,18 @@
     return UUID;
 }
 
--(void)storeUnamePassword:(NSString*)uname :(NSString*)password
+-(void)storeUname:(NSString*)uname password:(NSString*)password
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setObject:uname forKey:@"ASusername"];
-    [defaults setObject:password forKey:@"ASpassword"];
+
+    if(![password isEqualToString:@""])
+    {
+        [defaults setObject:password forKey:@"ASpassword"];
+    }
+    if(![uname isEqualToString:@""])
+    {
+        [defaults setObject:uname forKey:@"ASusername"];
+    }
     return;
 }
 

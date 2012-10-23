@@ -55,9 +55,21 @@
     UIImagePickerController *imagePickController=[[UIImagePickerController alloc]init];
     //You can use isSourceTypeAvailable to check
     
-    imagePickController.sourceType=UIImagePickerControllerSourceTypeCamera;
-    imagePickController.delegate=self;
-    imagePickController.allowsEditing=NO;
+    
+    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+        imagePickController.sourceType=UIImagePickerControllerSourceTypeCamera;
+        imagePickController.delegate=self;
+        imagePickController.allowsEditing=NO;
+    }
+    else
+    {
+        imagePickController.sourceType=UIImagePickerControllerSourceTypePhotoLibrary;
+        imagePickController.delegate=self;
+        imagePickController.allowsEditing=NO;
+    }
+    
+    
+
     //imagePickController.showsCameraControls=YES;
     //This method inherit from UIView,show imagePicker with animation
     [self presentViewController:imagePickController animated:YES completion:nil];
@@ -130,6 +142,10 @@
                                        forKeyPath:@"userProfile"
                                           options:NSKeyValueObservingOptionNew
                                           context:NULL];
+    
+    
+
+    
     UIActivityIndicatorView *activityView=[[UIActivityIndicatorView alloc]     initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
     
     activityView.center=self.overlayView.center;
@@ -221,17 +237,22 @@
         {
             self.nameBox.text = self.userProfileDataController.userProfile.userName;
             self.emailBox.text = self.userProfileDataController.userProfile.userEmail;
-            
-
-
-
+            self.imageView.image = self.userProfileDataController.userProfile.profilePicture;
         }
         
 
         [self.overlayView removeFromSuperview];
 
     }
+
     
+}
+
+-(void)imageDidLoad:(ASUser *)user
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.imageView.image = self.userProfileDataController.userProfile.profilePicture;
+    });
 }
 
 @end

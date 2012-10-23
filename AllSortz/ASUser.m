@@ -7,28 +7,64 @@
 //
 
 #import "ASUser.h"
+@interface ASUser ()
 
+@property NSOperationQueue *queue;  // Assume we only need one for now
+
+@end
 @implementation ASUser
 
 
 - (id)initWithJSONObject:(NSDictionary *)aJSONObject
 {
-    if (!(self = [super init]) || ![[aJSONObject objectForKey:@"success"] boolValue])
+    if (!(self = [super init]) )//|| ![[aJSONObject objectForKey:@"success"] boolValue])
         return nil;
-    NSMutableDictionary *results = [aJSONObject objectForKey:@"result"];
+   // NSMutableDictionary *results = [aJSONObject objectForKey:@"result"];
     // [self.treePath addObject:[allTopics valueForKey:@"topicName"]];
-    self.userName = [results valueForKey:@"userName"];
-    self.userEmail = [results valueForKey:@"userEmail"] ;
-    NSString *reg = [results valueForKey:@"registered"];
+    
+    
+    
+    self.userName = [aJSONObject objectForKey:@"userName"];
+    self.userEmail = [aJSONObject objectForKey:@"userEmail"] ;
+    
+    
+    NSDictionary * profile = [aJSONObject objectForKey:@"profile"];
+    if ([profile objectForKey:@"profilePic"])
+    {
+        NSURL *url = [NSURL URLWithString:[profile valueForKey:@"profilePic"]];
+        NSURLRequest *request = [NSURLRequest requestWithURL:url];
+        void (^handler)(NSURLResponse *, NSData *, NSError *) = ^(NSURLResponse *response, NSData *data, NSError *error) {
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                self.profilePicture = [UIImage imageWithData: data];
+                [self.delegate imageDidLoad:self];
 
-    if ([reg isEqualToString:@"false"])
-    {
-        self.registered = NO;
+
+            });
+
+        };
+        
+        if (!self.queue)
+            self.queue = [[NSOperationQueue alloc] init];
+        [NSURLConnection sendAsynchronousRequest:request queue:self.queue completionHandler:handler];
+
+        
+
     }
-    else
+    
+    NSString *reg = [aJSONObject objectForKey:@"registered"];
+    if (reg)
     {
-        self.registered = YES;
+        if ([reg isEqualToString:@"false"])
+        {
+            self.registered = NO;
+        }
+        else
+        {
+            self.registered = YES;
+        }
     }
+
     return self;
 }
 

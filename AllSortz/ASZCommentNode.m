@@ -30,6 +30,7 @@
             n.content = newComment.content;
             n.creator = newComment.creator;
             n.date = newComment.date;
+            n.user = newComment.user;
             
         }
     }

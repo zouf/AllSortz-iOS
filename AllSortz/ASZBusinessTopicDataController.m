@@ -16,6 +16,7 @@
 
 #import  <QuartzCore/QuartzCore.h>
 
+#import "ASUser.h"
 
 @interface ASZBusinessTopicDataController ()
 
@@ -154,6 +155,13 @@
     return;
 }
 
+#pragma mark - User Download icon delegate
+
+-(void)imageDidLoad:(ASUser *)user
+{
+    [self.viewController.tableView reloadData];
+}
+
 -(ASZCommentNode*)createTree:(id)review
 {
     ASZCommentNode * n = [[ASZCommentNode alloc]initWithContent:[NSString stringWithFormat:@"%@",[review valueForKeyPath:@"content"]]];
@@ -162,6 +170,9 @@
     n.negRatings = [[review valueForKeyPath:@"negRatings"]intValue];
     n.creator = [NSString stringWithFormat:@"%@",[review valueForKeyPath:@"creator.userName"]];
     n.commentID = [[review valueForKeyPath:@"commentID"]intValue];
+    n.user = [[ASUser alloc]initWithJSONObject:[review valueForKey:@"creator"]];
+    n.user.delegate = self;
+    
     for(NSDictionary* d in [review valueForKeyPath:@"children"])
     {
         id child = d;
@@ -422,7 +433,7 @@
                 cell.accessoryType = UITableViewCellAccessoryNone;
                 
              
-                authorPic = [[UIImageView  alloc] initWithImage:[UIImage imageNamed:@"zouf.png"]];
+                authorPic = [[UIImageView  alloc] initWithImage:node.user.profilePicture];
                 authorPic.frame = CGRectMake(kAuthorPicX, kAuthorPicY, kAuthorPicWidth, kAuthorPicHeight);
                 [cell.contentView addSubview:authorPic];
 

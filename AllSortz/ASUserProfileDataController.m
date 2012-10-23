@@ -130,7 +130,10 @@ BOOL updated;
     
     void (^handler)(NSURLResponse *, NSData *, NSError *) = ^(NSURLResponse *response, NSData *data, NSError *error) {
         //NSDictionary *JSONresponse = [NSJSONSerialization JSONObjectWithData:data options:0 error:NULL];
-        // self.business = [self businessFromJSONResult:JSONresponse[@"result"]];
+        // self.business = [self businessFromJSONResult:JSONresponse[@"
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.userProfile.profilePicture = [UIImage imageWithData:data];
+        });
     };
     if (!self.queue)
         self.queue = [[NSOperationQueue alloc] init];
@@ -143,14 +146,15 @@ BOOL updated;
 - (BOOL)updateUserData
 {
 
+
     NSString *address = [NSString stringWithFormat:@"http://allsortz.com/api/user/update/?uname=%@&password=%@&lat=%f&lon=%f&deviceID=%@",  [self.deviceInterface getStoredUname], [self.deviceInterface getStoredPassword],
         self.currentLocation.coordinate.latitude,self.currentLocation.coordinate.longitude,[self.deviceInterface getDeviceUIUD]];
     
-    [self.deviceInterface storeUnamePassword:self.userProfile.userName :self.userProfile.userPassword];
-    NSLog(@"UPdate user with %@\n", address);
     
+    NSLog(@"Updating the user with %@\n",address);
+    [self.deviceInterface storeUname:self.userProfile.userName password:self.userProfile.userPassword];
+
     NSString *str = [[self.userProfile serializeToDictionary] urlEncodedString];
-    NSLog(@"POST STRING IS %@\n",str);
     NSData* data = [str dataUsingEncoding:NSUTF8StringEncoding];
     NSURLRequest *request = [self postRequestWithAddress:address data:data];
     
@@ -212,9 +216,10 @@ BOOL updated;
                                                                         options:0
                                          
                                                                           error:NULL];
-    
-    self.userProfile = [[ASUser alloc] initWithJSONObject:JSONresponse];
+    NSLog(@"%@\n",JSONresponse);
+    self.userProfile = [[ASUser alloc] initWithJSONObject:[JSONresponse objectForKey:@"result"]];
     self.receivedData = nil;
+
 
     
 }

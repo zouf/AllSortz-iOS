@@ -8,6 +8,7 @@
 
 //adapted from http://dotnet.kapenilattex.com/?p=566
 #import <Foundation/Foundation.h>
+#import "ASUser.h"
 
 @interface ASZCommentNode : NSObject {
     ASZCommentNode *parent;
@@ -24,6 +25,9 @@
     NSInteger negRatings;
     NSInteger commentID;
     NSString *creator;
+    ASUser * user;
+    
+    
     NSString *date;
     
     
@@ -42,6 +46,10 @@
 @property (nonatomic, assign) NSInteger negRatings;
 @property (nonatomic, assign) NSInteger commentID;
 @property (nonatomic, retain) NSString *creator;
+
+@property (nonatomic, retain) ASUser *user;
+
+
 @property (nonatomic, retain) NSString *date;
 @property (nonatomic, retain) NSArray *flattenedTreeCache;
 

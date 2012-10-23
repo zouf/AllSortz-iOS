@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "ASUserProfileDataController.h"
 
-@interface ASUserProfileViewController :  UIViewController<UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIScrollViewDelegate>
+@interface ASUserProfileViewController :  UIViewController<UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIScrollViewDelegate, DownloadUserPicturesDelegate>
 
 @property(nonatomic,retain)IBOutlet UIImageView *imageView;
 @property(nonatomic,retain)IBOutlet UIBarButtonItem *saveImageButton;

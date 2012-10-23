@@ -10,7 +10,7 @@
 #import "ASZCommentList.h"
 #import "ASZCommentCell.h"
 
-@interface ASZBusinessTopicDataController : NSObject <UITableViewDataSource>
+@interface ASZBusinessTopicDataController : NSObject <UITableViewDataSource, DownloadUserPicturesDelegate>
 
 #define BUSTOPICCONTENT_TAG 200
 
