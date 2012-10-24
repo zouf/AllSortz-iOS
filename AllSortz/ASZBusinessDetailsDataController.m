@@ -647,8 +647,6 @@
             topicName.text = [topic valueForKey:@"name"];
             topicSummary.text = [topic valueForKey:@"summary"];
             
-            NSLog(@"TOPIC %@\n",topic);
-            
             UIColor *selectedColor = nil;
             
             UIColor* myDarkBlue = [UIColor colorWithRed: 0  green: .298 blue: .5963 alpha: 1];

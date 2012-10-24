@@ -52,11 +52,10 @@
 }
 
 
-- (void)submitComment:(ASZCommentNode*)comment :(NSString*)content
+- (void)submitComment:(ASZCommentNode*)comment :(NSString*)content  proposedChange:(NSString*)proposedChange
 {
     NSString *address = [NSString stringWithFormat:@"http://allsortz.com/api/comment/add/%lu/?uname=%@&password=%@&lat=%f&lon=%f&deviceID=%@", (unsigned long)self.viewController.businessTopicID, self.username, self.password, self.currentLatitude, self.currentLongitude, self.UUID];
-    NSString *str = [[comment serializeToDictionary:content] urlEncodedString];
-    NSLog(@"%@\n",str);
+    NSString *str = [[comment serializeToDictionary:content  proposedChange:proposedChange] urlEncodedString];
     NSData* data = [str dataUsingEncoding:NSUTF8StringEncoding];
     NSURLRequest *request = [self postRequestWithAddress:address data:data];
     NSLog(@"Submit a comment with query %@\n\nPost Data %@",address,str);
@@ -64,12 +63,29 @@
     void (^handler)(NSURLResponse *, NSData *, NSError *) = ^(NSURLResponse *response, NSData *data, NSError *error) {
         NSDictionary *JSONresponse = [NSJSONSerialization JSONObjectWithData:data options:0 error:NULL];
 
-        ASZCommentNode *newComment =  [self commentFromJSONResult:JSONresponse[@"result"]];
-        [comment addChild:newComment];
+
         
         dispatch_async(dispatch_get_main_queue(), ^{
             comment.replyTo = NO;
-            [self.viewController.tableView reloadData];
+            for(int i = 0; i < [[self.commentList.treeRoot flattenedTreeCache] count]; i++)
+            {
+                ASZCommentNode*n = [[self.commentList.treeRoot flattenedTreeCache] objectAtIndex:i];
+                if ( [n isEqual:comment] )
+                {
+                    
+                    [self.viewController.tableView beginUpdates];
+                    [self.viewController.tableView reloadRowsAtIndexPaths: [NSArray arrayWithObject:[NSIndexPath indexPathForRow:i-1 inSection:1]] withRowAnimation:UITableViewRowAnimationAutomatic];
+                    [self.viewController.tableView endUpdates];
+                    
+                    ASZCommentNode *newComment =  [self commentFromJSONResult:JSONresponse[@"result"]];
+                    [comment addChild:newComment];
+
+                    [self.viewController.tableView beginUpdates];
+                    [self.viewController.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:i inSection:1]] withRowAnimation:UITableViewRowAnimationAutomatic];
+                    [self.viewController.tableView endUpdates];
+
+                }
+            }
             
             
         });
@@ -164,7 +180,7 @@
 
 -(ASZCommentNode*)createTree:(id)review
 {
-    ASZCommentNode * n = [[ASZCommentNode alloc]initWithContent:[NSString stringWithFormat:@"%@",[review valueForKeyPath:@"content"]]];
+    ASZCommentNode * n = [[ASZCommentNode alloc]initWithContent:[NSString stringWithFormat:@"%@",[review valueForKeyPath:@"content"]] proposedChange:[review valueForKeyPath:@"proposedChange"]];
     n.date =   [NSString stringWithFormat:@"%@", [review valueForKeyPath:@"date"]];
     n.posRatings = [[review valueForKeyPath:@"posRatings"]intValue];
     n.negRatings = [[review valueForKeyPath:@"negRatings"]intValue];
@@ -172,6 +188,8 @@
     n.commentID = [[review valueForKeyPath:@"commentID"]intValue];
     n.user = [[ASUser alloc]initWithJSONObject:[review valueForKey:@"creator"]];
     n.user.delegate = self;
+
+    
     
     for(NSDictionary* d in [review valueForKeyPath:@"children"])
     {
@@ -198,7 +216,7 @@
     if (!commentList)
         return nil;
     
-    commentList.treeRoot = [[ASZCommentNode alloc]initWithContent:@"Root Node!"];
+    commentList.treeRoot = [[ASZCommentNode alloc]initWithContent:@"Root Node!" proposedChange:@""] ;
     for( NSDictionary *review in result[@"comments"])
     {
         ASZCommentNode *root = [self createTree:review];
@@ -230,14 +248,21 @@
             return 1;   //the actual bustopiccontent
             break;
         case 1:
-            return [self.commentList.treeRoot descendantCount];
-            break;
+             return [self.commentList.treeRoot descendantCount];
+        
         default:
             return 0;//self.businessTopicTableView.rowHeight;
             break;
     }
 }
 
+
+/* TODO
+ 
+ Right now I don't really use the dequeueReusableCell method since I do a lot of work
+ trying to collapse and expand the cells on each table. We can probably get some performance
+ if we reuse cells. But, that'll take some design work with the ability to collapse cells and expand
+ the reply box functionality */
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell2 = nil;
@@ -269,10 +294,9 @@
             UIButton *upButton;
             UIButton *downButton;
             
-            ASZCommentCell * cell = nil;
-            //[tableView dequeueReusableCellWithIdentifier:@"CommentCell"];
+            ASZCommentCell * cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
             ASZCommentNode *node = [[self.commentList.treeRoot flattenElements] objectAtIndex:indexPath.row + 1];
-            NSString * text = node.content;
+            NSString * text = [node getNodeText];
             
             CGFloat kCommentHeight;
             if(node.inclusive)
@@ -285,6 +309,7 @@
             }
             else
                 kCommentHeight = COLLAPSED_HEIGHT;
+            
             
             cell = [[ASZCommentCell alloc] initWithStyle:UITableViewCellStyleDefault
                                          reuseIdentifier:CellIdentifier
@@ -358,6 +383,8 @@
             posRatingLabel.text = [NSString stringWithFormat:@"+%d",node.posRatings];
             negRatingLabel.text = [NSString stringWithFormat:@"-%d",node.negRatings];
             
+            
+            //cell behavior if its shown / not shown
             if (!node.inclusive)
             {
                 [cell.contentView setBackgroundColor:[UIColor lightGrayColor]];
@@ -374,16 +401,21 @@
                     CGFloat kReplyBoxY = kCommentHeight;
                     
                     CGFloat kSubmitX = 250;
-                    CGFloat kSubmitY = kCommentHeight + REPLY_TO_HEIGHT;
+                    CGFloat kSubmitY = kCommentHeight + REPLY_TO_HEIGHT + TEXTBOX_MARGIN;
                     CGFloat kSubmitWidth = 60   ;
                     CGFloat kSubmitHeight = 25;
                     
+                    CGFloat kProposeX = 20;
+                    CGFloat kProposeY = kSubmitY;
+                    CGFloat kProposeWidth = 120   ;
+                    CGFloat kProposeHeight = 25;
+                    
+       
+                    
                     UITextView * tv = [[UITextView alloc]initWithFrame:CGRectMake(kReplyBoxX,kReplyBoxY,kReplyBoxWidth,kReplyBoxHeight)];
                     [tv setFont:[UIFont fontWithName:@"Gill Sans" size:12]];
-                    
                     tv.tag = REPLYBOX_TAG;
-                    
-                    tv.layer.borderWidth = 5.0f;
+                    tv.layer.borderWidth = 2.0f;
                     tv.layer.borderColor = [[UIColor grayColor] CGColor];
                     [tv setTextColor:[UIColor darkGrayColor]];
                     [tv setUserInteractionEnabled:YES];
@@ -397,7 +429,51 @@
                     [submitReply.titleLabel setTextAlignment:NSTextAlignmentRight];
                     [submitReply addTarget:self.viewController action:@selector(submitComment:) forControlEvents:UIControlEventTouchUpInside];
                     
+                    
+                
+                    
+                    //propose a change
+                    UIButton *proposeAChangeButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+                    proposeAChangeButton.frame = CGRectMake(kProposeX, kProposeY, kProposeWidth,kProposeHeight);
+                    [proposeAChangeButton setTitle:@"Propose a Change" forState:UIControlStateNormal];
+                    [proposeAChangeButton.titleLabel setFont:[UIFont fontWithName:@"Gill Sans" size:12]];
+                    [proposeAChangeButton.titleLabel setTextAlignment:NSTextAlignmentCenter];
+                    [proposeAChangeButton addTarget:self.viewController action:@selector(proposeChange:) forControlEvents:UIControlEventTouchUpInside];
+                    
+                    
+                    if(node.proposeChange)
+                    {
+
+                        
+                        NSString * proposedText = self.commentList.busTopicInfo;
+                        CGSize proposedConstraint = CGSizeMake(COMMENT_WIDTH - (CELL_MARGIN * 2), 20000.0f);
+                        CGSize size = [proposedText sizeWithFont:[UIFont fontWithName:@"GillSans-Light"  size:10] constrainedToSize:proposedConstraint lineBreakMode:NSLineBreakByWordWrapping];
+                        CGFloat newHeight = MAX(size.height, DEFAULT_BUSTOPIC_CONTENT_HEIGHT);
+                        
+                        
+                        CGFloat kProposeBoxX = kReplyBoxX;
+                        CGFloat kProposeBoxY = kReplyBoxY+kReplyBoxHeight+ kSubmitHeight + TEXTBOX_MARGIN;
+                        CGFloat kProposeBoxWidth = kReplyBoxWidth   ;
+                        CGFloat kProposeBoxHeight = newHeight;
+                        
+                        UITextView * propose = [[UITextView alloc]initWithFrame:CGRectMake(kProposeBoxX,kProposeBoxY,kProposeBoxWidth,kProposeBoxHeight)];
+                //        [propose setAutoresizingMask:UIViewAutoresizingFlexibleTopMargin];
+                        [propose setFont:[UIFont fontWithName:@"GillSans-Light" size:10]];
+                        propose.tag = PROPOSECHANGE_TAG;
+                        propose.layer.borderWidth = 2.0f;
+                        propose.layer.borderColor = [[UIColor grayColor] CGColor];
+                        [propose setTextColor:[UIColor darkGrayColor]];
+                        [propose setText:self.commentList.busTopicInfo];
+                        [propose setUserInteractionEnabled:YES];
+                        [propose setEditable:YES];
+                        [cell addSubview:propose];
+                        
+                        
+                    }
+                    
+                    
                     [cell addSubview:tv];
+                    [cell addSubview:proposeAChangeButton];
                     [cell addSubview:submitReply];
                 }
                 
@@ -423,7 +499,7 @@
                 CGFloat kArrowX = 5;
                 
                 //for the comment content
-                CGFloat kCommentContentWidth = COMMENT_WIDTH;
+                CGFloat kCommentContentWidth = kCommentWidth-kAuthorPicWidth-10;
                 CGFloat kCommentContentY = START_POSITION;
                 CGFloat kCommentContentX = kArrowX + kArroyWidth;
 
@@ -443,11 +519,26 @@
                 commentContent.font = [UIFont fontWithName:@"GillSans-Light"  size:12];
                 commentContent.textAlignment = NSTextAlignmentLeft;
                 commentContent.userInteractionEnabled = NO;
-                commentContent.textColor = [UIColor darkGrayColor];
                 commentContent.scrollEnabled = NO;
                 commentContent.editable = NO;
                 commentContent.userInteractionEnabled = NO;
-                commentContent.backgroundColor = [UIColor clearColor];
+                
+                
+                if ( [node isProposingNewChange])
+                {
+                    [commentContent setBackgroundColor:[UIColor clearColor]];
+                    commentContent.textColor = [UIColor blueColor];
+
+                }
+                else
+                {
+                    commentContent.backgroundColor = [UIColor clearColor];
+                    commentContent.textColor = [UIColor darkGrayColor];
+
+                }
+                
+                
+                
                 
                // commentContent.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
                 [cell.contentView addSubview:commentContent];
@@ -479,9 +570,11 @@
                 [replyButton setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
                 [replyButton setTag:REPLYLABEL_TAG];
                 [cell.contentView addSubview:replyButton];
-
-
-                commentContent.text =  node.content;            
+                
+                
+          
+                //set the text!
+                commentContent.text =  [node getNodeText];
                 [replyButton addTarget:self.viewController action:@selector(replyToComment:) forControlEvents:UIControlEventTouchUpInside];
                 
                 [upButton addTarget:self.viewController action:@selector(commentPosRateTap:) forControlEvents:UIControlEventTouchUpInside];

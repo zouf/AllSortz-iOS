@@ -90,8 +90,7 @@
 - (void)layoutSubviews {
     [super layoutSubviews];
     
-    CGFloat kHeight = self.height;
-    
+   
     if (!self.editing) {
         
         // get the X pixel spot
@@ -104,6 +103,8 @@
         self.contentView.frame = frame;
         
         
+        
+        //for lines corresponding to level of nesting
         /* line view
          
         for(int i = 0; i <= self.level; i++)

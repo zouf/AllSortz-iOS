@@ -14,10 +14,9 @@
     ASZCommentNode *parent;
     NSMutableArray *children;
     int index;
-    NSString *content;
-    
     
     BOOL replyTo; 
+    BOOL proposeChange;
     
     BOOL inclusive;
 
@@ -38,9 +37,11 @@
 @property (nonatomic, retain) ASZCommentNode *parent;
 @property (nonatomic, retain) NSMutableArray *children;
 @property (nonatomic) int index;
-@property (nonatomic, retain) NSString *content;
+
 @property (nonatomic) BOOL inclusive;
 @property (nonatomic) BOOL replyTo;
+@property (nonatomic) BOOL proposeChange;
+
 
 @property (nonatomic, assign) NSInteger posRatings;
 @property (nonatomic, assign) NSInteger negRatings;
@@ -56,7 +57,7 @@
 -(void)updateTree:(ASZCommentNode*)tree newComment:(ASZCommentNode*)newComment;
 
 
-- (id)initWithContent:(NSString *)_content;
+- (id)initWithContent:(NSString *)_content  proposedChange:(NSString*)_proposedChange;
 
 - (void)addChild:(ASZCommentNode *)newChild;
 - (NSUInteger)descendantCount;
@@ -66,7 +67,10 @@
 - (BOOL)isRoot;
 - (BOOL)hasChildren;
 
-- (NSDictionary *) serializeToDictionary:(NSString*)commentContent;
+-(BOOL)isProposingNewChange;
+- (NSString*)getNodeText;
+
+- (NSDictionary *) serializeToDictionary:(NSString*)commentContent proposedChange:(NSString*)newProposedChange;
 
 
 @end

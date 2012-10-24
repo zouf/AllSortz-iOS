@@ -7,7 +7,7 @@
 //
 
 #import "ASZBusinessTopicViewController.h"
-
+#import <QuartzCore/QuartzCore.h>
 #import "ASZReviewViewController.h"
 @interface ASZBusinessTopicViewController ()
 
@@ -103,20 +103,58 @@
 
 -(void)selectANode:(ASZCommentNode*)node
 {
+    
     for (ASZCommentNode *n in node.children)
     {
         n.inclusive = node.inclusive;
         [self selectANode:n];
     }
+    
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    ASZCommentNode *node = [[self.dataController.commentList.treeRoot flattenElements] objectAtIndex:indexPath.row + 1];    
-    node.inclusive = !node.inclusive;
-    [self selectANode:node];
+    NSInteger flatTreeIndex = indexPath.row + 1;
+    ASZCommentNode *node = [[self.dataController.commentList.treeRoot flattenElements] objectAtIndex:flatTreeIndex];
+    
+    BOOL nowIncluded = !node.inclusive;
+    
+    if(nowIncluded) // if this is true, we're appending rows
+    {
+        node.inclusive = !node.inclusive;
+        [self selectANode:node];
+        NSMutableArray *insertRows = [[NSMutableArray alloc]init];
+        int row = indexPath.row;
+        row++;
+        for(int i = 0; i < [node descendantCount]; i++)
+        {
+            [insertRows addObject:[NSIndexPath indexPathForRow:row+i inSection:indexPath.section]];
+        }
+        [self.tableView beginUpdates];
+        [self.tableView insertRowsAtIndexPaths:insertRows withRowAnimation:UITableViewRowAnimationAutomatic];
+        [self.tableView endUpdates];
+    }
+    else //deleting rows
+    {
+        NSMutableArray *deleteRows = [[NSMutableArray alloc]init];
+        int row = indexPath.row;
+        row++;
+        for(int i = 0; i < [node descendantCount]; i++)
+        {
+            [deleteRows addObject:[NSIndexPath indexPathForRow:row+i inSection:indexPath.section]];
+        }
+        [self.tableView beginUpdates];
+        node.inclusive = !node.inclusive;
+        [self selectANode:node];
+        [self.tableView deleteRowsAtIndexPaths:deleteRows withRowAnimation:UITableViewRowAnimationAutomatic];
+        [self.tableView endUpdates];
 
-    [tableView reloadData];
+    }
+    
+  
+    [self.tableView beginUpdates];
+    [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+    [self.tableView endUpdates];
 }
 -(UIView*)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
@@ -130,6 +168,9 @@
     return nil;
 }
 
+
+
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     switch(indexPath.section)
@@ -142,7 +183,7 @@
             
             CGSize size = [text sizeWithFont:[UIFont fontWithName:@"GillSans-Light"  size:14] constrainedToSize:constraint lineBreakMode:NSLineBreakByWordWrapping];
             
-            CGFloat height = MAX(size.height, 145);
+            CGFloat height = MAX(size.height, DEFAULT_BUSTOPIC_CONTENT_HEIGHT);
             
             return height + (CELL_MARGIN * 2);
             break;
@@ -156,8 +197,8 @@
             ASZCommentNode * node = reviews[indexPath.row + 1];
             if (node.inclusive)
             {
+                NSString * text = [node getNodeText];
                 
-                NSString * text = node.content;
                 
                 CGSize constraint = CGSizeMake(COMMENT_WIDTH - (CELL_MARGIN * 2), 20000.0f);
                 
@@ -169,6 +210,20 @@
                 if(node.replyTo)
                 {
                     height += 75;
+                    if(node.proposeChange)
+                    {
+                    
+                        
+                        NSString * proposedText = self.dataController.commentList.busTopicInfo;
+                        CGSize proposedConstraint = CGSizeMake(COMMENT_WIDTH - (CELL_MARGIN * 2), 20000.0f);
+                        CGSize size = [proposedText sizeWithFont:[UIFont fontWithName:@"GillSans-Light"  size:10] constrainedToSize:proposedConstraint lineBreakMode:NSLineBreakByWordWrapping];
+                        CGFloat newHeight = MAX(size.height, DEFAULT_BUSTOPIC_CONTENT_HEIGHT);
+                        height += newHeight;
+                        height += TEXTBOX_MARGIN*2;
+
+                    }
+                    height += TEXTBOX_MARGIN*2;
+
                 }
                 return height + (CELL_MARGIN * 2) ;
  
@@ -244,9 +299,27 @@
     
     node.replyTo = !node.replyTo;
     
-    [self.tableView reloadData];
+    [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
     return;
 }
+
+
+- (IBAction)proposeChange:(id)sender {
+    //note i added the submit and textview as subviews of the cell itself, not the subview
+    UITableViewCell *cell = (UITableViewCell *)[sender superview];
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+    
+    ASZCommentNode *node = [[self.dataController.commentList.treeRoot flattenElements] objectAtIndex:indexPath.row + 1];
+    
+    node.proposeChange = !node.proposeChange;
+    
+    
+    [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+
+    
+    return;
+}
+
 
 
 - (IBAction)submitComment:(id)sender {
@@ -255,10 +328,11 @@
     NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
     
     UITextView *tv = (UITextView*)[cell viewWithTag:REPLYBOX_TAG];
-    
+    UITextView *proposedView = (UITextView*)[cell viewWithTag:PROPOSECHANGE_TAG];
+
     ASZCommentNode *node = [[self.dataController.commentList.treeRoot flattenElements] objectAtIndex:indexPath.row + 1];
     
-    [self.dataController submitComment:node :tv.text];
+    [self.dataController submitComment:node :tv.text proposedChange:proposedView.text] ;
 
     return;
 }

@@ -8,11 +8,17 @@
 
 #import "ASZCommentNode.h"
 
+@interface ASZCommentNode()
+
+@property (nonatomic, retain) NSString *content;
+@property (nonatomic, retain) NSString *proposedChange;
+@end
+
 @implementation ASZCommentNode
 
 @synthesize parent, children;
-@synthesize index, content, negRatings, commentID,date, creator, posRatings, flattenedTreeCache;
-@synthesize inclusive, replyTo;
+@synthesize index, content, proposedChange, negRatings, commentID,date, creator, posRatings, flattenedTreeCache;
+@synthesize inclusive, replyTo, user, proposeChange;
 
 
 #pragma mark - Custom methods
@@ -39,12 +45,15 @@
 #pragma mark -
 #pragma mark Initializers
 
-- (id)initWithContent:(NSString *)_content {
+- (id)initWithContent:(NSString *)_content  proposedChange:(NSString*)_proposedChange
+{
 	self = [super init];
 	if (self) {
 		content = _content;
 		inclusive = YES;
         replyTo = NO;
+        proposeChange = NO;
+        proposedChange = _proposedChange;
 	}
     
 	return self;
@@ -98,11 +107,6 @@
                 [allElements addObjectsFromArray:[child flattenElementsWithCacheRefresh:invalidate]];
 			}
 		}
-        else
-        {
-            
-            NSLog(@"%@ not included",[self description]);
-        }
         
 		flattenedTreeCache = [[NSArray alloc] initWithArray:allElements];
 	}
@@ -134,13 +138,43 @@
 }
 
 
+#pragma mark - Determining the type of info the cell is displaying (the proposed change or comment itself)(
 
-- (NSDictionary *) serializeToDictionary:(NSString*)commentContent
+/* returns either the proposed content or the content of the comment*/
+-(NSString*)getNodeText
+{
+    if([self.proposedChange isEqualToString:@""])
+    {
+        return self.content;
+    }
+    else
+    {
+        return self.proposedChange;
+    }
+    
+}
+
+/* returns either the proposed content or the content of the comment*/
+-(BOOL)isProposingNewChange
+{
+    if([self.proposedChange isEqualToString:@""])
+    {
+        return NO;
+    }
+    else
+    {
+        return YES;
+    }
+    
+}
+
+- (NSDictionary *) serializeToDictionary:(NSString*)commentContent proposedChange:(NSString*)newProposedChange
 {
     
     
     NSDictionary * dict= [NSDictionary dictionaryWithObjectsAndKeys:
                           commentContent ,@"content",
+                          newProposedChange ,@"proposedChange",
                           @"comment", @"commentType",
                           [NSString stringWithFormat:@"%d",self.commentID], @"replyToID", nil];
     

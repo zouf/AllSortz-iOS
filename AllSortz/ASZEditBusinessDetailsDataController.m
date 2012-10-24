@@ -137,14 +137,14 @@
     }
     
     // Sort topics into order they should be displayed
-    business.topics = [topics sortedArrayUsingComparator:^NSComparisonResult (id obj1, id obj2) {
+/*    business.topics = [topics sortedArrayUsingComparator:^NSComparisonResult (id obj1, id obj2) {
         NSString *name1 = [obj1 valueForKey:@"name"];
         NSString *name2 = [obj2 valueForKey:@"name"];
         if ([name1 isEqualToString:name2]) return NSOrderedSame;
         if ([name1 isEqualToString:@"Main"]) return NSOrderedAscending;
         if ([name2 isEqualToString:@"Main"]) return NSOrderedDescending;
         return [name1 localizedCompare:name2];
-    }];
+    }];*/
     
     // Fetch image asynchronously
     NSURLRequest *imageRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:result[@"photoURL"]]];
