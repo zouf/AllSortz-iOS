@@ -492,11 +492,11 @@
 
                 //for the up/downvote arrows
                 CGFloat buffer = 15;
-                CGFloat kArroyHeight = 16;
-                CGFloat kArroyWidth  = 10;
+                CGFloat kArroyHeight = 20;
+                CGFloat kArroyWidth  = 20;
                 CGFloat kArrow0Y = buffer;
                 CGFloat kArrow1Y = kArrow0Y + kArroyHeight +4;
-                CGFloat kArrowX = 5;
+                CGFloat kArrowX = 2;
                 
                 //for the comment content
                 CGFloat kCommentContentWidth = kCommentWidth-kAuthorPicWidth-10;
@@ -548,7 +548,7 @@
                 upButton.userInteractionEnabled = YES;
                 upButton.tag = COMMENTUPRAITNG_TAG;
                 [upButton setBackgroundColor:[UIColor clearColor]];
-                [upButton setImage:[UIImage imageNamed:@"up-arrow.png"] forState:UIControlStateNormal];
+                [upButton setImage:[UIImage imageNamed:@"24-circle-north.png"] forState:UIControlStateNormal];
                 [upButton setFrame:CGRectMake(kArrowX, kArrow0Y, kArroyWidth,kArroyHeight)];
                 [cell.contentView addSubview:upButton];
                 
@@ -556,7 +556,7 @@
                 downButton.userInteractionEnabled = YES;
                 downButton.tag = COMMENTDOWNRAITNG_TAG;
                 [downButton setBackgroundColor:[UIColor clearColor]];
-                [downButton setImage:[UIImage imageNamed:@"down-arrow.png"] forState:UIControlStateNormal];
+                [downButton setImage:[UIImage imageNamed:@"32-circle-south.png"] forState:UIControlStateNormal];
 
                 [downButton setFrame:CGRectMake(kArrowX, kArrow1Y, kArroyWidth,kArroyHeight)];
                 [cell.contentView addSubview:downButton];

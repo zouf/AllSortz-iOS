@@ -27,6 +27,7 @@ typedef enum ASZBusinessDetailsInfoRow : NSInteger {
 
 @interface ASZBusinessDetailsDataController : NSObject <UITableViewDataSource>
 
+@property (weak, nonatomic) IBOutlet UINavigationItem *navBar;
 @property ASBusiness *business;
 
 @property NSString *username;

@@ -12,7 +12,7 @@
 #import "ASZTriangleAnnotation.h"
 
 #define IMG_HEIGHT_WIDTH 8
-#define CELL_HEIGHT 60
+#define CELL_HEIGHT 100
 #define SCREEN_WIDTH 320
 #define LEVEL_INDENT 16
 #define YOFFSET 4

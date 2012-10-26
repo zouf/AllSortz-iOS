@@ -12,6 +12,12 @@
 
 @property (nonatomic,assign) BOOL  vertical;
 @property (nonatomic,assign) NSInteger  max_rating;
+
+
 @property (nonatomic,retain) NSMutableArray * views;
 -(void)refresh:(UIColor*)color rating:(NSInteger)rating;
+
+
+- (id)initWithFrame:(CGRect)frame color:(UIColor*)_color rating:(NSInteger)_rating;
+
 @end

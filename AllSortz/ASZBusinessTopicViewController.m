@@ -332,7 +332,10 @@
 
     ASZCommentNode *node = [[self.dataController.commentList.treeRoot flattenElements] objectAtIndex:indexPath.row + 1];
     
-    [self.dataController submitComment:node :tv.text proposedChange:proposedView.text] ;
+    if (proposedView != nil)
+        [self.dataController submitComment:node :tv.text proposedChange:proposedView.text] ;
+    else
+        [self.dataController submitComment:node :tv.text proposedChange:@""] ;
 
     return;
 }

@@ -14,14 +14,18 @@
 
 #import "ASZBusinessListingSingleton.h"
 
+#import "ASURLEncoding.h"
 
 #import "ASZCustomAnnotation.h"
 
 #import "ASZBusinessDetailsBaseViewController.h"
-@interface ASMapViewController()
+@interface ASMapViewController ()
+    
+
 @property (weak, nonatomic) IBOutlet MKMapView *mv;
 @property (weak, nonatomic) NSMutableArray *businessPoints;
-@property (weak, nonatomic) IBOutlet UIView *searchDisplayBar;
+@property(strong, nonatomic) UISearchBar*  searchBar;
+@property(nonatomic, assign) BOOL  searchIsOn;
 
 @property(assign) MKCoordinateRegion prevRegion;
 
@@ -42,30 +46,68 @@
     [super viewDidLoad];
     
     self.listingsTableDataController =[[ASZBusinessListingSingleton sharedDataListing] getListDataController];
+    
+    
+    // Do any additional setup after loading the view from its
+    
+    [self.navigationController.navigationBar setTintColor:AS_DARK_BLUE];
+    
+    UIImage *myLocButtonImage = [UIImage imageNamed:@"22-location-arrow.png"];
+    UIBarButtonItem *myLoc = [[UIBarButtonItem alloc] initWithImage:myLocButtonImage landscapeImagePhone:myLocButtonImage  style:UIBarButtonItemStyleBordered target:self action:@selector(goToMyLocation:)];
+    
+    
+    UIImage *directionImage = [UIImage imageNamed:@"40-forward.png"];
+    UIBarButtonItem *directions = [[UIBarButtonItem alloc] initWithImage:directionImage landscapeImagePhone:directionImage  style:UIBarButtonItemStyleBordered target:self action:@selector(tapButton:)];
+    
+    UINavigationItem *item = [[UINavigationItem alloc] init];
+    item.leftBarButtonItems = [NSArray arrayWithObjects:myLoc,directions, nil];
+    
+    
+
+    self.searchBar  = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, 130, 40)] ;
+    self.searchBar.backgroundImage = [[UIImage alloc] init];
+    self.searchBar.delegate = self;
+
+    UIBarButtonItem *searchBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.searchBar];
+    
+    
+    
+    
+    
+    UIImage *bookmarkImage = [UIImage imageNamed:@"16-tag.png"];
+    UIBarButtonItem *bookmarks = [[UIBarButtonItem alloc] initWithImage:bookmarkImage landscapeImagePhone:bookmarkImage  style:UIBarButtonItemStyleBordered target:self action:@selector(tapButton:)];
+    
+    
+    UIImage *addBusinessImage = [UIImage imageNamed:@"05-plus.png"];
+    UIBarButtonItem *addBusiness = [[UIBarButtonItem alloc] initWithImage:addBusinessImage landscapeImagePhone:addBusinessImage  style:UIBarButtonItemStyleBordered target:self action:@selector(tapButton:)];
+    
+    item.rightBarButtonItems = [NSArray arrayWithObjects:addBusiness,bookmarks,searchBarButtonItem, nil];
+    
+    
+    [self.navigationController.navigationBar pushNavigationItem:item animated:NO];
+    
      
     [self.listingsTableDataController addObserver:self
                                        forKeyPath:@"businessList"
                                           options:NSKeyValueObservingOptionNew
                                           context:NULL];
     
-    //declare latitude and longitude of map center
-	CLLocationCoordinate2D center;
-	center.latitude =  40.350816;
-	center.longitude = -74.654278;
+
 	
-	//declare span of map (height and width in degrees)
-	MKCoordinateSpan span;
-	span.latitudeDelta = .02;
-	span.longitudeDelta = .01;
-	
-	//add center and span to a region,
-	//adjust the region to fit in the mapview
-	//and assign to mapview region
-	MKCoordinateRegion region;
-	region.center = center;
-	region.span = span;
-	self.mv.region = [self.mv regionThatFits:region];
     
+    [self.mv setMapType:MKMapTypeStandard];
+    [self.mv  setZoomEnabled:YES];
+    [self.mv  setScrollEnabled:YES];
+    self.mv .showsUserLocation = YES;
+    MKCoordinateRegion region = { {0.0, 0.0 }, { 0.0, 0.0 } };
+    region.center.latitude = 40.350816;
+    region.center.longitude = -74.654278;
+    region.span.longitudeDelta = 0.015f;
+    region.span.latitudeDelta = 0.015f;
+    [self.mv  setRegion:region animated:YES];
+    [self.mv  setDelegate:self];
+    
+       
     
     // on initial load of this view controller, update from the server if there's no business list
     if (!self.listingsTableDataController.businessList)
@@ -95,7 +137,7 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self.navigationController setNavigationBarHidden:YES];
+  //  [self.navigationController setNavigationBarHidden:YES];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -117,6 +159,14 @@
     //[self zoomToFitMapAnnotations:self.mv];
 
 }
+
+-(void)openSearchBox:(id)sender
+{
+    NSLog(@"Tap search!\n");
+    [self.searchBar sizeToFit];
+    
+}
+
 - (IBAction)refreshTapped:(id)sender {
     [self.listingsTableDataController setRect:self.mv.region];
     [self.listingsTableDataController setSearchQuery:nil];
@@ -228,6 +278,16 @@
 }
 
 
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    UITouch *touch = [[event allTouches] anyObject];
+    if ([self.searchBar isFirstResponder] && [touch view] != self.searchBar)
+    {
+        [self.searchBar resignFirstResponder];
+    }
+    [super touchesBegan:touches withEvent:event];
+}
+
 
 //this is the required method implementation for MKMapView annotations
 - (MKAnnotationView *) mapView:(MKMapView *)thisMapView
@@ -250,11 +310,44 @@
     //pinView.pinColor = MKPinAnnotationColorGreen;
     pinView.canShowCallout = YES;
     //pinView.animatesDrop = YES;
-    cust = [[ASZCustomAnnotation alloc]initWithFrame:CGRectMake(-10,-10,25,25) rec:annotation.business.recommendation];
-    [cust setStarred:annotation.business.starred];
+    
+    CGFloat colorScale = annotation.business.recommendation + .25;
+    if(colorScale < .25)
+        colorScale = .25;
+    
+    if(colorScale > 1)
+        colorScale = 1;
+    
+    
+    
+    
+    
+    UIColor *scaleColor =  [UIColor colorWithRed:colorScale green: colorScale blue: 0 alpha: 1];
 
-    [pinView addSubview:cust];
-    [cust setBackgroundColor:[UIColor clearColor]];
+    
+    if(annotation.business.starred)
+    {
+        pinView.image = [UIImage imageNamed:@"02-star.png" withColor:scaleColor];
+    }
+    else
+    {
+        pinView.image = [UIImage imageNamed:@"12-flag.png" withColor:AS_DARK_BLUE];
+
+    }
+    
+    CGSize sz = pinView.image.size;
+    
+    CGRect r = pinView.frame;
+    
+    r.size = sz;
+    
+    [pinView setFrame:r];
+    
+    //cust = [[ASZCustomAnnotation alloc]initWithFrame:CGRectMake(-10,-10,25,25) rec:annotation.business.recommendation];
+    //[cust setStarred:annotation.business.starred];
+
+    //[pinView addSubview:cust];
+    //[cust setBackgroundColor:[UIColor clearColor]];
 
     //}
     
@@ -333,12 +426,13 @@
 
     [vc setHidesBottomBarWhenPushed:YES];
     [self.navigationController  pushViewController:vc animated:YES];
-    [self.navigationController setNavigationBarHidden:NO];
+//    [self.navigationController setNavigationBarHidden:NO];
     
 }
 - (void)viewDidUnload {
     [self setMv:nil];
-    [self setSearchDisplayBar:nil];
+
+    [self setNavItem:nil];
     [super viewDidUnload];
 }
 
@@ -349,24 +443,54 @@
 -(void)loadMapElements
 {
     
-    UILabel *searchText = (UILabel*)[self.searchDisplayBar viewWithTag:1001];
+    UIView *actionBackground = (UIView*)[self.mv viewWithTag:1000];
+    if(!actionBackground)
+    {
+        actionBackground = [[UIView alloc]initWithFrame:CGRectMake(0,0,[UIScreen mainScreen].bounds.size.width,25)];
+        [actionBackground setBackgroundColor:[UIColor colorWithWhite:.3333f alpha:.7]];
+        actionBackground.tag = 1000;
+        [self.mv addSubview:actionBackground];
+    }
+    
+    
+    UILabel *searchText = (UILabel*)[actionBackground viewWithTag:1001];
+    if(!searchText)
+    {
+        searchText = [[UILabel alloc]initWithFrame:CGRectMake(0,0,[UIScreen mainScreen].bounds.size.width-100,25)];
+        [actionBackground addSubview:searchText];
+        [searchText setBackgroundColor:[UIColor colorWithWhite:.333 alpha:1]];
+        [searchText setFont:[UIFont fontWithName:@"Gill Sans" size:14]];
+        searchText.tag = 1001;
+        [searchText setBackgroundColor:[UIColor clearColor]];
+    }
     searchText.hidden = NO;
     searchText.text = self.listingsTableDataController.businessList.searchText;
+    
+    
+    UILabel *action = (UILabel*)[actionBackground viewWithTag:1002];
+    if(!action)
+    {
+        action = [[UILabel alloc]initWithFrame:CGRectMake([UIScreen mainScreen].bounds.size.width-100,0,100,25)];
+        [action setBackgroundColor:[UIColor colorWithWhite:.333 alpha:1]];
+        [action setFont:[UIFont fontWithName:@"GillSans-Light" size:14]];
+        [actionBackground addSubview:action];
+        action.tag = 1002;
+        [action setBackgroundColor:[UIColor clearColor]];
+    }
+    
     if (self.listingsTableDataController.searchQuery)
     {
         UITapGestureRecognizer* singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(refreshTapped:)];
         singleTap.numberOfTapsRequired = 1;
         singleTap.numberOfTouchesRequired = 1;
         singleTap.cancelsTouchesInView = NO;
-        [self.searchDisplayBar addGestureRecognizer:singleTap];
-        UILabel *action = (UILabel*)[self.searchDisplayBar viewWithTag:1002];
+        [actionBackground addGestureRecognizer:singleTap];
+
         action.text = @"Tap to clear";
-        
+
     }
     else
     {
-
-        UILabel *action = (UILabel*)[self.searchDisplayBar viewWithTag:1002];
         action.text = @"";
         
     }
@@ -383,26 +507,9 @@
         CLLocationCoordinate2D annotationCenter;
         annotationCenter.latitude = bus.latitude;
         annotationCenter.longitude = bus.longitude;
-        NSString *scoreText;
-        if (bus.recommendation > .75)
-        {
-            scoreText = @"4 of 4 Stars!";
-        }
-        else if(bus.recommendation > .5)
-        {
-            scoreText = @"3 of 4 Stars";
-
-        }
-        else if (bus.recommendation > .25)
-        {
-            scoreText = @"2 of 4 Stars";
-
-        }
-        else
-        {
-            scoreText = @"1 of 4 Stars";
-
-        }
+        NSString *scoreText = [NSString stringWithFormat:@"%0.0f of %d stars.",roundf(bus.recommendation*MAX_RATING),MAX_RATING];
+        
+        
         ASMapPoint *mp = [[ASMapPoint alloc] initWithCoordinate:annotationCenter withScore:bus.recommendation withTag:bus.ID withTitle:bus.businessName withSubtitle:scoreText];
         
   
@@ -470,6 +577,7 @@
 
 }*/
 
+
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
     ASQuery *newQ = [[ASQuery alloc] init];
@@ -482,6 +590,7 @@
     [self.listingsTableDataController setUpdateAList:NO];
     [self.listingsTableDataController updateWithQuery];
     [self.view endEditing:YES];
+    [self.searchBar resignFirstResponder];
     
 }
 
@@ -490,5 +599,9 @@
     [self.view endEditing:YES];
 }
 
+- (void) searchDisplayControllerDidEndSearch:(UISearchDisplayController *)controller
+{
+    controller.searchBar.showsCancelButton = YES;
+}
 
 @end

@@ -21,12 +21,14 @@
 
 
 
-@interface ASMapViewController : UIViewController <MKMapViewDelegate>
+@interface ASMapViewController : UIViewController <MKMapViewDelegate, UISearchBarDelegate>
 
 
 @property (strong, nonatomic) IBOutlet ASBusinessListDataController *listingsTableDataController;
 @property (strong, nonatomic) IBOutlet ASListingsViewController *listViewController;
+@property (weak, nonatomic) IBOutlet UINavigationBar *navBar;
 
+@property (weak, nonatomic) IBOutlet UINavigationItem *navItem;
 
 
 - (void)observeValueForKeyPath:(NSString *)keyPath

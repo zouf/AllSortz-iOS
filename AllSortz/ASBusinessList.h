@@ -13,7 +13,9 @@
 #define DISTANCE_VIEW 105
 #define TYPE_LABEL 104
 #define PRICE_VIEW 107
-#define RATE_VIEW 106
+#define RATE_VIEW 696
+
+#define CELL_HEIGHT 47
 
 @interface ASBusinessList : NSObject <UITableViewDataSource>
 {

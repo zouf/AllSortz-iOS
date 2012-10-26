@@ -104,7 +104,7 @@
         [self.customRateView setVertical:NO];
         [distance setHidden:NO];
         [businessName setHidden:NO];
-        float rat = self.dataController.business.recommendation*MAX_RATING;
+        float rat = roundf(self.dataController.business.recommendation*MAX_RATING);
         businessName.text = self.dataController.business.name;
         distance.text = [NSString stringWithFormat:@"%0.2fmi.",[self.dataController.business.distance floatValue]];
         [self.customRateView refresh:starYellow rating:rat];
@@ -120,6 +120,12 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    UILabel *lbl = [[UILabel alloc]initWithFrame:CGRectMake(25,0,100,30)];
+    [lbl setFont:[UIFont fontWithName:@"Gill Sans" size:24]];
+    [lbl setText:@"AllSortz"];
+    [lbl setBackgroundColor:[UIColor clearColor]];
+    [lbl setTextColor:[UIColor whiteColor]];
+    self.navigationItem.titleView = lbl;
     [self updateViewElements];
     
     
@@ -197,8 +203,7 @@
     }
 
     NSLog(@"IN NEG VOTE: TOPIC IS %@\n",topic);
-    NSLog(@"floorf(curRating*MAX_RATING) is %0.2f\n",floorf(curRating*MAX_RATING));
-    CGFloat newRating= floorf(curRating*MAX_RATING) - 1;
+    CGFloat newRating= roundf(curRating*MAX_RATING) - 1;
     if (newRating < 0)
         newRating = 0;
     if (newRating > MAX_RATING)
@@ -232,9 +237,8 @@
         curRating = [[topic valueForKey:@"avgRating"] floatValue];
 
     }
-    NSLog(@"IN POS VOTE: TOPIC IS %@\n",topic);
 
-    CGFloat newRating= floorf(curRating*MAX_RATING) + 1;
+    CGFloat newRating= roundf(curRating*MAX_RATING) + 1;
     if (newRating < 0)
         newRating = 0;
     if (newRating > MAX_RATING)

@@ -516,11 +516,11 @@
                 CGFloat kLabel1X =-10 + offset_right; //EFFECTS THE LAYOUT. HARD TO GET RIGHT.
 
                 
-                CGFloat kArroyHeight = 25;
-                CGFloat kArroyWidth  = 16;
-                CGFloat kArrow0Y = 2;
-                CGFloat kArrow1Y = kArrow0Y + kArroyHeight + 10;
-                CGFloat kArrowX = 2;
+                CGFloat kArroyHeight = 20;
+                CGFloat kArroyWidth  = 20;
+                CGFloat kArrow0Y = 4;
+                CGFloat kArrow1Y = kArrow0Y + kArroyHeight + 14;
+                CGFloat kArrowX = 1;
 
                 /*
                 CGFloat kRatingHeight = 10;
@@ -530,15 +530,15 @@
                 CGFloat kRating1X = kRating0X+8;*/
                 
                 //for the rating view
-                CGFloat kRatingViewHeight = 45;
-                CGFloat kRatingViewX = 20;
+                CGFloat kRatingViewHeight = 44  ;
+                CGFloat kRatingViewX = 22;
                 CGFloat kRatingViewY = 0;
                 CGFloat kRatingViewWidth = 10;
                 
                 upButton = [UIButton buttonWithType:UIButtonTypeCustom];
                 upButton.userInteractionEnabled = YES;
                 upButton.tag = TOPICUPBUTTON_TAG;
-                [upButton setImage:[UIImage imageNamed:@"up-arrow.png"] forState:UIControlStateNormal];
+                [upButton setImage:[UIImage imageNamed:@"24-circle-north.png"] forState:UIControlStateNormal];
                 [upButton setFrame:CGRectMake(kArrowX, kArrow0Y, kArroyWidth,kArroyHeight)];
                 //upButton.transform = CGAffineTransformMakeRotation(180 * M_PI / 180.0);
 
@@ -547,7 +547,7 @@
                 downButton = [UIButton buttonWithType:UIButtonTypeCustom];
                 downButton.userInteractionEnabled = YES;
                 downButton.tag = TOPICDOWNBUTTON_TAG;
-                [downButton setImage:[UIImage imageNamed:@"down-arrow.png"] forState:UIControlStateNormal];
+                [downButton setImage:[UIImage imageNamed:@"32-circle-south.png"] forState:UIControlStateNormal];
                 [downButton setFrame:CGRectMake(kArrowX, kArrow1Y, kArroyWidth,kArroyHeight)];
                 [cell.contentView addSubview:downButton];
                 
@@ -575,33 +575,7 @@
                 [cell.contentView addSubview:lineView0];
                 
                 
-                
-                /*UIView *lineView1 = [[UIView alloc] initWithFrame:CGRectMake(0, kLabelWidth, kLabelHeight*2+offset_right, 1)];
-                [lineView1 setBackgroundColor:[UIColor lightGrayColor]];
-                [cell.contentView addSubview:lineView1];
-                */
-              /*  calcRating =  [[ASZRateView alloc]initWithFrame:CGRectMake(kRating0X,kRatingY,kRatingWidth,kRatingHeight)];
-  
-                
-                calcRating.notSelectedImage = [UIImage imageNamed:@"user-empty.png"];
-                calcRating.halfSelectedImage = [UIImage imageNamed:@"calc-half.png"];
-                calcRating.fullSelectedImage = [UIImage imageNamed:@"calc-full.png"];
-                calcRating.editable = NO;
-                calcRating.maxRating = 4;
-                calcRating.transform = CGAffineTransformMakeRotation(270 * M_PI / 180.0);
-                calcRating.tag = TOPICAVG_RATING;
-                
-                
-                userRating =  [[ASZRateView alloc]initWithFrame:CGRectMake(kRating1X,kRatingY,kRatingWidth,kRatingHeight)];
-                userRating.notSelectedImage = [UIImage imageNamed:@"user-empty.png"];
-                userRating.halfSelectedImage = [UIImage imageNamed:@"user-half.png"];
-                userRating.fullSelectedImage = [UIImage imageNamed:@"user-full.png"];
-                userRating.editable = NO;
-                userRating.maxRating = 4;
-                userRating.transform = CGAffineTransformMakeRotation(270 * M_PI / 180.0);
-                userRating.tag = TOPICUSER_RATING;
-                */
-                
+                            
                 ratingView = [[ASZNewRateView alloc]initWithFrame:CGRectMake(kRatingViewX,kRatingViewY,kRatingViewWidth,kRatingViewHeight)];
                 ratingView.tag = TOPICRATING_TAG;
                 [cell.contentView addSubview:ratingView];
@@ -609,7 +583,7 @@
                 //[cell.contentView addSubview:calcRating];
                 //[cell.contentView addSubview:userRating];
 
-                topicSummary = [[UITextView alloc] initWithFrame:CGRectMake(textSummaryBeginX, 0, CELL_WIDTH, 68)];
+                topicSummary = [[UITextView alloc] initWithFrame:CGRectMake(textSummaryBeginX, 0, CELL_WIDTH, CELL_HEIGHT)];
                 topicSummary.tag = TOPICTEXTVIEW_TAG;
                 topicSummary.font = [UIFont fontWithName:@"GillSans-Light"  size:10];
                 topicSummary.textAlignment = NSTextAlignmentLeft;

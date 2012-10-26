@@ -17,6 +17,8 @@
 #import "ASZBusinessDetailsDataController.h"
 #import "ASMapViewController.h"
 #import "ASZBusinessListingSingleton.h"
+#import "ASZNewRateView.h"
+#import "ASZBusinessDetailsBaseViewController.h"
 #define BUSINESS_NAME 200
 
 #define RELOAD_DISTANCE 15
@@ -117,14 +119,33 @@
 
 #pragma mark - Table specific operations
 
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSString *targetViewControllerIdentifier = @"ShowBusinessDetails2";
+    ASZBusinessDetailsBaseViewController *vc = (ASZBusinessDetailsBaseViewController*)[self.storyboard instantiateViewControllerWithIdentifier:targetViewControllerIdentifier];
+    
+    ASListing *listing = [self.listingsTableDataController.businessList.entries  objectAtIndex:indexPath.row];
+    [vc setBusinessID:listing.ID];
+    
+    
+    ASZBusinessDetailsDataController *detailsDataController = vc.dataController;
+    ASBusinessListDataController *listDataController = self.listingsTableDataController;
+    detailsDataController.username = [listDataController.deviceInterface getStoredUname];
+    detailsDataController.password = [listDataController.deviceInterface getStoredPassword];
+    
+    assert(detailsDataController.username);
+    detailsDataController.UUID = [listDataController.deviceInterface getDeviceUIUD];
+    detailsDataController.currentLatitude = listDataController.currentLocation.coordinate.latitude;
+    detailsDataController.currentLongitude = listDataController.currentLocation.coordinate.longitude;
+    
+    [vc setHidesBottomBarWhenPushed:YES];
+    [self.navigationController  pushViewController:vc animated:YES];
+    [self.navigationController setNavigationBarHidden:NO];
+}
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
-    if (indexPath.row<[self.listingsTableDataController.businessList.entries count])
-        return 72;
-
-    return 59;
+    return CELL_HEIGHT;
 }
 
 
@@ -134,33 +155,6 @@
 	//
 	static NSString *CellIdentifier = @"ListingCell";
     static NSString *PlaceholderCellIdentifier = @"PlaceholderCell";
-    
-    //Add business cell
-    if (indexPath.row == [self.listingsTableDataController.businessList.entries count] + 1)
-    {
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AddBusinessCell"];
-        if ( cell == nil)
-        {
-            NSLog(@"Error case!\n");
-            return nil;
-            
-        }
-        return cell;
-    }
-    
-    // next / previous cell
-    if (indexPath.row == [self.listingsTableDataController.businessList.entries count] )
-    {
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"NextPrevCell"];
-        if ( cell == nil)
-        {
-            NSLog(@"Error case!\n");
-            return nil;
-            
-        }
-        return cell;
-    }
-    
     
     
     
@@ -185,6 +179,7 @@
     if (cell == nil)
 	{
 		cell.selectionStyle = UITableViewCellSelectionStyleNone;
+
     }
     
     // Leave cells empty if there's no data yet
@@ -202,7 +197,7 @@
         UILabel *priceLabel = (UILabel *)[cell viewWithTag:PRICE_VIEW];
         priceLabel.text = [NSString stringWithFormat:@"$%@", listing.averagePrice] ;
 
-        for (int i =0  ; i < NUM_TYPE_ICONS; i++ )
+       /* for (int i =0  ; i < NUM_TYPE_ICONS; i++ )
         {
             // first six types
             NSInteger imageID = TYPE_ICON_IMAGE_BASE + i;
@@ -220,13 +215,31 @@
                 typeIcon.image = [UIImage imageNamed:tIcon];
                 typeIcon.hidden = NO;
             }          
-        }
+        }*/
         
-        UIProgressView *rateView =  (UIProgressView*)[cell viewWithTag:RATE_VIEW];
-        
+            
         // if there's been a recommendation or user rating
+        ASZNewRateView * rView = (ASZNewRateView*)[cell viewWithTag:106];
+        NSInteger intRating = roundf(listing.recommendation * MAX_RATING);
+        if(rView)
+        {
+            rView.vertical = NO;
+            [rView refresh:AS_DARK_BLUE rating:intRating];
+        }
+        else
+        {
+            ASZNewRateView * rView = [[ASZNewRateView alloc]initWithFrame:CGRectMake(55,25,100,10) color:[UIColor blueColor] rating:intRating];
+            rView.tag = 106;
+            [cell addSubview:rView];
+        }
+
         
-        rateView.progress = listing.recommendation;
+
+        
+        
+  
+      //  ASZNewRateView *rateView =  (ASZNewRateView*)[cell viewWithTag:RATE_VIEW];
+
         
 
         UIImageView *imageView = (UIImageView*)[cell viewWithTag:IMAGE_VIEW];

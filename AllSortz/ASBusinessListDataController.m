@@ -110,9 +110,11 @@
     
     
     
-    NSLog(@"Search query server with %@\n",address);
     
     NSString *str = [[self.searchQuery serializeToDictionary] urlEncodedString];
+    
+    NSLog(@"Search query server with %@ search string %@\n",address,str);
+
     NSData* data = [str dataUsingEncoding:NSUTF8StringEncoding];
     NSURLRequest *request = [self postRequestWithAddress:address data:data];
     NSURLConnection *connection = [NSURLConnection connectionWithRequest:request delegate:self];

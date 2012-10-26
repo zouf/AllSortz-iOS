@@ -65,7 +65,7 @@
 
 #define STAR_VIEW 1020
 
-#define MAX_RATING 4.0
+#define MAX_RATING 4
 
 
 @class ASZBusinessDetailsDataController;
