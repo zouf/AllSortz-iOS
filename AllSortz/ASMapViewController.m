@@ -298,7 +298,6 @@
     static NSString *AnnotationViewID = @"annotationViewID";
     
     MKAnnotationView *pinView = nil;
-    ASZCustomAnnotation *cust = nil;
     
     //TODO figure out how to use the reuse identifier
     //pinView = (MKAnnotationView *)[self.mv dequeueReusableAnnotationViewWithIdentifier:AnnotationViewID];

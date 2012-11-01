@@ -30,7 +30,7 @@
 #define DEFAULT_HEIGHT 60
 #define COLLAPSED_HEIGHT 20
 #define REPLY_TO_HEIGHT 50
-#define DEFAULT_BUSTOPIC_CONTENT_HEIGHT 125
+#define DEFAULT_BUSTOPIC_CONTENT_HEIGHT 100
 #define COMMENT_WIDTH 270
 #define START_POSITION 5
 @interface ASZCommentList : NSObject
@@ -39,6 +39,7 @@
 @property (readonly) NSUInteger ID;
 @property (nonatomic) NSMutableArray *comments;
 @property (nonatomic) NSString  *busTopicInfo;
+
 @property (nonatomic, retain) ASZCommentNode *treeRoot;
 
 

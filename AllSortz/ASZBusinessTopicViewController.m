@@ -185,6 +185,17 @@
             
             CGFloat height = MAX(size.height, DEFAULT_BUSTOPIC_CONTENT_HEIGHT);
             
+         
+            
+            
+            if(self.dataController.commentList.treeRoot.replyTo)
+            {
+                if(self.dataController.commentList.treeRoot.proposeChange)
+                {
+                    height += DEFAULT_BUSTOPIC_CONTENT_HEIGHT;
+                }
+                height += REPLY_TO_HEIGHT+25;
+            }
             return height + (CELL_MARGIN * 2);
             break;
 
@@ -309,33 +320,59 @@
     UITableViewCell *cell = (UITableViewCell *)[sender superview];
     NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
     
-    ASZCommentNode *node = [[self.dataController.commentList.treeRoot flattenElements] objectAtIndex:indexPath.row + 1];
-    
-    node.proposeChange = !node.proposeChange;
-    
-    
-    [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+    if(indexPath.section == 0)
+    {
 
+        self.dataController.commentList.treeRoot.proposeChange = !self.dataController.commentList.treeRoot.proposeChange;
+        
+        [self.tableView reloadData];
+    }
+    else
+    {
+        ASZCommentNode *node = [[self.dataController.commentList.treeRoot flattenElements] objectAtIndex:indexPath.row + 1];
+        
+        node.proposeChange = !node.proposeChange;
+        
+        
+        [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+    }
     
     return;
 }
 
 
-
-- (IBAction)submitComment:(id)sender {
+- (IBAction)submitCommentTapped:(id)sender {
     //note i added the submit and textview as subviews of the cell itself, not the subview
     UITableViewCell *cell = (UITableViewCell *)[sender superview];
     NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
     
-    UITextView *tv = (UITextView*)[cell viewWithTag:REPLYBOX_TAG];
-    UITextView *proposedView = (UITextView*)[cell viewWithTag:PROPOSECHANGE_TAG];
-
-    ASZCommentNode *node = [[self.dataController.commentList.treeRoot flattenElements] objectAtIndex:indexPath.row + 1];
     
-    if (proposedView != nil)
-        [self.dataController submitComment:node :tv.text proposedChange:proposedView.text] ;
+    if(indexPath.section == 0)
+    {
+        UITextView *tv = (UITextView*)[cell viewWithTag:REPLYBOX_TAG];
+        UITextView *proposedView = (UITextView*)[cell viewWithTag:PROPOSECHANGE_TAG];
+        
+        
+        if (proposedView != nil)
+            [self.dataController submitRootCommentWithContent:tv.text proposedChange:proposedView.text] ;
+        else
+            [self.dataController submitRootCommentWithContent:tv.text proposedChange:@""] ;
+    }
     else
-        [self.dataController submitComment:node :tv.text proposedChange:@""] ;
+    {
+        
+        UITextView *tv = (UITextView*)[cell viewWithTag:REPLYBOX_TAG];
+        UITextView *proposedView = (UITextView*)[cell viewWithTag:PROPOSECHANGE_TAG];
+        
+        ASZCommentNode *node = [[self.dataController.commentList.treeRoot flattenElements] objectAtIndex:indexPath.row + 1];
+        
+        if (proposedView != nil)
+            [self.dataController submitComment:node :tv.text proposedChange:proposedView.text] ;
+        else
+            [self.dataController submitComment:node :tv.text proposedChange:@""] ;
+ 
+    }
+    
 
     return;
 }
@@ -344,7 +381,12 @@
 
 
 - (IBAction)barButtonTapped:(id)sender {
-    UITextView *tv = (UITextView*)[self.tableView viewWithTag:200];
+
+    
+    self.dataController.commentList.treeRoot.replyTo = ! self.dataController.commentList.treeRoot.replyTo;
+
+    [self.tableView reloadData];
+    /*   UITextView *tv = (UITextView*)[self.tableView viewWithTag:200];
 
     self.dataController.commentList.busTopicInfo = tv.text;
     if(![self.barButton.title isEqualToString:@"Comment"])
@@ -373,7 +415,7 @@
         [self.navigationController presentViewController:navBar animated:YES completion:nil];
     }
 
-
+*/
 
 }
 @end

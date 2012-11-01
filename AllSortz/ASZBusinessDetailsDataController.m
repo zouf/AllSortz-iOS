@@ -83,14 +83,75 @@
 
 }
 
+-(void)addBusinessTopicAsynchronously:(NSUInteger)busID withTopic:(NSInteger)topicID
+{
+    NSString *address = [NSString stringWithFormat:@"http://allsortz.com/api/business/topic/add/%lu/?uname=%@&password=%@&lat=%f&lon=%f&deviceID=%@&topicID=%d", (unsigned long)busID, self.username, self.password, self.currentLatitude, self.currentLongitude, self.UUID,topicID];
+    NSLog(@"Get details with query %@",address);
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:address]];
+    void (^handler)(NSURLResponse *, NSData *, NSError *) = ^(NSURLResponse *response, NSData *data, NSError *error) {
+        NSDictionary *JSONresponse = [NSJSONSerialization JSONObjectWithData:data options:0 error:NULL];
+        // self.business = [self businessFromJSONResult:JSONresponse[@"result"]];
+        
+        
+        
+        NSMutableDictionary *topic = [[NSMutableDictionary alloc] initWithDictionary:JSONresponse[@"result"]];
+        
+        [topic setValuesForKeysWithDictionary:@{@"ID": [topic valueForKeyPath:@"topic.parentID"],
+         @"name": [topic valueForKeyPath:@"topic.parentName"],
+         @"rating":[NSNumber numberWithFloat:[[topic valueForKey:@"bustopicRating"] floatValue]],
+         @"summary": [topic valueForKey:@"bustopicContent"],
+         @"avgRating":[NSNumber numberWithFloat:[[topic valueForKey:@"bustopicAvgRating"] floatValue]],
+         @"ratingAdjective" : [ topic valueForKey:@"bustopicRatingAdjective"],
+         @"bustopicID": [topic valueForKey:@"bustopicID"]}];
+        
+        
+        //TODO should be on server, not client
+        if ([[topic valueForKey:@"name"] isEqualToString:@"Main"])
+        {
+            [topic setValue:@"Overall" forKeyPath:@"name"];
+        }
+        // Don't want a mutable dictionary in there
+        [self.business.topics addObject:topic];
+
+        
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.viewController.tableView reloadData];
+            
+        });
+
+    };
+    
+    if (!self.queue)
+        self.queue = [[NSOperationQueue alloc] init];
+    [NSURLConnection sendAsynchronousRequest:request queue:self.queue completionHandler:handler];
+    
+}
+
+-(void)getAllTopics
+{
+    NSString *address = [NSString stringWithFormat:@"http://allsortz.com/api/all_topics/?uname=%@&password=%@&lat=%f&lon=%f&deviceID=%@", self.username, self.password, self.currentLatitude, self.currentLongitude, self.UUID];
+    
+    NSLog(@"Get all topics with query %@",address);
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:address]];
+    void (^handler)(NSURLResponse *, NSData *, NSError *) = ^(NSURLResponse *response, NSData *data, NSError *error) {
+        NSDictionary *JSONresponse = [NSJSONSerialization JSONObjectWithData:data options:0 error:NULL];
+        self.allTopics = JSONresponse[@"result"];
+    };
+    
+    if (!self.queue)
+        self.queue = [[NSOperationQueue alloc] init];
+    [NSURLConnection sendAsynchronousRequest:request queue:self.queue completionHandler:handler];
+    
+}
+
 -(void)rateCommentAsynchronously:(NSUInteger)cID withRating:(NSInteger)rating
 {
     NSString *address = [NSString stringWithFormat:@"http://allsortz.com/api/comment/rate/%lu/?uname=%@&password=%@&lat=%f&lon=%f&deviceID=%@&rating=%d", (unsigned long)cID, self.username, self.password, self.currentLatitude, self.currentLongitude, self.UUID,rating];
     NSLog(@"Rate a comment from within the review tab with query %@",address);
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:address]];
     void (^handler)(NSURLResponse *, NSData *, NSError *) = ^(NSURLResponse *response, NSData *data, NSError *error) {
-        //NSDictionary *JSONresponse = [NSJSONSerialization JSONObjectWithData:data options:0 error:NULL];
-        // self.business = [self businessFromJSONResult:JSONresponse[@"result"]];
+
     };
     
     if (!self.queue)

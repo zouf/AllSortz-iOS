@@ -17,4 +17,6 @@
 @property (nonatomic,retain) ASBusiness*  business;
 
 @property IBOutlet ASZBusinessTopicDataController *dataController;
+
+- (IBAction)submitCommentTapped:(id)sender;
 @end

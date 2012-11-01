@@ -67,11 +67,13 @@
 
 #define MAX_RATING 4
 
+#define PICKER_VIEW 1022
+
 
 @class ASZBusinessDetailsDataController;
 @class ASZNewRateView;
 
-@interface ASZBusinessDetailsBaseViewController : UIViewController <UITableViewDelegate>
+@interface ASZBusinessDetailsBaseViewController : UIViewController <UITableViewDelegate, UIPickerViewDelegate>
 @property NSUInteger businessID;
 
 @property IBOutlet ASZBusinessDetailsDataController *dataController;

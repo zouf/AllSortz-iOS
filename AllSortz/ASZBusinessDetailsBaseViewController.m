@@ -72,6 +72,7 @@
     [self.tableView reloadData];
 }
 
+
 - (IBAction)switchDetailTab:(id)sender {
     [self createTableviewForTab];
 }
@@ -117,15 +118,65 @@
 
 }
 
+- (IBAction)addBusinessTopic:(id)sender {
+    if(self.dataController.allTopics == nil )
+    {
+        return;
+    }
+    if(!self.dataController.allTopics.count)
+    {
+        return;
+    }
+    
+    //UIViewController *controller = [[UIViewController alloc] init];
+    UIView *semiView = [[UIView alloc]initWithFrame:CGRectMake(0,0,320, 800)];
+    semiView.alpha = 0.0f;
+    semiView.tag = PICKER_VIEW+1;
+    semiView.backgroundColor = [UIColor whiteColor];
+    
+    UIPickerView *myPickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 100, 320, 200)];
+    myPickerView.delegate = self;
+    myPickerView.tag = PICKER_VIEW;
+    myPickerView.showsSelectionIndicator = YES;
+    myPickerView.alpha = 0.0f;
+
+    
+    [self.view addSubview:semiView];
+    [self.view addSubview:myPickerView];
+    
+    [UIView beginAnimations:@"fadeIn" context:nil];
+    [UIView setAnimationCurve:UIViewAnimationCurveEaseIn];
+    [UIView setAnimationDuration:0.4f];
+    semiView.alpha = 0.7f;
+    myPickerView.alpha = 1.0f;
+    [UIView commitAnimations];
+    
+    
+
+    
+
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    
+
+    [self.dataController getAllReviews:self.businessID];
+    [self.dataController refreshBusinessAsynchronouslyWithID:self.businessID];
+    [self.dataController getAllTopics];
+
+    
+    
+    
     UILabel *lbl = [[UILabel alloc]initWithFrame:CGRectMake(25,0,100,30)];
     [lbl setFont:[UIFont fontWithName:@"Gill Sans" size:24]];
     [lbl setText:@"AllSortz"];
     [lbl setBackgroundColor:[UIColor clearColor]];
     [lbl setTextColor:[UIColor whiteColor]];
     self.navigationItem.titleView = lbl;
+    
     [self updateViewElements];
     
     
@@ -315,7 +366,6 @@
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    
     [self.dataController addObserver:self
                           forKeyPath:@"business"
                              options:NSKeyValueObservingOptionNew
@@ -328,8 +378,7 @@
                           forKeyPath:@"reviewList"
                              options:NSKeyValueObservingOptionNew
                              context:NULL];
-    [self.dataController getAllReviews:self.businessID];
-    [self.dataController refreshBusinessAsynchronouslyWithID:self.businessID];
+
 }
 
 - (void)viewDidUnload {
@@ -689,6 +738,52 @@ heightForFooterInSection:(NSInteger)section {
     }
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
     return;
+}
+
+
+#pragma mark - Picker view Delegate
+
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow: (NSInteger)row inComponent:(NSInteger)component {
+    
+    NSDictionary * topic = (NSDictionary*)[self.dataController.allTopics objectAtIndex:row];
+    NSInteger topicID = [[topic valueForKey:@"parentID"] intValue];
+    [self.dataController addBusinessTopicAsynchronously:self.businessID withTopic:topicID];
+    
+    
+    
+    UIView *semiView = (UIView*)[self.view viewWithTag:PICKER_VIEW+1];
+    UIPickerView*pv = (UIPickerView*)[self.view viewWithTag:PICKER_VIEW];
+    
+    [semiView removeFromSuperview];
+    [pv removeFromSuperview];
+    
+}
+
+// tell the picker how many rows are available for a given component
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {    
+    return [self.dataController.allTopics count];
+}
+
+// tell the picker how many components it will have
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
+    return 1;
+}
+
+// tell the picker the title for a given component
+- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
+    NSString *title;
+    NSDictionary* topic = (NSDictionary*)[self.dataController.allTopics objectAtIndex:row];
+    
+    title = [@"" stringByAppendingFormat:@"%@",[topic valueForKey:@"parentName"]];
+    
+    return title;
+}
+
+// tell the picker the width of each row for a given component
+- (CGFloat)pickerView:(UIPickerView *)pickerView widthForComponent:(NSInteger)component {
+    int sectionWidth = 300;
+    
+    return sectionWidth;
 }
 
 @end

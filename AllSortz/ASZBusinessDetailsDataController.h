@@ -30,6 +30,9 @@ typedef enum ASZBusinessDetailsInfoRow : NSInteger {
 @property (weak, nonatomic) IBOutlet UINavigationItem *navBar;
 @property ASBusiness *business;
 
+@property NSArray *allTopics;
+
+
 @property NSString *username;
 @property NSString *password;
 @property CGFloat currentLatitude;
@@ -41,7 +44,9 @@ typedef enum ASZBusinessDetailsInfoRow : NSInteger {
 - (void)refreshBusinessAsynchronouslyWithID:(NSUInteger)ID;
 -(void)rateBusinessTopicAsynchronously:(NSUInteger)btID withRating:(CGFloat)rating;
 -(void)rateCommentAsynchronously:(NSUInteger)cID withRating:(NSInteger)rating;
-
+-(void)addBusinessTopicAsynchronously:(NSUInteger)busID withTopic:(NSInteger)topicID;
 - (void)getAllReviews:(NSUInteger)busID;
+
+-(void)getAllTopics;
 
 @end

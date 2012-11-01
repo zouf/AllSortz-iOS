@@ -51,6 +51,48 @@
     return;
 }
 
+- (void)submitRootCommentWithContent:(NSString*)content  proposedChange:(NSString*)proposedChange
+{
+    NSString *address = [NSString stringWithFormat:@"http://allsortz.com/api/comment/add/%lu/?uname=%@&password=%@&lat=%f&lon=%f&deviceID=%@", (unsigned long)self.viewController.businessTopicID, self.username, self.password, self.currentLatitude, self.currentLongitude, self.UUID];
+    NSString *str = [[self.commentList.treeRoot serializeToDictionary:content  proposedChange:proposedChange] urlEncodedString];
+    NSData* data = [str dataUsingEncoding:NSUTF8StringEncoding];
+    NSURLRequest *request = [self postRequestWithAddress:address data:data];
+    NSLog(@"Submit a ROOT comment with query %@\n\nPost Data %@",address,str);
+    
+    void (^handler)(NSURLResponse *, NSData *, NSError *) = ^(NSURLResponse *response, NSData *data, NSError *error) {
+        NSDictionary *JSONresponse = [NSJSONSerialization JSONObjectWithData:data options:0 error:NULL];
+        
+        
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.commentList.treeRoot.replyTo = NO;
+
+
+                    [self.viewController.tableView beginUpdates];
+                    [self.viewController.tableView reloadRowsAtIndexPaths: [NSArray arrayWithObject:[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
+                    [self.viewController.tableView endUpdates];
+                    
+                    ASZCommentNode *newComment =  [self commentFromJSONResult:JSONresponse[@"result"]];
+                    [self.commentList.treeRoot addChild:newComment];
+                    NSRange range = NSMakeRange(1, 1);
+                    NSIndexSet *section = [NSIndexSet indexSetWithIndexesInRange:range];
+            [self.viewController.tableView reloadSections:section withRowAnimation:UITableViewRowAnimationAutomatic];
+                    [self.viewController.tableView endUpdates];
+                    
+         
+            
+            
+        });
+        
+        
+    };
+    
+    if (!self.queue)
+        self.queue = [[NSOperationQueue alloc] init];
+    [NSURLConnection sendAsynchronousRequest:request queue:self.queue completionHandler:handler];
+    
+}
+
 
 - (void)submitComment:(ASZCommentNode*)comment :(NSString*)content  proposedChange:(NSString*)proposedChange
 {
@@ -269,14 +311,117 @@
     
     switch (indexPath.section) {
         case BUSTOPICCONTENT_SECTION:
-            cell2 = [tableView dequeueReusableCellWithIdentifier:@"BusTopicContentCell"];
+
         {
-           UITextView * tv = (UITextView*)[cell2 viewWithTag:BUSTOPICCONTENT_TAG];
+            //TODO resuse old cells
+            NSString * CellIdentifier = @"BusTopicContentCell";
+            cell2 = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+            cell2 = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+            NSString * text = self.commentList.busTopicInfo;
+            
+            CGSize constraint = CGSizeMake(320 - (CELL_MARGIN * 2), 20000.0f);
+            
+            CGSize size = [text sizeWithFont:[UIFont fontWithName:@"GillSans-Light"  size:14] constrainedToSize:constraint lineBreakMode:NSLineBreakByWordWrapping];
+            
+            CGFloat kHeight = MAX(size.height, DEFAULT_BUSTOPIC_CONTENT_HEIGHT) ;
+            
+            UITextView * tv = (UITextView*)[cell2 viewWithTag:BUSTOPICCONTENT_TAG];
+            if(!tv)
+            {
+                tv = [[UITextView alloc]initWithFrame:CGRectMake(0,0,constraint.width,kHeight)];
+                tv.tag = BUSTOPICCONTENT_TAG;
+                [cell2 addSubview:tv];
+                [tv setFont:[UIFont fontWithName:@"GillSans-Light"  size:14]];
+                
+            }
+            
+            
             tv.text = self.commentList.busTopicInfo;
-           // [tv.layer setBorderWidth:1];
-           // [tv.layer setCornerRadius:8];
-           // [tv.layer setBorderColor:[[UIColor grayColor] CGColor]];
             [cell2 setSelectionStyle:UITableViewCellSelectionStyleNone];
+            
+            if(self.commentList.treeRoot.replyTo)
+            {
+                    
+                    CGFloat kReplyBoxHeight = REPLY_TO_HEIGHT;
+                    CGFloat kReplyBoxWidth = SCREEN_WIDTH;
+                    CGFloat kReplyBoxX = 0;
+                    CGFloat kReplyBoxY = kHeight;
+                    
+                    CGFloat kSubmitX = 250;
+                    CGFloat kSubmitY = kHeight + kReplyBoxHeight + TEXTBOX_MARGIN;
+                    CGFloat kSubmitWidth = 60   ;
+                    CGFloat kSubmitHeight = 25;
+                    
+                    CGFloat kProposeX = 20;
+                    CGFloat kProposeY = kSubmitY;
+                    CGFloat kProposeWidth = 120   ;
+                    CGFloat kProposeHeight = 25;
+                    
+                    
+                    
+                    UITextView * tv = [[UITextView alloc]initWithFrame:CGRectMake(kReplyBoxX,kReplyBoxY,kReplyBoxWidth,kReplyBoxHeight)];
+                    [tv setFont:[UIFont fontWithName:@"Gill Sans" size:12]];
+                    tv.tag = REPLYBOX_TAG;
+                    tv.layer.borderWidth = 2.0f;
+                    tv.layer.borderColor = [[UIColor grayColor] CGColor];
+                    [tv setTextColor:[UIColor darkGrayColor]];
+                    [tv setUserInteractionEnabled:YES];
+                    [tv setEditable:YES];
+                    
+                    
+                    UIButton * submitReply = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+                    submitReply.frame = CGRectMake(kSubmitX, kSubmitY, kSubmitWidth,kSubmitHeight);
+                    [submitReply setTitle:@"Submit" forState:UIControlStateNormal];
+                    [submitReply.titleLabel setFont:[UIFont fontWithName:@"Gill Sans" size:12]];
+                    [submitReply.titleLabel setTextAlignment:NSTextAlignmentRight];
+                    [submitReply addTarget:self.viewController action:@selector(submitCommentTapped:) forControlEvents:UIControlEventTouchUpInside];
+                    
+                    
+                    
+                    
+                    //propose a change
+                    UIButton *proposeAChangeButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+                    proposeAChangeButton.frame = CGRectMake(kProposeX, kProposeY, kProposeWidth,kProposeHeight);
+                    [proposeAChangeButton setTitle:@"Propose a Change" forState:UIControlStateNormal];
+                    [proposeAChangeButton.titleLabel setFont:[UIFont fontWithName:@"Gill Sans" size:12]];
+                    [proposeAChangeButton.titleLabel setTextAlignment:NSTextAlignmentCenter];
+                    [proposeAChangeButton addTarget:self.viewController action:@selector(proposeChange:) forControlEvents:UIControlEventTouchUpInside];
+                    
+                    
+                    if(self.commentList.treeRoot.proposeChange)
+                    {
+                        
+                        
+                        NSString * proposedText = self.commentList.busTopicInfo;
+                        CGSize proposedConstraint = CGSizeMake(COMMENT_WIDTH - (CELL_MARGIN * 2), 20000.0f);
+                        CGSize size = [proposedText sizeWithFont:[UIFont fontWithName:@"GillSans-Light"  size:10] constrainedToSize:proposedConstraint lineBreakMode:NSLineBreakByWordWrapping];
+                        CGFloat newHeight = MAX(size.height, DEFAULT_BUSTOPIC_CONTENT_HEIGHT);
+                        
+                        
+                        CGFloat kProposeBoxX = kReplyBoxX;
+                        CGFloat kProposeBoxY = kReplyBoxY+kReplyBoxHeight+ kSubmitHeight + TEXTBOX_MARGIN;
+                        CGFloat kProposeBoxWidth = kReplyBoxWidth   ;
+                        CGFloat kProposeBoxHeight = newHeight;
+                        
+                        UITextView * propose = [[UITextView alloc]initWithFrame:CGRectMake(kProposeBoxX,kProposeBoxY,kProposeBoxWidth,kProposeBoxHeight)];
+                        //        [propose setAutoresizingMask:UIViewAutoresizingFlexibleTopMargin];
+                        [propose setFont:[UIFont fontWithName:@"GillSans-Light" size:10]];
+                        propose.tag = PROPOSECHANGE_TAG;
+                        propose.layer.borderWidth = 2.0f;
+                        propose.layer.borderColor = [[UIColor grayColor] CGColor];
+                        [propose setTextColor:[UIColor darkGrayColor]];
+                        [propose setText:self.commentList.busTopicInfo];
+                        [propose setUserInteractionEnabled:YES];
+                        [propose setEditable:YES];
+                        [cell2 addSubview:propose];
+                        
+                        
+                    }
+                
+                    [cell2 addSubview:tv];
+                    [cell2 addSubview:proposeAChangeButton];
+                    [cell2 addSubview:submitReply];
+                }
         }
             return cell2;
         case COMMENTLIST_SECTION:
@@ -427,7 +572,7 @@
                     [submitReply setTitle:@"Submit" forState:UIControlStateNormal];
                     [submitReply.titleLabel setFont:[UIFont fontWithName:@"Gill Sans" size:12]];
                     [submitReply.titleLabel setTextAlignment:NSTextAlignmentRight];
-                    [submitReply addTarget:self.viewController action:@selector(submitComment:) forControlEvents:UIControlEventTouchUpInside];
+                    [submitReply addTarget:self.viewController action:@selector(submitCommentTapped:) forControlEvents:UIControlEventTouchUpInside];
                     
                     
                 
