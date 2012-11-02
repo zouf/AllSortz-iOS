@@ -15,14 +15,14 @@
     if (!(self = [super init]) || ![[aJSONObject objectForKey:@"success"] boolValue])
         return nil;
     self.allTypes = [aJSONObject objectForKey:@"result"];
-    
+    self.selectedTypes = [[NSMutableDictionary alloc]init];
     return self;
 }
 
 - (NSDictionary *) serializeToDictionary
 {
     NSError * error;
-    NSData *jsonData =  [NSJSONSerialization dataWithJSONObject:self.selectedTypes options:NSJSONWritingPrettyPrinted error:&error];
+    NSData *jsonData =  [NSJSONSerialization dataWithJSONObject:[self.selectedTypes allKeys] options:NSJSONWritingPrettyPrinted error:&error];
     NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
     
     NSDictionary * dict= [NSDictionary dictionaryWithObjectsAndKeys:

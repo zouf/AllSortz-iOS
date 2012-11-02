@@ -41,7 +41,14 @@
 @implementation ASMapViewController
 @synthesize mv;
 
-
+-(IBAction)addBusinessTapped:(id)sender
+{
+    
+    ASAddBusinessViewController *vc = (ASAddBusinessViewController*)[self.storyboard instantiateViewControllerWithIdentifier:@"AddBusinessViewID"];
+    [vc setHidesBottomBarWhenPushed:YES];
+    [self.navigationController  pushViewController:vc animated:YES];
+    
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -79,7 +86,7 @@
     
     
     UIImage *addBusinessImage = [UIImage imageNamed:@"05-plus.png"];
-    UIBarButtonItem *addBusiness = [[UIBarButtonItem alloc] initWithImage:addBusinessImage landscapeImagePhone:addBusinessImage  style:UIBarButtonItemStyleBordered target:self action:@selector(tapButton:)];
+    UIBarButtonItem *addBusiness = [[UIBarButtonItem alloc] initWithImage:addBusinessImage landscapeImagePhone:addBusinessImage  style:UIBarButtonItemStyleBordered target:self action:@selector(addBusinessTapped:)];
     
     item.rightBarButtonItems = [NSArray arrayWithObjects:addBusiness,bookmarks,searchBarButtonItem, nil];
     

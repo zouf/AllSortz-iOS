@@ -53,11 +53,12 @@
                                   context:NULL];
 }
 
--(void)viewDidUnload
+-(void)viewDidDisappear:(BOOL)animated
 {
-    [super viewDidUnload];
+    [super viewDidDisappear:animated];
     [self.addBusinessDataController removeObserver:self forKeyPath:@"business"];
 }
+
 
 
 - (void)viewWillAppear:(BOOL)animated
@@ -101,10 +102,23 @@
         NSString *CellIdentifier = @"TypeCell";
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
         UILabel *label =(UILabel *)[cell viewWithTag:LABEL_VIEW];
-        label.text = [[self.addBusinessDataController.business.allTypes objectAtIndex:indexPath.row] objectForKey:@"typeName"];
+        
+        id type = [self.addBusinessDataController.business.allTypes objectAtIndex:indexPath.row];
+        
+        
+        if([[self.addBusinessDataController.business.selectedTypes objectForKey:[type objectForKey:@"typeName"] ] boolValue])
+        {
+            cell.accessoryType = UITableViewCellAccessoryCheckmark;
+        }
+        else
+        {
+            cell.accessoryType = UITableViewCellAccessoryNone;
+        }
+        
+        label.text = [type objectForKey:@"typeName"];
         
         UIImageView *imageView =(UIImageView*)[cell viewWithTag:IMAGE_VIEW];
-        imageView.image = [UIImage imageNamed: [[self.addBusinessDataController.business.allTypes objectAtIndex:indexPath.row] objectForKey:@"typeIcon"]];
+        imageView.image = [UIImage imageNamed: [type objectForKey:@"typeIcon"]];
         imageView.backgroundColor = [UIColor lightGrayColor];
         return cell;
     }
@@ -148,6 +162,25 @@
     return 45;
 }
 
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.section != 1)
+        return;
+    id type = [self.addBusinessDataController.business.allTypes objectAtIndex:indexPath.row];
+    [self.addBusinessDataController.business.selectedTypes setValue:[NSNumber numberWithBool:YES] forKey:[type valueForKey:@"typeName"]];
+    
+    UITableViewCell * cell = [tableView cellForRowAtIndexPath:indexPath];
+    cell.accessoryType = UITableViewCellAccessoryCheckmark;
+}
+
+-(void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    id type = [self.addBusinessDataController.business.allTypes objectAtIndex:indexPath.row];
+    [self.addBusinessDataController.business.selectedTypes setValue:[NSNumber numberWithBool:NO] forKey:[type valueForKey:@"typeName"]];
+    
+    UITableViewCell * cell = [tableView cellForRowAtIndexPath:indexPath];
+    cell.accessoryType = UITableViewCellAccessoryNone;
+}
 
 #pragma mark - Key value observing
 - (void)observeValueForKeyPath:(NSString *)keyPath
@@ -167,17 +200,16 @@
 
 - (IBAction)add:(id)sender {
     
-    NSMutableArray *lTypes =[[NSMutableArray alloc]init];
+   /* NSMutableDictionary *lTypes =[[NSMutableDictionary alloc]init];
     for (NSInteger i = 0; i < [self.tableView numberOfRowsInSection:1]; ++i)
     {
         UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:1]];
-        if ([cell isSelected])
+        if ([])
         {
             NSDictionary *typeEntry =  [self.addBusinessDataController.business.allTypes objectAtIndex:i];
             [lTypes addObject:[typeEntry objectForKey:@"typeName" ]];
-
         }
-    }
+    }*/
     
     ASAddBusiness *business = self.addBusinessDataController.business;
 
@@ -196,14 +228,15 @@
     business.businessURL = urlField.text;
     business.businessPhone = phoneField.text;
     business.businessState = stateField.text;
-    business.selectedTypes = lTypes;
+
     business.businessPhotoURL = photoURL.text;
 
     
     
     [self.addBusinessDataController uploadData];
+    [self.navigationController popViewControllerAnimated:YES];
     
-    [self.delegate newASAddBusinessViewController:self didCreateNewBusiness:self.addBusinessDataController.business];
+    //    [self.delegate newASAddBusinessViewController:self didCreateNewBusiness:self.addBusinessDataController.business];
 }
 
 - (IBAction)cancel:(id)sender {

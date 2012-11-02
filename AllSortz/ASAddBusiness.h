@@ -17,7 +17,7 @@
 @property(nonatomic, retain) NSString *businessURL;
 @property(nonatomic, retain) NSString *businessPhotoURL;
 
-@property(nonatomic, retain) NSArray *selectedTypes;
+@property(nonatomic, retain) NSMutableDictionary *selectedTypes;
 @property(nonatomic, retain) NSArray *allTypes;
 
 - (id)initWithJSONObject:(NSDictionary *)aJSONObject;
