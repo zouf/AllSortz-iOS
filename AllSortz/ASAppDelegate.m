@@ -20,7 +20,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    [TestFlight takeOff:@"5af67420b5ca952f5357339fec274517_NjM2MTg4MjAxMi0wOS0xOSAxNTo1Nzo1MS45ODAxOTU"];
+    [TestFlight takeOff:@"cb592ed379f3f8a7e6757b36f11dcee2_MTMzOTk2MjAxMi0wOS0xOSAxNjowMDoxOS4wOTU4Nzk"];
     self.mainTabNavController = (UITabBarController *)_window.rootViewController;
     self.mainTabNavController.delegate = self;
     [self.mainTabNavController setHidesBottomBarWhenPushed:YES];
@@ -57,13 +57,9 @@
 
 - (void)tabBarController:(UITabBarController *)tabBarController
  didSelectViewController:(UIViewController *)viewController {
-    NSLog(@"[%@ tabBarController:%@  didSelectViewController:%@]", [self class],
-          tabBarController, viewController);
-   // if (viewController == self.mainTabNavController)
-    {
-        NSLog(@"viewController == tab1NavController");
-        [viewController.navigationController popToRootViewControllerAnimated:NO];
-    }
+
+    //[viewController.navigationController popToRootViewControllerAnimated:NO];
+
 }
 
 

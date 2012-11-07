@@ -10,14 +10,87 @@
 #import <MapKit/MapKit.h>
 
 
+@implementation ASZQuery
+
+- (id)initWithJSONObject:(NSDictionary *)aJSONObject
+{
+    if (!(self = [super init]) || ![[aJSONObject objectForKey:@"success"] boolValue])
+        return nil;
+    NSDictionary * results = [aJSONObject objectForKey:@"result"];
+    _allSorts = [results objectForKey:@"topics"];
+    _allTypes = [results objectForKey:@"types"];
+    return self;
+}
+
+
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{    // Return the number of sections.
+    
+    // Use a third section for the 'topics' if you want to filter by topics that have given ratings
+    return 2;
+}
+
+
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    // Return the number of rows in the section.
+    if (section == 0)
+    {
+        return 1;
+    }
+    else
+    {
+        int ct = [self.allTypes count];
+        return ct;
+    }
+    // to include topics
+    /* else
+     {
+     int ct = [self.allSorts count];
+     return ct;
+     
+     }*/
+    return 0;
+}
+
+- (NSDictionary *) serializeToDictionary
+{
+    NSError * error;
+    NSString *typeString = @"";
+    if (self.selectedTypes.count > 0)
+    {
+        NSData *typeData =  [NSJSONSerialization dataWithJSONObject:self.selectedTypes options:NSJSONWritingPrettyPrinted error:&error];
+        typeString = [[NSString alloc] initWithData:typeData encoding:NSUTF8StringEncoding];
+    }
+    
+    NSString *sortString = @"";
+    if (self.selectedSorts.count > 0)
+    {
+        NSData *sortData =  [NSJSONSerialization dataWithJSONObject:self.selectedSorts options:NSJSONWritingPrettyPrinted error:&error];
+        sortString = [[NSString alloc] initWithData:sortData encoding:NSUTF8StringEncoding];
+        
+    }
+    
+    
+    NSDictionary * dict= [NSDictionary dictionaryWithObjectsAndKeys:
+                          self.distanceWeight, @"dw",
+                          typeString, @"selectedTypes",
+                          sortString, @"selectedSorts",
+                          self.searchText ,@"searchText",
+                          self.searchLocation ,@"searchLocation",nil];
+    
+    return dict;
+}
+
+@end
+
 @interface ASBusinessListDataController ()
 
 @property (strong, readwrite) ASBusinessList *businessList;
-
 @property (strong) NSMutableData *receivedData;
- 
 @property(strong, atomic) NSLock* updateAfterLocationChange;
-
 @property(strong, atomic) NSLock* requestInProgress;
 
 
@@ -42,6 +115,8 @@
 - (BOOL)updateData
 {
     // pass to query update if necessary
+    
+    //TODO SEARCH QUERY REFACTOR
     if (self.searchQuery != nil)
         return [self updateWithQuery];
     
@@ -120,7 +195,6 @@
     NSURLConnection *connection = [NSURLConnection connectionWithRequest:request delegate:self];
     if (!connection) {
         // TODO: Some proper failure handling maybe
-        NSLog(@"Error\n");
         return NO;
     }
     self.receivedData = [NSMutableData data];
@@ -163,7 +237,6 @@
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
 {
-    NSLog(@"ERROR %@\n",error);
     self.receivedData = nil;
 }
 
@@ -186,18 +259,21 @@
 
 #pragma mark - Receive query info
 
--(void)waitOnQueryResponse:(ASQuery *)query{
-    self.searchQuery = [[ASQuery alloc]init];
+
+-(void)waitOnQueryResponse:(ASZQuery *)query{
+    
+    //TODO REFACTOR TO INCLUDE A NEW VERSION OF ASQUERY
+    self.searchQuery = [[ASZQuery alloc]init];
     self.searchQuery.goneToServer = NO;
     self.searchQuery.searchLocation = [query.searchLocation copy];
     self.searchQuery.searchText = [query.searchText copy];
     self.searchQuery.selectedTypes = [query.selectedTypes copy];
     self.searchQuery.distanceWeight = [query.distanceWeight copy];
-    
     [self setUpdateAList:YES];
     [self updateData];
 
 }
+ 
 
 -(BOOL)performUpdate
 {

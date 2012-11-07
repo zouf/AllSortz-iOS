@@ -8,8 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <MapKit/MapKit.h>
-#import "ASListing.h"
-
+#import "ASBusinessList.h"
 
 @interface ASMapPoint : NSObject <MKAnnotation>{
 	CLLocationCoordinate2D coordinate;
@@ -29,7 +28,7 @@
 @property(nonatomic,retain) NSString *subtitle;
 
 // a reference to the businesss this mappoint refers to
-@property(nonatomic,strong) ASListing *business;
+@property(nonatomic,strong) ASBusiness *business;
 
 @property (nonatomic) float score;
 

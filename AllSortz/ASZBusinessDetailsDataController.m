@@ -128,6 +128,29 @@
     
 }
 
+
+- (void)getAllReviews:(NSUInteger)busID
+{
+    //get a base review for the business with ID
+    // need a list of topics (and maybe what topics are already assoc. with busines)
+    // might include text you've already written
+    
+    NSString *address = [NSString stringWithFormat:@"http://allsortz.com/api/business/reviews/%lu/?uname=%@&password=%@&lat=%f&lon=%f&deviceID=%@", (unsigned long)busID, self.username, self.password, self.currentLatitude, self.currentLongitude, self.UUID];
+    NSLog(@"Get all the reviews for this business with query %@",address);
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:address]];
+    void (^handler)(NSURLResponse *, NSData *, NSError *) = ^(NSURLResponse *response, NSData *data, NSError *error) {
+        NSDictionary *JSONresponse = [NSJSONSerialization JSONObjectWithData:data options:0 error:NULL];
+        self.reviewList = [ASZCommentList commentListFromJSONResult:JSONresponse[@"result"] businessID:busID];
+        
+    };
+    
+    if (!self.queue)
+        self.queue = [[NSOperationQueue alloc] init];
+    [NSURLConnection sendAsynchronousRequest:request queue:self.queue completionHandler:handler];
+    
+    return;
+}
+
 -(void)getAllTopics
 {
     NSString *address = [NSString stringWithFormat:@"http://allsortz.com/api/all_topics/?uname=%@&password=%@&lat=%f&lon=%f&deviceID=%@", self.username, self.password, self.currentLatitude, self.currentLongitude, self.UUID];
@@ -180,40 +203,8 @@
     [NSURLConnection sendAsynchronousRequest:request queue:self.queue completionHandler:handler];
 }
 
-- (ASZCommentList *)commentListFromJSONResult:(NSDictionary *)result
-{
-    ASZCommentList *reviewList = [[ASZCommentList alloc] initWithID:self.business.ID];
-    if (!reviewList)
-        return nil;
-    
-    
-    reviewList.comments = [NSArray arrayWithArray:result[@"reviews"]];
-    
-    return reviewList;
-    
-}
 
-- (void)getAllReviews:(NSUInteger)busID
-{
-    //get a base review for the business with ID
-    // need a list of topics (and maybe what topics are already assoc. with busines)
-    // might include text you've already written
-    
-    NSString *address = [NSString stringWithFormat:@"http://allsortz.com/api/business/reviews/%lu/?uname=%@&password=%@&lat=%f&lon=%f&deviceID=%@", (unsigned long)busID, self.username, self.password, self.currentLatitude, self.currentLongitude, self.UUID];
-    NSLog(@"Get all the reviews for this business with query %@",address);
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:address]];
-    void (^handler)(NSURLResponse *, NSData *, NSError *) = ^(NSURLResponse *response, NSData *data, NSError *error) {
-        NSDictionary *JSONresponse = [NSJSONSerialization JSONObjectWithData:data options:0 error:NULL];
-        self.reviewList = [self commentListFromJSONResult:JSONresponse[@"result"]];
-        
-    };
-    
-    if (!self.queue)
-        self.queue = [[NSOperationQueue alloc] init];
-    [NSURLConnection sendAsynchronousRequest:request queue:self.queue completionHandler:handler];
-    
-    return;
-}
+
 
 - (ASBusiness *)businessFromJSONResult:(NSDictionary *)result
 {
@@ -335,8 +326,6 @@
         [self.viewController.navigationController  pushViewController:vc animated:YES];
 
 }
-
-
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {

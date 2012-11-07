@@ -27,9 +27,9 @@
 
 
 
-- (void)viewDidAppear:(BOOL)animated
+- (void)viewDidLoad
 {
-    [super viewDidAppear:animated];
+    [super viewDidLoad];
     
     
     self.title = @"Socialize!";
@@ -49,7 +49,10 @@
 -(void)viewDidDisappear:(BOOL)animated
 {
     [super viewDidDisappear:animated];
-    [self.friendListDataController removeObserver:self forKeyPath:@"friendList"];
+    
+    //XXX figure out assertion failure when this is uncommented
+    //TODO
+  //  [self.friendListDataController removeObserver:self forKeyPath:@"friendList"];
 }
 
 - (IBAction)goOutTapped:(id)sender {

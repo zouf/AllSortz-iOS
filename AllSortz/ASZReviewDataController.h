@@ -22,4 +22,6 @@
 - (void)submitReviewWithTopics:(NSArray*)topics;
 - (void)submitComment;
 
+//get all discussions (comments, reviews, etc)
+
 @end

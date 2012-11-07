@@ -11,7 +11,7 @@
 @implementation ASZFriendList
 -(ASZFriendList*)initWithJSON:(NSDictionary*)result delegateForUserProfilePic:(id)delegate
 {
-    
+    self = [super init];
     self.users = [[NSMutableArray alloc]init];
     self.selectedUsers = [[NSMutableDictionary alloc]init];
     for(NSDictionary *d in [result valueForKey:@"users"])
@@ -20,7 +20,6 @@
         u.delegate = delegate;
         [self.users addObject:u];
         [self.selectedUsers setValue:NO forKey:u.userName];
-        NSLog(@"%@\n",[u description]);
     }
     
     return self;

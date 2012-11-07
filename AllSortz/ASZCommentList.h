@@ -51,5 +51,7 @@
 
 
 -(UITableViewCell*)getCommentCell;
++ (ASZCommentList *)commentListFromJSONResult:(NSDictionary *)result businessID:(NSInteger)busID;
+
 
 @end

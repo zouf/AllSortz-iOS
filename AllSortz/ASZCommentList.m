@@ -7,7 +7,6 @@
 //
 
 #import "ASZCommentList.h"
-#import "ASException.h"
 
 #ifndef CHECK_FOR_MULTI_ASSIGN
 #define CHECK_FOR_MULTI_ASSIGN(ivar) \
@@ -64,9 +63,28 @@ _ ## lower_name = lower_name; \
     
     
     return cell;
+    
+    
+    
 }
+
++ (ASZCommentList *)commentListFromJSONResult:(NSDictionary *)result businessID:(NSInteger)busID
+{
+    ASZCommentList *reviewList = [[ASZCommentList alloc] initWithID:busID];
+    if (!reviewList)
+        return nil;
+    
+    
+    reviewList.comments = [NSArray arrayWithArray:result[@"reviews"]];
+    
+    return reviewList;
+    
+}
+
+
+
+
 #pragma mark - Custom setters
-//SIMPLE_SETTER(reviewText, ReviewText, NSString *)
 
 
 

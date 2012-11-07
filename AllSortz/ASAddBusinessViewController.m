@@ -40,7 +40,8 @@
     
     [super viewDidLoad];
 
-    // Uncomment the following line to preserve selection between presentations.
+    self.title = @"Add a Business";
+    // Uncomment the following line to pr;eserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
  
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
@@ -117,9 +118,34 @@
         
         label.text = [type objectForKey:@"typeName"];
         
-        UIImageView *imageView =(UIImageView*)[cell viewWithTag:IMAGE_VIEW];
-        imageView.image = [UIImage imageNamed: [type objectForKey:@"typeIcon"]];
-        imageView.backgroundColor = [UIColor lightGrayColor];
+        UIImageView *imageView =(UIImageView*)[cell.contentView viewWithTag:IMAGE_VIEW];
+        
+        if(!imageView)
+        {
+            UIImageView *imageView = [[UIImageView alloc]  init];
+            imageView.tag = IMAGE_VIEW;
+            [cell.contentView addSubview:imageView];
+
+            
+        }
+        
+      
+        
+        if ([[type objectForKey:@"typeIcon"] isEqualToString:@"none.png"])
+        {
+            UIImage *img = [UIImage imageNamed:@"48-fork-and-knife.png"];
+            imageView.image = img;
+            imageView.frame = CGRectMake(10,10,img.size.width,img.size.height);
+            imageView.backgroundColor = [UIColor whiteColor];
+        }
+        else
+        {
+            UIImage *img = [UIImage imageNamed: [type objectForKey:@"typeIcon"]];
+            imageView.image = img;
+            imageView.frame = CGRectMake(5,5,img.size.width,img.size.height);
+            imageView.backgroundColor = [UIColor lightGrayColor];
+
+        }
         return cell;
     }
     // Configure the cell...
@@ -139,13 +165,13 @@
 	NSString *sectionHeader = nil;
 	
 	if(section == 0) {
-		sectionHeader = @"Business Info";
+		sectionHeader = @"Basic info";
 	}
 	if(section == 1) {
-		sectionHeader = @"Business Type";
+		sectionHeader = @"What kind of food?";
 	}
     label.text = sectionHeader;
-    label.font = [UIFont boldSystemFontOfSize:16.0];
+    label.font = [UIFont fontWithName:@"Gill Sans:" size:14];
     label.textAlignment=NSTextAlignmentCenter;
 
     label.backgroundColor = [UIColor clearColor];

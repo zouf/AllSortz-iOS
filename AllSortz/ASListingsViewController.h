@@ -6,11 +6,10 @@
 //  Copyright (c) 2012 AllSortz, Inc. All rights reserved.
 //
 
-#import "ASIconDownloader.h"
 #import "ASAddBusinessViewController.h"
 #import "ASBusinessListDataController.h"
-#import "ASActivityWaitingViewController.h"
 #import "ASMapViewController.h"
+#import "ASBusinessList.h"
 
 #define NUM_TYPE_ICONS 6
 #define ACTIVITY_WAITING_VIEW 800

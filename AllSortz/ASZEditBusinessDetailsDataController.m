@@ -130,7 +130,6 @@
          @"rating": [category valueForKey:@"bustopicRating"],
          @"summary": [category valueForKey:@"bustopicContent"]}];
         
-        NSLog(@"%@\n",category);
         
         // Don't want a mutable dictionary in there
         [topics addObject:[NSDictionary dictionaryWithDictionary:topic]];

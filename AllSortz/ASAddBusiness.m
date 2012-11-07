@@ -32,7 +32,6 @@
                             self.businessURL ,@"businessURL",
                             self.businessCity, @"businessCity",
                           self.businessPhotoURL, @"photoURL",
-
                          jsonString, @"selectedTypes",
                             self.businessState ,@"businessState",nil];
     

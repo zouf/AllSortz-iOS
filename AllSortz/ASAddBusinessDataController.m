@@ -46,7 +46,7 @@ static NSString * const FORM_FLE_INPUT = @"uploaded";
         // TODO: Some proper failure handling maybe
         return NO;
     }
-    NSLog(@"Running update data\n");
+    NSLog(@"Running update data with in add business with %@\n",address);
     self.receivedData = [NSMutableData data];
     
     return YES;

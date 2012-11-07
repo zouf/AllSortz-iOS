@@ -12,7 +12,6 @@
 #import "ASBusinessListDataController.h"
 #import "ASBusinessList.h"
 #import "ASMapPoint.h"
-#import "ASSortViewController.h"
 #import "ASListingsViewController.h"
 #import "ASMapAnnotation.h"
 

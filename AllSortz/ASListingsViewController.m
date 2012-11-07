@@ -9,9 +9,6 @@
 #import "ASListingsViewController.h"
 #import "ASBusinessListDataController.h"
 #import "ASRateView.h"
-#import "ASIconDownloader.h"
-#import "ASListing.h"
-#import "ASQuery.h"
 #import "ASAddBusinessViewController.h"
 #import "ASZBusinessDetailsViewController.h"
 #import "ASZBusinessDetailsDataController.h"
@@ -124,7 +121,7 @@
     NSString *targetViewControllerIdentifier = @"ShowBusinessDetails2";
     ASZBusinessDetailsBaseViewController *vc = (ASZBusinessDetailsBaseViewController*)[self.storyboard instantiateViewControllerWithIdentifier:targetViewControllerIdentifier];
     
-    ASListing *listing = [self.listingsTableDataController.businessList.entries  objectAtIndex:indexPath.row];
+    ASBusiness *listing = [self.listingsTableDataController.businessList.entries  objectAtIndex:indexPath.row];
     [vc setBusinessID:listing.ID];
     
     
@@ -145,7 +142,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return CELL_HEIGHT;
+    return 47;
 }
 
 
@@ -186,16 +183,16 @@
     if (nodeCount > 0)
 	{
         // Set up the cell...
-        ASListing *listing = [self.listingsTableDataController.businessList.entries  objectAtIndex:indexPath.row];
+        ASBusiness *listing = [self.listingsTableDataController.businessList.entries  objectAtIndex:indexPath.row];
         
         UILabel *busName = (UILabel *)[cell viewWithTag:BUSINESS_NAME];
-        busName.text = listing.businessName;
+        busName.text = listing.name;
         
         UILabel *distanceLabel = (UILabel *)[cell viewWithTag:DISTANCE_VIEW];
-        distanceLabel.text = [listing.businessDistance  stringByAppendingString:@"mi."];
-
+        distanceLabel.text = [NSString stringWithFormat:@"%.2fmi.",[listing.distance floatValue]];
+        
         UILabel *priceLabel = (UILabel *)[cell viewWithTag:PRICE_VIEW];
-        priceLabel.text = [NSString stringWithFormat:@"$%@", listing.averagePrice] ;
+        priceLabel.text = [NSString stringWithFormat:@"$%@", listing.avgPrice] ;
 
        /* for (int i =0  ; i < NUM_TYPE_ICONS; i++ )
         {
@@ -246,7 +243,7 @@
         
         
         // Only load cached images; defer new downloads until scrolling ends
-        if (!listing.businessPhoto)
+        if (!listing.image)
         {
             if (tableView.dragging == NO && tableView.decelerating == NO)
             {
@@ -258,7 +255,7 @@
         else
         {
             imageView.contentMode = UIViewContentModeScaleToFill;
-            imageView.image = listing.businessPhoto;
+            imageView.image = listing.image;
         }
         
     }
@@ -269,7 +266,7 @@
 
 
 #pragma mark - Load Icons
-- (void)startIconDownload:(ASListing *)listing forIndexPath:(NSIndexPath *)indexPath
+- (void)startIconDownload:(ASBusiness *)listing forIndexPath:(NSIndexPath *)indexPath
 {
     ASIconDownloader *iconDownloader = [self.imageDownloadsInProgress objectForKey:indexPath];
     if (iconDownloader == nil)
@@ -296,9 +293,9 @@
             //exclude last row
             if (indexPath.row >= [self.listingsTableDataController.businessList.entries count])
                 continue;
-            ASListing *listing = [self.listingsTableDataController.businessList.entries objectAtIndex:indexPath.row];
+            ASBusiness *listing = [self.listingsTableDataController.businessList.entries objectAtIndex:indexPath.row];
             
-            if (!listing.businessPhoto) // avoid the app icon download if the app already has an icon
+            if (!listing.image) // avoid the app icon download if the app already has an icon
             {
                 [self startIconDownload:listing forIndexPath:indexPath];
             }
@@ -318,7 +315,7 @@
         UIImageView *imageView = (UIImageView*)[cell viewWithTag:IMAGE_VIEW];
         
                 // Display the newly loaded image
-        imageView.image = iconDownloader.listing.businessPhoto;
+        imageView.image = iconDownloader.listing.image;
     
         [self.tableView reloadData];
     }
@@ -424,12 +421,7 @@
     
     UIViewController* vc = (UIViewController*)destinationViewController;
     [vc setHidesBottomBarWhenPushed:YES];
-    
-    if ([segue.identifier isEqualToString:@"NewSort"]) {
-        UINavigationController *nv = destinationViewController;
-        ASSortViewController *nsvc = (ASSortViewController *)nv.topViewController;
-        nsvc.delegate = self.listingsTableDataController;
-    }
+
 
     if ([segue.identifier isEqualToString:@"AddBusiness"]) {
         UINavigationController *nv = destinationViewController;

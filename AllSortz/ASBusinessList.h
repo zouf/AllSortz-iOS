@@ -5,8 +5,7 @@
 //  Created by Lawrence Velázquez on 7/29/12.
 //  Copyright (c) 2012 AllSortz, Inc. All rights reserved.
 //
-
-#import "ASIconDownloader.h"
+#import "ASBusiness.h"
 
 #define IMAGE_VIEW 102
 #define RATING_VIEW 100
@@ -15,7 +14,38 @@
 #define PRICE_VIEW 107
 #define RATE_VIEW 696
 
-#define CELL_HEIGHT 47
+
+
+
+@class ASBusinessList;
+@class ASBusiness;
+
+@class ASListingsViewController;
+
+@protocol ASIconDownloaderDelegate;
+
+@interface ASIconDownloader : NSObject
+
+@property (nonatomic, retain) ASBusiness *listing;
+@property (nonatomic, retain) NSIndexPath *indexPathInTableView;
+@property (nonatomic, strong) id <ASIconDownloaderDelegate> delegate;
+
+@property (nonatomic, retain) NSMutableData *activeDownload;
+@property (nonatomic, retain) NSURLConnection *imageConnection;
+
+- (void)startDownload;
+- (void)cancelDownload;
+
+@end
+
+@protocol ASIconDownloaderDelegate
+
+- (void)imageDidLoad:(NSIndexPath *)indexPath;
+
+
+@end
+
+
 
 @interface ASBusinessList : NSObject <UITableViewDataSource>
 {

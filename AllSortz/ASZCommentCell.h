@@ -21,19 +21,17 @@
 @class ASZTriangleAnnotation;
 
 @interface ASZCommentCell : UITableViewCell {
-    CGFloat height;
     ASZTriangleAnnotation *arrow;
-    ASZCommentNode * node;
+    id  delegate;
+    ASZCommentNode *node;
     
-    int level;
-    BOOL expanded;
 }
 
 @property (nonatomic, retain) ASZTriangleAnnotation *arrow;
-@property (nonatomic) int level;
 @property (nonatomic) BOOL expanded;
 @property(nonatomic,retain)ASZCommentNode* node;
-@property (nonatomic) CGFloat height;
+@property(nonatomic,retain) id delegate;
+
 
 -(CGFloat)getCommentWidth: (ASZCommentCell*)cell;
 
@@ -45,9 +43,8 @@
 
 - (id)initWithStyle:(UITableViewCellStyle)style
     reuseIdentifier:(NSString *)reuseIdentifier
-              level:(NSUInteger)_level
-           expanded:(BOOL)_expanded
-           height:(CGFloat)cellHeight;
-
+           treeNode:(ASZCommentNode*)treeNode
+       busTopicInfo:(NSString*)proposedChange
+           delegate:(id)theDelegate;
 
 @end

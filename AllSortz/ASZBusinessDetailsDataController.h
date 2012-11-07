@@ -45,8 +45,8 @@ typedef enum ASZBusinessDetailsInfoRow : NSInteger {
 -(void)rateBusinessTopicAsynchronously:(NSUInteger)btID withRating:(CGFloat)rating;
 -(void)rateCommentAsynchronously:(NSUInteger)cID withRating:(NSInteger)rating;
 -(void)addBusinessTopicAsynchronously:(NSUInteger)busID withTopic:(NSInteger)topicID;
-- (void)getAllReviews:(NSUInteger)busID;
 
 -(void)getAllTopics;
+- (void)getAllReviews:(NSUInteger)busID;
 
 @end

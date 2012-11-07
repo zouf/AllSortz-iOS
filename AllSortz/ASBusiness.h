@@ -50,6 +50,17 @@
 //The average rating for the business 
 @property (nonatomic) NSNumber *avgRating;
 
+//The average price for the business
+@property (nonatomic) NSNumber *avgPrice;
+
+//The average price for the business
+@property (nonatomic, strong) NSString * imageURLString;
+
+
+// Whether the business is starred on teh map
+@property (assign) BOOL starred;
+
+
 //array of types associated with business
 @property (nonatomic) NSArray *types;
 

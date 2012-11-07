@@ -49,6 +49,21 @@
     [self.navigationController  pushViewController:vc animated:YES];
     
 }
+-(IBAction)tapBookmarks:(id)sender
+{
+    
+    UIAlertView *alert;
+  
+    alert = [[UIAlertView alloc] initWithTitle:@"Bookmarks"
+                                           message:@"Coming soon. A list of your favorite places to go, as well as recently visited places."
+                                          delegate:self
+                                 cancelButtonTitle:@"OK"
+                                 otherButtonTitles:nil];
+        [alert show];
+
+    return;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -63,15 +78,15 @@
     UIBarButtonItem *myLoc = [[UIBarButtonItem alloc] initWithImage:myLocButtonImage landscapeImagePhone:myLocButtonImage  style:UIBarButtonItemStyleBordered target:self action:@selector(goToMyLocation:)];
     
     
-    UIImage *directionImage = [UIImage imageNamed:@"40-forward.png"];
-    UIBarButtonItem *directions = [[UIBarButtonItem alloc] initWithImage:directionImage landscapeImagePhone:directionImage  style:UIBarButtonItemStyleBordered target:self action:@selector(tapButton:)];
+    /*UIImage *directionImage = [UIImage imageNamed:@"40-forward.png"];
+    UIBarButtonItem *directions = [[UIBarButtonItem alloc] initWithImage:directionImage landscapeImagePhone:directionImage  style:UIBarButtonItemStyleBordered target:self action:@selector(tapButton:)];*/
     
     UINavigationItem *item = [[UINavigationItem alloc] init];
-    item.leftBarButtonItems = [NSArray arrayWithObjects:myLoc,directions, nil];
+    item.leftBarButtonItems = [NSArray arrayWithObjects:myLoc, nil];
     
     
 
-    self.searchBar  = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, 130, 40)] ;
+    self.searchBar  = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, 170, 40)] ;
     self.searchBar.backgroundImage = [[UIImage alloc] init];
     self.searchBar.delegate = self;
 
@@ -82,7 +97,7 @@
     
     
     UIImage *bookmarkImage = [UIImage imageNamed:@"16-tag.png"];
-    UIBarButtonItem *bookmarks = [[UIBarButtonItem alloc] initWithImage:bookmarkImage landscapeImagePhone:bookmarkImage  style:UIBarButtonItemStyleBordered target:self action:@selector(tapButton:)];
+    UIBarButtonItem *bookmarks = [[UIBarButtonItem alloc] initWithImage:bookmarkImage landscapeImagePhone:bookmarkImage  style:UIBarButtonItemStyleBordered target:self action:@selector(tapBookmarks:)];
     
     
     UIImage *addBusinessImage = [UIImage imageNamed:@"05-plus.png"];
@@ -152,15 +167,7 @@
     [super viewDidAppear:animated];
 
 
-    //this should never be called. but, in case we get to a situation where there is no businessList, call update on the server
-    if (!self.listingsTableDataController.businessList)
-    {
-       // NSLog(@"Map view entered on latitude %f\n",self.mv.region.center.latitude);
-        [self.listingsTableDataController setRect:self.mv.region];
-        [self.listingsTableDataController setUpdateAList:NO];
-        [self.listingsTableDataController updateData];
-        
-    }
+
     
     // fit to the elements on the map
     //[self zoomToFitMapAnnotations:self.mv];
@@ -382,12 +389,12 @@
     
     
     // Fetch image asynchronously
-    if (!annotation.business.businessPhoto)
+    if (!annotation.business.image)
     {
         NSURLRequest *imageRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:annotation.business.imageURLString]];
         void (^imageHandler)(NSURLResponse *, NSData *, NSError *) = ^(NSURLResponse *response, NSData *data, NSError *error) {
-            annotation.business.businessPhoto = [UIImage imageWithData:data];
-            UIImageView *myImageView = [[UIImageView alloc] initWithImage:annotation.business.businessPhoto];
+            annotation.business.image = [UIImage imageWithData:data];
+            UIImageView *myImageView = [[UIImageView alloc] initWithImage:annotation.business.image];
             myImageView.frame = CGRectMake(0,0,34,34); // Change the size of the image to fit the callout
             pinView.leftCalloutAccessoryView = myImageView;
         };
@@ -398,7 +405,7 @@
     }
     else
     {
-        UIImageView *myImageView = [[UIImageView alloc] initWithImage:annotation.business.businessPhoto];
+        UIImageView *myImageView = [[UIImageView alloc] initWithImage:annotation.business.image];
         myImageView.frame = CGRectMake(0,0,34,34); // Change the size of the image to fit the callout
         pinView.leftCalloutAccessoryView = myImageView;
 
@@ -508,15 +515,15 @@
     
     
     
-    for (ASListing *bus in self.listingsTableDataController.businessList.entries)
+    for (ASBusiness *bus in self.listingsTableDataController.businessList.entries)
     {
         CLLocationCoordinate2D annotationCenter;
-        annotationCenter.latitude = bus.latitude;
-        annotationCenter.longitude = bus.longitude;
+        annotationCenter.latitude = bus.lat;
+        annotationCenter.longitude = bus.lng;
         NSString *scoreText = [NSString stringWithFormat:@"%0.0f of %d stars.",roundf(bus.recommendation*MAX_RATING),MAX_RATING];
         
         
-        ASMapPoint *mp = [[ASMapPoint alloc] initWithCoordinate:annotationCenter withScore:bus.recommendation withTag:bus.ID withTitle:bus.businessName withSubtitle:scoreText];
+        ASMapPoint *mp = [[ASMapPoint alloc] initWithCoordinate:annotationCenter withScore:bus.recommendation withTag:bus.ID withTitle:bus.name withSubtitle:scoreText];
         
   
         
@@ -586,7 +593,7 @@
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
-    ASQuery *newQ = [[ASQuery alloc] init];
+    ASZQuery *newQ = [[ASZQuery alloc] init];
     newQ.distanceWeight = [NSString stringWithFormat:@"0"];
     newQ.searchText =  searchBar.text;
     [self.listingsTableDataController setSearchQuery:newQ];

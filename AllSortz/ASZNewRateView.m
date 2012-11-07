@@ -71,7 +71,6 @@
         [v removeFromSuperview];
     }
     
-    NSLog(@"The rating is %d\n",rating);
     for(int i = 0; i < rating; i++)
     {
         ASZStarAnnotation * newView;
@@ -88,7 +87,6 @@
         [self.views addObject:newView];
     }
     
-    NSLog(@"the number of stars is %d\n", self.subviews.count);
     
 }
 @end

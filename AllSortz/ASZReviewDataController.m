@@ -10,7 +10,7 @@
 #import "ASZReviewViewController.h"
 #import "ASURLEncoding.h"
 #import "ASZReview.h"
-
+#import "ASZCommentList.h"
 #define TOPICLABEL_TAG 200
 #define TEXTVIEW_TAG 201
 
