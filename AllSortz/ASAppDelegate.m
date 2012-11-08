@@ -25,6 +25,12 @@
     self.mainTabNavController.delegate = self;
     [self.mainTabNavController setHidesBottomBarWhenPushed:YES];
 
+    
+    
+    // set global states here
+    [[UINavigationBar appearance] setTintColor:AS_DARK_BLUE];
+
+    
     return YES;
 }
 							
@@ -58,7 +64,6 @@
 - (void)tabBarController:(UITabBarController *)tabBarController
  didSelectViewController:(UIViewController *)viewController {
 
-    //[viewController.navigationController popToRootViewControllerAnimated:NO];
 
 }
 

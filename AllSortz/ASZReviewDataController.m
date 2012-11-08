@@ -8,7 +8,7 @@
 
 #import "ASZReviewDataController.h"
 #import "ASZReviewViewController.h"
-#import "ASURLEncoding.h"
+#import "ASGlobal.h"
 #import "ASZReview.h"
 #import "ASZCommentList.h"
 #define TOPICLABEL_TAG 200

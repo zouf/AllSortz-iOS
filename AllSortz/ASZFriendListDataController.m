@@ -8,7 +8,7 @@
 
 #import "ASZFriendListDataController.h"
 #import "ASZFriendList.h"
-#import "ASDeviceInterface.h"
+#import "ASDeviceInterfaceSingleton.h"
 #import "ASZFriendListViewController.h"
 
 @interface ASZFriendListDataController ()
@@ -22,7 +22,7 @@
 - (id)init {
     self = [super init];
     if (self) {
-        self.deviceInterface = [[ASDeviceInterface alloc] init];
+        self.deviceInterface = [ASDeviceInterfaceSingleton sharedDeviceInterface];
         [self.deviceInterface.locationManager startUpdatingLocation];
         self.deviceInterface.delegate = self;
     }

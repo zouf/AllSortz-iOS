@@ -17,7 +17,7 @@
 @end
 
 
-@interface ASDeviceInterface : NSObject <CLLocationManagerDelegate>{
+@interface ASDeviceInterfaceSingleton : NSObject <CLLocationManagerDelegate>{
     CLLocationManager *locationManager;
 }
 
@@ -25,6 +25,7 @@
 
 
 @property (nonatomic, retain) CLLocationManager *locationManager;
++ (ASDeviceInterfaceSingleton *) sharedDeviceInterface;
 
 -(NSString *)getDeviceUIUD;
 

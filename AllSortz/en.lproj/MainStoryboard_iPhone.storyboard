@@ -251,9 +251,6 @@
                                     <action selector="showCameraAction:" destination="B3y-jJ-sif" eventType="touchUpInside" id="2BR-mR-OVZ"/>
                                 </connections>
                             </button>
-                            <view alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ijZ-lj-o3R">
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                            </view>
                             <textField opaque="NO" clipsSubviews="YES" tag="801" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zTo-Dd-5rl">
                                 <constraints>
                                     <constraint firstAttribute="height" constant="31" id="xBr-kd-oCJ"/>
@@ -270,20 +267,16 @@
                         <constraints>
                             <constraint firstItem="j8R-vz-bzt" firstAttribute="centerX" secondItem="4fX-K5-tJe" secondAttribute="centerX" type="default" id="3Z8-ud-wW2"/>
                             <constraint firstItem="j8R-vz-bzt" firstAttribute="top" secondItem="7nF-EK-8Nw" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="7xI-8k-DV8"/>
-                            <constraint firstItem="ijZ-lj-o3R" firstAttribute="leading" secondItem="4fX-K5-tJe" secondAttribute="leading" constant="-1" id="8zK-dT-AP3"/>
                             <constraint firstItem="zTo-Dd-5rl" firstAttribute="trailing" secondItem="jik-2k-2g5" secondAttribute="trailing" type="default" id="9w8-05-Gm0"/>
                             <constraint firstItem="jik-2k-2g5" firstAttribute="leading" secondItem="4fX-K5-tJe" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="FHM-4c-dLt"/>
                             <constraint firstItem="nIQ-6x-ekQ" firstAttribute="top" secondItem="zTo-Dd-5rl" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="IEi-xI-MN8"/>
                             <constraint firstItem="nIQ-6x-ekQ" firstAttribute="leading" secondItem="4fX-K5-tJe" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="Ish-8F-p2P"/>
-                            <constraint firstItem="ijZ-lj-o3R" firstAttribute="top" secondItem="4fX-K5-tJe" secondAttribute="top" type="default" id="JMy-4i-13t"/>
                             <constraint firstItem="jik-2k-2g5" firstAttribute="top" secondItem="4fX-K5-tJe" secondAttribute="top" constant="20" symbolic="YES" type="default" id="Jco-Xb-CDm"/>
                             <constraint firstItem="zTo-Dd-5rl" firstAttribute="top" secondItem="jik-2k-2g5" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="QdA-Ne-VIr"/>
                             <constraint firstItem="7nF-EK-8Nw" firstAttribute="top" secondItem="4fX-K5-tJe" secondAttribute="top" constant="151" id="VJY-wX-pBi"/>
                             <constraint firstItem="zTo-Dd-5rl" firstAttribute="leading" secondItem="4fX-K5-tJe" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="VJg-TB-wEy"/>
                             <constraint firstItem="7nF-EK-8Nw" firstAttribute="leading" secondItem="4fX-K5-tJe" secondAttribute="leading" constant="97" id="gWt-2W-X4R"/>
-                            <constraint firstItem="ijZ-lj-o3R" firstAttribute="centerX" secondItem="7nF-EK-8Nw" secondAttribute="centerX" type="default" id="hbW-x6-pVG"/>
                             <constraint firstItem="nIQ-6x-ekQ" firstAttribute="trailing" secondItem="zTo-Dd-5rl" secondAttribute="trailing" type="default" id="o1Y-cv-6IX"/>
-                            <constraint firstAttribute="bottom" secondItem="ijZ-lj-o3R" secondAttribute="bottom" constant="-49" id="vaX-dN-dfT"/>
                         </constraints>
                         <connections>
                             <outlet property="delegate" destination="B3y-jJ-sif" id="Zef-0D-F44"/>
@@ -302,7 +295,6 @@
                         <outlet property="image" destination="7nF-EK-8Nw" id="3ng-ES-aiz"/>
                         <outlet property="imageView" destination="7nF-EK-8Nw" id="1eR-fo-oMn"/>
                         <outlet property="nameBox" destination="jik-2k-2g5" id="HKz-Ea-tfQ"/>
-                        <outlet property="overlayView" destination="ijZ-lj-o3R" id="jQK-Hs-vnL"/>
                         <outlet property="passwordBox" destination="nIQ-6x-ekQ" id="x6v-lD-TAb"/>
                     </connections>
                 </viewController>
@@ -356,7 +348,6 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
                         <outlet property="mv" destination="x1u-X7-Jyz" id="dJg-RD-kao"/>
-                        <outlet property="navItem" destination="7Kh-3t-nZc" id="Xoc-wz-TG1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8OY-Dk-DEl" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -453,7 +444,7 @@
                     <navigationItem key="navigationItem" id="u5g-UV-SSY">
                         <barButtonItem key="rightBarButtonItem" image="05-plus.png" id="Lgq-Np-KtY">
                             <connections>
-                                <action selector="addBusinessTopic:" destination="Gkl-sE-GoV" id="YAu-jc-PsY"/>
+                                <action selector="addBusinessTopic:" destination="Gkl-sE-GoV" id="nV1-pF-56X"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -474,7 +465,7 @@
                     </connections>
                 </customObject>
             </objects>
-            <point key="canvasLocation" x="43" y="-158"/>
+            <point key="canvasLocation" x="-439" y="-133"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="8VG-xu-eLW">
@@ -500,7 +491,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lWZ-5f-7Pz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="513" y="-156"/>
+            <point key="canvasLocation" x="197" y="-154"/>
         </scene>
         <!--Navigation Controller - Transact-->
         <scene sceneID="Cty-yM-9Zj">
@@ -803,7 +794,7 @@
                     </connections>
                 </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="62" y="-750"/>
+            <point key="canvasLocation" x="-360" y="-802"/>
         </scene>
         <!--Navigation Controller - Analyze-->
         <scene sceneID="Lfu-NF-Woc">
@@ -1349,12 +1340,12 @@
         <class className="ASMapViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/ASMapViewController.h"/>
             <relationships>
+                <relationship kind="action" name="addBusinessTapped:"/>
                 <relationship kind="action" name="goToMyLocation:"/>
-                <relationship kind="outlet" name="listViewController" candidateClass="ASListingsViewController"/>
+                <relationship kind="action" name="refreshTapped:"/>
+                <relationship kind="action" name="tapBookmarks:"/>
                 <relationship kind="outlet" name="listingsTableDataController" candidateClass="ASBusinessListDataController"/>
                 <relationship kind="outlet" name="mv" candidateClass="MKMapView"/>
-                <relationship kind="outlet" name="navBar" candidateClass="UINavigationBar"/>
-                <relationship kind="outlet" name="navItem" candidateClass="UINavigationItem"/>
             </relationships>
         </class>
         <class className="ASTopicBrowseDataController" superclassName="NSObject">
@@ -1392,6 +1383,16 @@
         <class className="ASZBusinessDetailsBaseViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/ASZBusinessDetailsBaseViewController.h"/>
             <relationships>
+                <relationship kind="action" name="addBusinessTopic:"/>
+                <relationship kind="action" name="addBusinessTopicDone:"/>
+                <relationship kind="action" name="busTopicNegRateTap:"/>
+                <relationship kind="action" name="busTopicPosRateTap:"/>
+                <relationship kind="action" name="cancelAddBusinessTopic:"/>
+                <relationship kind="action" name="commentRateTap:"/>
+                <relationship kind="action" name="editTapped:"/>
+                <relationship kind="action" name="reportProblem:"/>
+                <relationship kind="action" name="reviewTapped:"/>
+                <relationship kind="action" name="switchDetailTab:"/>
                 <relationship kind="outlet" name="customRateView" candidateClass="ASZNewRateView"/>
                 <relationship kind="outlet" name="dataController" candidateClass="ASZBusinessDetailsDataController"/>
                 <relationship kind="outlet" name="mainView" candidateClass="UIView"/>
@@ -1418,6 +1419,9 @@
             <source key="sourceIdentifier" type="project" relativePath="./Classes/ASZBusinessTopicViewController.h"/>
             <relationships>
                 <relationship kind="action" name="barButtonTapped:"/>
+                <relationship kind="action" name="commentNegRateTap:"/>
+                <relationship kind="action" name="commentPosRateTap:"/>
+                <relationship kind="action" name="proposeChange:"/>
                 <relationship kind="action" name="replyToComment:"/>
                 <relationship kind="action" name="submitCommentTapped:"/>
                 <relationship kind="outlet" name="barButton" candidateClass="UIBarButtonItem"/>
@@ -1435,6 +1439,8 @@
         <class className="ASZEditBusinessDetailsViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/ASZEditBusinessDetailsViewController.h"/>
             <relationships>
+                <relationship kind="action" name="cancelTapped:"/>
+                <relationship kind="action" name="doneTapped:"/>
                 <relationship kind="outlet" name="dataController" candidateClass="ASZEditBusinessDetailsDataController"/>
             </relationships>
         </class>
@@ -1465,6 +1471,8 @@
         <class className="ASZReviewViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/ASZReviewViewController.h"/>
             <relationships>
+                <relationship kind="action" name="cancelTapped:"/>
+                <relationship kind="action" name="submitTapped:"/>
                 <relationship kind="outlet" name="dataController" candidateClass="ASZReviewDataController"/>
             </relationships>
         </class>

@@ -12,7 +12,7 @@
 
 #import "ASZCommentList.h"
 
-#import "ASURLEncoding.h"
+#import "ASGlobal.h"
 
 #import  <QuartzCore/QuartzCore.h>
 

@@ -105,7 +105,7 @@
     if (self) {
         self.updateAfterLocationChange = [[NSLock alloc]init];
         self.requestInProgress  = [[NSLock alloc]init];
-        self.deviceInterface = [[ASDeviceInterface alloc] init];
+        self.deviceInterface = [[ASDeviceInterfaceSingleton alloc] init];
         [self.deviceInterface.locationManager startUpdatingLocation];
         self.deviceInterface.delegate = self;
     }

@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "ASUser.h"
-#import "ASDeviceInterface.h"
+#import "ASDeviceInterfaceSingleton.h"
 
 @interface ASUserProfileDataController : NSObject <NSURLConnectionDataDelegate, ASDeviceInterfaceDelegate>
 

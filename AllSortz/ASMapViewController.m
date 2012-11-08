@@ -14,7 +14,7 @@
 
 #import "ASZBusinessListingSingleton.h"
 
-#import "ASURLEncoding.h"
+#import "ASGlobal.h"
 
 #import "ASZCustomAnnotation.h"
 
@@ -68,12 +68,7 @@
     [super viewDidLoad];
     
     self.listingsTableDataController =[[ASZBusinessListingSingleton sharedDataListing] getListDataController];
-    
-    
-    // Do any additional setup after loading the view from its
-    
-    [self.navigationController.navigationBar setTintColor:AS_DARK_BLUE];
-    
+
     UIImage *myLocButtonImage = [UIImage imageNamed:@"22-location-arrow.png"];
     UIBarButtonItem *myLoc = [[UIBarButtonItem alloc] initWithImage:myLocButtonImage landscapeImagePhone:myLocButtonImage  style:UIBarButtonItemStyleBordered target:self action:@selector(goToMyLocation:)];
     
@@ -444,8 +439,6 @@
 }
 - (void)viewDidUnload {
     [self setMv:nil];
-
-    [self setNavItem:nil];
     [super viewDidUnload];
 }
 

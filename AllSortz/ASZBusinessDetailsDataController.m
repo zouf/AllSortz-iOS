@@ -375,7 +375,7 @@
                         [phoneButton setTitleColor:[UIColor darkTextColor] forState:UIControlStateNormal];
                         [phoneButton setTitle:self.business.phone forState:UIControlStateNormal];
                         [phoneButton addTarget:self.viewController action:@selector(callBusTap:) forControlEvents:UIControlEventTouchUpInside];
-
+                        phoneButton.titleLabel.adjustsFontSizeToFitWidth = YES;
                         [cell.contentView addSubview:phoneButton];
                         
                         
@@ -385,7 +385,8 @@
                         [webButton setTitleColor:[UIColor darkTextColor] forState:UIControlStateNormal];
                         [webButton setTitle:self.business.website.path forState:UIControlStateNormal];
                         [webButton addTarget:self.viewController action:@selector(busWebsiteTap:) forControlEvents:UIControlEventTouchUpInside];
-                        
+                        webButton.titleLabel.adjustsFontSizeToFitWidth = YES;
+
                         [cell.contentView addSubview:webButton];
                         
                         

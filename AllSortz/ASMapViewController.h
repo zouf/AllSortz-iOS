@@ -24,10 +24,6 @@
 
 
 @property (strong, nonatomic) IBOutlet ASBusinessListDataController *listingsTableDataController;
-@property (strong, nonatomic) IBOutlet ASListingsViewController *listViewController;
-@property (weak, nonatomic) IBOutlet UINavigationBar *navBar;
-
-@property (weak, nonatomic) IBOutlet UINavigationItem *navItem;
 
 
 - (void)observeValueForKeyPath:(NSString *)keyPath
@@ -37,7 +33,6 @@
 
 
 -(void)loadMapElements;
-//- (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view;
 
 
 @end

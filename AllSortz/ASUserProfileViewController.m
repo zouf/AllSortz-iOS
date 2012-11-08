@@ -146,14 +146,15 @@
     
 
     
-    UIActivityIndicatorView *activityView=[[UIActivityIndicatorView alloc]     initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-    
+/*    UIActivityIndicatorView *activityView=[[UIActivityIndicatorView alloc]     initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
     activityView.center=self.overlayView.center;
-    
     [activityView startAnimating];
-    
     [self.overlayView addSubview:activityView];
+*/
 
+    [self.userProfileDataController updateData];
+        
+    
     UITapGestureRecognizer *gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyboard)];
     // For selecting cell.
     gestureRecognizer.cancelsTouchesInView = NO;
@@ -161,7 +162,7 @@
 }
 
 - (void) hideKeyboard {
-    [self.view endEditing:YES];
+    [self.view resignFirstResponder];
 }
 
 - (void)viewDidUnload
@@ -175,39 +176,7 @@
     [super viewDidUnload];
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    
-    // Imitate default behavior of UITableViewController
-    // deselectRowAtIndexPath:animated: should be fine taking a possible nil
-    
-    // Download data automatically if there's no data source
-    
-    if (!self.userProfileDataController)
-        self.userProfileDataController = [[ASUserProfileDataController alloc] init];
-    if (!self.userProfileDataController.userProfile)
-    {
-        [self.userProfileDataController updateData];
-        
-    }
-    
-}
 
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-	[super viewWillDisappear:animated];
-}
-
-- (void)viewDidDisappear:(BOOL)animated
-{
-	[super viewDidDisappear:animated];
-}
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
@@ -235,9 +204,14 @@
         }
         else
         {
-            self.nameBox.text = self.userProfileDataController.userProfile.userName;
-            self.emailBox.text = self.userProfileDataController.userProfile.userEmail;
-            self.imageView.image = self.userProfileDataController.userProfile.profilePicture;
+            self.userProfileDataController.userProfile.delegate = self;
+
+            dispatch_async(dispatch_get_main_queue(), ^{
+
+                self.nameBox.text = self.userProfileDataController.userProfile.userName;
+                self.emailBox.text = self.userProfileDataController.userProfile.userEmail;
+                self.imageView.image = self.userProfileDataController.userProfile.profilePicture;
+            });
         }
         
 

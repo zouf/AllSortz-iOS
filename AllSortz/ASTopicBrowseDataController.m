@@ -11,7 +11,7 @@
 
 @property (strong, readwrite) ASUserTopicImportance *userProfile;
 @property (strong) NSMutableData *receivedData;
-@property (strong, nonatomic) ASDeviceInterface *deviceInterface;
+@property (strong, nonatomic) ASDeviceInterfaceSingleton *deviceInterface;
 
 
 @end
@@ -21,7 +21,7 @@
 - (id)init {
     self = [super init];
     if (self) {
-        self.deviceInterface = [[ASDeviceInterface alloc] init];
+        self.deviceInterface = [[ASDeviceInterfaceSingleton alloc] init];
     }
     return self;
 }

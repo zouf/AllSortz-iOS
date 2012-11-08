@@ -7,7 +7,7 @@
 //
 
 #import "ASAddBusiness.h"
-#import "ASURLEncoding.h"
+#import "ASGlobal.h"
 
 @interface ASAddBusinessDataController : NSObject <NSURLConnectionDataDelegate>
 

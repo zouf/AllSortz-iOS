@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 AllSortz, Inc. All rights reserved.
 //
 
-#import "ASURLEncoding.h"
+#import "ASGlobal.h"
 
 // helper function: get the string form of any object
 static NSString *toString(id object) {

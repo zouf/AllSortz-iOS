@@ -1,5 +1,5 @@
 //
-//  ASURLEncoding.h
+//  ASGlobal.h
 //  AllSortz
 //
 //  Created by Matthew Zoufaly on 8/22/12.

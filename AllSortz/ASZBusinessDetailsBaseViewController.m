@@ -118,6 +118,41 @@
 
 }
 
+-(IBAction)cancelAddBusinessTopic:(id)sender
+{
+    UIView *semiView = (UIView*)[self.view viewWithTag:PICKER_VIEW+1];
+    UIPickerView*pv = (UIPickerView*)[self.view viewWithTag:PICKER_VIEW];
+    UIButton *b0 = (UIButton*)[self.view viewWithTag:PICKER_VIEW+2];
+    UIButton *b1 = (UIButton*)[self.view viewWithTag:PICKER_VIEW+3];
+    
+    [b0 removeFromSuperview];
+    [b1 removeFromSuperview];
+    [semiView removeFromSuperview];
+    [pv removeFromSuperview];
+}
+
+-(IBAction)addBusinessTopicDone:(id)sender
+{
+    UIPickerView*pv = (UIPickerView*)[self.view viewWithTag:PICKER_VIEW];
+    if(!pv)
+        return;
+    
+    NSInteger row = [pv selectedRowInComponent:0];
+    NSDictionary * topic = (NSDictionary*)[self.dataController.allTopics objectAtIndex:row];
+    NSInteger topicID = [[topic valueForKey:@"parentID"] intValue];
+    [self.dataController addBusinessTopicAsynchronously:self.businessID withTopic:topicID];
+    
+    UIView *semiView = (UIView*)[self.view viewWithTag:PICKER_VIEW+1];
+    UIButton *b0 = (UIButton*)[self.view viewWithTag:PICKER_VIEW+2];
+    UIButton *b1 = (UIButton*)[self.view viewWithTag:PICKER_VIEW+3];
+    
+    [b0 removeFromSuperview];
+    [b1 removeFromSuperview];
+    [semiView removeFromSuperview];
+    [pv removeFromSuperview];
+    
+}
+
 - (IBAction)addBusinessTopic:(id)sender {
     if(self.dataController.allTopics == nil )
     {
@@ -128,28 +163,62 @@
         return;
     }
     
-    //UIViewController *controller = [[UIViewController alloc] init];
-    UIView *semiView = [[UIView alloc]initWithFrame:CGRectMake(0,0,320, 800)];
-    semiView.alpha = 0.0f;
-    semiView.tag = PICKER_VIEW+1;
-    semiView.backgroundColor = [UIColor whiteColor];
+    UIView *semiView = (UIView*)[self.view viewWithTag:PICKER_VIEW+1];
+    UIPickerView*pv = (UIPickerView*)[self.view viewWithTag:PICKER_VIEW];
     
-    UIPickerView *myPickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 100, 320, 200)];
-    myPickerView.delegate = self;
-    myPickerView.tag = PICKER_VIEW;
-    myPickerView.showsSelectionIndicator = YES;
-    myPickerView.alpha = 0.0f;
+    //Add the business topic
+    if(pv || semiView)
+    {
+        NSLog(@"Already there!\n");
+        return;
+        
+    }
+    else  //just display the picker
+    {
+        //UIViewController *controller = [[UIViewController alloc] init];
+        semiView = [[UIView alloc]initWithFrame:CGRectMake(0,0,320, 800)];
+        semiView.alpha = 0.0f;
+        semiView.tag = PICKER_VIEW+1;
+        semiView.backgroundColor = [UIColor lightGrayColor];
+        
+        pv = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 100, 320, 200)];
+        pv.delegate = self;
+        pv.tag = PICKER_VIEW;
+        pv.showsSelectionIndicator = YES;
+        pv.alpha = 0.0f;
+        
+        
+        UIButton *cancelButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        [cancelButton addTarget:self action:@selector(cancelAddBusinessTopic:) forControlEvents:UIControlEventTouchUpInside];
+        cancelButton.tag = PICKER_VIEW +2;
+        [cancelButton setTitle:@"Cancel" forState:UIControlStateNormal];
+        [cancelButton.titleLabel setFont:[UIFont fontWithName:@"Gill Sans" size:16]];
+        [cancelButton setFrame:CGRectMake(50, 320, 80, 40)];
 
+        
+        UIButton *doneButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        [doneButton addTarget:self action:@selector(addBusinessTopicDone:) forControlEvents:UIControlEventTouchUpInside];
+        doneButton.tag = PICKER_VIEW +3;
+        [doneButton setTitle:@"Done" forState:UIControlStateNormal];
+        [doneButton.titleLabel setFont:[UIFont fontWithName:@"Gill Sans" size:16]];
+        [doneButton setFrame:CGRectMake(200, 320, 80, 40)];
+
+
+
+        [self.view addSubview:semiView];
+        [self.view addSubview:pv];
+        [self.view addSubview:cancelButton];
+        [self.view addSubview:doneButton];
+        
+        [UIView beginAnimations:@"fadeIn" context:nil];
+        [UIView setAnimationCurve:UIViewAnimationCurveEaseIn];
+        [UIView setAnimationDuration:0.2f];
+        semiView.alpha = .75;
+        pv.alpha = 1.0f;
+        [UIView commitAnimations];
+    }
     
-    [self.view addSubview:semiView];
-    [self.view addSubview:myPickerView];
-    
-    [UIView beginAnimations:@"fadeIn" context:nil];
-    [UIView setAnimationCurve:UIViewAnimationCurveEaseIn];
-    [UIView setAnimationDuration:0.4f];
-    semiView.alpha = 0.7f;
-    myPickerView.alpha = 1.0f;
-    [UIView commitAnimations];
+
     
     
 
@@ -735,21 +804,6 @@ heightForFooterInSection:(NSInteger)section {
 
 #pragma mark - Picker view Delegate
 
-- (void)pickerView:(UIPickerView *)pickerView didSelectRow: (NSInteger)row inComponent:(NSInteger)component {
-    
-    NSDictionary * topic = (NSDictionary*)[self.dataController.allTopics objectAtIndex:row];
-    NSInteger topicID = [[topic valueForKey:@"parentID"] intValue];
-    [self.dataController addBusinessTopicAsynchronously:self.businessID withTopic:topicID];
-    
-    
-    
-    UIView *semiView = (UIView*)[self.view viewWithTag:PICKER_VIEW+1];
-    UIPickerView*pv = (UIPickerView*)[self.view viewWithTag:PICKER_VIEW];
-    
-    [semiView removeFromSuperview];
-    [pv removeFromSuperview];
-    
-}
 
 // tell the picker how many rows are available for a given component
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {    

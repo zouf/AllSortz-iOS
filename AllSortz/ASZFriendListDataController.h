@@ -8,13 +8,13 @@
 
 #import <Foundation/Foundation.h>
 #import <MapKit/MapKit.h>
-#import "ASDeviceInterface.h"
+#import "ASDeviceInterfaceSingleton.h"
 #import "ASUser.h"
 #define USERNAME_LABEL_TAG 1
 #define USERPIC_VIEW_TAG 2
 @class ASZFriendListViewController;
 @class ASZFriendList;
-@class ASDeviceInterface;
+@class ASDeviceInterfaceSingleton;
 
 
 @interface ASZFriendListDataController : NSObject <UITableViewDataSource, NSURLConnectionDataDelegate, ASDeviceInterfaceDelegate, DownloadUserPicturesDelegate>
@@ -23,7 +23,7 @@
 @property ASZFriendList *friendList;
 
 @property (strong, nonatomic) CLLocation * currentLocation;
-@property (strong, nonatomic) ASDeviceInterface *deviceInterface;
+@property (strong, nonatomic) ASDeviceInterfaceSingleton *deviceInterface;
 
 
 - (void)pullFriendListFromServer;

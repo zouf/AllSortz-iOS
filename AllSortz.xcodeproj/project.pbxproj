@@ -872,7 +872,7 @@
 		0AA6258515EEB85700C0BE8E /* def-as-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AA6258415EEB85600C0BE8E /* def-as-icon.png */; };
 		0AA6258B15EEBB9C00C0BE8E /* test-smaller.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AA6258A15EEBB9C00C0BE8E /* test-smaller.png */; };
 		0AA6259215EEBCAF00C0BE8E /* ASMapAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AA6259115EEBCAF00C0BE8E /* ASMapAnnotation.m */; };
-		0AA6259515EED1AD00C0BE8E /* ASDeviceInterface.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AA6259415EED1AB00C0BE8E /* ASDeviceInterface.m */; };
+		0AA6259515EED1AD00C0BE8E /* ASDeviceInterfaceSingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AA6259415EED1AB00C0BE8E /* ASDeviceInterfaceSingleton.m */; };
 		0AA6259715EED5F900C0BE8E /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AA6259615EED5F800C0BE8E /* CoreLocation.framework */; };
 		0AA9290816370D7600DEC10B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C0CC24115B7B1FC00F2F7B6 /* main.m */; };
 		0AA9290916370D7600DEC10B /* ASAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C0CC24515B7B1FC00F2F7B6 /* ASAppDelegate.m */; };
@@ -883,13 +883,13 @@
 		0AA9291316370D7600DEC10B /* ASAddBusinessViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A04240A15DA8DD6008143F0 /* ASAddBusinessViewController.m */; };
 		0AA9291416370D7600DEC10B /* ASAddBusinessDataController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A04240D15DA8E03008143F0 /* ASAddBusinessDataController.m */; };
 		0AA9291516370D7600DEC10B /* ASAddBusiness.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A04241015DA8E0D008143F0 /* ASAddBusiness.m */; };
-		0AA9291716370D7600DEC10B /* ASURLEncoding.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AFF55A115E53B1A002E5085 /* ASURLEncoding.m */; };
+		0AA9291716370D7600DEC10B /* ASGlobal.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AFF55A115E53B1A002E5085 /* ASGlobal.m */; };
 		0AA9291816370D7600DEC10B /* ASTopicBrowseDataController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AFE1B7315E6997C00636B4D /* ASTopicBrowseDataController.m */; };
 		0AA9291916370D7600DEC10B /* ASUserTopicImportance.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AFE1B7615E6999C00636B4D /* ASUserTopicImportance.m */; };
 		0AA9291A16370D7600DEC10B /* ASTopicBrowseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AFE1B7C15E70C6600636B4D /* ASTopicBrowseViewController.m */; };
 		0AA9291B16370D7600DEC10B /* ASMapPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AA6258215EE901B00C0BE8E /* ASMapPoint.m */; };
 		0AA9291C16370D7600DEC10B /* ASMapAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AA6259115EEBCAF00C0BE8E /* ASMapAnnotation.m */; };
-		0AA9291D16370D7600DEC10B /* ASDeviceInterface.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AA6259415EED1AB00C0BE8E /* ASDeviceInterface.m */; };
+		0AA9291D16370D7600DEC10B /* ASDeviceInterfaceSingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AA6259415EED1AB00C0BE8E /* ASDeviceInterfaceSingleton.m */; };
 		0AA9291E16370D7600DEC10B /* ASUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AAB66BF15EFA4E800F22011 /* ASUser.m */; };
 		0AA9291F16370D7600DEC10B /* ASUserProfileDataController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AAB66C115EFA4E800F22011 /* ASUserProfileDataController.m */; };
 		0AA9292016370D7600DEC10B /* ASUserProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AAB66C815EFE50300F22011 /* ASUserProfileViewController.m */; };
@@ -1693,7 +1693,7 @@
 		0AFE1B7415E6997C00636B4D /* ASTopicBrowseDataController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AFE1B7315E6997C00636B4D /* ASTopicBrowseDataController.m */; };
 		0AFE1B7715E6999C00636B4D /* ASUserTopicImportance.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AFE1B7615E6999C00636B4D /* ASUserTopicImportance.m */; };
 		0AFE1B7D15E70C6600636B4D /* ASTopicBrowseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AFE1B7C15E70C6600636B4D /* ASTopicBrowseViewController.m */; };
-		0AFF55A215E53B1A002E5085 /* ASURLEncoding.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AFF55A115E53B1A002E5085 /* ASURLEncoding.m */; };
+		0AFF55A215E53B1A002E5085 /* ASGlobal.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AFF55A115E53B1A002E5085 /* ASGlobal.m */; };
 		6C0379F815EEAC8A0010FC28 /* ASZBusinessDetailsDataController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C0379F715EEAC8A0010FC28 /* ASZBusinessDetailsDataController.m */; };
 		6C096F8315BD93CD0082ECDB /* tab_map@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6C096F7F15BD93CD0082ECDB /* tab_map@2x.png */; };
 		6C096F8415BD93CD0082ECDB /* tab_account@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6C096F8015BD93CD0082ECDB /* tab_account@2x.png */; };
@@ -2667,8 +2667,8 @@
 		0AA6258A15EEBB9C00C0BE8E /* test-smaller.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "test-smaller.png"; sourceTree = "<group>"; };
 		0AA6259015EEBCAF00C0BE8E /* ASMapAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASMapAnnotation.h; sourceTree = "<group>"; };
 		0AA6259115EEBCAF00C0BE8E /* ASMapAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASMapAnnotation.m; sourceTree = "<group>"; };
-		0AA6259315EED1A800C0BE8E /* ASDeviceInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASDeviceInterface.h; sourceTree = "<group>"; };
-		0AA6259415EED1AB00C0BE8E /* ASDeviceInterface.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASDeviceInterface.m; sourceTree = "<group>"; };
+		0AA6259315EED1A800C0BE8E /* ASDeviceInterfaceSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASDeviceInterfaceSingleton.h; sourceTree = "<group>"; };
+		0AA6259415EED1AB00C0BE8E /* ASDeviceInterfaceSingleton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASDeviceInterfaceSingleton.m; sourceTree = "<group>"; };
 		0AA6259615EED5F800C0BE8E /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		0AA929C616370D7600DEC10B /* AllSortz copy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "AllSortz copy.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0AA929C816370D7700DEC10B /* AllSortz copy8-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "AllSortz copy8-Info.plist"; path = "/Users/zouf/AllSortz-iOS/AllSortz copy8-Info.plist"; sourceTree = "<absolute>"; };
@@ -3354,8 +3354,8 @@
 		0AFE1B7615E6999C00636B4D /* ASUserTopicImportance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASUserTopicImportance.m; sourceTree = "<group>"; };
 		0AFE1B7B15E70C6600636B4D /* ASTopicBrowseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASTopicBrowseViewController.h; sourceTree = "<group>"; };
 		0AFE1B7C15E70C6600636B4D /* ASTopicBrowseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASTopicBrowseViewController.m; sourceTree = "<group>"; };
-		0AFF55A015E53B1A002E5085 /* ASURLEncoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASURLEncoding.h; sourceTree = "<group>"; };
-		0AFF55A115E53B1A002E5085 /* ASURLEncoding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASURLEncoding.m; sourceTree = "<group>"; };
+		0AFF55A015E53B1A002E5085 /* ASGlobal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASGlobal.h; sourceTree = "<group>"; };
+		0AFF55A115E53B1A002E5085 /* ASGlobal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASGlobal.m; sourceTree = "<group>"; };
 		6C0379F615EEAC8A0010FC28 /* ASZBusinessDetailsDataController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASZBusinessDetailsDataController.h; sourceTree = "<group>"; };
 		6C0379F715EEAC8A0010FC28 /* ASZBusinessDetailsDataController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASZBusinessDetailsDataController.m; sourceTree = "<group>"; };
 		6C096F7F15BD93CD0082ECDB /* tab_map@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab_map@2x.png"; sourceTree = "<group>"; };
@@ -5314,12 +5314,12 @@
 			children = (
 				6C0CC24415B7B1FC00F2F7B6 /* ASAppDelegate.h */,
 				6C0CC24515B7B1FC00F2F7B6 /* ASAppDelegate.m */,
-				0AA6259315EED1A800C0BE8E /* ASDeviceInterface.h */,
-				0AA6259415EED1AB00C0BE8E /* ASDeviceInterface.m */,
+				0AA6259315EED1A800C0BE8E /* ASDeviceInterfaceSingleton.h */,
+				0AA6259415EED1AB00C0BE8E /* ASDeviceInterfaceSingleton.m */,
 				6C21220715D86DAE004ACD4C /* ASException.h */,
 				6C21220915D86F27004ACD4C /* ASException.m */,
-				0AFF55A015E53B1A002E5085 /* ASURLEncoding.h */,
-				0AFF55A115E53B1A002E5085 /* ASURLEncoding.m */,
+				0AFF55A015E53B1A002E5085 /* ASGlobal.h */,
+				0AFF55A115E53B1A002E5085 /* ASGlobal.m */,
 				0ABBCCF41611F0B3003F44BE /* Custom Shapes */,
 				0AFE1B7115E6995C00636B4D /* User Topic (Health) Preferences */,
 				6C2121F915D450FF004ACD4C /* Business Details */,
@@ -7240,13 +7240,13 @@
 				0AA9291316370D7600DEC10B /* ASAddBusinessViewController.m in Sources */,
 				0AA9291416370D7600DEC10B /* ASAddBusinessDataController.m in Sources */,
 				0AA9291516370D7600DEC10B /* ASAddBusiness.m in Sources */,
-				0AA9291716370D7600DEC10B /* ASURLEncoding.m in Sources */,
+				0AA9291716370D7600DEC10B /* ASGlobal.m in Sources */,
 				0AA9291816370D7600DEC10B /* ASTopicBrowseDataController.m in Sources */,
 				0AA9291916370D7600DEC10B /* ASUserTopicImportance.m in Sources */,
 				0AA9291A16370D7600DEC10B /* ASTopicBrowseViewController.m in Sources */,
 				0AA9291B16370D7600DEC10B /* ASMapPoint.m in Sources */,
 				0AA9291C16370D7600DEC10B /* ASMapAnnotation.m in Sources */,
-				0AA9291D16370D7600DEC10B /* ASDeviceInterface.m in Sources */,
+				0AA9291D16370D7600DEC10B /* ASDeviceInterfaceSingleton.m in Sources */,
 				0AA9291E16370D7600DEC10B /* ASUser.m in Sources */,
 				0AA9291F16370D7600DEC10B /* ASUserProfileDataController.m in Sources */,
 				0AA9292016370D7600DEC10B /* ASUserProfileViewController.m in Sources */,
@@ -7289,13 +7289,13 @@
 				0A04240B15DA8DD6008143F0 /* ASAddBusinessViewController.m in Sources */,
 				0A04240E15DA8E03008143F0 /* ASAddBusinessDataController.m in Sources */,
 				0A04241115DA8E0E008143F0 /* ASAddBusiness.m in Sources */,
-				0AFF55A215E53B1A002E5085 /* ASURLEncoding.m in Sources */,
+				0AFF55A215E53B1A002E5085 /* ASGlobal.m in Sources */,
 				0AFE1B7415E6997C00636B4D /* ASTopicBrowseDataController.m in Sources */,
 				0AFE1B7715E6999C00636B4D /* ASUserTopicImportance.m in Sources */,
 				0AFE1B7D15E70C6600636B4D /* ASTopicBrowseViewController.m in Sources */,
 				0AA6258315EE901B00C0BE8E /* ASMapPoint.m in Sources */,
 				0AA6259215EEBCAF00C0BE8E /* ASMapAnnotation.m in Sources */,
-				0AA6259515EED1AD00C0BE8E /* ASDeviceInterface.m in Sources */,
+				0AA6259515EED1AD00C0BE8E /* ASDeviceInterfaceSingleton.m in Sources */,
 				0AAB66C415EFA4E800F22011 /* ASUser.m in Sources */,
 				0AAB66C515EFA4E800F22011 /* ASUserProfileDataController.m in Sources */,
 				0AAB66C915EFE50300F22011 /* ASUserProfileViewController.m in Sources */,

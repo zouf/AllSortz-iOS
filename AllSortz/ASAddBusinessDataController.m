@@ -7,7 +7,7 @@
 //
 
 #import "ASAddBusinessDataController.h"
-#import "ASDeviceInterface.h"
+#import "ASDeviceInterfaceSingleton.h"
 
 static NSString * const BOUNDARY = @"0xKhTmLbOuNdArY";
 static NSString * const FORM_FLE_INPUT = @"uploaded";
@@ -16,7 +16,7 @@ static NSString * const FORM_FLE_INPUT = @"uploaded";
 
     @property (strong, readwrite) ASAddBusiness *business;
     @property (strong) NSMutableData *receivedData;
-@property (strong, nonatomic) ASDeviceInterface *deviceInterface;
+@property (strong, nonatomic) ASDeviceInterfaceSingleton *deviceInterface;
 
 
 @end
@@ -26,7 +26,7 @@ static NSString * const FORM_FLE_INPUT = @"uploaded";
 - (id)init {
     self = [super init];
     if (self) {
-        self.deviceInterface = [[ASDeviceInterface alloc] init];
+        self.deviceInterface = [[ASDeviceInterfaceSingleton alloc] init];
     }
     return self;
 }

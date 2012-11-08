@@ -10,7 +10,7 @@
 #import "ASZBusinessDetailsDataController.h"
 #import "ASZEditBusinessDetailsViewController.h"
 #import "ASBusiness.h"
-#import "ASURLEncoding.h"
+#import "ASGlobal.h"
 
 #define BUSINESS_NAME 200
 #define BUSINESS_STREET 201

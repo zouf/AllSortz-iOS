@@ -8,8 +8,8 @@
 
 #import <Foundation/Foundation.h>
 #import "ASUserTopicImportance.h"
-#import "ASURLEncoding.h"
-#import "ASDeviceInterface.h"
+#import "ASGlobal.h"
+#import "ASDeviceInterfaceSingleton.h"
 
 @interface ASTopicBrowseDataController : NSObject <NSURLConnectionDataDelegate>
 

@@ -6,11 +6,33 @@
 //  Copyright (c) 2012 AllSortz, Inc. All rights reserved.
 //
 
-#import "ASDeviceInterface.h"
+#import "ASDeviceInterfaceSingleton.h"
 
-@implementation ASDeviceInterface
+@implementation ASDeviceInterfaceSingleton
+
+
+
+static ASDeviceInterfaceSingleton *sharedDeviceInterface = nil;
+
+
+
 
 @synthesize locationManager;
+
+
++ (ASDeviceInterfaceSingleton *) sharedDeviceInterface
+{
+    
+    @synchronized(self)
+    {
+        if (sharedDeviceInterface == nil)
+        {
+            sharedDeviceInterface = [[ASDeviceInterfaceSingleton alloc] init];
+            
+        }
+    }
+    return sharedDeviceInterface;
+}
 
 - (id) init {
     self = [super init];
@@ -22,7 +44,7 @@
     return self;
 }
 
--(NSString *)getDeviceUIUD
+- (NSString *)getDeviceUIUD
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSString *UUID = @"";
@@ -40,7 +62,7 @@
     return UUID;
 }
 
--(void)storeUname:(NSString*)uname password:(NSString*)password
+- (void)storeUname:(NSString*)uname password:(NSString*)password
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 

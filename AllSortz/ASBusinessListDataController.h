@@ -7,8 +7,8 @@
 //
 
 #import "ASBusinessList.h"
-#import "ASURLEncoding.h"
-#import "ASDeviceInterface.h"
+#import "ASGlobal.h"
+#import "ASDeviceInterfaceSingleton.h"
 #import <MapKit/MapKit.h>
 
 #define NUM_RESULTS 20
@@ -50,7 +50,7 @@
 
 @property (strong, readonly) ASBusinessList *businessList;
 @property(strong, atomic) CLLocation * currentLocation;
-@property (strong, nonatomic) ASDeviceInterface *deviceInterface;
+@property (strong, nonatomic) ASDeviceInterfaceSingleton *deviceInterface;
 
 - (BOOL)updateData;
 - (BOOL)performUpdate;

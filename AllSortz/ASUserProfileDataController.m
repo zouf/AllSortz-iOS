@@ -7,7 +7,7 @@
 //
 
 #import "ASUserProfileDataController.h"
-#import "ASURLEncoding.h"
+#import "ASGlobal.h"
 @interface ASUserProfileDataController ()
 
 @property (strong, readwrite) ASUser *userProfile;
@@ -15,7 +15,7 @@
 
 @property (strong) NSMutableData *receivedData;
 @property(strong, atomic) CLLocation * currentLocation;
-@property (strong, nonatomic) ASDeviceInterface *deviceInterface;
+@property (strong, nonatomic) ASDeviceInterfaceSingleton *deviceInterface;
 
 @end
 
@@ -30,7 +30,7 @@ BOOL updated;
         lock = [[NSLock alloc]init];
         updated = NO;
         
-        self.deviceInterface = [[ASDeviceInterface alloc] init];
+        self.deviceInterface = [ASDeviceInterfaceSingleton sharedDeviceInterface];
         [self.deviceInterface.locationManager startUpdatingLocation];
         self.deviceInterface.delegate = self;
         
@@ -216,7 +216,8 @@ BOOL updated;
                                                                         options:0
                                          
                                                                           error:NULL];
-    NSLog(@"%@\n",JSONresponse);
+    NSLog(@"Response for getting the user data %@\n",JSONresponse);
+    
     self.userProfile = [[ASUser alloc] initWithJSONObject:[JSONresponse objectForKey:@"result"]];
     self.receivedData = nil;
 
