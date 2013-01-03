@@ -15,7 +15,7 @@
 #import "ASMapViewController.h"
 #import "ASZBusinessListingSingleton.h"
 #import "ASZNewRateView.h"
-#import "ASZBusinessDetailsBaseViewController.h"
+#import "ASZHealthMenuViewController.h"
 #define BUSINESS_NAME 200
 
 #define RELOAD_DISTANCE 15
@@ -116,25 +116,19 @@
 
 #pragma mark - Table specific operations
 
+
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSString *targetViewControllerIdentifier = @"ShowBusinessDetails2";
-    ASZBusinessDetailsBaseViewController *vc = (ASZBusinessDetailsBaseViewController*)[self.storyboard instantiateViewControllerWithIdentifier:targetViewControllerIdentifier];
+    NSString *targetViewControllerIdentifier = @"ShowHealthMenuDetails";
+    ASZHealthMenuViewController *vc = (ASZHealthMenuViewController*)[self.storyboard instantiateViewControllerWithIdentifier:targetViewControllerIdentifier];
     
     ASBusiness *listing = [self.listingsTableDataController.businessList.entries  objectAtIndex:indexPath.row];
     [vc setBusinessID:listing.ID];
     
     
-    ASZBusinessDetailsDataController *detailsDataController = vc.dataController;
+    ASZHealthMenuViewController *detailsDataController = vc.dataController;
     ASBusinessListDataController *listDataController = self.listingsTableDataController;
-    detailsDataController.username = [listDataController.deviceInterface getStoredUname];
-    detailsDataController.password = [listDataController.deviceInterface getStoredPassword];
-    
-    assert(detailsDataController.username);
-    detailsDataController.UUID = [listDataController.deviceInterface getDeviceUIUD];
-    detailsDataController.currentLatitude = listDataController.currentLocation.coordinate.latitude;
-    detailsDataController.currentLongitude = listDataController.currentLocation.coordinate.longitude;
-    
+
     [vc setHidesBottomBarWhenPushed:YES];
     [self.navigationController  pushViewController:vc animated:YES];
     [self.navigationController setNavigationBarHidden:NO];
@@ -191,8 +185,12 @@
         UILabel *distanceLabel = (UILabel *)[cell viewWithTag:DISTANCE_VIEW];
         distanceLabel.text = [NSString stringWithFormat:@"%.2fmi.",[listing.distance floatValue]];
         
-        UILabel *priceLabel = (UILabel *)[cell viewWithTag:PRICE_VIEW];
-        priceLabel.text = [NSString stringWithFormat:@"$%@", listing.avgPrice] ;
+        
+        UIImageView *certView = (UIImageView*)[cell viewWithTag:PRICE_VIEW];
+        certView.image = [UIImage imageNamed:@"spe-cert.jpg"];
+        
+        //UILabel *priceLabel = (UILabel *)[cell viewWithTag:PRICE_VIEW];
+        //priceLabel.text = [NSString stringWithFormat:@"$%@", listing.avgPrice] ;
 
        /* for (int i =0  ; i < NUM_TYPE_ICONS; i++ )
         {
@@ -427,24 +425,6 @@
         UINavigationController *nv = destinationViewController;
         ASAddBusinessViewController *abvc = (ASAddBusinessViewController *)nv.topViewController;
         abvc.delegate = self;
-    }
-
-    if ([segue.identifier isEqualToString:@"ShowBusinessDetails"]) {
-        ASZBusinessDetailsViewController *detailsViewController = destinationViewController;
-        ASBusinessList *businesses = self.listingsTableDataController.businessList;
-        NSArray *businessIDs = [businesses valueForKeyPath:@"entries.ID"];
-        NSInteger selectedRow = [self.tableView indexPathForSelectedRow].row;
-        detailsViewController.businessID = [businessIDs[selectedRow] unsignedIntegerValue];
-        
-        ASZBusinessDetailsDataController *detailsDataController = detailsViewController.dataController;
-        ASBusinessListDataController *listDataController = self.listingsTableDataController;
-        detailsDataController.username = [listDataController.deviceInterface getStoredUname];
-        assert(detailsDataController.username);
-
-        detailsDataController.password = [listDataController.deviceInterface getStoredPassword];
-        detailsDataController.UUID = [listDataController.deviceInterface getDeviceUIUD];
-        detailsDataController.currentLatitude = listDataController.currentLocation.coordinate.latitude;
-        detailsDataController.currentLongitude = listDataController.currentLocation.coordinate.longitude;
     }
 }
 

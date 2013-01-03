@@ -9,6 +9,7 @@
 #import "ASBusinessList.h"
 #import "ASRateView.h"
 #import "ASBusiness.h"
+#import "ASGlobal.h"
 
 #define NUM_STATIC_CELLS 0
 
@@ -110,6 +111,55 @@
 
 @implementation ASBusinessList
 
+- (id)initWithJSONObjectYelp:(NSDictionary *)aJSONObject
+{
+    if (!(self = [super init]) )
+        return nil;
+    NSLog(@"%@\n",aJSONObject);
+    _businesses = [aJSONObject objectForKey:@"businesses"];
+    _entries = [[NSMutableArray alloc]init];
+
+    for(NSDictionary * dict in _businesses)
+    {
+        //NSString *businessName = [dict objectForKey:@"businesName"];
+        id listingID = [dict objectForKey:@"id"];
+        ASBusiness *listing = [[ASBusiness alloc] initWithID:listingID];
+        
+        
+        listing.name = [dict valueForKey:@"name"];
+        listing.avgPrice = [NSNumber numberWithFloat:66.6];
+        listing.imageURLString = [dict valueForKey:@"image_url"];
+        listing.types = [dict valueForKey:@"categories"];
+        listing.distance = [dict valueForKey:@"rating"];
+        listing.recommendation = [[dict valueForKey:@"rating"] floatValue]  / MAX_RATING;
+        listing.website = [NSURL URLWithString:[dict valueForKey:@"url"]];
+        id location = [dict objectForKey:@"location"];
+        
+        NSLog(@"%@\n",location);
+        
+        listing.lat =  [[[location objectForKey:@"coordinate"] valueForKeyPath:@"latitude"] floatValue];
+        listing.lng =  [[[location objectForKey:@"coordinate"] valueForKeyPath:@"longitude"] floatValue];
+                        
+        listing.address = [location valueForKey:@"address"];
+        listing.city = [location valueForKey:@"city"];
+        listing.phone = [dict valueForKey:@"display_phone"];
+
+        if([dict objectForKey:@"starred"])
+        {
+            listing.starred = YES;
+        }
+        else
+        {
+            listing.starred = NO;
+        }
+        
+        [_entries addObject:listing];
+    }
+
+    return self;
+    
+}
+
 - (id)initWithJSONObject:(NSDictionary *)aJSONObject
 {
     if (!(self = [super init]) || ![[aJSONObject objectForKey:@"success"] boolValue])
@@ -130,7 +180,7 @@
     for(NSDictionary * dict in _businesses)
     {
         //NSString *businessName = [dict objectForKey:@"businesName"];  
-        NSUInteger listingID = [[dict valueForKey:@"businessID"] unsignedIntegerValue];
+        id listingID = [dict valueForKey:@"businessID"] ;
         ASBusiness *listing = [[ASBusiness alloc] initWithID:listingID];
 
         

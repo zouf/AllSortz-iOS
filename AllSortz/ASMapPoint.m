@@ -19,7 +19,7 @@
 
 
 
--(id)initWithCoordinate:(CLLocationCoordinate2D)c withScore:(float)sc withTag:(NSUInteger)t withTitle:(NSString *)tl withSubtitle:	(NSString *)s
+-(id)initWithCoordinate:(CLLocationCoordinate2D)c withScore:(float)sc withTag:(id)t withTitle:(NSString *)tl withSubtitle:	(NSString *)s
 {
 	if(self = [super init])
 	{

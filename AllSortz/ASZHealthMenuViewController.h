@@ -1,14 +1,15 @@
 //
-//  ASZBusinessDetailsBaseViewController.h
+//  ASZHealthMenuViewController.h
 //  AllSortz
 //
-//  Created by Matthew Zoufaly on 9/24/12.
-//  Copyright (c) 2012 AllSortz, Inc. All rights reserved.
+//  Created by Matthew Zoufaly on 1/3/13.
+//  Copyright (c) 2013 AllSortz, Inc. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
 
+#import "ASZBusinessDetailsDataController.h"
 
 //tab info
 #define DISCUSSION_TAB 0
@@ -70,10 +71,10 @@
 #define PICKER_VIEW 1022
 
 
-@class ASZBusinessDetailsDataController;
 @class ASZNewRateView;
 
-@interface ASZBusinessDetailsBaseViewController : UIViewController <UITableViewDelegate, UIPickerViewDelegate>
+@interface ASZHealthMenuViewController :  UIViewController <UITableViewDelegate>
+
 @property id businessID;
 
 @property IBOutlet ASZBusinessDetailsDataController *dataController;

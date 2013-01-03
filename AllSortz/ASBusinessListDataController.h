@@ -18,6 +18,8 @@
 @interface ASZQuery : NSObject
 
 
+@property(nonatomic, retain) NSMutableData *responseData;
+
 @property(nonatomic, retain) NSString *searchText;
 @property(nonatomic, retain) NSString *searchLocation;
 @property(assign) BOOL goneToServer;

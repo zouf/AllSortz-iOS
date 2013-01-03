@@ -52,6 +52,9 @@
     NSMutableDictionary *imageDownloadsInProgress;  // the set of IconDownloader objects for each app
 }
 
+
+- (id)initWithJSONObjectYelp:(NSDictionary *)aJSONObject;
+
 - (id)initWithJSONObject:(NSDictionary *)aJSONObject;
 
 // Key-value coding

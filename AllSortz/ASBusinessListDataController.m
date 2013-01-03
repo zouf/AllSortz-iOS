@@ -8,7 +8,7 @@
 
 #import "ASBusinessListDataController.h"
 #import <MapKit/MapKit.h>
-
+#import "OAuthConsumer.h"
 
 @implementation ASZQuery
 
@@ -163,15 +163,7 @@
         self.searchQuery.goneToServer = YES;
     }
     
-    
-    if (self.updateAList)
-    {
-        address = [NSString stringWithFormat:@"http://allsortz.com/api/businesses/?uname=%@&password=%@&lat=%f&lon=%f&deviceID=%@&bus_low=%d&bus_high=%d", [self.deviceInterface getStoredUname], [self.deviceInterface getStoredPassword],
-                   self.currentLocation.coordinate.latitude,self.currentLocation.coordinate.longitude,[self.deviceInterface getDeviceUIUD],0,NUM_RESULTS];
-    }
-    else
-    {
-        //self.businessList = nil;
+            //self.businessList = nil;
         CLLocationCoordinate2D center = self.rect.center;
         float maxx = center.latitude  + (self.rect.span.latitudeDelta  / 2.0);
         float maxy = center.longitude  + (self.rect.span.longitudeDelta  / 2.0);
@@ -179,27 +171,35 @@
         float miny = center.longitude  - (self.rect.span.longitudeDelta  / 2.0);
         
         
-        address = [NSString stringWithFormat:@"http://allsortz.com/api/businesses/map/?uname=%@&password=%@&lat=%f&lon=%f&deviceID=%@&min_x=%f&min_y=%f&max_x=%f&max_y=%f", [self.deviceInterface getStoredUname], [self.deviceInterface getStoredPassword],
-                   self.currentLocation.coordinate.latitude,self.currentLocation.coordinate.longitude,[self.deviceInterface getDeviceUIUD],minx,miny,maxx,maxy];
-    }
-    
-    
-    
-    
-    NSString *str = [[self.searchQuery serializeToDictionary] urlEncodedString];
-    
-    NSLog(@"Search query server with %@ search string %@\n",address,str);
+        //address = [NSString stringWithFormat:@"http://allsortz.com/api/businesses/map/?uname=%@&password=%@&lat=%f&lon=%f&deviceID=%@&min_x=%f&min_y=%f&max_x=%f&max_y=%f",/ [self.deviceInterface getStoredUname], [self.deviceInterface getStoredPassword],
+            //       self.currentLocation.coordinate.latitude,self.currentLocation.coordinate.longitude,[self.deviceInterface getDeviceUIUD],minx,miny,maxx,maxy];
+        
+        address = [NSString stringWithFormat:@"http://api.yelp.com/v2/search?term=restaurants&bounds=%f,%f|%f,%f",minx,miny,maxx,maxy];
+        NSURL *URL = [NSURL URLWithString:address];
+        OAConsumer *consumer = [[OAConsumer alloc] initWithKey:CONSUMER_KEY secret:CONSUMER_SECRET] ;
+        OAToken *token = [[OAToken alloc] initWithKey:TOKEN secret:TOKEN_SECRET] ;
+        
+        id<OASignatureProviding, NSObject> provider = [[OAHMAC_SHA1SignatureProvider alloc] init];
+        NSString *realm = nil;
+        
+        OAMutableURLRequest *request = [[OAMutableURLRequest alloc] initWithURL:URL
+                                                                       consumer:consumer
+                                                                          token:token
+                                                                          realm:realm
+                                                              signatureProvider:provider];
+    NSLog(@"%@\n",address);
+        [request prepare];
+        //NSData * data = [[NSMutableData alloc] init];
+        NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+       // NSLog(@"JSON: %@", [JSON yajl_JSONStringWithOptions:YAJLGenOptionsBeautify indentString:@"  "]);
+        
 
-    NSData* data = [str dataUsingEncoding:NSUTF8StringEncoding];
-    NSURLRequest *request = [self postRequestWithAddress:address data:data];
-    NSURLConnection *connection = [NSURLConnection connectionWithRequest:request delegate:self];
-    if (!connection) {
-        // TODO: Some proper failure handling maybe
-        return NO;
-    }
-    self.receivedData = [NSMutableData data];
-    return YES;
-}
+   
+    
+    
+    
+    
+   }
 
 - (NSURLRequest *)postRequestWithAddress: (NSString *)address        // IN
                                     data: (NSData *)data      // IN
@@ -225,18 +225,22 @@
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
 {
     // Reset data store on new requests
+    
     [self.receivedData setLength:0];
 
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
 {
+    NSLog(@"%@\n", [data description]);
     [self.receivedData appendData:data];
     
 }
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
 {
+    NSLog(@"Error: %@, %@", [error localizedDescription], [error localizedFailureReason]);
+
     self.receivedData = nil;
 }
 
@@ -247,10 +251,13 @@
     {
         NSMutableDictionary *JSONresponse = [NSJSONSerialization JSONObjectWithData:self.receivedData
                                                                             options:0
+                               
                                                                               error:NULL];
         
-        self.businessList = [[ASBusinessList alloc] initWithJSONObject:JSONresponse];
         
+       // self.businessList = [[ASBusinessList alloc] initWithJSONObject:JSONresponse];
+        self.businessList = [[ASBusinessList alloc] initWithJSONObjectYelp:JSONresponse];
+
 
         [self.requestInProgress unlock];
         
@@ -280,38 +287,41 @@
     if (![self.requestInProgress tryLock])
         return NO;
     NSString *address;
+    CLLocationCoordinate2D center = self.rect.center;
+    float maxx = center.latitude  + (self.rect.span.latitudeDelta  / 2.0);
+    float maxy = center.longitude  + (self.rect.span.longitudeDelta  / 2.0);
+    float minx = center.latitude  - (self.rect.span.latitudeDelta  / 2.0);
+    float miny = center.longitude  - (self.rect.span.longitudeDelta  / 2.0);
+    
 
-    // NSLog(@"Update the server with location %@\n", self.currentLocation);
-    if (self.updateAList)
-    {
-        address = [NSString stringWithFormat:@"http://allsortz.com/api/businesses/?uname=%@&password=%@&lat=%f&lon=%f&deviceID=%@&bus_low=%d&bus_high=%d", [self.deviceInterface getStoredUname], [self.deviceInterface getStoredPassword],
-                   self.currentLocation.coordinate.latitude,self.currentLocation.coordinate.longitude,[self.deviceInterface getDeviceUIUD],self.businessList.entries.count,self.businessList.entries.count + NUM_RESULTS];
-    }
-    else
-    {
-        //completely refresh the data
+    //address = [NSString stringWithFormat:@"http://allsortz.com/api/businesses/map/?uname=%@&password=%@&lat=%f&lon=%f&deviceID=%@&min_x=%f&min_y=%f&max_x=%f&max_y=%f",/ [self.deviceInterface getStoredUname], [self.deviceInterface getStoredPassword],
+    //       self.currentLocation.coordinate.latitude,self.currentLocation.coordinate.longitude,[self.deviceInterface getDeviceUIUD],minx,miny,maxx,maxy];
+    
+    //address = [NSString stringWithFormat:@"http://api.yelp.com/v2/search?term=restaurants&bounds=%f,%f|%f,%f",miny,minx,maxy,maxx];
+    address = [NSString stringWithFormat:@"http://api.yelp.com/v2/search?term=restaurants&location=%@",@"08540"];
 
-        CLLocationCoordinate2D center = self.rect.center;
-        float maxx = center.latitude  + (self.rect.span.latitudeDelta  / 2.0);
-        float maxy = center.longitude  + (self.rect.span.longitudeDelta  / 2.0);
-        float minx = center.latitude  - (self.rect.span.latitudeDelta  / 2.0);
-        float miny = center.longitude  - (self.rect.span.longitudeDelta  / 2.0);
-        
-        
-        address = [NSString stringWithFormat:@"http://allsortz.com/api/businesses/map/?uname=%@&password=%@&lat=%f&lon=%f&deviceID=%@&min_x=%f&min_y=%f&max_x=%f&max_y=%f", [self.deviceInterface getStoredUname], [self.deviceInterface getStoredPassword],
-                   self.currentLocation.coordinate.latitude,self.currentLocation.coordinate.longitude,[self.deviceInterface getDeviceUIUD],minx,miny,maxx,maxy];
-    }
+    NSURL *URL = [NSURL URLWithString:address];
+    OAConsumer *consumer = [[OAConsumer alloc] initWithKey:CONSUMER_KEY secret:CONSUMER_SECRET] ;
+    OAToken *token = [[OAToken alloc] initWithKey:TOKEN secret:TOKEN_SECRET] ;
+    
+    id<OASignatureProviding, NSObject> provider = [[OAHMAC_SHA1SignatureProvider alloc] init];
+    NSString *realm = nil;
+    
+    OAMutableURLRequest *oauthrequest = [[OAMutableURLRequest alloc] initWithURL:URL
+                                                                   consumer:consumer
+                                                                      token:token
+                                                                      realm:realm
+                                                          signatureProvider:provider];
+    [oauthrequest prepare];
+    NSLog(@"%@\n",address);
 
-    NSLog(@"Query server with %@\n",address);
-    NSURL *url = [NSURL URLWithString:address];
-    NSURLRequest *request = [NSURLRequest requestWithURL:url];
-
-    NSURLConnection *connection = [NSURLConnection connectionWithRequest:request delegate:self];
-    if (!connection) {
-        // TODO: Some proper failure handling maybe
-        return NO;
-    }
-    self.receivedData = [NSMutableData data];
+    NSLog(@"%@\n",[oauthrequest URL]);
+    self.receivedData = [[NSMutableData alloc] init];
+    NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:oauthrequest delegate:self];
+    // NSLog(@"JSON: %@", [JSON yajl_JSONStringWithOptions:YAJLGenOptionsBeautify indentString:@"  "]);
+    NSLog(@"%@\n", [connection description]);
+    
+    
     return YES;
 }
 
@@ -330,6 +340,8 @@
 
 - (void)locationError:(NSError *)error
 {
+    
+    
     
 }
 

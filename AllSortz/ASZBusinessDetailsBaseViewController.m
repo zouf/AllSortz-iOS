@@ -14,6 +14,7 @@
 #import "ASZBusinessTopicDataController.h"
 #import "ASZBusinessTopicViewController.h"
 #import "ASZNewRateView.h"
+#import "ASGlobal.h"
 #import "ASZStarAnnotation.h"
 
 @interface ASZBusinessDetailsBaseViewController ()

@@ -10,7 +10,12 @@
 
 #define AS_DARK_BLUE  [UIColor colorWithRed:28.0f/255.0f green:55.0f/255.0f blue:82.0f/255.0f alpha:1.0f]
 
+#define CONSUMER_KEY @"z-5AyqiKIUREnt2YdCoQ1w"
+#define CONSUMER_SECRET @"_f0lb3ZMq6Lhih53fW1-sLX2ZMk"
+#define TOKEN @"_l_RyYYi5CdzCclU668qkXF_65iHDNXU"
+#define TOKEN_SECRET @"GMcrzmglHenNdy-J3QhvVBn7d4E"
 
+#define MAX_RATING 5
 
 @interface NSDictionary (UrlEncoding)
 

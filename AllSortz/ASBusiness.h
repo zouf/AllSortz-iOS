@@ -8,7 +8,7 @@
 
 @interface ASBusiness : NSObject
 
-@property (readonly) NSUInteger ID;
+@property (readonly) id ID;
 
 // TODO: Use more structured repr for location, hours, and phone
 
@@ -67,7 +67,7 @@
 //array of toipcs associated with the business
 @property (nonatomic) NSMutableArray *topics;
 
-- (id)initWithID:(NSUInteger)anID;
+- (id)initWithID:(id)anID;
 - (NSDictionary *) serializeToDictionaryWithTypes:(NSArray*)allTypes;
 
 @end

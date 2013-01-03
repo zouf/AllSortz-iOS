@@ -12,7 +12,7 @@
 
 @interface ASMapPoint : NSObject <MKAnnotation>{
 	CLLocationCoordinate2D coordinate;
-	NSUInteger tag;
+	id tag;
 	NSString *title;
 	NSString *subtitle;
     
@@ -23,7 +23,7 @@
 }
 
 @property(nonatomic,readonly) CLLocationCoordinate2D coordinate;
-@property(nonatomic) NSUInteger tag;
+@property(nonatomic) id tag;
 @property(nonatomic,retain) NSString *title;
 @property(nonatomic,retain) NSString *subtitle;
 

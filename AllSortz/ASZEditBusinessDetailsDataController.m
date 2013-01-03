@@ -101,7 +101,7 @@
 
 - (ASBusiness *)businessFromJSONResult:(NSDictionary *)result
 {
-    ASBusiness *business = [[ASBusiness alloc] initWithID:[result[@"businessID"] unsignedIntegerValue]];
+    ASBusiness *business = [[ASBusiness alloc] initWithID:result[@"businessID"] ];
     if (!business)
         return nil;
     

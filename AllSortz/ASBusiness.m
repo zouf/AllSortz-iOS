@@ -33,9 +33,9 @@
 
 @implementation ASBusiness
 
-- (id)initWithID:(NSUInteger)anID
+- (id)initWithID:(id)anID
 {
-    if (!(self = [super init]) || anID == 0)
+    if (!(self = [super init]) || !anID)
         return nil;
     // TODO: Maintain unique instances of businesses
     _ID = anID;

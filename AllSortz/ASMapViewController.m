@@ -18,7 +18,7 @@
 
 #import "ASZCustomAnnotation.h"
 
-#import "ASZBusinessDetailsBaseViewController.h"
+#import "ASZHealthMenuViewController.h"
 @interface ASMapViewController ()
     
 
@@ -204,27 +204,12 @@
     southEastCorner.latitude  = center.latitude  + (region.span.latitudeDelta  / 2.0);
     southEastCorner.longitude = center.longitude + (region.span.longitudeDelta / 2.0);
     
-  /*  if (
-        location.latitude  >= northWestCorner.latitude &&
-        location.latitude  <= southEastCorner.latitude &&
-        
-        location.longitude >= northWestCorner.longitude &&
-        location.longitude <= southEastCorner.longitude
-        )
-    {
-        // Old center is in this region dont update
-        NSLog(@"Center (%f, %f) span (%f, %f) user: (%f, %f)| IN!", region.center.latitude, region.center.longitude, region.span.latitudeDelta, region.span.longitudeDelta, location.latitude, location.longitude);
-        self.prevRegion = self.mv.region;
-        
-    }else {*/
-        
-        // User location (location) out of the region - NOT ok :-(
-        //NSLog(@"Center (%f, %f) span (%f, %f) user: (%f, %f)| OUT!", region.center.latitude, region.center.longitude, region.span.latitudeDelta, region.span.longitudeDelta, location.latitude, location.longitude);
+/*
         [self.listingsTableDataController setRect:self.mv.region];
         [self.listingsTableDataController setUpdateAList:NO];
         [self.listingsTableDataController updateData];
         self.prevRegion = self.mv.region;
-    //}
+*/
     
 
 
@@ -417,20 +402,13 @@
 - (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control
 {
     ASMapPoint *mp = (ASMapPoint*)view.annotation;
-    NSString *targetViewControllerIdentifier = @"ShowBusinessDetails2";
-    ASZBusinessDetailsBaseViewController *vc = (ASZBusinessDetailsBaseViewController*)[self.storyboard instantiateViewControllerWithIdentifier:targetViewControllerIdentifier];
+    NSString *targetViewControllerIdentifier = @"ShowHealthMenuDetails";
+    ASZHealthMenuViewController *vc = (ASZHealthMenuViewController*)[self.storyboard instantiateViewControllerWithIdentifier:targetViewControllerIdentifier];
     [vc setBusinessID:mp.tag];
     
     
-    ASZBusinessDetailsDataController *detailsDataController = vc.dataController;
+    ASZHealthMenuViewController *detailsDataController = vc.dataController;
     ASBusinessListDataController *listDataController = self.listingsTableDataController;
-    detailsDataController.username = [listDataController.deviceInterface getStoredUname];
-    detailsDataController.password = [listDataController.deviceInterface getStoredPassword];
-    
-    assert(detailsDataController.username);
-    detailsDataController.UUID = [listDataController.deviceInterface getDeviceUIUD];
-    detailsDataController.currentLatitude = listDataController.currentLocation.coordinate.latitude;
-    detailsDataController.currentLongitude = listDataController.currentLocation.coordinate.longitude;
 
     [vc setHidesBottomBarWhenPushed:YES];
     [self.navigationController  pushViewController:vc animated:YES];
@@ -558,30 +536,6 @@
 }
 
 
-/*
--(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
-    
-    id destinationViewController = segue.destinationViewController;
-    
-    if([segue.identifier isEqualToString:@"NewSort"]){
-        UINavigationController *nv = (UINavigationController *)(destinationViewController);
-        ASSortViewController *nsvc = (ASSortViewController *)nv.topViewController;
-        [self.listingsTableDataController setRect:self.mv.region];
-        nsvc.delegate = self.listingsTableDataController;
-    }
-    else if ([segue.identifier isEqualToString:@"ShowBusinessDetailsSegue"]) {
-        ASZBusinessDetailsViewController *detailsViewController = destinationViewController;
-        ASZBusinessDetailsDataController *detailsDataController = detailsViewController.dataController;
-        ASBusinessListDataController *listDataController = self.listingsTableDataController;
-        detailsDataController.username = [listDataController.deviceInterface getStoredUname];
-        detailsDataController.password = [listDataController.deviceInterface getStoredPassword];
-        detailsDataController.UUID = [listDataController.deviceInterface getDeviceUIUD];
-        detailsDataController.currentLatitude = listDataController.currentLocation.coordinate.latitude;
-        detailsDataController.currentLongitude = listDataController.currentLocation.coordinate.longitude;
-
-    }
-
-}*/
 
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
