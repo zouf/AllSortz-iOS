@@ -11,6 +11,9 @@
 #import "ASBusiness.h"
 #import "ASGlobal.h"
 
+#import <MapKit/MapKit.h>
+
+
 #define NUM_STATIC_CELLS 0
 
 
@@ -111,7 +114,7 @@
 
 @implementation ASBusinessList
 
-- (id)initWithJSONObjectYelp:(NSDictionary *)aJSONObject
+- (id)initWithJSONObjectYelp:(NSDictionary *)aJSONObject :(CLLocation*)currentLocation
 {
     if (!(self = [super init]) )
         return nil;
@@ -122,37 +125,11 @@
     for(NSDictionary * dict in _businesses)
     {
         //NSString *businessName = [dict objectForKey:@"businesName"];
-        id listingID = [dict objectForKey:@"id"];
-        ASBusiness *listing = [[ASBusiness alloc] initWithID:listingID];
+        ASBusiness *listing = [[ASBusiness alloc] initWithJSONYelp:dict];
+        CLLocation *locationA = [[CLLocation alloc] initWithLatitude:listing.lat longitude:listing.lng];
         
-        
-        listing.name = [dict valueForKey:@"name"];
-        listing.avgPrice = [NSNumber numberWithFloat:66.6];
-        listing.imageURLString = [dict valueForKey:@"image_url"];
-        listing.types = [dict valueForKey:@"categories"];
-        listing.distance = [dict valueForKey:@"rating"];
-        listing.recommendation = [[dict valueForKey:@"rating"] floatValue]  / MAX_RATING;
-        listing.website = [NSURL URLWithString:[dict valueForKey:@"url"]];
-        id location = [dict objectForKey:@"location"];
-        
-        NSLog(@"%@\n",location);
-        
-        listing.lat =  [[[location objectForKey:@"coordinate"] valueForKeyPath:@"latitude"] floatValue];
-        listing.lng =  [[[location objectForKey:@"coordinate"] valueForKeyPath:@"longitude"] floatValue];
-                        
-        listing.address = [location valueForKey:@"address"];
-        listing.city = [location valueForKey:@"city"];
-        listing.phone = [dict valueForKey:@"display_phone"];
-
-        if([dict objectForKey:@"starred"])
-        {
-            listing.starred = YES;
-        }
-        else
-        {
-            listing.starred = NO;
-        }
-        
+        CLLocationDistance distanceInMeters = [currentLocation distanceFromLocation:locationA];
+        listing.distance = [NSNumber numberWithFloat:distanceInMeters/1000];
         [_entries addObject:listing];
     }
 

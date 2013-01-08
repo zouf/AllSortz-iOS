@@ -12,7 +12,7 @@
 
 @interface ASZEditBusinessDetailsViewController : UITableViewController <UITableViewDelegate>
 
-@property NSUInteger businessID;
+@property id businessID;
 @property IBOutlet ASZEditBusinessDetailsDataController *dataController;
 
 

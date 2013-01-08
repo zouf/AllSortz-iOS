@@ -256,7 +256,7 @@
         
         
        // self.businessList = [[ASBusinessList alloc] initWithJSONObject:JSONresponse];
-        self.businessList = [[ASBusinessList alloc] initWithJSONObjectYelp:JSONresponse];
+        self.businessList = [[ASBusinessList alloc] initWithJSONObjectYelp:JSONresponse :self.currentLocation];
 
 
         [self.requestInProgress unlock];

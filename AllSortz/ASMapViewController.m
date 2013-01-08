@@ -8,7 +8,6 @@
 
 #import "ASMapViewController.h"
 
-#import "ASZBusinessDetailsDataController.h"
 
 #import "ASListingsViewController.h"
 
@@ -18,7 +17,7 @@
 
 #import "ASZCustomAnnotation.h"
 
-#import "ASZHealthMenuViewController.h"
+#import "ASZBusinessHealthViewController.h"
 @interface ASMapViewController ()
     
 
@@ -403,12 +402,12 @@
 {
     ASMapPoint *mp = (ASMapPoint*)view.annotation;
     NSString *targetViewControllerIdentifier = @"ShowHealthMenuDetails";
-    ASZHealthMenuViewController *vc = (ASZHealthMenuViewController*)[self.storyboard instantiateViewControllerWithIdentifier:targetViewControllerIdentifier];
+    ASZBusinessHealthViewController *vc = (ASZBusinessHealthViewController*)[self.storyboard instantiateViewControllerWithIdentifier:targetViewControllerIdentifier];
     [vc setBusinessID:mp.tag];
     
     
-    ASZHealthMenuViewController *detailsDataController = vc.dataController;
-    ASBusinessListDataController *listDataController = self.listingsTableDataController;
+    //ASZBusinessHealthViewController *detailsDataController = vc.dataController;
+    //ASBusinessListDataController *listDataController = self.listingsTableDataController;
 
     [vc setHidesBottomBarWhenPushed:YES];
     [self.navigationController  pushViewController:vc animated:YES];

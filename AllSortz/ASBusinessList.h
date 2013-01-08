@@ -6,6 +6,7 @@
 //  Copyright (c) 2012 AllSortz, Inc. All rights reserved.
 //
 #import "ASBusiness.h"
+#import <MapKit/MapKit.h>
 
 #define IMAGE_VIEW 102
 #define RATING_VIEW 100
@@ -53,7 +54,7 @@
 }
 
 
-- (id)initWithJSONObjectYelp:(NSDictionary *)aJSONObject;
+- (id)initWithJSONObjectYelp:(NSDictionary *)aJSONObject :(CLLocation*)currentLocation;
 
 - (id)initWithJSONObject:(NSDictionary *)aJSONObject;
 

@@ -62,11 +62,11 @@
 
 
 //array of types associated with business
-@property (nonatomic) NSArray *types;
+@property (nonatomic) NSMutableArray *types;
 
 //array of toipcs associated with the business
 @property (nonatomic) NSMutableArray *topics;
-
+-(id)initWithJSONYelp:(NSDictionary*)dict;
 - (id)initWithID:(id)anID;
 - (NSDictionary *) serializeToDictionaryWithTypes:(NSArray*)allTypes;
 

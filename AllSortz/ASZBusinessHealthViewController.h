@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
 
-#import "ASZBusinessDetailsDataController.h"
+#import "ASZBusinessHealthDataController.h"
 
 //tab info
 #define DISCUSSION_TAB 0
@@ -73,17 +73,15 @@
 
 @class ASZNewRateView;
 
-@interface ASZHealthMenuViewController :  UIViewController <UITableViewDelegate>
+@interface ASZBusinessHealthViewController :  UIViewController <UITableViewDelegate>
 
 @property id businessID;
 
-@property IBOutlet ASZBusinessDetailsDataController *dataController;
+@property (strong, nonatomic) IBOutlet ASZBusinessHealthDataController *dataController;
 @property (strong, nonatomic) IBOutlet UIView *mainView;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segmentedController;
-@property (strong, nonatomic) IBOutlet ASZNewRateView *customRateView;
+@property (strong, nonatomic)  ASZNewRateView *customRateView;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-
-@property(weak,nonatomic) MKMapView* mapView;
 
 
 @end

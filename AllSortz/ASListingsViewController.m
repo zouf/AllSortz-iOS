@@ -11,11 +11,10 @@
 #import "ASRateView.h"
 #import "ASAddBusinessViewController.h"
 #import "ASZBusinessDetailsViewController.h"
-#import "ASZBusinessDetailsDataController.h"
 #import "ASMapViewController.h"
 #import "ASZBusinessListingSingleton.h"
 #import "ASZNewRateView.h"
-#import "ASZHealthMenuViewController.h"
+#import "ASZBusinessHealthViewController.h"
 #define BUSINESS_NAME 200
 
 #define RELOAD_DISTANCE 15
@@ -120,14 +119,16 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSString *targetViewControllerIdentifier = @"ShowHealthMenuDetails";
-    ASZHealthMenuViewController *vc = (ASZHealthMenuViewController*)[self.storyboard instantiateViewControllerWithIdentifier:targetViewControllerIdentifier];
+    ASZBusinessHealthViewController *vc = (ASZBusinessHealthViewController*)[self.storyboard instantiateViewControllerWithIdentifier:targetViewControllerIdentifier];
     
     ASBusiness *listing = [self.listingsTableDataController.businessList.entries  objectAtIndex:indexPath.row];
     [vc setBusinessID:listing.ID];
     
     
-    ASZHealthMenuViewController *detailsDataController = vc.dataController;
-    ASBusinessListDataController *listDataController = self.listingsTableDataController;
+    ASZBusinessHealthDataController *detailsDataController = vc.dataController;
+    detailsDataController.business = listing;
+    
+   // ASBusinessListDataController *listDataController = self.listingsTableDataController;
 
     [vc setHidesBottomBarWhenPushed:YES];
     [self.navigationController  pushViewController:vc animated:YES];
@@ -215,6 +216,7 @@
             
         // if there's been a recommendation or user rating
         ASZNewRateView * rView = (ASZNewRateView*)[cell viewWithTag:106];
+        NSLog(@"%f\n",listing.recommendation);
         NSInteger intRating = roundf(listing.recommendation * MAX_RATING);
         if(rView)
         {

@@ -7,7 +7,6 @@
 //
 
 #import "ASZEditBusinessDetailsDataController.h"
-#import "ASZBusinessDetailsDataController.h"
 #import "ASZEditBusinessDetailsViewController.h"
 #import "ASBusiness.h"
 #import "ASGlobal.h"
@@ -38,7 +37,7 @@
 @synthesize businessTableView = _businessTableView;
 @synthesize viewController = _viewController;
 
-- (void)refreshBusinessAsynchronouslyWithID:(NSUInteger)ID
+- (void)refreshBusinessAsynchronouslyWithID:(id)ID
 {
     if (!(ID && self.username && self.currentLatitude && self.currentLongitude && self.UUID)) {
         self.business = nil;

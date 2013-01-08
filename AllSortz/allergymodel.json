@@ -1,0 +1,89 @@
+[
+ {
+    "category":"Allergen"
+    "factors": 
+	[
+		{
+			"name": "Peanuts"                
+		},
+		{
+			"name": "Gluten"             
+		},
+		{
+			"name": "Shellfish"
+		}
+	]
+ },
+ {
+	 "category":"Sustainability"
+	 "factors": 
+ 		[
+			{
+				"name": "Free-range chicken"
+			},
+			{
+				"name": "Grass-fed beef" 
+			},
+			{
+				"name": "Organic"
+			},
+			{
+				"name": "Natural"
+			}  
+		]
+ },
+ {
+    "category": "Lifestyle"
+    "factors":
+	[
+		{
+			"name":"Halal"
+		},
+		{
+			"name":"Kosher"
+		},
+		{
+			"name" :"Vegan"
+		},	
+		{
+			"name" :"Vegetarian"
+		},
+		{
+			"name": "Pescetarian"
+		}
+	]
+ },
+ {
+    "category": "Diets"
+    "factors":
+	[
+		{
+			"name":"Paleo Diet"
+		},
+		{
+			"name":"Atkins Diet"
+		},
+		{
+			"name" :"Weight Watchers"
+		}
+	]
+ },
+ {
+    "category": "Nutrition"
+    "factors":
+	[
+		{
+			"name":"High-protein"
+		},
+		{
+			"name":"Low-fat"
+		},
+		{
+			"name" :"Low-carb"
+		},	
+		{
+			"name" :"Low-sodium"
+		}
+	]
+ },
+ ]

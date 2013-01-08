@@ -24,62 +24,6 @@
             </objects>
             <point key="canvasLocation" x="-2008" y="460"/>
         </scene>
-        <!--Friend List View Controller-->
-        <scene sceneID="Ldw-Ja-gup">
-            <objects>
-                <viewController id="sk9-Ne-kod" customClass="ASZFriendListViewController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="jCe-XB-fqk">
-                        <rect key="frame" x="0.0" y="20" width="320" height="460"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" allowsMultipleSelection="YES" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="R1e-Zl-eLN">
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" id="yPo-S9-tz6">
-                                        <rect key="frame" x="0.0" y="22" width="320" height="44"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        </view>
-                                    </tableViewCell>
-                                </prototypes>
-                                <connections>
-                                    <outlet property="dataSource" destination="2qN-ph-PP5" id="OfJ-dL-yF1"/>
-                                    <outlet property="delegate" destination="sk9-Ne-kod" id="W1t-HT-dAX"/>
-                                </connections>
-                            </tableView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="R1e-Zl-eLN" firstAttribute="leading" secondItem="jCe-XB-fqk" secondAttribute="leading" type="default" id="7nf-8w-4R6"/>
-                            <constraint firstItem="R1e-Zl-eLN" firstAttribute="bottom" secondItem="jCe-XB-fqk" secondAttribute="bottom" type="default" id="Rth-wn-uic"/>
-                            <constraint firstItem="R1e-Zl-eLN" firstAttribute="top" secondItem="jCe-XB-fqk" secondAttribute="top" type="default" id="ePY-X8-Dc7"/>
-                            <constraint firstItem="R1e-Zl-eLN" firstAttribute="trailing" secondItem="jCe-XB-fqk" secondAttribute="trailing" type="default" id="xuw-fP-Nhf"/>
-                        </constraints>
-                    </view>
-                    <navigationItem key="navigationItem" id="1iB-aP-u8q">
-                        <barButtonItem key="rightBarButtonItem" title="Find a Place" id="AMJ-Tq-akA">
-                            <connections>
-                                <action selector="goOutTapped:" destination="sk9-Ne-kod" id="wQd-TU-kEP"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
-                    <connections>
-                        <outlet property="friendListDataController" destination="2qN-ph-PP5" id="B5W-6F-B4w"/>
-                        <outlet property="tableView" destination="R1e-Zl-eLN" id="aMP-r8-bCi"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="xUE-74-Rdg" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <customObject id="2qN-ph-PP5" customClass="ASZFriendListDataController">
-                    <connections>
-                        <outlet property="viewController" destination="sk9-Ne-kod" id="HkT-kl-zm5"/>
-                    </connections>
-                </customObject>
-            </objects>
-            <point key="canvasLocation" x="277" y="413"/>
-        </scene>
         <!--Topic Browse View Controller-->
         <scene sceneID="7pr-wc-NO3">
             <objects>
@@ -368,173 +312,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8OY-Dk-DEl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-862" y="-854"/>
-        </scene>
-        <!--Business Details Base View Controller-->
-        <scene sceneID="AuN-G7-87b">
-            <objects>
-                <viewController storyboardIdentifier="ShowBusinessDetailsOld" id="Gkl-sE-GoV" customClass="ASZBusinessDetailsBaseViewController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="htt-Qj-7hW">
-                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5gX-WM-esW">
-                                <subviews>
-                                    <imageView userInteractionEnabled="NO" tag="1000" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sGO-0z-LAO"/>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="default-detail-background.png" translatesAutoresizingMaskIntoConstraints="NO" id="yak-Pg-vs8">
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="120" type="user" id="7Sp-JB-DG1"/>
-                                            <constraint firstAttribute="width" constant="320" type="user" id="WNQ-KG-4aj"/>
-                                        </constraints>
-                                    </imageView>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="1001" contentMode="left" text="Business Name LOL gyj qyp" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="10" preferredMaxLayoutWidth="269" translatesAutoresizingMaskIntoConstraints="NO" id="gIJ-ph-kW4">
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="31" id="N0H-DD-p1L"/>
-                                            <constraint firstAttribute="width" constant="269" id="i88-Fj-MwD"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" name="GillSans" family="Gill Sans" pointSize="22"/>
-                                        <color key="textColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
-                                        <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    </label>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="1008" contentMode="left" text="Distance" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="mi2-qF-TY3">
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="98" id="VIa-s0-iKo"/>
-                                            <constraint firstAttribute="height" constant="21" id="w7H-7T-K6F"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    </label>
-                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="X79-Pl-dK5">
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="339" id="lAm-CJ-cc5"/>
-                                        </constraints>
-                                        <segments>
-                                            <segment title="My View"/>
-                                            <segment title="Info"/>
-                                            <segment title="Transact"/>
-                                            <segment title="Discuss"/>
-                                        </segments>
-                                        <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                        <connections>
-                                            <action selector="switchDetailTab:" destination="Gkl-sE-GoV" eventType="valueChanged" id="1uc-V8-3FQ"/>
-                                        </connections>
-                                    </segmentedControl>
-                                </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstItem="yak-Pg-vs8" firstAttribute="top" secondItem="5gX-WM-esW" secondAttribute="top" type="default" id="7Z3-IG-ddd"/>
-                                    <constraint firstItem="mi2-qF-TY3" firstAttribute="leading" secondItem="5gX-WM-esW" secondAttribute="leading" constant="12" id="M0Y-Kx-l3W"/>
-                                    <constraint firstItem="sGO-0z-LAO" firstAttribute="top" secondItem="5gX-WM-esW" secondAttribute="top" type="default" id="Pb8-Kc-mG7"/>
-                                    <constraint firstItem="gIJ-ph-kW4" firstAttribute="top" secondItem="5gX-WM-esW" secondAttribute="top" constant="6" id="RYp-X4-lIB"/>
-                                    <constraint firstItem="sGO-0z-LAO" firstAttribute="bottom" secondItem="yak-Pg-vs8" secondAttribute="bottom" type="default" id="XwS-ky-Xms"/>
-                                    <constraint firstItem="gIJ-ph-kW4" firstAttribute="leading" secondItem="5gX-WM-esW" secondAttribute="leading" constant="10" id="YyP-dC-R2g"/>
-                                    <constraint firstItem="sGO-0z-LAO" firstAttribute="bottom" secondItem="5gX-WM-esW" secondAttribute="bottom" type="default" id="d6p-ct-pda"/>
-                                    <constraint firstItem="sGO-0z-LAO" firstAttribute="leading" secondItem="5gX-WM-esW" secondAttribute="leading" type="default" id="dfY-fE-Tp2"/>
-                                    <constraint firstItem="X79-Pl-dK5" firstAttribute="top" secondItem="5gX-WM-esW" secondAttribute="top" constant="92" id="fHn-bc-7uk"/>
-                                    <constraint firstItem="X79-Pl-dK5" firstAttribute="centerX" secondItem="yak-Pg-vs8" secondAttribute="centerX" type="default" id="mca-G0-ulF"/>
-                                    <constraint firstItem="mi2-qF-TY3" firstAttribute="top" secondItem="5gX-WM-esW" secondAttribute="top" constant="58" id="nWD-cp-XbC"/>
-                                    <constraint firstItem="yak-Pg-vs8" firstAttribute="leading" secondItem="5gX-WM-esW" secondAttribute="leading" type="default" id="t2p-Er-JtE"/>
-                                    <constraint firstItem="sGO-0z-LAO" firstAttribute="trailing" secondItem="5gX-WM-esW" secondAttribute="trailing" type="default" id="yBr-yl-155"/>
-                                </constraints>
-                            </view>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="80" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="Ofz-My-OOY">
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <connections>
-                                    <outlet property="dataSource" destination="NQI-ra-nEi" id="Y89-qf-HAL"/>
-                                    <outlet property="delegate" destination="Gkl-sE-GoV" id="0kU-vn-Lny"/>
-                                </connections>
-                            </tableView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="Ofz-My-OOY" firstAttribute="trailing" secondItem="htt-Qj-7hW" secondAttribute="trailing" type="default" id="Fxf-3K-O3D"/>
-                            <constraint firstItem="Ofz-My-OOY" firstAttribute="leading" secondItem="htt-Qj-7hW" secondAttribute="leading" type="default" id="Q2U-mO-NvL"/>
-                            <constraint firstItem="Ofz-My-OOY" firstAttribute="top" secondItem="htt-Qj-7hW" secondAttribute="top" constant="120" type="user" id="aZk-gg-szt"/>
-                            <constraint firstItem="5gX-WM-esW" firstAttribute="top" secondItem="htt-Qj-7hW" secondAttribute="top" type="default" id="juC-mq-5VF"/>
-                            <constraint firstItem="Ofz-My-OOY" firstAttribute="bottom" secondItem="htt-Qj-7hW" secondAttribute="bottom" type="default" id="mIG-3L-8pb"/>
-                            <constraint firstItem="5gX-WM-esW" firstAttribute="trailing" secondItem="htt-Qj-7hW" secondAttribute="trailing" type="default" id="s5T-Xb-QPv"/>
-                            <constraint firstItem="5gX-WM-esW" firstAttribute="leading" secondItem="htt-Qj-7hW" secondAttribute="leading" type="default" id="xKH-hs-Bdz"/>
-                        </constraints>
-                    </view>
-                    <navigationItem key="navigationItem" id="u5g-UV-SSY">
-                        <barButtonItem key="rightBarButtonItem" image="05-plus.png" id="Lgq-Np-KtY">
-                            <connections>
-                                <action selector="addBusinessTopic:" destination="Gkl-sE-GoV" id="nV1-pF-56X"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
-                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
-                    <connections>
-                        <outlet property="dataController" destination="NQI-ra-nEi" id="FIb-qS-Xi1"/>
-                        <outlet property="mainView" destination="htt-Qj-7hW" id="fyT-qU-5z5"/>
-                        <outlet property="segmentedController" destination="X79-Pl-dK5" id="3Zn-Nc-DW4"/>
-                        <outlet property="tableView" destination="Ofz-My-OOY" id="Uvq-CG-hhA"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Brd-Ed-fCq" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <customObject id="NQI-ra-nEi" customClass="ASZBusinessDetailsDataController">
-                    <connections>
-                        <outlet property="businessTableView" destination="Ofz-My-OOY" id="UBs-L8-hCe"/>
-                        <outlet property="navBar" destination="u5g-UV-SSY" id="nbQ-I0-198"/>
-                        <outlet property="viewController" destination="Gkl-sE-GoV" id="yX9-4X-6s8"/>
-                    </connections>
-                </customObject>
-            </objects>
-            <point key="canvasLocation" x="-503" y="-161"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="8VG-xu-eLW">
-            <objects>
-                <viewController storyboardIdentifier="addBusinessTopicViewControllerID" id="I04-Ax-SBf" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="5Az-pW-Mz4">
-                        <rect key="frame" x="0.0" y="20" width="320" height="460"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <pickerView tag="1022" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gdg-7O-Vwp">
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="216" id="h5b-1B-aoM"/>
-                                </constraints>
-                            </pickerView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="Gdg-7O-Vwp" firstAttribute="leading" secondItem="5Az-pW-Mz4" secondAttribute="leading" type="default" id="3HZ-bD-MaU"/>
-                            <constraint firstItem="Gdg-7O-Vwp" firstAttribute="trailing" secondItem="5Az-pW-Mz4" secondAttribute="trailing" type="default" id="d6r-Fs-Fbx"/>
-                            <constraint firstItem="Gdg-7O-Vwp" firstAttribute="centerY" secondItem="5Az-pW-Mz4" secondAttribute="centerY" type="default" id="eVL-IL-Xst"/>
-                        </constraints>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="lWZ-5f-7Pz" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="197" y="-154"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="zGo-Za-YLF">
-            <objects>
-                <viewController id="3pJ-u5-COK" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="vM8-vE-Iy3">
-                        <rect key="frame" x="0.0" y="20" width="320" height="460"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Coming Soon. A new way for merchants to interact with businesses." translatesAutoresizingMaskIntoConstraints="NO" id="rdo-mi-hqI">
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" name="GillSans" family="Gill Sans" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="rdo-mi-hqI" firstAttribute="leading" secondItem="vM8-vE-Iy3" secondAttribute="leading" type="default" id="2d1-8w-6iK"/>
-                            <constraint firstItem="rdo-mi-hqI" firstAttribute="top" secondItem="vM8-vE-Iy3" secondAttribute="top" type="default" id="59K-r7-9f3"/>
-                            <constraint firstItem="rdo-mi-hqI" firstAttribute="bottom" secondItem="vM8-vE-Iy3" secondAttribute="bottom" type="default" id="RZs-SC-jty"/>
-                            <constraint firstItem="rdo-mi-hqI" firstAttribute="trailing" secondItem="vM8-vE-Iy3" secondAttribute="trailing" type="default" id="V26-sT-Ggj"/>
-                        </constraints>
-                    </view>
-                    <navigationItem key="navigationItem" id="ufZ-Ql-WpB"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="4gV-5U-8MA" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-862" y="-133"/>
         </scene>
         <!--Add Business View Controller-->
         <scene sceneID="6EN-rw-Ry5">
@@ -1264,18 +1041,10 @@
             </objects>
             <point key="canvasLocation" x="1477" y="542"/>
         </scene>
-        <!--Health Menu View Controller-->
+        <!--Business Health View Controller-->
         <scene sceneID="4D7-1d-6KK">
             <objects>
-                <customObject id="InV-pb-8Ub" customClass="ASZBusinessDetailsDataController">
-                    <connections>
-                        <outlet property="businessTableView" destination="xfu-43-LhG" id="Uzb-ss-nAB"/>
-                        <outlet property="navBar" destination="AqK-xX-Hb2" id="7PM-pi-xjd"/>
-                        <outlet property="viewController" destination="agr-YH-l3j" id="yD5-Hf-cLg"/>
-                    </connections>
-                </customObject>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="S7x-eW-kNb" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <viewController storyboardIdentifier="ShowHealthMenuDetails" useStoryboardIdentifierAsRestorationIdentifier="YES" id="agr-YH-l3j" customClass="ASZHealthMenuViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ShowHealthMenuDetails" useStoryboardIdentifierAsRestorationIdentifier="YES" id="agr-YH-l3j" customClass="ASZBusinessHealthViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="soj-bB-1c7">
                         <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1312,22 +1081,22 @@
                                             <constraint firstAttribute="width" constant="339" id="uIn-jM-wkW"/>
                                         </constraints>
                                         <segments>
-                                            <segment title="Menu"/>
                                             <segment title="Info"/>
+                                            <segment title="Menu"/>
                                             <segment title="Reviews"/>
                                         </segments>
                                         <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                         <connections>
-                                            <action selector="switchDetailTab:" destination="agr-YH-l3j" eventType="valueChanged" id="mH4-Cz-daK"/>
+                                            <action selector="newTabSelected:" destination="agr-YH-l3j" eventType="valueChanged" id="4ba-MT-pJq"/>
                                         </connections>
                                     </segmentedControl>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                 <constraints>
+                                    <constraint firstItem="G1Y-ix-D1t" firstAttribute="top" secondItem="imP-U0-0mq" secondAttribute="top" constant="90" id="0mw-L1-Fiy"/>
                                     <constraint firstItem="3Ik-bQ-wen" firstAttribute="bottom" secondItem="imP-U0-0mq" secondAttribute="bottom" type="default" id="1ku-cE-hUz"/>
                                     <constraint firstItem="uAB-Yt-lcv" firstAttribute="top" secondItem="imP-U0-0mq" secondAttribute="top" constant="58" id="6rg-zp-TVd"/>
                                     <constraint firstItem="G1Y-ix-D1t" firstAttribute="centerX" secondItem="3Ik-bQ-wen" secondAttribute="centerX" type="default" id="DkC-h6-Yxp"/>
-                                    <constraint firstItem="G1Y-ix-D1t" firstAttribute="bottom" secondItem="imP-U0-0mq" secondAttribute="bottom" type="default" id="EVT-V7-X0w"/>
                                     <constraint firstItem="uAB-Yt-lcv" firstAttribute="leading" secondItem="imP-U0-0mq" secondAttribute="leading" constant="12" id="RrZ-0V-9pT"/>
                                     <constraint firstItem="x6v-NG-Ac3" firstAttribute="leading" secondItem="imP-U0-0mq" secondAttribute="leading" constant="10" id="UBo-wn-zGj"/>
                                     <constraint firstItem="3Ik-bQ-wen" firstAttribute="top" secondItem="imP-U0-0mq" secondAttribute="top" type="default" id="WWM-Cb-4IT"/>
@@ -1339,11 +1108,11 @@
                                     <constraint firstItem="sYR-Qv-2oK" firstAttribute="leading" secondItem="imP-U0-0mq" secondAttribute="leading" type="default" id="yK6-S2-2dK"/>
                                 </constraints>
                             </view>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="80" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="xfu-43-LhG">
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="singleLineEtched" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" translatesAutoresizingMaskIntoConstraints="NO" id="xfu-43-LhG">
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <connections>
-                                    <outlet property="dataSource" destination="NQI-ra-nEi" id="GvX-vY-uJh"/>
-                                    <outlet property="delegate" destination="agr-YH-l3j" id="DVa-DO-qkX"/>
+                                    <outlet property="dataSource" destination="InV-pb-8Ub" id="Dnv-fh-5eM"/>
+                                    <outlet property="delegate" destination="agr-YH-l3j" id="Jrq-cq-qNI"/>
                                 </connections>
                             </tableView>
                         </subviews>
@@ -1358,31 +1127,109 @@
                             <constraint firstItem="imP-U0-0mq" firstAttribute="top" secondItem="soj-bB-1c7" secondAttribute="top" type="default" id="z8e-0H-i7t"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="AqK-xX-Hb2">
-                        <barButtonItem key="rightBarButtonItem" image="05-plus.png" id="yJi-a1-eqe">
-                            <connections>
-                                <action selector="addBusinessTopic:" destination="agr-YH-l3j" id="6ka-dV-itv"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="AqK-xX-Hb2"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
-                        <outlet property="dataController" destination="NQI-ra-nEi" id="bVo-tN-vBL"/>
+                        <outlet property="dataController" destination="InV-pb-8Ub" id="Mm3-ha-YIA"/>
                         <outlet property="mainView" destination="soj-bB-1c7" id="dwN-Hj-9gq"/>
                         <outlet property="segmentedController" destination="G1Y-ix-D1t" id="wvw-ei-yeh"/>
-                        <outlet property="tableView" destination="xfu-43-LhG" id="HJP-uk-7XO"/>
+                        <outlet property="tableView" destination="xfu-43-LhG" id="cYn-gr-CL4"/>
                     </connections>
                 </viewController>
+                <customObject id="InV-pb-8Ub" customClass="ASZBusinessHealthDataController">
+                    <connections>
+                        <outlet property="businessTableView" destination="xfu-43-LhG" id="Mz7-2h-yge"/>
+                        <outlet property="navBar" destination="AqK-xX-Hb2" id="7PM-pi-xjd"/>
+                        <outlet property="viewController" destination="agr-YH-l3j" id="9gw-fT-aqx"/>
+                    </connections>
+                </customObject>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="S7x-eW-kNb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-498" y="460"/>
+            <point key="canvasLocation" x="-390" y="-64"/>
+        </scene>
+        <!--Menu View Controller-->
+        <scene sceneID="JOn-ep-csd">
+            <objects>
+                <tableViewController id="L4K-C3-td5" customClass="ASZMenuViewController" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="65" sectionHeaderHeight="22" sectionFooterHeight="22" id="K4w-pT-Hdu">
+                        <rect key="frame" x="0.0" y="20" width="320" height="460"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="checkmark" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="BasicMenuItem" rowHeight="65" id="4z3-zM-r6E">
+                                <rect key="frame" x="0.0" y="22" width="320" height="65"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="300" height="64"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Dish Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J7l-kC-hE7">
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="21" id="Lcf-7r-5FT"/>
+                                                <constraint firstAttribute="width" constant="85" id="Mii-XS-FP7"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" name="GillSans" family="Gill Sans" pointSize="17"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </label>
+                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Dish description" translatesAutoresizingMaskIntoConstraints="NO" id="PUg-eD-vff">
+                                            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="32" id="Wbm-9p-D48"/>
+                                                <constraint firstAttribute="width" constant="234" id="cHH-kk-23K"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" name="GillSans-Light" family="Gill Sans" pointSize="14"/>
+                                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                        </textView>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="spe-cert.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="zdC-gH-gBW">
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="40" id="Zwi-Zb-oja"/>
+                                                <constraint firstAttribute="height" constant="40" id="f2w-tI-LJ4"/>
+                                            </constraints>
+                                        </imageView>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Price" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qAA-cm-1BV">
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="21" id="U9R-9W-bPO"/>
+                                                <constraint firstAttribute="width" constant="39" id="fRY-Ww-qef"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" name="GillSans" family="Gill Sans" pointSize="14"/>
+                                            <color key="textColor" red="0.0" green="0.20000000000000001" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="J7l-kC-hE7" firstAttribute="top" secondItem="4z3-zM-r6E" secondAttribute="top" constant="4" id="7q5-v4-Nmx"/>
+                                    <constraint firstItem="zdC-gH-gBW" firstAttribute="top" secondItem="4z3-zM-r6E" secondAttribute="top" constant="19" id="80M-ng-JcV"/>
+                                    <constraint firstItem="zdC-gH-gBW" firstAttribute="leading" secondItem="PUg-eD-vff" secondAttribute="trailing" constant="8" symbolic="YES" type="default" id="Air-IU-S48"/>
+                                    <constraint firstAttribute="trailing" secondItem="qAA-cm-1BV" secondAttribute="trailing" constant="27" id="Sye-yK-8KS"/>
+                                    <constraint firstItem="qAA-cm-1BV" firstAttribute="top" secondItem="4z3-zM-r6E" secondAttribute="top" constant="3" id="bRi-YS-5wr"/>
+                                    <constraint firstItem="zdC-gH-gBW" firstAttribute="bottom" secondItem="PUg-eD-vff" secondAttribute="bottom" type="default" id="hjI-Se-akU"/>
+                                    <constraint firstItem="J7l-kC-hE7" firstAttribute="leading" secondItem="4z3-zM-r6E" secondAttribute="leading" constant="14" id="z2p-Rs-vml"/>
+                                    <constraint firstItem="PUg-eD-vff" firstAttribute="leading" secondItem="4z3-zM-r6E" secondAttribute="leading" constant="7" id="zot-s0-Zge"/>
+                                </constraints>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="qUx-px-9TX" id="5ap-2m-rXm"/>
+                            <outlet property="delegate" destination="L4K-C3-td5" id="IgF-a7-50v"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="E9c-8l-Aqh" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <customObject id="qUx-px-9TX" customClass="ASZMenuDataController"/>
+            </objects>
+            <point key="canvasLocation" x="103" y="-67"/>
         </scene>
     </scenes>
     <resources>
-        <image name="05-plus.png" width="15" height="15"/>
         <image name="253-person.png" width="26" height="24"/>
         <image name="Icon-1024.png" width="1024" height="1024"/>
         <image name="Placeholder.png" width="360" height="360"/>
         <image name="default-detail-background.png" width="320" height="120"/>
+        <image name="spe-cert.jpg" width="600" height="600"/>
         <image name="tab_map.png" width="30" height="30"/>
         <image name="white-213-reply.png" width="23" height="17"/>
     </resources>
@@ -1451,32 +1298,21 @@
                 <relationship kind="outlet" name="userProfileDataController" candidateClass="ASUserProfileDataController"/>
             </relationships>
         </class>
-        <class className="ASZBusinessDetailsBaseViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ASZBusinessDetailsBaseViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="addBusinessTopic:"/>
-                <relationship kind="action" name="addBusinessTopicDone:"/>
-                <relationship kind="action" name="busTopicNegRateTap:"/>
-                <relationship kind="action" name="busTopicPosRateTap:"/>
-                <relationship kind="action" name="cancelAddBusinessTopic:"/>
-                <relationship kind="action" name="commentRateTap:"/>
-                <relationship kind="action" name="editTapped:"/>
-                <relationship kind="action" name="reportProblem:"/>
-                <relationship kind="action" name="reviewTapped:"/>
-                <relationship kind="action" name="switchDetailTab:"/>
-                <relationship kind="outlet" name="customRateView" candidateClass="ASZNewRateView"/>
-                <relationship kind="outlet" name="dataController" candidateClass="ASZBusinessDetailsDataController"/>
-                <relationship kind="outlet" name="mainView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="segmentedController" candidateClass="UISegmentedControl"/>
-                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
-            </relationships>
-        </class>
-        <class className="ASZBusinessDetailsDataController" superclassName="NSObject">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ASZBusinessDetailsDataController.h"/>
+        <class className="ASZBusinessHealthDataController" superclassName="NSObject">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ASZBusinessHealthDataController.h"/>
             <relationships>
                 <relationship kind="outlet" name="businessTableView" candidateClass="UITableView"/>
                 <relationship kind="outlet" name="navBar" candidateClass="UINavigationItem"/>
-                <relationship kind="outlet" name="viewController" candidateClass="ASZBusinessDetailsBaseViewController"/>
+                <relationship kind="outlet" name="viewController" candidateClass="ASZBusinessHealthViewController"/>
+            </relationships>
+        </class>
+        <class className="ASZBusinessHealthViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ASZBusinessHealthViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="dataController" candidateClass="ASZBusinessHealthDataController"/>
+                <relationship kind="outlet" name="mainView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="segmentedController" candidateClass="UISegmentedControl"/>
+                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
             </relationships>
         </class>
         <class className="ASZBusinessTopicDataController" superclassName="NSObject">
@@ -1510,28 +1346,11 @@
                 <relationship kind="outlet" name="dataController" candidateClass="ASZEditBusinessDetailsDataController"/>
             </relationships>
         </class>
-        <class className="ASZFriendListDataController" superclassName="NSObject">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ASZFriendListDataController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="viewController" candidateClass="ASZFriendListViewController"/>
-            </relationships>
+        <class className="ASZMenuDataController" superclassName="NSObject">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ASZMenuDataController.h"/>
         </class>
-        <class className="ASZFriendListViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ASZFriendListViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="friendListDataController" candidateClass="ASZFriendListDataController"/>
-                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
-            </relationships>
-        </class>
-        <class className="ASZHealthMenuViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ASZHealthMenuViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="customRateView" candidateClass="ASZNewRateView"/>
-                <relationship kind="outlet" name="dataController" candidateClass="ASZBusinessDetailsDataController"/>
-                <relationship kind="outlet" name="mainView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="segmentedController" candidateClass="UISegmentedControl"/>
-                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
-            </relationships>
+        <class className="ASZMenuViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ASZMenuViewController.h"/>
         </class>
         <class className="ASZNewRateView" superclassName="UIView">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/ASZNewRateView.h"/>

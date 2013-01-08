@@ -24,7 +24,7 @@
 @property CGFloat currentLongitude;
 @property NSString *UUID;
 
-- (void)refreshBusinessAsynchronouslyWithID:(NSUInteger)ID;
-- (void)editBusinessAsynchronouslyWithID:(NSUInteger)ID;
+- (void)refreshBusinessAsynchronouslyWithID:(id)ID;
+- (void)editBusinessAsynchronouslyWithID:(id)ID;
 
 @end
