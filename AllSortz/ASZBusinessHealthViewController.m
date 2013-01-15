@@ -11,6 +11,8 @@
 #import "ASZNewRateView.h"
 #import "ASBusiness.h"
 #import "ASGlobal.h"
+#import "ASZBusinessReviewsViewController.h"
+#import "ASZMenuViewController.h"
 
 @interface ASZBusinessHealthViewController ()
 
@@ -36,14 +38,15 @@
     }
     else if (segmented.selectedSegmentIndex == 1)
     {
-        NSLog(@"%@\n", @"Go to menu");
-
+        ASZMenuViewController *menuController = (ASZMenuViewController*)[self.storyboard instantiateViewControllerWithIdentifier:@"MenuViewID"];
+        menuController.dataController.business = self.dataController.business;
+        [self.navigationController pushViewController:menuController animated:YES];
     }
     else if(segmented.selectedSegmentIndex == 2)
     {
-        NSLog(@"%@\n", @"Go to reviews");
-
-    
+        ASZBusinessReviewsViewController *reviewsController = (ASZBusinessReviewsViewController*)[self.storyboard instantiateViewControllerWithIdentifier:@"ReviewViewID"];
+        reviewsController.dataController.business = self.dataController.business;
+        [self.navigationController pushViewController:reviewsController animated:YES];    
     }
     else{
         NSLog(@"Wrong index!\n");
@@ -98,7 +101,7 @@
     [lbl setBackgroundColor:[UIColor clearColor]];
     [lbl setTextColor:[UIColor whiteColor]];
     self.navigationItem.titleView = lbl;
-    
+    [self.dataController  getAdditionalBusinessData];
     [self updateViewElements];
 
 	// Do any additional setup after loading the view.
@@ -147,7 +150,11 @@
 
 #pragma mark - Storyboard segue
 
-
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self.segmentedController setSelectedSegmentIndex:0];    
+}
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
@@ -159,9 +166,8 @@
                           forKeyPath:@"business.image"
                              options:NSKeyValueObservingOptionNew
                              context:NULL];
-    
-    [self.dataController  getAdditionalBusinessData];
-    UIImageView *imageView = (UIImageView*)[self.mainView viewWithTag:1000];
+
+    UIImageView *imageView = (UIImageView*)[self.mainView viewWithTag:BUSINESSIMAGEVIEW_TAG];
     imageView.image = [self.dataController valueForKeyPath:@"business.image"];
 
     
@@ -197,7 +203,7 @@
     if ([keyPath isEqual:@"business"] || [keyPath isEqual:@"business.image"]) {
         if ([self.dataController valueForKeyPath:@"business.image"] != nil) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                UIImageView *imageView = (UIImageView*)[self.mainView viewWithTag:1000];
+                UIImageView *imageView = (UIImageView*)[self.mainView viewWithTag:BUSINESSIMAGEVIEW_TAG];
                 imageView.image = [self.dataController valueForKeyPath:@"business.image"];
             });
         } else {
@@ -226,92 +232,57 @@ heightForFooterInSection:(NSInteger)section {
 }
 
 
-// custom view for footer. will be adjusted to default or specified footer height
-// Notice: this will work only for one section within the table view
-/*- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
-    
-    
-            if (section == LAST_SECTION)
-            {
-                //allocate the view if it doesn't exist yet
-                UIView * footerView  = [[UIView alloc] init];
-                
-                //we would like to show a gloosy red button, so get the image first
-                
-                [footerView setBackgroundColor:[UIColor clearColor]];
-                //create the button
-                UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-                
-                
-                //the button should be as big as a table view cell
-                [button setFrame:CGRectMake(10, 3, 100, 44)];
-                
-                //set title, font size and font color
-                [button setTitle:@"Edit" forState:UIControlStateNormal];
-                [button.titleLabel setFont:[UIFont fontWithName:@"Gill Sans" size:14]];
-                [button setTitleColor:[UIColor darkTextColor] forState:UIControlStateNormal];
-                
-                //set action of the button
-                [button addTarget:self action:@selector(editTapped:)
-                 forControlEvents:UIControlEventTouchUpInside];
-                
-                
-                
-                UIButton *reportProblem = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-                
-                
-                //the button should be as big as a table view cell
-                [reportProblem setFrame:CGRectMake(200, 3, 110, 44)];
-                
-                //set title, font size and font color
-                [reportProblem setTitle:@"Report a Problem" forState:UIControlStateNormal];
-                [reportProblem.titleLabel setFont:[UIFont fontWithName:@"Gill Sans" size:14]];
-                [reportProblem setTitleColor:[UIColor darkTextColor] forState:UIControlStateNormal];
-                
-                //set action of the button
-                [reportProblem addTarget:self action:@selector(reportProblem:)
-                        forControlEvents:UIControlEventTouchUpInside];
-                
-                
-                //add the button to the view
-                [footerView addSubview:reportProblem];
-                [footerView addSubview:button];
-                
-                [footerView setAlpha:0.5];
-                //return the view for the footer
-                return footerView;
-            }
-            return nil;
 
-            
-  
-    
-}*/
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
 
-    if (indexPath.section == 0)  //phone and website
-    {
-        return 50;
-    }
     if(indexPath.section == 1) // address and map section
     {
         if(indexPath.row == 1)
             return MAP_HEIGHT;
-        else //MAP_ROW
-            return 50;
     }
-    if(indexPath.section == 2) // health and type section
-    {
-        return 50;
-    }
-    return 50;
+    return DEFAULT_CELL_HEIGHT;
 }
 
 
 
+-(void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath
+{
+    if(indexPath.section == 0)
+    {
+        if(indexPath.row==1)
+        {
+            if(self.dataController.business.certLevel == 0)
+            {
+                UIAlertView *alert;
+                alert = [[UIAlertView alloc] initWithTitle:@"Request Certification"
+                                                   message:[NSString stringWithFormat:@"Get %@ certified. Let us know you're interested in getting them certified", self.dataController.business.name]
+                                                  delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK",nil];
+                [alert show];
+            }
+            else if(self.dataController.business.certLevel==1)
+            {
+                
+                UIAlertView *alert;
+                alert = [[UIAlertView alloc] initWithTitle:@"Request Certificaiton"
+                                                   message:[NSString stringWithFormat:@"The health and nutrition data at %@ is self reported. Let us know you're interested in getting the information certificated and validated!",
+                                                            self.dataController.business.name] delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK",nil];
+                [alert show];
+                
+            }
+            else
+            {
+                UIAlertView *alert;
+                alert = [[UIAlertView alloc] initWithTitle:@"Enjoy!"
+                                                   message:[NSString stringWithFormat:@"The health and nutrition data at %@ is certified by SPE.",
+                                                            self.dataController.business.name] delegate:self cancelButtonTitle:@"Thanks!" otherButtonTitles:nil];
+                [alert show];
+            }
 
+        }
+    }
+}
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
 
@@ -393,20 +364,7 @@ heightForFooterInSection:(NSInteger)section {
 
                         break;
                     }
-                    case 1: // request cert
-                    {
-                        UIAlertView *alert;
-                        
-                        alert = [[UIAlertView alloc] initWithTitle:@"Request Certificaiton"
-                                                           message:@"Get this business certified. Let us know you're interested"
-                                                          delegate:self
-                                                 cancelButtonTitle:@"Certify"
-                                                 otherButtonTitles:nil];
-                        [alert show];
-
-                        break;
-                    }
-                    case 2:  // request modification
+                    case 1:  // request modification
                     {
                         UIAlertView *alert;
                         

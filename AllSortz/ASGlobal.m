@@ -8,6 +8,11 @@
 
 #import "ASGlobal.h"
 
+
+NSString *const ASMultipleAssignmentException = @"Multiple Assignment Exception";
+
+
+
 // helper function: get the string form of any object
 static NSString *toString(id object) {
     return [NSString stringWithFormat: @"%@", object];

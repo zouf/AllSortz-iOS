@@ -75,7 +75,7 @@
     return urlRequest;
 }
 
-- (void)editBusinessAsynchronouslyWithID:(NSUInteger)ID
+- (void)editBusinessAsynchronouslyWithID:(id)ID
 {
     if (!(ID && self.username && self.currentLatitude && self.currentLongitude && self.UUID)) {
         self.business = nil;
@@ -119,8 +119,6 @@
     
     NSMutableArray *topics = [NSMutableArray arrayWithCapacity:[result[@"categories"] count]];
     
-    NSDictionary *hinfo = result[@"health_info"];
-    business.healthGrade = [hinfo valueForKey:@"health_grade"];
     
     for (NSDictionary *category in result[@"categories"]) {
         NSMutableDictionary *topic = [NSMutableDictionary dictionary];

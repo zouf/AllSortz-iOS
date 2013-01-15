@@ -22,11 +22,6 @@
 @property (nonatomic) NSString *name;
 @property (nonatomic) NSString *phone;
 
-// the health violation text
-@property (nonatomic) NSString *healthViolationText;
-
-// The actual grade for the business (letter encoded)
-@property (nonatomic) NSString *healthGrade;
 
 //The personalize score for the business
 @property (nonatomic) CGFloat recommendation;
@@ -41,8 +36,6 @@
 //the businesses image which will be set by separate request
 @property (nonatomic) UIImage *image;
 
-//ID of the image
-@property (nonatomic) NSUInteger imageID;
 
 //distance from the current user
 @property (nonatomic) NSNumber *distance;
@@ -53,7 +46,7 @@
 //The average price for the business
 @property (nonatomic) NSNumber *avgPrice;
 
-//The average price for the business
+// The location of the business image
 @property (nonatomic, strong) NSString * imageURLString;
 
 
@@ -63,6 +56,17 @@
 
 //array of types associated with business
 @property (nonatomic) NSMutableArray *types;
+
+// a list of reviews from yelp
+@property (nonatomic) NSMutableArray *reviews;
+
+// 0 => none 1 => self-report 2 => SPE
+@property (assign) NSUInteger certLevel;
+//cert image
+@property (nonatomic,retain) UIImage *certImage;
+//cert date
+@property (nonatomic,retain) NSString *certDate;
+
 
 //array of toipcs associated with the business
 @property (nonatomic) NSMutableArray *topics;

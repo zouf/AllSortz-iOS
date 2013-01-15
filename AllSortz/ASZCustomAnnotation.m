@@ -8,7 +8,6 @@
 
 #import "ASZCustomAnnotation.h"
 
-#import "ASZConstants.h"
 #import <UIKit/UIKit.h>
 
 #define RADIUS 10

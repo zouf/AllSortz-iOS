@@ -24,9 +24,6 @@
 @property (weak, nonatomic) IBOutlet MKMapView *mv;
 @property (weak, nonatomic) NSMutableArray *businessPoints;
 @property(strong, nonatomic) UISearchBar*  searchBar;
-@property(nonatomic, assign) BOOL  searchIsOn;
-
-@property(assign) MKCoordinateRegion prevRegion;
 
 @property NSOperationQueue *queue;  // Assume we only need one for now
 
@@ -80,24 +77,20 @@
     
     
 
-    self.searchBar  = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, 170, 40)] ;
+    self.searchBar  = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, 220, 40)] ;
     self.searchBar.backgroundImage = [[UIImage alloc] init];
     self.searchBar.delegate = self;
 
     UIBarButtonItem *searchBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.searchBar];
     
-    
-    
-    
-    
-    UIImage *bookmarkImage = [UIImage imageNamed:@"16-tag.png"];
+  /*  UIImage *bookmarkImage = [UIImage imageNamed:@"16-tag.png"];
     UIBarButtonItem *bookmarks = [[UIBarButtonItem alloc] initWithImage:bookmarkImage landscapeImagePhone:bookmarkImage  style:UIBarButtonItemStyleBordered target:self action:@selector(tapBookmarks:)];
-    
+    */
     
     UIImage *addBusinessImage = [UIImage imageNamed:@"05-plus.png"];
     UIBarButtonItem *addBusiness = [[UIBarButtonItem alloc] initWithImage:addBusinessImage landscapeImagePhone:addBusinessImage  style:UIBarButtonItemStyleBordered target:self action:@selector(addBusinessTapped:)];
     
-    item.rightBarButtonItems = [NSArray arrayWithObjects:addBusiness,bookmarks,searchBarButtonItem, nil];
+    item.rightBarButtonItems = [NSArray arrayWithObjects:addBusiness,searchBarButtonItem, nil];
     
     
     [self.navigationController.navigationBar pushNavigationItem:item animated:NO];
@@ -108,8 +101,6 @@
                                           options:NSKeyValueObservingOptionNew
                                           context:NULL];
     
-
-	
     
     [self.mv setMapType:MKMapTypeStandard];
     [self.mv  setZoomEnabled:YES];
@@ -123,22 +114,6 @@
     [self.mv  setRegion:region animated:YES];
     [self.mv  setDelegate:self];
     
-       
-    
-    // on initial load of this view controller, update from the server if there's no business list
-    if (!self.listingsTableDataController.businessList)
-    {
-        NSLog(@"Map view entered on latitude %f\n",self.mv.region.center.latitude);
-        [self.listingsTableDataController setRect:self.mv.region];
-        [self.listingsTableDataController setUpdateAList:NO];
-        [self.listingsTableDataController updateData];
-        
-    }
-    else // business list comes from somewhere else
-    {
-        [self loadMapElements];
-        [self zoomToFitMapAnnotations:self.mv];
-    }
 
     UITapGestureRecognizer *gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyboard)];
     // For selecting cell.
@@ -150,70 +125,32 @@
     [self.view endEditing:YES];
 }
 
--(void)viewWillAppear:(BOOL)animated
+
+#pragma mark - Map delegate
+-(void)mapViewDidFinishLoadingMap:(MKMapView *)mapView
 {
-    [super viewWillAppear:animated];
-  //  [self.navigationController setNavigationBarHidden:YES];
-}
-
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-
-
-
-    
-    // fit to the elements on the map
-    //[self zoomToFitMapAnnotations:self.mv];
-
-}
-
--(void)openSearchBox:(id)sender
-{
-    NSLog(@"Tap search!\n");
-    [self.searchBar sizeToFit];
-    
-}
-
-- (IBAction)refreshTapped:(id)sender {
-    [self.listingsTableDataController setRect:self.mv.region];
-    [self.listingsTableDataController setSearchQuery:nil];
-    [self.listingsTableDataController setUpdateAList:NO];
-    [self.listingsTableDataController updateData];
-}
-
-
-#pragma mark - Load as scroll
-- (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated
-{
-    
-    
-  //  NSLog(@"Map view entered on latitude %f\n",self.mv.region.center.latitude);
-    
- 
-    
-    MKCoordinateRegion region = self.mv.region;
- //   CLLocationCoordinate2D location =  self.prevRegion.center;
-    
-    CLLocationCoordinate2D center   = region.center;
-    CLLocationCoordinate2D northWestCorner, southEastCorner;
-    
-    northWestCorner.latitude  = center.latitude  - (region.span.latitudeDelta  / 2.0);
-    northWestCorner.longitude = center.longitude - (region.span.longitudeDelta / 2.0);
-    southEastCorner.latitude  = center.latitude  + (region.span.latitudeDelta  / 2.0);
-    southEastCorner.longitude = center.longitude + (region.span.longitudeDelta / 2.0);
-    
-/*
+    //if theres no business list and the map just loaded, refresh the results
+    if(!self.listingsTableDataController.businessList)
+    {
         [self.listingsTableDataController setRect:self.mv.region];
-        [self.listingsTableDataController setUpdateAList:NO];
-        [self.listingsTableDataController updateData];
-        self.prevRegion = self.mv.region;
-*/
-    
-
-
+        [self.listingsTableDataController performUpdate];
+    }
 
 }
+
+- (void)mapView:(MKMapView *)mapView regionWillChangeAnimated:(BOOL)animated
+{
+    [self.listingsTableDataController setRect:self.mv.region];
+    [self.listingsTableDataController performUpdate];
+}
+
+
+- (IBAction)clearResults:(id)sender {
+    self.listingsTableDataController.searchTerm = nil;
+    [self.listingsTableDataController setRect:self.mv.region];
+    [self.listingsTableDataController performUpdate];
+}
+
 
 
 -(void)zoomToFitMapAnnotations:(MKMapView*)mapView
@@ -266,7 +203,6 @@
     region.span = self.mv.region.span;
 //    region = [self.mv regionThatFits:region];
     [self.mv setRegion:region animated:YES];
-
     
 }
 
@@ -310,20 +246,23 @@
     if(colorScale > 1)
         colorScale = 1;
     
-    
-    
-    
-    
-    UIColor *scaleColor =  [UIColor colorWithRed:colorScale green: colorScale blue: 0 alpha: 1];
+//    UIColor *scaleColor =  [UIColor colorWithRed:colorScale green: colorScale blue: 0 alpha: 1];
 
     
-    if(annotation.business.starred)
+    if(annotation.business.certLevel != 2)
     {
-        pinView.image = [UIImage imageNamed:@"02-star.png" withColor:scaleColor];
+        pinView.contentMode = UIViewContentModeScaleAspectFit;
+        pinView.image = [UIImage imageNamed:@"02-star.png" withColor:AS_DARK_BLUE];
     }
     else
     {
-        pinView.image = [UIImage imageNamed:@"12-flag.png" withColor:AS_DARK_BLUE];
+        pinView.contentMode = UIViewContentModeScaleAspectFit;
+        UIImageView *imgView = [[UIImageView alloc]initWithFrame:CGRectMake(5,5,15,15)];
+        imgView.image = [UIImage imageNamed:@"spe-icon.jpg"];
+        imgView.contentMode = UIViewContentModeScaleAspectFill;
+        pinView.image = nil; // withColor:scaleColor];
+        [pinView addSubview:imgView];
+        //pinView.image = [UIImage imageNamed:@"12-flag.png" withColor:AS_DARK_BLUE];
 
     }
     
@@ -403,15 +342,18 @@
     ASMapPoint *mp = (ASMapPoint*)view.annotation;
     NSString *targetViewControllerIdentifier = @"ShowHealthMenuDetails";
     ASZBusinessHealthViewController *vc = (ASZBusinessHealthViewController*)[self.storyboard instantiateViewControllerWithIdentifier:targetViewControllerIdentifier];
-    [vc setBusinessID:mp.tag];
+    
+    [vc setBusinessID:mp.business.ID];
     
     
-    //ASZBusinessHealthViewController *detailsDataController = vc.dataController;
-    //ASBusinessListDataController *listDataController = self.listingsTableDataController;
-
+    ASZBusinessHealthDataController *detailsDataController = vc.dataController;
+    detailsDataController.business = mp.business;
+    
+    // ASBusinessListDataController *listDataController = self.listingsTableDataController;
+    
     [vc setHidesBottomBarWhenPushed:YES];
     [self.navigationController  pushViewController:vc animated:YES];
-//    [self.navigationController setNavigationBarHidden:NO];
+    [self.navigationController setNavigationBarHidden:NO];
     
 }
 - (void)viewDidUnload {
@@ -446,8 +388,20 @@
         searchText.tag = 1001;
         [searchText setBackgroundColor:[UIColor clearColor]];
     }
+    
+    
     searchText.hidden = NO;
-    searchText.text = self.listingsTableDataController.businessList.searchText;
+    
+    if(!self.listingsTableDataController.searchTerm)
+    {
+        searchText.text = [NSString stringWithFormat:@"Displaying %d places to eat\n",self.listingsTableDataController.businessList.countOfBusinesses];
+
+    }
+    else
+    {
+        searchText.text = [NSString stringWithFormat:@"Displaying %d places for the '%@'\n",self.listingsTableDataController.businessList.countOfBusinesses,self.listingsTableDataController.searchTerm];
+
+    }
     
     
     UILabel *action = (UILabel*)[actionBackground viewWithTag:1002];
@@ -461,9 +415,9 @@
         [action setBackgroundColor:[UIColor clearColor]];
     }
     
-    if (self.listingsTableDataController.searchQuery)
+    if (self.listingsTableDataController.searchTerm)
     {
-        UITapGestureRecognizer* singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(refreshTapped:)];
+        UITapGestureRecognizer* singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clearResults:)];
         singleTap.numberOfTapsRequired = 1;
         singleTap.numberOfTouchesRequired = 1;
         singleTap.cancelsTouchesInView = NO;
@@ -496,7 +450,7 @@
         ASMapPoint *mp = [[ASMapPoint alloc] initWithCoordinate:annotationCenter withScore:bus.recommendation withTag:bus.ID withTitle:bus.name withSubtitle:scoreText];
         
   
-        
+        mp.tag = bus.ID;
         mp.business = bus;
         [self.businessPoints addObject:mp];
     }
@@ -525,31 +479,27 @@
 {
     // If the business list changes, reassign
     if ([keyPath isEqualToString:@"businessList"]) {
-        [self loadMapElements];
-        if (self.listingsTableDataController.businessList.newAddress)
-        {
-            [self zoomToFitMapAnnotations:self.mv];
-        }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if(self.listingsTableDataController.businessList != nil)
+                [self loadMapElements];
+        });
+        
+
     }
 
 }
 
 
 
-
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
-    ASZQuery *newQ = [[ASZQuery alloc] init];
-    newQ.distanceWeight = [NSString stringWithFormat:@"0"];
-    newQ.searchText =  searchBar.text;
-    [self.listingsTableDataController setSearchQuery:newQ];
     
-   // NSLog(@"region is at %f\n",self.mv.region.center.latitude);
+    NSLog(@"region is at %f\n",self.mv.region.center.latitude);
     [self.listingsTableDataController setRect:self.mv.region];
-    [self.listingsTableDataController setUpdateAList:NO];
-    [self.listingsTableDataController updateWithQuery];
+    [self.listingsTableDataController setSearchTerm:searchBar.text];
     [self.view endEditing:YES];
     [self.searchBar resignFirstResponder];
+    [self.listingsTableDataController performUpdate];
     
 }
 

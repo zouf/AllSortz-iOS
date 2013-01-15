@@ -7,7 +7,6 @@
 //
 
 #import "ASBusiness.h"
-#import "ASException.h"
 #import "ASGlobal.h"
 
 #ifndef CHECK_FOR_MULTI_ASSIGN
@@ -33,6 +32,8 @@
 
 
 @implementation ASBusiness
+
+@synthesize  certImage, certDate;
 
 - (id)initWithID:(id)anID
 {
@@ -76,6 +77,29 @@
     self.state = [location valueForKey:@"state_code"];
     self.zipcode = [location valueForKey:@"postal_code"];
     self.phone = [dict valueForKey:@"display_phone"];
+    
+    
+    int random = rand();
+    
+    if (random % 4== 0)
+    {
+        self.certLevel = 2;
+        self.certImage = [UIImage imageNamed:@"spe-cert.jpg"];
+    }
+    else if(random % 2 == 0)
+    {
+        self.certLevel = 1;
+        self.certImage = [UIImage imageNamed:@"silver-medal.png"];
+
+
+    }
+    else
+    {
+        self.certLevel = 0;
+        self.certImage =nil;
+
+
+    }
     
     if([dict objectForKey:@"starred"])
     {
@@ -142,9 +166,6 @@ SIMPLE_SETTER(lat, Latitude, CGFloat)
 SIMPLE_SETTER(lng, Logitude, CGFloat)
 
 SIMPLE_SETTER(website, Website, NSURL *)
-
-SIMPLE_SETTER(healthViolationText, HealthViolationText, NSString *)
-SIMPLE_SETTER(healthGrade, HealthGrade, NSString *)
 
 
 SIMPLE_SETTER(types, Types, NSMutableArray *)

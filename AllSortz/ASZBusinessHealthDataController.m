@@ -10,7 +10,6 @@
 #import "ASZBusinessHealthViewController.h"
 #import "ASBusiness.h"
 #import "ASZRateView.h"
-#import "ASZCommentList.h"
 #import "ASZNewRateView.h"
 #import "OAuthConsumer.h"
 #import <UIKit/UIKit.h>
@@ -91,6 +90,7 @@
     if (!self.business)
         return nil;
     
+    self.business.reviews = [result objectForKey:@"reviews"];
     return self.business;
 }
 
@@ -111,9 +111,12 @@
             if (row == 0)
             {
                 cell = [tableView dequeueReusableCellWithIdentifier:@"DescriptionCell"];
+                
                 if(cell == nil)
                 {
                     cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"DescriptionCell"];
+                    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+
                     UITextView *tv = [[UITextView alloc]init];
                     tv.frame = CGRectMake(0,0,cell.frame.size.width,cell.frame.size.height);
                     tv.backgroundColor = [UIColor clearColor];
@@ -135,8 +138,27 @@
                 if(cell == nil)
                 {
                     cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"CertificationCell"];
-                    cell.imageView.image  = [UIImage imageNamed:@"spe-cert.jpg"];
-                    cell.textLabel.text = @"SPE Certified on 12/1/2012";
+                    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                    cell.imageView.frame = CGRectMake(5,5,45,45);
+                    if(self.business.certLevel == 2)
+                    {
+                        cell.imageView.image  = [UIImage imageNamed:@"spe-cert.jpg"];
+                        cell.textLabel.text = @"SPE Certified";
+                        cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
+                    }
+                    else if(self.business.certLevel == 1)
+                    {
+                        cell.imageView.image  = [UIImage imageNamed:@"silver-medal.png"];
+                        cell.textLabel.text = @"Self Reported";
+                        cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
+                    }
+                    else
+                    {
+                        cell.textLabel.text = @"Health, Nutrition, Allergen Info Not Reported";
+                        cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
+
+                    }
+                    cell.textLabel.adjustsFontSizeToFitWidth = YES;
                     cell.textLabel.textColor = [UIColor darkGrayColor];
                 }
             }
@@ -180,8 +202,6 @@
                     [largeAddressComponent setText:[NSString stringWithFormat:@"%@\n", self.business.address]];
                     [cell addSubview:largeAddressComponent];
                     [cell addSubview:smallAddressComponent];
-                    
-
                 }
          
                 
@@ -242,7 +262,6 @@
             }
             else if (row ==3)  // web
             {                
-                UIButton * webButton;
                 cell = [tableView dequeueReusableCellWithIdentifier:@"WebCell"];
                 if (!cell)
                 {
@@ -279,19 +298,6 @@
                     break;
                 }
                 case 1:
-                {
-                    cell = [tableView dequeueReusableCellWithIdentifier:@"RequestCell"];
-                    if(!cell)
-                    {
-                        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"RequestCell"];
-                        cell.selectionStyle = UITableViewCellSelectionStyleGray;
-                        cell.imageView.image =nil;
-                        cell.detailTextLabel.text = nil;
-                        cell.textLabel.text = @"Request Certification";
-                    }
-                    break;
-                }
-                case 2:
                 {
                     cell = [tableView dequeueReusableCellWithIdentifier:@"ModifyCell"];
                     if(!cell)
@@ -347,7 +353,7 @@
     if (section == 1) //map and addr info
         return 4;
     if (section == 2) //type info
-        return 3;
+        return 2;
 
     return 0;
 }

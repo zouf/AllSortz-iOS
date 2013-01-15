@@ -57,19 +57,6 @@
                                           context:NULL];
 
 
-    if (!self.listingsTableDataController.businessList)
-    {
-        // tell the data controller that its not using map APIs
-        [self.listingsTableDataController setUpdateAList:YES];
-        [self.listingsTableDataController updateData];
-        
-    }
-    else
-    {
-        //assign the data source
-        self.tableView.dataSource = self.listingsTableDataController.businessList;
-        [self loadListElements];
-    }
 }
 
 
@@ -84,22 +71,14 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
-
-    // Imitate default behavior of UITableViewController
-    // deselectRowAtIndexPath:animated: should be fine taking a possible nil
     [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:NO];
-
-
 }
-
-
 
 - (void)viewDidAppear:(BOOL)animated
 {
     
     [super viewDidAppear:animated];
-    [self setTitle:@"Listings"];
+    [self setTitle:@"The Listings"];
 
     // Imitate default behavior of UITableViewController
     
@@ -188,32 +167,10 @@
         
         
         UIImageView *certView = (UIImageView*)[cell viewWithTag:PRICE_VIEW];
-        certView.image = [UIImage imageNamed:@"spe-cert.jpg"];
         
-        //UILabel *priceLabel = (UILabel *)[cell viewWithTag:PRICE_VIEW];
-        //priceLabel.text = [NSString stringWithFormat:@"$%@", listing.avgPrice] ;
-
-       /* for (int i =0  ; i < NUM_TYPE_ICONS; i++ )
-        {
-            // first six types
-            NSInteger imageID = TYPE_ICON_IMAGE_BASE + i;
-            UIImageView *typeIcon = (UIImageView *)[cell viewWithTag:imageID];
-            if (i >= listing.businessTypes.count)
-            {
-                typeIcon.hidden = YES;
-            }
-            else
-            {
-                NSMutableDictionary *t = [listing.businessTypes objectAtIndex:i];
-                
-                NSString * tIcon = [[t valueForKey:@"type"] valueForKey:@"typeIcon"];
-                
-                typeIcon.image = [UIImage imageNamed:tIcon];
-                typeIcon.hidden = NO;
-            }          
-        }*/
         
-            
+        certView.image = listing.certImage;
+        
         // if there's been a recommendation or user rating
         ASZNewRateView * rView = (ASZNewRateView*)[cell viewWithTag:106];
         NSLog(@"%f\n",listing.recommendation);
@@ -229,15 +186,7 @@
             rView.tag = 106;
             [cell addSubview:rView];
         }
-
-        
-
-        
-        
-  
-      //  ASZNewRateView *rateView =  (ASZNewRateView*)[cell viewWithTag:RATE_VIEW];
-
-        
+      
 
         UIImageView *imageView = (UIImageView*)[cell viewWithTag:IMAGE_VIEW];
         
@@ -368,10 +317,10 @@
     UILabel *searchText = (UILabel*)[self.searchDisplayBar viewWithTag:1001];
     searchText.hidden = NO;
     searchText.text = self.listingsTableDataController.businessList.searchText;
-    if (self.listingsTableDataController.searchQuery)
+    if (self.listingsTableDataController.searchTerm)
     {
         UILabel *action = (UILabel*)[self.searchDisplayBar viewWithTag:1002];
-        action.text = @"";
+        action.text = self.listingsTableDataController.searchTerm;
     }
     else
     {
@@ -390,21 +339,25 @@
 {
     // If the business list changes, reassign
     if ([keyPath isEqualToString:@"businessList"]) {
-        id newDataSource = [change objectForKey:NSKeyValueChangeNewKey];
-        self.tableView.dataSource = (newDataSource == [NSNull null] ? nil : newDataSource);
-        [self setTitle:@"Listings"];
-        [self loadListElements];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if(self.listingsTableDataController.businessList != nil)
+            {
+                id newDataSource = [change objectForKey:NSKeyValueChangeNewKey];
+                self.tableView.dataSource = (newDataSource == [NSNull null] ? nil : newDataSource);
+                [self setTitle:@"Listings"];
+                [self loadListElements];
+            }
+        });
+        
 
     }
 }
-
-
 #pragma mark - #pragma mark - Create New Sort
 
 -(void) newASAddBusinessViewController:(ASAddBusinessViewController *)abvc didCreateNewBusiness:(ASAddBusiness *)business
 {
-
-    [self.listingsTableDataController updateData];
+    
+    [self.listingsTableDataController performUpdate];
     [self.navigationController dismissViewControllerAnimated:YES completion:nil];
     
 }
@@ -412,6 +365,8 @@
 -(void)cancelASAddBusinessViewController:(ASAddBusinessViewController *)abvc{
     [self.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
+
+
 
 #pragma mark - Storyboard
 
@@ -431,26 +386,5 @@
 }
 
 
-/*
-- (IBAction)tapNext:(id)sender {
-    [self.listingsTableDataController setUpdateAList:YES];
-    [self.listingsTableDataController updateData];
-}
-*/
 
-
-/*
-- (IBAction)goToMap:(id)sender {
-    
-
-    if (!self.mapViewController)
-    {
-        NSString *targetViewControllerIdentifier = nil;
-        targetViewControllerIdentifier = @"MapViewControllerID";
-        self.mapViewController = (ASMapViewController*)[self.storyboard instantiateViewControllerWithIdentifier:targetViewControllerIdentifier];
-        [self.mapViewController setListViewController:self];
-    }
-    [self.mapViewController setListingsTableDataController:self.listingsTableDataController];
-    [self.navigationController pushViewController:self.mapViewController animated:NO];
-}*/
 @end

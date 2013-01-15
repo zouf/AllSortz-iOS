@@ -1,89 +1,108 @@
 [
  {
-    "category":"Allergen"
+    "category":"Allergen",
     "factors": 
 	[
 		{
-			"name": "Peanuts"                
+			"name": "Peanuts",
+            "selected":0
 		},
 		{
-			"name": "Gluten"             
+			"name": "Gluten",
+     "selected":0
 		},
 		{
-			"name": "Shellfish"
+     "name": "Shellfish",
+     "selected":0
 		}
 	]
  },
  {
-	 "category":"Sustainability"
+	 "category":"Sustainability",
 	 "factors": 
  		[
 			{
-				"name": "Free-range chicken"
+         "name": "Free-range chicken",
+         "selected":0
 			},
 			{
-				"name": "Grass-fed beef" 
+         "name": "Grass-fed beef" ,
+         "selected":0
 			},
 			{
-				"name": "Organic"
+         "name": "Organic",
+         "selected":0
 			},
 			{
-				"name": "Natural"
+         "name": "Natural",
+         "selected":0
 			}  
 		]
  },
  {
-    "category": "Lifestyle"
+    "category": "Lifestyle",
     "factors":
 	[
 		{
-			"name":"Halal"
+     "name":"Halal",
+     "selected":0
 		},
 		{
-			"name":"Kosher"
+     "name":"Kosher",
+     "selected":0
 		},
 		{
-			"name" :"Vegan"
-		},	
-		{
-			"name" :"Vegetarian"
+     "name" :"Vegan",
+     "selected":0
 		},
 		{
-			"name": "Pescetarian"
+     "name" :"Vegetarian",
+     "selected":0
+		},
+		{
+     "name": "Pescetarian",
+     "selected":0
 		}
 	]
  },
  {
-    "category": "Diets"
+    "category": "Diets",
     "factors":
 	[
 		{
-			"name":"Paleo Diet"
+     "name":"Paleo Diet",
+     "selected":0
 		},
 		{
-			"name":"Atkins Diet"
+     "name":"Atkins Diet",
+     "selected":0
 		},
 		{
-			"name" :"Weight Watchers"
+     "name" :"Weight Watchers",
+     "selected":0
 		}
 	]
  },
  {
-    "category": "Nutrition"
+    "category": "Nutrition",
     "factors":
 	[
 		{
-			"name":"High-protein"
+     "name":"High-protein",
+     "selected":0
 		},
 		{
-			"name":"Low-fat"
+     "name":"Low-fat",
+     "selected":0
 		},
 		{
-			"name" :"Low-carb"
-		},	
+     "name" :"Low-carb",
+     "selected":0
+		},
 		{
-			"name" :"Low-sodium"
+     "name" :"Low-sodium",
+     "selected":0
 		}
 	]
- },
+ }
  ]

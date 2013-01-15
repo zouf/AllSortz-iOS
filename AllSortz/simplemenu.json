@@ -1,9 +1,32 @@
-[
- {
-    "name": "Roasted Chicken"
-    "description":"A delicious roasted chicken that is very special to this restaurant"
-    "price": 10.99
-    
- }
- 
+ [
+  {
+  "meal": "Lunch",
+  "dishes": [
+             {
+             "name": "Lunch Sandwich",
+             "description": "A delicious roasted chicken that is very special to this restaurant",
+             "price": 5.99
+             },
+             {
+             "name": "Lunch Soup",
+             "description": "A delicious soup",
+             "price": 8.99
+             }
+             ]
+  },
+  {
+  "meal": "Dinner",
+  "dishes": [
+             {
+             "name": "Roasted Chicken",
+             "description": "A delicious roasted chicken that is very special to this restaurant",
+             "price": 10.99
+             },
+             {
+             "name": "Roasted Chicken 2",
+             "description": "2 A delicious roasted chicken that is very special to this restaurant",
+             "price": 20.99
+             }
+             ]
+  }
 ]

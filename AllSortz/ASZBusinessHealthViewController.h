@@ -29,6 +29,7 @@
 #define MAP_HEIGHT 100
 #define PHONE_WEBSITE_HEIGHT 35
 #define TYPE_HEIGHT 45
+#define DEFAULT_CELL_HEIGHT 55
 
 //Section info
 #define NUM_INFO_SECTIONS 3
