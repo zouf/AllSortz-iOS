@@ -48,7 +48,7 @@
 
 
 
-@interface ASBusinessList : NSObject <UITableViewDataSource>
+@interface ASBusinessList : NSObject 
 {
     NSMutableDictionary *imageDownloadsInProgress;  // the set of IconDownloader objects for each app
 }

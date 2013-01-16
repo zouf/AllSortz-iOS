@@ -101,23 +101,24 @@
     // todo xxx
     
 
+    NSMutableArray * restrictions = [[NSMutableArray alloc]init];
     for (int section = 2; section < [self.tableView numberOfSections]; section++)
     {
+        
         NSMutableDictionary* dict = [NSMutableDictionary dictionaryWithDictionary:[self.dataController.categories objectAtIndex:section-2]];
 
-        NSMutableArray *factors = [NSMutableArray arrayWithArray:[dict objectForKey:@"factors"]];
-        for (int row = 0; row < [self.tableView numberOfRowsInSection:section]; row++)
+       NSMutableArray *factors = [NSMutableArray arrayWithArray:[dict objectForKey:@"factors"]];
+        /*for (int row = 0; row < [self.tableView numberOfRowsInSection:section]; row++)
         {
-            NSIndexPath* cellPath = [NSIndexPath indexPathForRow:row inSection:section];
-            UITableViewCell* cell = [self.tableView cellForRowAtIndexPath:cellPath];
+            //NSIndexPath* cellPath = [NSIndexPath indexPathForRow:row inSection:section];
 
            // NSMutableDictionary* factor = [NSMutableDictionary dictionaryWithDictionary:[factors objectAtIndex:row]];
-            cell.accessoryType = UITableViewCellAccessoryNone;
          //   [factors setObject:factor atIndexedSubscript:row];
-        }
+        }*/
         [dict setObject:factors forKey:@"factors"];
-        [defaults setObject:dict forKey:[dict objectForKey:@"category"]];
+        [restrictions addObject:dict];
     }
+    [defaults setObject:restrictions forKey:@"categories"];
     [defaults synchronize];
 
    

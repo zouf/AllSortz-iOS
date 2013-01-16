@@ -17,11 +17,10 @@
     self.name = [defaults objectForKey:@"name"];
     self.gender = [defaults objectForKey:@"gender"];
     self.email = [defaults objectForKey:@"email"];
-    self.workoutDays = [defaults objectForKey:@"workoutDays"];
+    self.workoutDays = [defaults objectForKey:@"workout"];
     self.age = [defaults objectForKey:@"age"];
     id cat = [defaults objectForKey:@"categories"];
-    NSLog(@"%@\n",cat);
-    //self.categories = [defaults objectForKey:@"categories"];
+    self.categories = [defaults objectForKey:@"categories"];
 }
 
 -(id)init
@@ -123,7 +122,7 @@
                     lbl.text = @"Age";
                     
                         UITextField *tf = (UITextField*)[cell viewWithTag:101];
-                    if(![self.age intValue])
+                    if([self.age intValue])
                         tf.text = [NSString stringWithFormat:@"%d",[self.age intValue]];
                     
                     break;
@@ -169,6 +168,8 @@
             NSMutableArray *factors = [dict objectForKey:@"factors"];
             NSMutableDictionary* factor = [factors objectAtIndex:indexPath.row];
             
+            
+            NSLog(@"%@\n",factor);
             
             BOOL selected = [[factor objectForKey:@"selected"] boolValue];
             if(selected)

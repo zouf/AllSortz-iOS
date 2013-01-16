@@ -17,7 +17,7 @@
 
 @class ASMapViewController;
 
-@interface ASListingsViewController : UIViewController <UITableViewDelegate, ASIconDownloaderDelegate, NewBusinessDelegate, UIScrollViewDelegate>
+@interface ASListingsViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, ASIconDownloaderDelegate, NewBusinessDelegate, UIScrollViewDelegate>
 
 @property (strong, nonatomic) IBOutlet ASBusinessListDataController *listingsTableDataController;
 @property (strong, nonatomic) IBOutlet ASMapViewController *mapViewController;
